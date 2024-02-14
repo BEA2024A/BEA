@@ -3,3 +3,10 @@ conexion desde otro dispositivo
 detalles de los cambios:
 
 prueba de mi conexion;
+
+actualizacion 13/02/2024 10:40
+Se modifico el componente Seguimeinto.vue, se implemtop y agrego las funciones necesarias para su funcionanmiento
+Se actualizo routers.js, incluyendo la ruta de Seguimeintose 
+Actualizacion de los package, se instalo las depandencias npm install @fullcalendar/vue3 @fullcalendar/core @fullcalendar/daygrid
+
+Falta por mejorar el componente de Seguiminto, actualmente se encuantra en estado beta.

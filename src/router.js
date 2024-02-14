@@ -4,6 +4,7 @@ import Autoayuda from './components/autoayuda.vue';
 import PrimeraCita from './components/PrimeraCita.vue';
 import Horario from './components/Horario.vue';
 import FormsPrimeraCita from './components/FormsPrimeraCita.vue';
+import Seguimiento from './components/Seguimiento.vue';
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path: '/FormsPrimeraCita',
     name: 'FormsPrimeraCita',
     component: FormsPrimeraCita,
+  },
+  {
+    path: '/Seguimiento',
+    name: 'Seguimiento',
+    component: Seguimiento,
   },
 ];
 
