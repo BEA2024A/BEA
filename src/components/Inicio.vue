@@ -97,9 +97,9 @@ export default {
         "https://i.ibb.co/Qv8WMW5/Whats-App-Image-2024-02-11-at-7-50-21-PM-1.jpg",
       ],
       itemsMetodo: [
-        { link: '/login', imagen: 'https://img.freepik.com/fotos-premium/chico-estudiante-usando-computadora_102671-6672.jpg', descripcion: 'Inicia Sesión' },
-        { link: '/agenda-cita', imagen: 'https://static.ohga.it/wp-content/uploads/sites/24/2020/04/psicologo-ospedale.jpg', descripcion: 'Agenda tu Primera Cita' },
-        { link: '/administra-seguimiento', imagen: 'https://www.shutterstock.com/image-photo/two-diverse-business-executive-partners-600nw-2021639234.jpg', descripcion: 'Administra tus Sesiones de Seguimiento' },
+        { link: '/InicioSesion', imagen: 'https://img.freepik.com/fotos-premium/chico-estudiante-usando-computadora_102671-6672.jpg', descripcion: 'Inicia Sesión' },
+        { link: '/PrimeraCita', imagen: 'https://static.ohga.it/wp-content/uploads/sites/24/2020/04/psicologo-ospedale.jpg', descripcion: 'Agenda tu Primera Cita' },
+        { link: '/Seguimiento', imagen: 'https://www.shutterstock.com/image-photo/two-diverse-business-executive-partners-600nw-2021639234.jpg', descripcion: 'Administra tus Sesiones de Seguimiento' },
         { link: '/autoayuda', imagen: 'https://img.freepik.com/fotos-premium/mujer-joven-meditando-computadora-portatil-casa_768733-4666.jpg', descripcion: 'Sesiones de Autoayuda en Casa' },
       ],
       fondoEquipo: 'https://www.anahuac.mx/oaxaca/themes/custom/anahuac/img/school.png',

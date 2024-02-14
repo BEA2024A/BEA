@@ -1,1 +1,3 @@
-Prueba de commits desde otra pc
+terminamos la logica de las secciones de autoayuda
+ implementamos la base del componente de aseguimineto
+ corregimos las rutas de la seccion "metodos de trabajo" en inicio.vue
