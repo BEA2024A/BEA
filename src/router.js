@@ -8,7 +8,7 @@ import FormsPrimeraCita from './components/FormsPrimeraCita.vue';
 const routes = [
   {
     path: '/',
-    name: 'Inicio',
+    name: 'inicio',
     component: Inicio
   },
   {
