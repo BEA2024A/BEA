@@ -4,10 +4,9 @@
     <nav class="barra-navegacion">
       <!-- Logo -->
       <div class="logo">
-        <router-link to="/" class="enlace-navegacion">
-          <img src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png" alt="Logo Anáhuac">
-        </router-link>
+        <router-link to="/" class="enlace-navegacion">  <img src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png" alt="Logo Anáhuac"></router-link>
       </div>
+
       <!-- Secciones -->
       <div class="secciones-navegacion">
         <router-link to="/primeracita" class="enlace-navegacion">Primera Cita</router-link>
@@ -15,28 +14,61 @@
         <router-link to="/horario" class="enlace-navegacion">Horario</router-link>
         <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
       </div>
+
       <!-- Botón de Inicio de Sesión -->
       <div class="boton-inicio-sesion">
-        <button @click="abrirEnlace('/inicio-sesion')">Iniciar sesión</button>
+        <button @click="abrirEnlace('/InicioSesion')">Iniciar sesión</button>
       </div>
     </nav>
+
     <!-- Contenido de la Página -->
     <div class="contenido-pagina">
       <router-view></router-view>
-      <!-- Sección del Recordatorio -->
-      <section class="recordatorio">
-        <p>Tu siguiente cita es el 14-02-2024. Ver en <router-link to="/horario">Horario</router-link>.</p>
+
+     
+<!-- Sección de Autoayuda -->
+<section class="banner-autoayuda">
+      <div class="fondo-autoayuda">
+        <img src="https://media.revistagq.com/photos/6368c8563ff886cd67aa3b1d/master/pass/Brain-Fog-Article.jpg" alt="Banner Autoayuda">
+      </div>
+      <div class="titulo-autoayuda">
+        <h1>FATIGA MENTAL</h1>
+      </div>
+    </section>
+
+<!-- Sección "¿Qué es la ansiedad?" -->
+<section class="seccion-ansiedad">
+      <div class="ansiedad-info">
+        <div class="texto-ansiedad">
+          <h2>¿Qué es la fatiga mental?</h2>
+          <p>
+            
+La fatiga mental se refiere a un agotamiento o cansancio que afecta principalmente las funciones cognitivas y emocionales. Puede manifestarse como dificultad para concentrarse, olvidos, irritabilidad, falta de motivación y una sensación general de agotamiento mental. A menudo, la fatiga mental está relacionada con el estrés crónico, la sobrecarga de tareas o la falta de descanso adecuado. La gestión de la fatiga mental implica tomar medidas para descansar, desconectar y cuidar la salud mental, como practicar técnicas de relajación, establecer límites y asegurarse de tener períodos adecuados de descanso y recreación.
+          </p>
+        </div>
+        <div class="imagen-ansiedad">
+          <img src="https://www.balancegroup.cl/wp-content/uploads/2022/04/psicologi%CC%81a-adultos-533x533.png" alt="Psicología Adultos">
+        </div>
+      </div>
+    </section>
+ <!-- Sección "Sesiones que podrían ayudarte" con Swiper -->
+ <section class="sesiones-ayuda">
         <div class="sesiones-titulo">
-          <h2>Para antes de tu siguiente cita podrias intentar</h2>
+          <h2>Sesiones que podrían ayudarte</h2>
         </div>
         <div class="swiper-container">
           <div class="swiper-wrapper">
+            <!-- Slide 1 -->
             <div class="swiper-slide">
               <iframe width="100%" height="315" src="https://www.youtube.com/embed/LE2tlZLmzG4?si=XESO68vyLhp42Ccn" frameborder="0" allowfullscreen></iframe>
             </div>
+
+            <!-- Slide 2 -->
             <div class="swiper-slide">
               <iframe width="100%" height="315" src="https://www.youtube.com/embed/lAXdkk6O2Nc?si=wg9oUUGpRsutaPSR" frameborder="0" allowfullscreen></iframe>
             </div>
+
+            <!-- Slide 3 -->
             <div class="swiper-slide">
               <iframe width="100%" height="315" src="https://www.youtube.com/embed/nAR2PUPyH1I?si=B3_yOEwBT7iaV50K" frameborder="0" allowfullscreen></iframe>
             </div>
@@ -44,18 +76,7 @@
           
         </div>
       </section>
-      <!-- Sección del Formulario -->
-      <section class="formulario">
-        <h2>¿Como te has sentido?</h2>
-        <form @submit.prevent="enviarRespuestas">
-          <div v-for="(pregunta, index) in preguntas" :key="index" class="pregunta">
-            <label>{{ pregunta }}</label>
-            <textarea v-model="respuestas[index]"></textarea>
-          </div>
-          <!-- Botón para enviar el formulario -->
-          <button type="submit">Enviar respuestas</button>
-        </form>
-      </section>
+
       <!-- Pie de Página -->
       <br><br>
       <footer class="pie-pagina">
@@ -64,6 +85,7 @@
           <div class="derecha-pie">
             <img src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png" alt="Logo Anáhuac">
           </div>
+
           <!-- Información de contacto -->
           <div class="contacto-pie">
             <button class="boton-pie" @click="abrirMapa" target="_blank">
@@ -71,10 +93,12 @@
             </button>
             <p><strong>Teléfono:</strong> (951) 50-1-62-50<br>Lada sin costo: 800-737-26-24<br>E-mail: orientacionpsicologica.uao@anahuac.mx</p>
           </div>
+
           <!-- Enlaces a Aviso de Privacidad y Compendio Reglamentario como botones -->
           <div class="botones-pie">
             <button v-for="(enlace, texto) in enlacesPie" :key="texto" class="boton-pie" @click="abrirEnlace(enlace)">{{ texto }}</button>
           </div>
+
           <!-- Botones de redes sociales como botones -->
           <div class="botones-sociales-pie">
             <button v-for="(botonSocial, index) in botonesSociales" :key="index" class="boton-pie" @click="abrirEnlace(botonSocial.enlace)" target="_blank">
@@ -92,17 +116,6 @@ export default {
   data() {
     return {
       indiceBannerActual: 0,
-      respuestas: Array(10).fill(''), 
-      preguntas: [
-      "¿Cómo te has sentido emocionalmente desde nuestra última cita?",
-"¿Que cambios notado gracias en los objetivos que establecimos juntos?", 
-"¿Hay algo específico en lo que te gustaría trabajar durante nuestra sesión de hoy?",
-"¿Como han cambiado tus relaciones con amigos, familiares o compañeros de trabajo?", 
-"¿que haz hecho para practicar el autocuidado?", 
-"¿Hay alguna actividad que encuentres especialmente útil para tu bienestar?",
-"¿Escribe alguna expectativa o tema específico que te gustaría abordar en nuestra siguiente cita?", 
-"¿Hay algo en particular que te preocupe o te gustaría explorar más?",
-      ],
       botonesSociales: [
         { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redFacebook_1.png', enlace: 'https://www.facebook.com/anahuacoaxaca/' },
         { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redInstagram.png', enlace: 'https://www.instagram.com/anahuacoaxaca' },
@@ -122,9 +135,6 @@ export default {
     abrirEnlace(url) {
       window.location.href = url;
     },
-    enviarRespuestas() {
-      console.log('Respuestas enviadas:', this.respuestas);
-    },
   },
 };
 </script>
@@ -139,26 +149,21 @@ export default {
   background-color: black;
   color: white;
 }
-
 .logo img {
   max-height: 40px;
 }
-
 .secciones-navegacion {
   display: flex;
 }
-
 .enlace-navegacion {
   margin-right: 30px;
   color: white;
   text-decoration: none;
   transition: color 0.3s ease;
 }
-
 .enlace-navegacion:hover {
   color: #d45c37;
 }
-
 .boton-inicio-sesion button {
   background-color: #d45c37;
   color: white;
@@ -172,84 +177,89 @@ export default {
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
-
 .boton-inicio-sesion button:hover {
   background-color: #a03722;
 }
-
 /* Contenido de la Página */
 .contenido-pagina {
-  display: flex; 
-  justify-content: space-between; 
   padding: 10px;
-  flex-wrap: wrap; 
 }
-
-/* Recordatorio */
-.recordatorio {
-  width: 30%; 
-  padding: 10px;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  margin-bottom: 20px; 
+/* Estilos para la sección de Autoayuda */
+.banner-autoayuda {
+position: relative;
+text-align: center;
+margin-top: 20px;
 }
-
-/* Animación de aparición */
+.fondo-autoayuda {
+overflow: hidden;
+max-width: 1900px;
+margin: 0 auto;
+border-radius: 10px;
+}
+.fondo-autoayuda img {
+max-width: 100%;
+height: auto;
+filter: brightness(50%); 
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.fondo-autoayuda:hover img {
+filter: brightness(30%); 
+}
+.titulo-autoayuda {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+color: white;
+text-align: center;
+}
+.titulo-autoayuda h1 {
+font-size: 30px;
+margin: 0;
+opacity: 0;
+animation: fadeIn 1s ease forwards;
+}
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px); 
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+from {
+  opacity: 0;
 }
-.recordatorio,
-.formulario {
-  animation: fadeIn 1s ease forwards; 
+to {
+  opacity: 1;
 }
-/* Formulario */
-.formulario {
-  width: 65%; 
-  padding: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  margin-bottom: 20px; 
 }
-.formulario label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.formulario textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-}
-.formulario button {
-  background-color: #d45c37;
-  color: white;
-  border: none;
-  padding: 10px 15px;
+/* Estilos para la sección de Ansiedad */
+.seccion-ansiedad {
+  background-color: #e6e3e3;
+  overflow: hidden;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  padding: 20px;
+  margin-top: 20px;
 }
-.formulario button:hover {
-  background-color: #a03722;
+.ansiedad-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.texto-ansiedad {
+  max-width: 50%;
+  text-align: left;
+}
+.texto-ansiedad h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.imagen-ansiedad img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 /* Pie de Página */
 .pie-pagina {
   background-color: black;
   color: white;
   padding: 30px;
-  width: 100%; 
-  clear: both; 
 }
 .contenido-pie {
   display: flex;

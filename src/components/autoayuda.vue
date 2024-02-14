@@ -17,7 +17,7 @@
 
       <!-- Botón de Inicio de Sesión -->
       <div class="boton-inicio-sesion">
-        <button @click="abrirEnlace('/inicio-sesion')">Iniciar sesión</button>
+        <button @click="abrirEnlace('/InicioSesion')">Iniciar sesión</button>
       </div>
     </nav>
 
@@ -25,16 +25,18 @@
     <div class="contenido-pagina">
       <router-view></router-view>
 
-      <!-- Banner de Bienvenida -->
-      <section class="banner-bienvenida">
-        <img :src="bannerActual" width="1800" alt="Banner de Bienvenida">
+      <!-- Sección de Autoayuda -->
+      <section class="banner-autoayuda">
+        <div class="fondo-autoayuda">
+          <img src="https://media.vogue.mx/photos/5dbc6b50b9285b0009b39d16/16:9/w_1920,h_1080,c_limit/Meditation004-vogueint-24oct19-GettyImages-.jpg" alt="Banner Autoayuda">
+        </div>
+        <div class="titulo-autoayuda">
+          <h1>AUTOAYUDA</h1>
+          <p>Elige el caso con el que más te identifiques</p>
+        </div>
       </section>
 
-   <!-- Título de la Sección -->
-   <br>
-   <div class="titulo-seccion-sintomas">
-  <h1>¿CON QUE CASO TE IDENTIFICAS MAS?</h1>
-</div>
+      
 
 
       <!-- Sección de Método de Trabajo -->
@@ -118,11 +120,7 @@ export default {
   data() {
     return {
       indiceBannerActual: 0,
-      banners: [
-        "https://i.ibb.co/G0DQd1D/Whats-App-Image-2024-02-11-at-6-53-05-PM.jpg",
-        "https://i.ibb.co/2yLFNQf/Whats-App-Image-2024-02-11-at-7-50-21-PM.jpg",
-        "https://i.ibb.co/Qv8WMW5/Whats-App-Image-2024-02-11-at-7-50-21-PM-1.jpg",
-      ],
+      
       botonesSociales: [
         { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redFacebook_1.png', enlace: 'https://www.facebook.com/anahuacoaxaca/' },
         { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redInstagram.png', enlace: 'https://www.instagram.com/anahuacoaxaca' },
@@ -131,7 +129,7 @@ export default {
       ],
       itemsMetodo: [
         { 
-          link: '/ansiedad',
+          link: '/Ansiedad',
           imagen: 'https://clicandpost.com/wp-content/uploads/2021/02/young-woman-is-depressed-on-white-bed-scaled-1.jpg',
           descripcion: 'Ansiedad',
           sintomas: [
@@ -144,7 +142,7 @@ export default {
           mostrarSintomas: false,
         },
         { 
-          link: '/estrés',
+          link: '/Estres',
           imagen: 'https://staticnew-prod.topdoctors.cl/files/Image/large/6352d12da0b186ad8dd0b6810704aa56.jpg',
           descripcion: 'Estrés',
           sintomas: [
@@ -156,7 +154,7 @@ export default {
           mostrarSintomas: false,
         },
         { 
-          link: '/depresión',
+          link: '/Depresion',
           imagen: 'https://www.huelvainformacion.es/2023/07/15/vivir_en_huelva/joven-muestra-tristeza-junto-ventana_1811529230_188959071_667x375.jpg',
           descripcion: 'Depresión',
           sintomas: [
@@ -168,7 +166,7 @@ export default {
           mostrarSintomas: false,
         },
         { 
-          link: '/fatiga-mental',
+          link: '/FatigaMental',
           imagen: 'https://www.eltiempo.com/files/article_main_1200/uploads/2017/10/31/59f8cefa7bcab.jpeg',
           descripcion: 'Fatiga Mental',
           sintomas: [
@@ -205,12 +203,7 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.iniciarTemporizadorBanner();
-  },
-  beforeDestroy() {
-    this.detenerTemporizadorBanner();
-  },
+  
   methods: {
     abrirMapa() {
       window.location.href = 'https://maps.app.goo.gl/te3G28WuD56cTgyHA';
@@ -218,61 +211,26 @@ export default {
     abrirEnlace(url) {
       window.location.href = url;
     },
-    iniciarTemporizadorBanner() {
-      this.temporizadorBanner = setInterval(this.cambiarBanner, 6000);
-    },
-    detenerTemporizadorBanner() {
-      clearInterval(this.temporizadorBanner);
-    },
-    cambiarBanner() {
-      this.indiceBannerActual = (this.indiceBannerActual + 1) % this.banners.length;
-    },
-    redirigirA(ruta) {
-      this.$router.push(ruta);
-    },
-    // Nuevas funciones para mostrar/ocultar síntomas
     mostrarSintomas(item) {
-      // Ocultar síntomas de otros items
       this.itemsMetodo.forEach((otherItem) => {
         if (otherItem !== item) {
           otherItem.mostrarSintomas = false;
         }
       });
-
-      // Mostrar síntomas del item actual
       item.mostrarSintomas = true;
     },
     ocultarSintomas() {
-      // Ocultar síntomas al sacar el mouse de cualquier item
       this.itemsMetodo.forEach((item) => {
         item.mostrarSintomas = false;
       });
     },
   },
-  computed: {
-    bannerActual() {
-      return this.banners[this.indiceBannerActual];
-    },
-  }
+  
 };
 </script>
 
 
 <style scoped>
-
-/* Agrega este estilo para la barra negra */
-.barra-separadora {
-  background-color: black;
-  height: 10px; /* Puedes ajustar la altura según tus preferencias */
-  width: 100%;
-}
-
-/* Ajusta el margen superior de la sección de Autoayuda General para dejar espacio para la barra */
-.seccion-autoayuda {
-  margin-top: 10px; /* Ajusta según la altura de la barra */
-}
-
-
 
 /* Barra de Navegación */
 .barra-navegacion {
@@ -326,39 +284,56 @@ export default {
   padding: 10px;
 }
 
-/* Banner de Bienvenida */
-.banner-bienvenida {
-  text-align: center; /* Alinea el contenido al centro */
-  margin-top: 20px;
-}
 
-.banner-bienvenida img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Estilos para la sección de Autoayuda */
+.banner-autoayuda {
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
   
 }
 
-/* Estilos del Título de la Sección */
-.titulo-seccion-sintomas {
-  background-color: #423a38;
-  text-align: center;
-  margin-bottom: 20px;
-  width: 70%; /* Cambiado para que no ocupe el ancho completo */
-  padding: 10px;
-  border-radius: 15px; /* Añadido para esquinas redondeadas */
-  margin-left: auto;
-  margin-right: auto;
+.fondo-autoayuda {
+  overflow: hidden;
+  max-width: 1900px; 
+  margin: 0 auto;
+  border-radius: 10px;
 }
 
-.titulo-seccion-sintomas h1 {
-  font-size: 30px;
+.fondo-autoayuda img {
+  max-width: 100%;
+  height: auto;
+  filter: brightness(50%);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fondo-autoayuda:hover img {
+  filter: brightness(30%); 
+}
+
+.titulo-autoayuda {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: white;
+  text-align: center;
+}
+
+.titulo-autoayuda h1 {
+  font-size: 30px;
   margin: 0;
   opacity: 0;
   animation: fadeIn 1s ease forwards;
 }
+
+.titulo-autoayuda p {
+  font-size: 18px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 0.5s;
+}
+
 
 @keyframes fadeIn {
   from {
@@ -400,7 +375,7 @@ export default {
 }
 
 .item-metodo:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .item-metodo img {
@@ -428,23 +403,20 @@ export default {
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
-
 .item-metodo:hover .descripcion-metodo {
   opacity: 1;
 }
-
 /* Estilos para la sección de Autoayuda General */
 .seccion-autoayuda {
   margin-top: 40px;
-  background-image: url('https://i.ibb.co/MNhbG6b/Campus-Ana-huac-Oaxaca.png"'); /* URL de la imagen */
+  background-image: url('https://i.ibb.co/MNhbG6b/Campus-Ana-huac-Oaxaca.png'); 
   background-size: cover;
   background-position: center;
   padding: 20px;
   border-radius: 10px;
 }
-
 .titulo-seccion-autoayuda {
-  background-color: rgba(255, 255, 255, 0.5); /* Blanco transparente */
+  background-color: rgba(255, 255, 255, 0.5); 
   text-align: center;
   margin-bottom: 20px;
   width: 70%;
@@ -452,24 +424,21 @@ export default {
   border-radius: 15px;
   margin-left: auto;
   margin-right: auto;
-  color: rgb(3, 3, 3); /* Color del texto */
+  color: rgb(3, 3, 3); 
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 .titulo-seccion-autoayuda:hover {
-  background-color: rgba(255, 255, 255, 0.8); /* Blanco más sólido al pasar el mouse */
-  transform: scale(1.05); /* Agrandar al pasar el mouse */
+  background-color: rgba(255, 255, 255, 0.8); 
+  transform: scale(1.05); 
 }
-
 .titulo-seccion-autoayuda h1 {
   font-size: 30px;
   margin: 0;
   opacity: 0;
   animation: fadeIn 1s ease forwards;
 }
-
 .cajon-autoayuda {
-  background-color: rgba(255, 255, 255, 0.5); /* Blanco transparente */
+  background-color: rgba(255, 255, 255, 0.5); 
   border-radius: 15px;
   margin-bottom: 50px;
   overflow: hidden;
@@ -478,78 +447,61 @@ export default {
   margin-right: auto;
   display: flex;
   flex-direction: column;
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición en el cambio de color y tamaño */
+  transition: background-color 0.3s ease, transform 0.3s ease; 
 }
-
 .cajon-autoayuda:hover {
-  background-color: rgba(255, 255, 255, 0.8); /* Blanco más sólido al pasar el mouse */
-  transform: scale(1.05); /* Agrandar al pasar el mouse */
+  background-color: rgba(255, 255, 255, 0.8); 
+  transform: scale(1.05); 
 }
-
 .cajon-autoayuda.inverted .contenido-cajon {
   flex-direction: row-reverse;
 }
-
 .contenido-cajon {
   display: flex;
   align-items: center;
 }
-
 .texto-cajon {
   flex: 1;
   padding: 20px;
   text-align: center;
 }
-
 .texto-cajon h2 {
   color: black;
   font-size: 24px;
   margin-bottom: 10px;
 }
-
 .texto-cajon p {
   color: black;
 }
-
 .video-cajon {
   flex: 1;
 }
-
 .video-cajon iframe {
   width: 100%;
   height: 500px;
 }
-
-
-
-
 /* Pie de Página */
 .pie-pagina {
   background-color: black;
   color: white;
   padding: 30px;
 }
-
 .contenido-pie {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }
-
 .derecha-pie img {
   max-height: 80px;
 }
-
 .contacto-pie p {
   margin: 10px;
 }
-
 .botones-pie {
   display: flex;
   flex-direction: column;
 }
-
 .boton-pie {
   background-color: #000000;
   color: white;
@@ -559,21 +511,14 @@ export default {
   border-radius: 5px;
   margin-bottom: 10px;
 }
-
 .botones-sociales-pie img {
   max-height: 35px;
   margin-right: 5px;
 }
-
 .botones-sociales-pie button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
 }
-
 </style>
-
-
-
-

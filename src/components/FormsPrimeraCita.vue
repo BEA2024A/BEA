@@ -13,7 +13,6 @@
       </div>
     </div>
   </template>
-  
   <script>
   export default {
     data() {
@@ -39,7 +38,6 @@
         this.preguntaActual++;
       },
       enviarFormulario() {
-        // Aquí puedes manejar la lógica de envío de formulario
         console.log("Respuestas:", this.respuestas);
         this.$router.push('/Horario');
       },
@@ -56,23 +54,19 @@
   justify-content: center;
   overflow: hidden;
 }
-
 .formulario {
   color: #fff;
-  font-size: 18px; /* Tamaño de fuente general */
+  font-size: 18px;
   text-align: center;
 }
-
 .pregunta-animada {
   opacity: 0;
   animation: aparecer 1s forwards;
   margin-bottom: 20px;
 }
-
 .pregunta-texto {
   font-size: 20px; 
 }
-
 .textbox-animado {
   opacity: 0;
   animation: aparecer 1s forwards;
@@ -94,12 +88,10 @@
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
-
 .boton-siguiente:hover,
 .boton-enviar:hover {
   background-color: #625750;
 }
-
 @keyframes aparecer {
   to {
     opacity: 1;
