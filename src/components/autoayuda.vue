@@ -9,7 +9,7 @@
 
       <!-- Secciones -->
       <div class="secciones-navegacion">
-        <router-link to="/primera-cita" class="enlace-navegacion">Primera Cita</router-link>
+        <router-link to="/primeracita" class="enlace-navegacion">Primera Cita</router-link>
         <router-link to="/seguimiento" class="enlace-navegacion">Seguimiento</router-link>
         <router-link to="/horario" class="enlace-navegacion">Horario</router-link>
         <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
@@ -115,7 +115,6 @@
 
 <script>
 export default {
-  name: 'AutoAyudaBEA',
   data() {
     return {
       indiceBannerActual: 0,
@@ -209,8 +208,8 @@ export default {
   mounted() {
     this.iniciarTemporizadorBanner();
   },
-  beforeUnmount() {
-  this.detenerTemporizadorBanner();
+  beforeDestroy() {
+    this.detenerTemporizadorBanner();
   },
   methods: {
     abrirMapa() {
@@ -574,3 +573,7 @@ export default {
 }
 
 </style>
+
+
+
+

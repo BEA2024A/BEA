@@ -29,36 +29,36 @@
       <FullCalendar :options="calendarOptions" :events="calendarEvents" @dateClick="handleDateClick" />
      
         <!-- Pie de Página -->
-        <footer class="pie-pagina">
-          <div class="contenido-pie">
-            <!-- Imagen a la derecha -->
-            <div class="derecha-pie">
-              <img src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png" alt="Logo Anáhuac">
-            </div>
-  
-            <!-- Información de contacto -->
-            <div class="contacto-pie">
-              <button class="boton-pie" @click="abrirMapa" target="_blank">
-                <strong>Dirección:</strong> Blvd. Guadalupe Hinojosa de Murat No. 1100.<br>San Raymundo Jalpan, Oaxaca C.P. 71248.
-              </button>
-              <p><strong>Teléfono:</strong> (951) 50-1-62-50<br>Lada sin costo: 800-737-26-24<br>E-mail: orientacionpsicologica.uao@anahuac.mx</p>
-            </div>
-  
-            <!-- Enlaces a Aviso de Privacidad y Compendio Reglamentario como botones -->
-            <div class="botones-pie">
-              <button v-for="(enlace, texto) in enlacesPie" :key="texto" class="boton-pie" @click="abrirEnlace(enlace)">{{ texto }}</button>
-            </div>
-  
-            <!-- Botones de redes sociales como botones -->
-            <div class="botones-sociales-pie">
-              <button v-for="(botonSocial, index) in botonesSociales" :key="index" class="boton-pie" @click="abrirEnlace(botonSocial.enlace)" target="_blank">
-                <img :src="botonSocial.icono" alt="Icono de red social">
-              </button>
-            </div>
+      <footer class="pie-pagina">
+        <div class="contenido-pie">
+          <!-- Imagen a la derecha -->
+          <div class="derecha-pie">
+            <img src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png" alt="Logo Anáhuac">
           </div>
-        </footer>
-      </div>
+
+          <!-- Información de contacto -->
+          <div class="contacto-pie">
+            <button class="boton-pie" @click="abrirMapa" target="_blank">
+              <strong>Dirección:</strong> Blvd. Guadalupe Hinojosa de Murat No. 1100.<br>San Raymundo Jalpan, Oaxaca C.P. 71248.
+            </button>
+            <p><strong>Teléfono:</strong> (951) 50-1-62-50<br>Lada sin costo: 800-737-26-24<br>E-mail: orientacionpsicologica.uao@anahuac.mx</p>
+          </div>
+
+          <!-- Enlaces a Aviso de Privacidad y Compendio Reglamentario como botones -->
+          <div class="botones-pie">
+            <button v-for="(enlace, texto) in enlacesPie" :key="texto" class="boton-pie" @click="abrirEnlace(enlace)">{{ texto }}</button>
+          </div>
+
+          <!-- Botones de redes sociales como botones -->
+          <div class="botones-sociales-pie">
+            <button v-for="(botonSocial, index) in botonesSociales" :key="index" class="boton-pie" @click="abrirEnlace(botonSocial.enlace)" target="_blank">
+              <img :src="botonSocial.icono" alt="Icono de red social">
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
+  </div>
 </template>
 
 <script>
@@ -72,6 +72,18 @@ export default {
   },
   data() {
     return {
+
+      botonesSociales: [
+        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redFacebook_1.png', enlace: 'https://www.facebook.com/anahuacoaxaca/' },
+        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redInstagram.png', enlace: 'https://www.instagram.com/anahuacoaxaca' },
+        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redTwitter.png', enlace: 'https://twitter.com/anahuacoaxaca' },
+        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redYoutube.png', enlace: 'https://www.youtube.com/channel/UCk5xAk91c-F_lNKn6ceDVZQ' },
+      ],
+      enlacesPie: {
+        'Aviso de Privacidad': 'https://www.anahuac.mx/oaxaca/aviso-privacidad',
+        'Compendio Reglamentario': 'https://www.anahuac.mx/oaxaca/compendio-reglamentario',
+      },
+
       calendarOptions: {
         plugins: [dayGridPlugin],
         initialView: 'dayGridMonth',
@@ -83,6 +95,15 @@ export default {
     }
   },
   methods: {
+
+    abrirMapa() {
+      window.location.href = 'https://maps.app.goo.gl/te3G28WuD56cTgyHA';
+    },
+    abrirEnlace(url) {
+      window.location.href = url;
+    },
+
+
     handleDateClick(info) {
       console.log('Fecha clickeada:', info.dateStr);
       let eventTitle = prompt('Ingrese el título del evento para ' + info.dateStr);

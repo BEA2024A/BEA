@@ -1,6 +1,6 @@
 <template>
     <div class="fondo">
-      <div class="texto-centrado" :key="textoActual" ref="texto" v-html="textoActual">
+      <div class="texto-centrado" :key="textoActual" v-html="textoActual" @click="redirigirAFormulario">
       </div>
     </div>
   </template>
@@ -14,7 +14,7 @@
           "GRACIAS POR COMUNICARTE A ACOMPAÑAMIENTO",
           "A CONTINUACIÓN VERÁS UN CUESTIONARIO",
           "TODA LA INFORMACIÓN ES 100% CONFIDENCIAL",
-          "CUANDO ESTÉS LISTO, PRESIONA <a href='https://www.instagram.com/__carlosg14__/' >AQUÍ</a>",
+          "CUANDO ESTÉS LISTO, PRESIONA <span class='enlace'>AQUÍ</span>",
         ],
         textoActual: "",
         indiceDeTexto: 0,
@@ -27,8 +27,14 @@
           this.indiceDeTexto++;
         }
   
-        //tiempo
+        // tiempo
         setTimeout(this.cambiarTexto, 3000);
+      },
+      redirigirAFormulario() {
+        // Busca si el clic se realizó en el elemento enlace
+        if (event.target.classList.contains('enlace')) {
+          this.$router.push('/FormsPrimeraCita');
+        }
       },
     },
     mounted() {
@@ -40,7 +46,7 @@
   
   <style scoped>
   .fondo {
-    background-color: #ed6337;
+    background-color: #ff5900;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -54,6 +60,7 @@
     opacity: 0;
     animation: aparecer 1s forwards;
     font-style: italic;
+    cursor: pointer; /* Añadido cursor de puntero para indicar que es un enlace */
   }
   
   .texto-centrado.animado {
@@ -65,5 +72,5 @@
       opacity: 1;
     }
   }
-  
   </style>
+  
