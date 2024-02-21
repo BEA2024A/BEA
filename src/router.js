@@ -10,6 +10,7 @@ import Estres from './components/Estres.vue';
 import FatigaMental from './components/FatigaMental.vue';
 import Seguimiento from './components/Seguimiento.vue';
 import InicioSesion from './components/InicioSesion.vue';
+import formsSeguimiento from './components/formsSeguimiento.vue';
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: '/InicioSesion',
     name: '/InicioSesion',
     component: InicioSesion,
+  },
+  {
+    path: '/formsSeguimiento',
+    name: '/formnsSeguimiento',
+    component: formsSeguimiento,
   },
 ];
 

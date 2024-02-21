@@ -1,12 +1,19 @@
 <template>
+<plantilla>
     <div class="fondo">
       <div class="texto-centrado" :key="textoActual" v-html="textoActual" @click="redirigirAFormulario">
       </div>
     </div>
+  </plantilla>
   </template>
   
   <script>
-  export default {
+  import Plantilla from './plantilla.vue';
+
+export default {
+  components: {
+    Plantilla,
+  },
     data() {
       return {
         listaDeTextos: [

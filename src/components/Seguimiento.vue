@@ -1,289 +1,80 @@
 <template>
-  <div>
-    <!-- Barra de Navegación -->
-    <nav class="barra-navegacion">
-      <!-- Logo -->
-      <div class="logo">
-        <router-link to="/" class="enlace-navegacion">
-          <img src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png" alt="Logo Anáhuac">
-        </router-link>
-      </div>
-      <!-- Secciones -->
-      <div class="secciones-navegacion">
-        <router-link to="/primeracita" class="enlace-navegacion">Primera Cita</router-link>
-        <router-link to="/seguimiento" class="enlace-navegacion">Seguimiento</router-link>
-        <router-link to="/horario" class="enlace-navegacion">Horario</router-link>
-        <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
-      </div>
-      <!-- Botón de Inicio de Sesión -->
-      <div class="boton-inicio-sesion">
-        <button @click="abrirEnlace('/inicio-sesion')">Iniciar sesión</button>
-      </div>
-    </nav>
-    <!-- Contenido de la Página -->
-    <div class="contenido-pagina">
-      <router-view></router-view>
-      <!-- Sección del Recordatorio -->
-      <section class="recordatorio">
-        <p>Tu siguiente cita es el 14-02-2024. Ver en <router-link to="/horario">Horario</router-link>.</p>
-        <div class="sesiones-titulo">
-          <h2>Para antes de tu siguiente cita podrias intentar</h2>
+  <plantilla>
+      <div class="fondo">
+        <div class="texto-centrado" :key="textoActual" v-html="textoActual" @click="redirigirAFormulario">
         </div>
-        <div class="swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/LE2tlZLmzG4?si=XESO68vyLhp42Ccn" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="swiper-slide">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/lAXdkk6O2Nc?si=wg9oUUGpRsutaPSR" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="swiper-slide">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/nAR2PUPyH1I?si=B3_yOEwBT7iaV50K" frameborder="0" allowfullscreen></iframe>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-      <!-- Sección del Formulario -->
-      <section class="formulario">
-        <h2>¿Como te has sentido?</h2>
-        <form @submit.prevent="enviarRespuestas">
-          <div v-for="(pregunta, index) in preguntas" :key="index" class="pregunta">
-            <label>{{ pregunta }}</label>
-            <textarea v-model="respuestas[index]"></textarea>
-          </div>
-          <!-- Botón para enviar el formulario -->
-          <button type="submit">Enviar respuestas</button>
-        </form>
-      </section>
-      <!-- Pie de Página -->
-      <br><br>
-      <footer class="pie-pagina">
-        <div class="contenido-pie">
-          <!-- Imagen a la derecha -->
-          <div class="derecha-pie">
-            <img src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png" alt="Logo Anáhuac">
-          </div>
-          <!-- Información de contacto -->
-          <div class="contacto-pie">
-            <button class="boton-pie" @click="abrirMapa" target="_blank">
-              <strong>Dirección:</strong> Blvd. Guadalupe Hinojosa de Murat No. 1100.<br>San Raymundo Jalpan, Oaxaca C.P. 71248.
-            </button>
-            <p><strong>Teléfono:</strong> (951) 50-1-62-50<br>Lada sin costo: 800-737-26-24<br>E-mail: orientacionpsicologica.uao@anahuac.mx</p>
-          </div>
-          <!-- Enlaces a Aviso de Privacidad y Compendio Reglamentario como botones -->
-          <div class="botones-pie">
-            <button v-for="(enlace, texto) in enlacesPie" :key="texto" class="boton-pie" @click="abrirEnlace(enlace)">{{ texto }}</button>
-          </div>
-          <!-- Botones de redes sociales como botones -->
-          <div class="botones-sociales-pie">
-            <button v-for="(botonSocial, index) in botonesSociales" :key="index" class="boton-pie" @click="abrirEnlace(botonSocial.enlace)" target="_blank">
-              <img :src="botonSocial.icono" alt="Icono de red social">
-            </button>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      indiceBannerActual: 0,
-      respuestas: Array(10).fill(''), 
-      preguntas: [
-      "¿Cómo te has sentido emocionalmente desde nuestra última cita?",
-"¿Que cambios notado gracias en los objetivos que establecimos juntos?", 
-"¿Hay algo específico en lo que te gustaría trabajar durante nuestra sesión de hoy?",
-"¿Como han cambiado tus relaciones con amigos, familiares o compañeros de trabajo?", 
-"¿que haz hecho para practicar el autocuidado?", 
-"¿Hay alguna actividad que encuentres especialmente útil para tu bienestar?",
-"¿Escribe alguna expectativa o tema específico que te gustaría abordar en nuestra siguiente cita?", 
-"¿Hay algo en particular que te preocupe o te gustaría explorar más?",
-      ],
-      botonesSociales: [
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redFacebook_1.png', enlace: 'https://www.facebook.com/anahuacoaxaca/' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redInstagram.png', enlace: 'https://www.instagram.com/anahuacoaxaca' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redTwitter.png', enlace: 'https://twitter.com/anahuacoaxaca' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redYoutube.png', enlace: 'https://www.youtube.com/channel/UCk5xAk91c-F_lNKn6ceDVZQ' },
-      ],
-      enlacesPie: {
-        'Aviso de Privacidad': 'https://www.anahuac.mx/oaxaca/aviso-privacidad',
-        'Compendio Reglamentario': 'https://www.anahuac.mx/oaxaca/compendio-reglamentario',
+      </div>
+    </plantilla>
+    </template>
+    
+    <script>
+    import Plantilla from './plantilla.vue';
+  
+  export default {
+    components: {
+      Plantilla,
+    },
+      data() {
+        return {
+          listaDeTextos: [
+            "VAMOS A HACER UN CUESTIONARIO RAPIDO SOBRE TUS AVANCES",
+            "CUANDO ESTÉS LISTO, PRESIONA <span class='enlace'>AQUÍ</span>",
+          ],
+          textoActual: "",
+          indiceDeTexto: 0,
+        };
+      },
+      methods: {
+        cambiarTexto() {
+          if (this.indiceDeTexto < this.listaDeTextos.length) {
+            this.textoActual = this.listaDeTextos[this.indiceDeTexto];
+            this.indiceDeTexto++;
+          }
+    
+          // tiempo
+          setTimeout(this.cambiarTexto, 3000);
+        },
+        redirigirAFormulario() {
+          // Busca si el clic se realizó en el elemento enlace
+          if (event.target.classList.contains('enlace')) {
+            this.$router.push('/formsSeguimiento');
+          }
+        },
+      },
+      mounted() {
+        // cambio de texto
+        this.cambiarTexto();
       },
     };
-  },
-  methods: {
-    abrirMapa() {
-      window.location.href = 'https://maps.app.goo.gl/te3G28WuD56cTgyHA';
-    },
-    abrirEnlace(url) {
-      window.location.href = url;
-    },
-    enviarRespuestas() {
-      console.log('Respuestas enviadas:', this.respuestas);
-    },
-  },
-};
-</script>
-
-<style scoped>
-/* Barra de Navegación */
-.barra-navegacion {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 15px;
-  background-color: black;
-  color: white;
-}
-
-.logo img {
-  max-height: 40px;
-}
-
-.secciones-navegacion {
-  display: flex;
-}
-
-.enlace-navegacion {
-  margin-right: 30px;
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.enlace-navegacion:hover {
-  color: #d45c37;
-}
-
-.boton-inicio-sesion button {
-  background-color: #d45c37;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.boton-inicio-sesion button:hover {
-  background-color: #a03722;
-}
-
-/* Contenido de la Página */
-.contenido-pagina {
-  display: flex; 
-  justify-content: space-between; 
-  padding: 10px;
-  flex-wrap: wrap; 
-}
-
-/* Recordatorio */
-.recordatorio {
-  width: 30%; 
-  padding: 10px;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  margin-bottom: 20px; 
-}
-
-/* Animación de aparición */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px); 
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.recordatorio,
-.formulario {
-  animation: fadeIn 1s ease forwards; 
-}
-/* Formulario */
-.formulario {
-  width: 65%; 
-  padding: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  margin-bottom: 20px; 
-}
-.formulario label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.formulario textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-}
-.formulario button {
-  background-color: #d45c37;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-.formulario button:hover {
-  background-color: #a03722;
-}
-/* Pie de Página */
-.pie-pagina {
-  background-color: black;
-  color: white;
-  padding: 30px;
-  width: 100%; 
-  clear: both; 
-}
-.contenido-pie {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-.derecha-pie img {
-  max-height: 80px;
-}
-.contacto-pie p {
-  margin: 10px;
-}
-.botones-pie {
-  display: flex;
-  flex-direction: column;
-}
-.boton-pie {
-  background-color: #000000;
-  color: white;
-  border: none;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-.botones-sociales-pie img {
-  max-height: 35px;
-  margin-right: 5px;
-}
-.botones-sociales-pie button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-</style>
+    </script>
+    
+    <style scoped>
+    .fondo {
+      background-color: #ff5900;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .texto-centrado {
+      color: #fff;
+      font-size: 24px;
+      opacity: 0;
+      animation: aparecer 1s forwards;
+      font-style: italic;
+      cursor: pointer; /* Añadido cursor de puntero para indicar que es un enlace */
+    }
+    
+    .texto-centrado.animado {
+      animation: aparecer 1s forwards;
+    }
+    
+    @keyframes aparecer {
+      to {
+        opacity: 1;
+      }
+    }
+    </style>
+    

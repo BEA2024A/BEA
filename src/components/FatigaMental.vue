@@ -1,58 +1,37 @@
 <template>
-  <div>
-    <!-- Barra de Navegación -->
-    <nav class="barra-navegacion">
-      <!-- Logo -->
-      <div class="logo">
-        <router-link to="/" class="enlace-navegacion">  <img src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png" alt="Logo Anáhuac"></router-link>
-      </div>
-
-      <!-- Secciones -->
-      <div class="secciones-navegacion">
-        <router-link to="/primeracita" class="enlace-navegacion">Primera Cita</router-link>
-        <router-link to="/seguimiento" class="enlace-navegacion">Seguimiento</router-link>
-        <router-link to="/horario" class="enlace-navegacion">Horario</router-link>
-        <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
-      </div>
-
-      <!-- Botón de Inicio de Sesión -->
-      <div class="boton-inicio-sesion">
-        <button @click="abrirEnlace('/InicioSesion')">Iniciar sesión</button>
-      </div>
-    </nav>
-
+  <plantilla>
+    
     <!-- Contenido de la Página -->
     <div class="contenido-pagina">
       <router-view></router-view>
-
-     
-<!-- Sección de Autoayuda -->
-<section class="banner-autoayuda">
-      <div class="fondo-autoayuda">
-        <img src="https://media.revistagq.com/photos/6368c8563ff886cd67aa3b1d/master/pass/Brain-Fog-Article.jpg" alt="Banner Autoayuda">
-      </div>
-      <div class="titulo-autoayuda">
-        <h1>FATIGA MENTAL</h1>
-      </div>
-    </section>
-
-<!-- Sección "¿Qué es la ansiedad?" -->
-<section class="seccion-ansiedad">
-      <div class="ansiedad-info">
-        <div class="texto-ansiedad">
-          <h2>¿Qué es la fatiga mental?</h2>
-          <p>
-            
-La fatiga mental se refiere a un agotamiento o cansancio que afecta principalmente las funciones cognitivas y emocionales. Puede manifestarse como dificultad para concentrarse, olvidos, irritabilidad, falta de motivación y una sensación general de agotamiento mental. A menudo, la fatiga mental está relacionada con el estrés crónico, la sobrecarga de tareas o la falta de descanso adecuado. La gestión de la fatiga mental implica tomar medidas para descansar, desconectar y cuidar la salud mental, como practicar técnicas de relajación, establecer límites y asegurarse de tener períodos adecuados de descanso y recreación.
-          </p>
+      <!-- Sección de Autoayuda -->
+      <section class="banner-autoayuda">
+        <div class="fondo-autoayuda">
+          <img src="https://media.revistagq.com/photos/6368c8563ff886cd67aa3b1d/master/pass/Brain-Fog-Article.jpg" alt="Banner Autoayuda">
         </div>
-        <div class="imagen-ansiedad">
-          <img src="https://www.balancegroup.cl/wp-content/uploads/2022/04/psicologi%CC%81a-adultos-533x533.png" alt="Psicología Adultos">
+        <div class="titulo-autoayuda">
+          <h1>FATIGA MENTAL</h1>
         </div>
-      </div>
-    </section>
- <!-- Sección "Sesiones que podrían ayudarte" con Swiper -->
- <section class="sesiones-ayuda">
+      </section>
+      <!-- Sección "¿Qué es la ansiedad?" -->
+      <section class="seccion-ansiedad">
+        <div class="ansiedad-info">
+          <div class="texto-ansiedad">
+            <h2>¿Qué es la ansiedad?</h2>
+            <p>
+              La ansiedad es una respuesta natural del cuerpo frente a situaciones percibidas como amenazantes o estresantes.
+              Se manifiesta como un estado emocional caracterizado por inquietud, nerviosismo, preocupación y tensión.
+              Aunque es una parte normal de la vida, la ansiedad puede volverse problemática cuando es excesiva o persistente,
+              afectando el bienestar y el funcionamiento diario de una persona.
+            </p>
+          </div>
+          <div class="imagen-ansiedad">
+            <img src="https://www.balancegroup.cl/wp-content/uploads/2022/04/psicologi%CC%81a-adultos-533x533.png" alt="Psicología Adultos">
+          </div>
+        </div>
+      </section>
+      <!-- Sección "Sesiones que podrían ayudarte" -->
+      <section class="sesiones-ayuda">
         <div class="sesiones-titulo">
           <h2>Sesiones que podrían ayudarte</h2>
         </div>
@@ -62,7 +41,6 @@ La fatiga mental se refiere a un agotamiento o cansancio que afecta principalmen
             <div class="swiper-slide">
               <iframe width="100%" height="315" src="https://www.youtube.com/embed/LE2tlZLmzG4?si=XESO68vyLhp42Ccn" frameborder="0" allowfullscreen></iframe>
             </div>
-
             <!-- Slide 2 -->
             <div class="swiper-slide">
               <iframe width="100%" height="315" src="https://www.youtube.com/embed/lAXdkk6O2Nc?si=wg9oUUGpRsutaPSR" frameborder="0" allowfullscreen></iframe>
@@ -77,64 +55,16 @@ La fatiga mental se refiere a un agotamiento o cansancio que afecta principalmen
         </div>
       </section>
 
-      <!-- Pie de Página -->
-      <br><br>
-      <footer class="pie-pagina">
-        <div class="contenido-pie">
-          <!-- Imagen a la derecha -->
-          <div class="derecha-pie">
-            <img src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png" alt="Logo Anáhuac">
-          </div>
-
-          <!-- Información de contacto -->
-          <div class="contacto-pie">
-            <button class="boton-pie" @click="abrirMapa" target="_blank">
-              <strong>Dirección:</strong> Blvd. Guadalupe Hinojosa de Murat No. 1100.<br>San Raymundo Jalpan, Oaxaca C.P. 71248.
-            </button>
-            <p><strong>Teléfono:</strong> (951) 50-1-62-50<br>Lada sin costo: 800-737-26-24<br>E-mail: orientacionpsicologica.uao@anahuac.mx</p>
-          </div>
-
-          <!-- Enlaces a Aviso de Privacidad y Compendio Reglamentario como botones -->
-          <div class="botones-pie">
-            <button v-for="(enlace, texto) in enlacesPie" :key="texto" class="boton-pie" @click="abrirEnlace(enlace)">{{ texto }}</button>
-          </div>
-
-          <!-- Botones de redes sociales como botones -->
-          <div class="botones-sociales-pie">
-            <button v-for="(botonSocial, index) in botonesSociales" :key="index" class="boton-pie" @click="abrirEnlace(botonSocial.enlace)" target="_blank">
-              <img :src="botonSocial.icono" alt="Icono de red social">
-            </button>
-          </div>
-        </div>
-      </footer>
+      
     </div>
-  </div>
+  </plantilla>
 </template>
-
 <script>
+import Plantilla from './plantilla.vue';
+
 export default {
-  data() {
-    return {
-      indiceBannerActual: 0,
-      botonesSociales: [
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redFacebook_1.png', enlace: 'https://www.facebook.com/anahuacoaxaca/' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redInstagram.png', enlace: 'https://www.instagram.com/anahuacoaxaca' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redTwitter.png', enlace: 'https://twitter.com/anahuacoaxaca' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redYoutube.png', enlace: 'https://www.youtube.com/channel/UCk5xAk91c-F_lNKn6ceDVZQ' },
-      ],
-      enlacesPie: {
-        'Aviso de Privacidad': 'https://www.anahuac.mx/oaxaca/aviso-privacidad',
-        'Compendio Reglamentario': 'https://www.anahuac.mx/oaxaca/compendio-reglamentario',
-      },
-    };
-  },
-  methods: {
-    abrirMapa() {
-      window.location.href = 'https://maps.app.goo.gl/te3G28WuD56cTgyHA';
-    },
-    abrirEnlace(url) {
-      window.location.href = url;
-    },
+  components: {
+    Plantilla,
   },
 };
 </script>
@@ -192,7 +122,7 @@ margin-top: 20px;
 }
 .fondo-autoayuda {
 overflow: hidden;
-max-width: 1900px;
+max-width: 1900px; 
 margin: 0 auto;
 border-radius: 10px;
 }
@@ -215,7 +145,7 @@ color: white;
 text-align: center;
 }
 .titulo-autoayuda h1 {
-font-size: 30px;
+font-size: 50px;
 margin: 0;
 opacity: 0;
 animation: fadeIn 1s ease forwards;

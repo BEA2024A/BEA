@@ -1,26 +1,6 @@
 <template>
-  <div>
-    <!-- Barra de Navegación -->
-    <nav class="barra-navegacion">
-      <!-- Logo -->
-      <div class="logo">
-        <router-link to="/" class="enlace-navegacion">  <img src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png" alt="Logo Anáhuac"></router-link>
-      </div>
 
-      <!-- Secciones -->
-      <div class="secciones-navegacion">
-        <router-link to="/primeracita" class="enlace-navegacion">Primera Cita</router-link>
-        <router-link to="/seguimiento" class="enlace-navegacion">Seguimiento</router-link>
-        <router-link to="/horario" class="enlace-navegacion">Horario</router-link>
-        <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
-      </div>
-
-      <!-- Botón de Inicio de Sesión -->
-      <div class="boton-inicio-sesion">
-        <button @click="abrirEnlace('/InicioSesion')">Iniciar sesión</button>
-      </div>
-    </nav>
-
+  <plantilla>
     <!-- Contenido de la Página -->
     <div class="contenido-pagina">
       <router-view></router-view>
@@ -35,9 +15,6 @@
           <p>Elige el caso con el que más te identifiques</p>
         </div>
       </section>
-
-      
-
 
       <!-- Sección de Método de Trabajo -->
     <section class="seccion-metodo">
@@ -81,52 +58,21 @@
 </section>
 
 
-      <!-- Pie de Página -->
-      <br><br>
-      <footer class="pie-pagina">
-        <div class="contenido-pie">
-          <!-- Imagen a la derecha -->
-          <div class="derecha-pie">
-            <img src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png" alt="Logo Anáhuac">
-          </div>
-
-          <!-- Información de contacto -->
-          <div class="contacto-pie">
-            <button class="boton-pie" @click="abrirMapa" target="_blank">
-              <strong>Dirección:</strong> Blvd. Guadalupe Hinojosa de Murat No. 1100.<br>San Raymundo Jalpan, Oaxaca C.P. 71248.
-            </button>
-            <p><strong>Teléfono:</strong> (951) 50-1-62-50<br>Lada sin costo: 800-737-26-24<br>E-mail: orientacionpsicologica.uao@anahuac.mx</p>
-          </div>
-
-          <!-- Enlaces a Aviso de Privacidad y Compendio Reglamentario como botones -->
-          <div class="botones-pie">
-            <button v-for="(enlace, texto) in enlacesPie" :key="texto" class="boton-pie" @click="abrirEnlace(enlace)">{{ texto }}</button>
-          </div>
-
-          <!-- Botones de redes sociales como botones -->
-          <div class="botones-sociales-pie">
-            <button v-for="(botonSocial, index) in botonesSociales" :key="index" class="boton-pie" @click="abrirEnlace(botonSocial.enlace)" target="_blank">
-              <img :src="botonSocial.icono" alt="Icono de red social">
-            </button>
-          </div>
-        </div>
-      </footer>
+      
     </div>
-  </div>
+  </plantilla>
 </template>
 
 <script>
+import Plantilla from './plantilla.vue';
+
 export default {
+  components: {
+    Plantilla,
+  },
   data() {
     return {
       indiceBannerActual: 0,
-      
-      botonesSociales: [
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redFacebook_1.png', enlace: 'https://www.facebook.com/anahuacoaxaca/' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redInstagram.png', enlace: 'https://www.instagram.com/anahuacoaxaca' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redTwitter.png', enlace: 'https://twitter.com/anahuacoaxaca' },
-        { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redYoutube.png', enlace: 'https://www.youtube.com/channel/UCk5xAk91c-F_lNKn6ceDVZQ' },
-      ],
       itemsMetodo: [
         { 
           link: '/Ansiedad',
@@ -179,10 +125,6 @@ export default {
         },
       ],
 
-      enlacesPie: {
-        'Aviso de Privacidad': 'https://www.anahuac.mx/oaxaca/aviso-privacidad',
-        'Compendio Reglamentario': 'https://www.anahuac.mx/oaxaca/compendio-reglamentario',
-      },
 
       videosAutoayuda: [
         {
@@ -205,9 +147,7 @@ export default {
   },
   
   methods: {
-    abrirMapa() {
-      window.location.href = 'https://maps.app.goo.gl/te3G28WuD56cTgyHA';
-    },
+    
     abrirEnlace(url) {
       window.location.href = url;
     },
@@ -231,54 +171,6 @@ export default {
 
 
 <style scoped>
-
-/* Barra de Navegación */
-.barra-navegacion {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 15px;
-  background-color: black;
-  color: white;
-}
-
-.logo img {
-  max-height: 40px;
-}
-
-.secciones-navegacion {
-  display: flex;
-}
-
-.enlace-navegacion {
-  margin-right: 30px;
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.enlace-navegacion:hover {
-  color: #d45c37;
-}
-
-.boton-inicio-sesion button {
-  background-color: #d45c37;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.boton-inicio-sesion button:hover {
-  background-color: #a03722;
-}
-
 /* Contenido de la Página */
 .contenido-pagina {
   padding: 10px;
@@ -322,7 +214,7 @@ export default {
 }
 
 .titulo-autoayuda h1 {
-  font-size: 30px;
+  font-size: 50px;
   margin: 0;
   opacity: 0;
   animation: fadeIn 1s ease forwards;
@@ -379,6 +271,7 @@ export default {
 }
 
 .item-metodo img {
+  margin-top: 30px;
   width: 400px;
   height: 500px;
   object-fit: cover;
@@ -409,14 +302,14 @@ export default {
 /* Estilos para la sección de Autoayuda General */
 .seccion-autoayuda {
   margin-top: 40px;
-  background-image: url('https://i.ibb.co/MNhbG6b/Campus-Ana-huac-Oaxaca.png'); 
+  background-color: #e6e3e3;
   background-size: cover;
   background-position: center;
   padding: 20px;
   border-radius: 10px;
 }
 .titulo-seccion-autoayuda {
-  background-color: rgba(255, 255, 255, 0.5); 
+  background-color: rgba(255, 187, 0, 0.5); 
   text-align: center;
   margin-bottom: 20px;
   width: 70%;
@@ -428,7 +321,7 @@ export default {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .titulo-seccion-autoayuda:hover {
-  background-color: rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 187, 0, 0.8); 
   transform: scale(1.05); 
 }
 .titulo-seccion-autoayuda h1 {
@@ -438,11 +331,11 @@ export default {
   animation: fadeIn 1s ease forwards;
 }
 .cajon-autoayuda {
-  background-color: rgba(255, 255, 255, 0.5); 
+  background-color: rgba(255, 187, 0, 0.5); 
   border-radius: 15px;
   margin-bottom: 50px;
   overflow: hidden;
-  width: 70%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -450,8 +343,8 @@ export default {
   transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 .cajon-autoayuda:hover {
-  background-color: rgba(255, 255, 255, 0.8); 
-  transform: scale(1.05); 
+  background-color: rgba(255, 187, 0, 0.8); 
+  transform: scale(1.01); 
 }
 .cajon-autoayuda.inverted .contenido-cajon {
   flex-direction: row-reverse;
@@ -480,45 +373,5 @@ export default {
   width: 100%;
   height: 500px;
 }
-/* Pie de Página */
-.pie-pagina {
-  background-color: black;
-  color: white;
-  padding: 30px;
-}
-.contenido-pie {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-.derecha-pie img {
-  max-height: 80px;
-}
-.contacto-pie p {
-  margin: 10px;
-}
-.botones-pie {
-  display: flex;
-  flex-direction: column;
-}
-.boton-pie {
-  background-color: #000000;
-  color: white;
-  border: none;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-.botones-sociales-pie img {
-  max-height: 35px;
-  margin-right: 5px;
-}
-.botones-sociales-pie button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
+
 </style>
