@@ -17,7 +17,8 @@
       data() {
         return {
           listaDeTextos: [
-            "VAMOS A HACER UN CUESTIONARIO RAPIDO SOBRE TUS AVANCES",
+            "GRACIAS POR SEGUIR CON NOSOTROS",
+            "CUENTANOS COMO TE HAS SENTIDO",
             "CUANDO ESTÉS LISTO, PRESIONA <span class='enlace'>AQUÍ</span>",
           ],
           textoActual: "",

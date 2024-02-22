@@ -4,7 +4,7 @@
     <!-- Contenido de la Página -->
     <div class="contenido-pagina">
       <router-view></router-view>
-
+      
       <!-- Sección de Autoayuda -->
       <section class="banner-autoayuda">
         <div class="fondo-autoayuda">
@@ -35,30 +35,7 @@
         </div>
       </div>
     </section>
-    
-
-    <!-- Agregando la sección de Autoayuda General -->
-<section class="seccion-autoayuda">
-  <div class="titulo-seccion-autoayuda">
-    <h1>SESIONES DE MEDITACIÓN</h1>
-  </div>
-
-  <!-- Primer Cajón -->
-  <div class="cajon-autoayuda" :class="{ 'inverted': (index % 2 !== 0) }" v-for="(video, index) in videosAutoayuda" :key="index">
-    <div class="contenido-cajon">
-      <div class="texto-cajon">
-        <h2>{{ video.titulo }}</h2>
-        <p>{{ video.descripcion }}</p>
-      </div>
-      <div class="video-cajon">
-        <iframe :src="video.enlace" frameborder="0" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-      
+  
     </div>
   </plantilla>
 </template>
@@ -72,7 +49,6 @@ export default {
   },
   data() {
     return {
-      indiceBannerActual: 0,
       itemsMetodo: [
         { 
           link: '/Ansiedad',
@@ -124,30 +100,18 @@ export default {
           mostrarSintomas: false,
         },
       ],
-
-
-      videosAutoayuda: [
-        {
-          enlace: 'https://www.youtube.com/embed/aBsnQjJ2_Nk?si=JjuEzSsuCh2UxwV8',
-          titulo: 'Superar situaciones difíciles',
-          descripcion: 'Esta meditación guiada busca eliminar la ansiedad y superar situaciones difíciles. Se invita a sentarse cómodamente, cerrar los ojos y observar la respiración. A través de la visualización, la emoción negativa se representa como un objeto que rodea al individuo. La meditación se centra en respirar para disolver esa energía, creando espacio y purificando el entorno. La exhalación impregna el aire con una "ola de calma" que alivia el dolor.',
-        },
-        {
-          enlace: 'https://www.youtube.com/embed/4mSwSMO8cEQ?si=cIrOaUMu1mo60Ukg',
-          titulo: 'Relájate y descansa',
-          descripcion: 'Jorge Benito te da la bienvenida a una meditación para calmar la mente y liberar el estrés al final del día. Invita a adoptar una postura cómoda, mover suavemente los hombros y el cuello, y cerrar los ojos. La respiración se convierte en el foco, inhalando y exhalando lentamente. Con los ojos cerrados, se presta atención a los sonidos y la temperatura ambiente.',
-        },
-        {
-          enlace: 'https://www.youtube.com/embed/gxBNte5VDJE?si=BU7t3G1f73szUFgA',
-          titulo: 'Meditación para los momentos difíciles',
-          descripcion: 'Esta meditación guiada, liderada por Rosario Vicencio, invita a cerrar los ojos y comenzar inhalando y exhalando suave y profundamente. Se visualiza una luz poderosa y llena de certeza que cae sobre la coronilla, iluminando el cuerpo y proporcionando fortaleza. La fe se destaca como la certeza absoluta de influir sobre lo físico con la mente y la energía. Se insta a confiar y mantener la certeza de que todo estará bien.',
-        },
-      ],
     };
   },
-  
+  mounted() {
+    // Agregar un retraso de 3 segundos antes de hacer scroll down
+    setTimeout(() => {
+      window.scrollBy({
+        top: window.innerHeight,
+        behavior: 'smooth',
+      });
+    }, 3000);
+  },
   methods: {
-    
     abrirEnlace(url) {
       window.location.href = url;
     },
@@ -165,9 +129,10 @@ export default {
       });
     },
   },
-  
 };
 </script>
+
+
 
 
 <style scoped>
@@ -180,23 +145,22 @@ export default {
 /* Estilos para la sección de Autoayuda */
 .banner-autoayuda {
   position: relative;
-  text-align: center;
-  margin-top: 20px;
+  
+  margin-top: 0px;
   
 }
 
 .fondo-autoayuda {
   overflow: hidden;
-  max-width: 1900px; 
-  margin: 0 auto;
-  border-radius: 10px;
+  max-width: 1920px; 
+  margin: 0;
+  border-radius: 0px;
 }
 
 .fondo-autoayuda img {
   max-width: 100%;
   height: auto;
   filter: brightness(50%);
-  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -272,12 +236,14 @@ export default {
 
 .item-metodo img {
   margin-top: 30px;
+  margin-bottom: 30px;
   width: 400px;
-  height: 500px;
+  height: 600px;
   object-fit: cover;
   border-radius: 10px;
   filter: brightness(50%);
   transition: filter 0.3s;
+  animation: fadeIn 7s ease forwards;
 }
 
 .item-metodo:hover img {
@@ -298,80 +264,6 @@ export default {
 }
 .item-metodo:hover .descripcion-metodo {
   opacity: 1;
-}
-/* Estilos para la sección de Autoayuda General */
-.seccion-autoayuda {
-  margin-top: 40px;
-  background-color: #e6e3e3;
-  background-size: cover;
-  background-position: center;
-  padding: 20px;
-  border-radius: 10px;
-}
-.titulo-seccion-autoayuda {
-  background-color: rgba(255, 187, 0, 0.5); 
-  text-align: center;
-  margin-bottom: 20px;
-  width: 70%;
-  padding: 20px;
-  border-radius: 15px;
-  margin-left: auto;
-  margin-right: auto;
-  color: rgb(3, 3, 3); 
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.titulo-seccion-autoayuda:hover {
-  background-color: rgba(255, 187, 0, 0.8); 
-  transform: scale(1.05); 
-}
-.titulo-seccion-autoayuda h1 {
-  font-size: 30px;
-  margin: 0;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-}
-.cajon-autoayuda {
-  background-color: rgba(255, 187, 0, 0.5); 
-  border-radius: 15px;
-  margin-bottom: 50px;
-  overflow: hidden;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  transition: background-color 0.3s ease, transform 0.3s ease; 
-}
-.cajon-autoayuda:hover {
-  background-color: rgba(255, 187, 0, 0.8); 
-  transform: scale(1.01); 
-}
-.cajon-autoayuda.inverted .contenido-cajon {
-  flex-direction: row-reverse;
-}
-.contenido-cajon {
-  display: flex;
-  align-items: center;
-}
-.texto-cajon {
-  flex: 1;
-  padding: 20px;
-  text-align: center;
-}
-.texto-cajon h2 {
-  color: black;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-.texto-cajon p {
-  color: black;
-}
-.video-cajon {
-  flex: 1;
-}
-.video-cajon iframe {
-  width: 100%;
-  height: 500px;
 }
 
 </style>

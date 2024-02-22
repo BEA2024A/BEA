@@ -7,10 +7,10 @@
       <!-- Sección de Autoayuda -->
       <section class="banner-autoayuda">
         <div class="fondo-autoayuda">
-          <img src="https://imagenes.20minutos.es/files/image_1920_1080/uploads/imagenes/2023/01/05/estres.jpeg" alt="Banner Autoayuda">
+          <img src="https://solportal.ibe-unesco.org/wp-content/uploads/2021/02/exams-stress.jpg" alt="Banner Autoayuda">
         </div>
         <div class="titulo-autoayuda">
-          <h1>ESTRES</h1>
+          <h1>ESTRÉS</h1>
         </div>
       </section>
       <!-- Sección "¿Qué es la ansiedad?" -->
@@ -66,54 +66,44 @@ export default {
   components: {
     Plantilla,
   },
+  data() {
+    return {
+     
+      
+    };
+  },
+  mounted() {
+    // Agregar un retraso de 3 segundos antes de hacer scroll down
+    setTimeout(() => {
+      window.scrollBy({
+        top: window.innerHeight,
+        behavior: 'smooth',
+      });
+    }, 3000);
+  },
+  methods: {
+    abrirEnlace(url) {
+      window.location.href = url;
+    },
+    mostrarSintomas(item) {
+      this.itemsMetodo.forEach((otherItem) => {
+        if (otherItem !== item) {
+          otherItem.mostrarSintomas = false;
+        }
+      });
+      item.mostrarSintomas = true;
+    },
+    ocultarSintomas() {
+      this.itemsMetodo.forEach((item) => {
+        item.mostrarSintomas = false;
+      });
+    },
+  },
 };
 </script>
 
 <style scoped>
-/* Barra de Navegación */
-.barra-navegacion {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 15px;
-  background-color: black;
-  color: white;
-}
-.logo img {
-  max-height: 40px;
-}
-.secciones-navegacion {
-  display: flex;
-}
-.enlace-navegacion {
-  margin-right: 30px;
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.enlace-navegacion:hover {
-  color: #d45c37;
-}
-.boton-inicio-sesion button {
-  background-color: #d45c37;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-.boton-inicio-sesion button:hover {
-  background-color: #a03722;
-}
-/* Contenido de la Página */
-.contenido-pagina {
-  padding: 10px;
-}
+
 /* Estilos para la sección de Autoayuda */
 .banner-autoayuda {
 position: relative;
@@ -165,6 +155,7 @@ to {
   text-align: center;
   padding: 20px;
   margin-top: 20px;
+  animation: fadeIn 7s ease forwards;
 }
 .ansiedad-info {
   display: flex;
