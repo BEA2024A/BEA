@@ -101,50 +101,7 @@ export default {
 </script>
 
 <style scoped>
-/* Barra de Navegación */
-.barra-navegacion {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 15px;
-  background-color: black;
-  color: white;
-}
-.logo img {
-  max-height: 40px;
-}
-.secciones-navegacion {
-  display: flex;
-}
-.enlace-navegacion {
-  margin-right: 30px;
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.enlace-navegacion:hover {
-  color: #d45c37;
-}
-.boton-inicio-sesion button {
-  background-color: #d45c37;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-.boton-inicio-sesion button:hover {
-  background-color: #a03722;
-}
-/* Contenido de la Página */
-.contenido-pagina {
-  padding: 10px;
-}
+
 /* Banner de Bienvenida */
 .banner-bienvenida {
   text-align: center;
@@ -204,7 +161,7 @@ export default {
 /* Sección de Equipo de Psicólogos */
 .seccion-equipo {
   margin-top: 60px;
-  display: flex;
+  display: center;
   flex-wrap: wrap;
   justify-content: space-between;
   background-size: cover;
@@ -213,8 +170,9 @@ export default {
   border-radius: 10px;
   margin-bottom: 50px;
 }
+
 .perfil-psicologo {
-  flex: 0 0 calc(48% - 20px);
+  flex: 0 0 90%; /* Modificado para que ocupe todo el ancho en pantallas pequeñas */
   margin-bottom: 20px;
   background-color: rgba(66, 58, 56, 0.9);
   transition: background-color 0.3s ease;
@@ -224,61 +182,39 @@ export default {
   align-items: center;
   padding: 20px;
   border-radius: 10px;
-  color:white;
+  color: white;
 }
+
 .perfil-psicologo:hover {
   background-color: #f6f6f6;
   color: black;
 }
+
 .perfil-psicologo h3 {
   font-weight: bold;
 }
+
 .perfil-psicologo img {
   width: 80px;
   height: 80px;
   border-radius: 50%;
   margin-bottom: 10px;
 }
-/* Pie de Página */
-.pie-pagina {
-  background-color: black;
-  color: white;
-  padding: 30px;
+
+
+
+/* Pantallas medianas (tabletas) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .item-metodo img {
+    width: 100%;
+    height: auto;
+  }
 }
-.contenido-pie {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
+
+/* Pantallas grandes (escritorios) */
+@media only screen and (min-width: 1025px) {
+  /* Agrega tus estilos específicos para pantallas más grandes aquí */
 }
-.derecha-pie img {
-  max-height: 80px;
-}
-.contacto-pie p {
-  margin: 10px;
-}
-.botones-pie {
-  display: flex;
-  flex-direction: column;
-}
-.boton-pie {
-  background-color: #000000;
-  color: white;
-  border: none;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-.botones-sociales-pie img {
-  max-height: 35px;
-  margin-right: 5px;
-}
-.botones-sociales-pie button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
+
 
 </style>

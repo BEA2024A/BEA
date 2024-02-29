@@ -141,18 +141,15 @@ export default {
   padding: 10px;
 }
 
-
 /* Estilos para la sección de Autoayuda */
 .banner-autoayuda {
   position: relative;
-  
   margin-top: 0px;
-  
 }
 
 .fondo-autoayuda {
   overflow: hidden;
-  max-width: 1920px; 
+  max-width: 1920px;
   margin: 0;
   border-radius: 0px;
 }
@@ -165,7 +162,7 @@ export default {
 }
 
 .fondo-autoayuda:hover img {
-  filter: brightness(30%); 
+  filter: brightness(30%);
 }
 
 .titulo-autoayuda {
@@ -190,7 +187,6 @@ export default {
   animation: fadeIn 1s ease forwards 0.5s;
 }
 
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -200,9 +196,7 @@ export default {
   }
 }
 
-
 /* Método de Trabajo */
-
 .sintomas-metodo {
   position: absolute;
   top: 50%;
@@ -210,11 +204,12 @@ export default {
   transform: translate(-50%, -50%);
   color: white;
   font-weight: bold;
-  text-align:justify;
+  text-align: justify;
   width: 80%;
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
+
 .seccion-metodo {
   display: flex;
   flex-wrap: wrap;
@@ -262,8 +257,30 @@ export default {
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
+
 .item-metodo:hover .descripcion-metodo {
   opacity: 1;
 }
 
+/* Media Queries para Tablet y Móvil */
+@media screen and (max-width: 1024px) {
+  .item-metodo img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .titulo-autoayuda h1 {
+    font-size: 40px;
+  }
+
+  .titulo-autoayuda p {
+    font-size: 16px;
+  }
+
+  .item-metodo {
+    width: 100%;
+  }
+}
 </style>
