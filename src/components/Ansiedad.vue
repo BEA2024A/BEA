@@ -30,32 +30,20 @@
           </div>
         </div>
       </section>
-      <!-- Sección "Sesiones que podrían ayudarte" -->
-      <section class="sesiones-ayuda">
+       <!-- Sección "Sesiones que podrían ayudarte" -->
+       <section class="sesiones-ayuda">
         <div class="sesiones-titulo">
           <h2>Sesiones que podrían ayudarte</h2>
         </div>
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <!-- Slide 1 -->
-            <div class="swiper-slide">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/LE2tlZLmzG4?si=XESO68vyLhp42Ccn" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <!-- Slide 2 -->
-            <div class="swiper-slide">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/lAXdkk6O2Nc?si=wg9oUUGpRsutaPSR" frameborder="0" allowfullscreen></iframe>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="swiper-slide">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/nAR2PUPyH1I?si=B3_yOEwBT7iaV50K" frameborder="0" allowfullscreen></iframe>
+            <!-- Iterar sobre los videos -->
+            <div class="swiper-slide" v-for="(video, index) in videos" :key="index">
+              <iframe width="100%" height="315" :src="video.src" frameborder="0" allowfullscreen></iframe>
             </div>
           </div>
-          
         </div>
       </section>
-
-      
     </div>
   </plantilla>
 </template>
@@ -68,19 +56,15 @@ export default {
   },
   data() {
     return {
-     
-      
+      // Array de videos
+      videos: [
+        { src: "https://www.youtube.com/embed/LE2tlZLmzG4?si=XESO68vyLhp42Ccn" },
+        { src: "https://www.youtube.com/embed/lAXdkk6O2Nc?si=wg9oUUGpRsutaPSR" },
+        { src: "https://www.youtube.com/embed/nAR2PUPyH1I?si=B3_yOEwBT7iaV50K" }
+      ],
     };
   },
-  mounted() {
-    // Agregar un retraso de 3 segundos antes de hacer scroll down
-    setTimeout(() => {
-      window.scrollBy({
-        top: window.innerHeight,
-        behavior: 'smooth',
-      });
-    }, 3000);
-  },
+ 
   methods: {
     abrirEnlace(url) {
       window.location.href = url;
@@ -176,45 +160,15 @@ to {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-/* Pie de Página */
-.pie-pagina {
-  background-color: black;
-  color: white;
-  padding: 30px;
-}
-.contenido-pie {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-.derecha-pie img {
-  max-height: 80px;
-}
-.contacto-pie p {
-  margin: 10px;
-}
-.botones-pie {
-  display: flex;
-  flex-direction: column;
-}
-.boton-pie {
-  background-color: #000000;
-  color: white;
-  border: none;
+
+/* Estilos para la sección "Sesiones que podrían ayudarte" */
+.sesiones-ayuda {
+  margin-top: 20px;
   text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-bottom: 10px;
 }
-.botones-sociales-pie img {
-  max-height: 35px;
-  margin-right: 5px;
+.swiper-slide {
+  margin: 0 auto;
+  width: 80%;
 }
-.botones-sociales-pie button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
+
 </style>

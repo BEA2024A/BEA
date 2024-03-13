@@ -12,67 +12,21 @@ import Seguimiento from './components/Seguimiento.vue';
 import InicioSesion from './components/InicioSesion.vue';
 import formsSeguimiento from './components/formsSeguimiento.vue';
 
+
 const routes = [
-  {
-    path: '/',
-    name: 'Inicio',
-    component: Inicio
-  },
-  {
-    path: '/autoayuda',
-    name: 'autoayuda',
-    component: Autoayuda,
-  },
-  {
-    path: '/PrimeraCita',
-    name: 'PrimeraCita',
-    component: PrimeraCita,
-  },
-  {
-    path: '/Horario',
-    name: 'Horario',
-    component: Horario,
-  },
-  {
-    path: '/FormsPrimeraCita',
-    name: 'FormsPrimeraCita',
-    component: FormsPrimeraCita,
-  },
-  {
-    path: '/Ansiedad',
-    name: 'Ansiedad',
-    component: Ansiedad,
-  },
-  {
-    path: '/Estres',
-    name: 'Estres',
-    component: Estres,
-  },
-  {
-    path: '/Depresion',
-    name: 'Depresion',
-    component: Depresion,
-  },
-  {
-    path: '/FatigaMental',
-    name: 'FatigaMental',
-    component: FatigaMental ,
-  },
-  {
-    path: '/Seguimiento',
-    name: '/Seguimiento',
-    component: Seguimiento,
-  },
-  {
-    path: '/InicioSesion',
-    name: '/InicioSesion',
-    component: InicioSesion,
-  },
-  {
-    path: '/formsSeguimiento',
-    name: '/formnsSeguimiento',
-    component: formsSeguimiento,
-  },
+  {path: '/', name: 'Inicio', component: Inicio},
+  { path: '/autoayuda', name: 'autoayuda', component: Autoayuda},
+  {path: '/PrimeraCita', name: 'PrimeraCita', component: PrimeraCita},
+  {path: '/Horario', name: 'Horario' , component: Horario},
+  {path: '/FormsPrimeraCita', name: 'FormsPrimeraCita', component: FormsPrimeraCita},
+  {path: '/Ansiedad', name: 'Ansiedad', component: Ansiedad},
+  {path: '/Estres', name: 'Estres', component: Estres},
+  {path: '/Depresion', name: 'Depresion', component: Depresion},
+  {path: '/FatigaMental', name: 'FatigaMental', component: FatigaMental },
+  {path: '/Seguimiento', name: '/Seguimiento', component: Seguimiento},
+  {path: '/InicioSesion', name: '/InicioSesion', component: InicioSesion},
+  {path: '/formsSeguimiento', name: '/formnsSeguimiento', component: formsSeguimiento},
+
 ];
 
 const router = createRouter({
