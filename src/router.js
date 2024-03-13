@@ -15,10 +15,13 @@ import contraseña from './components/contraseña.vue';
 import register from './components/register.vue';
 import ps1 from './components/psicologos/ps1.vue';
 
+import inicioPsico from './components/inicioPsico.vue';
+import perfil from './components/perfil.vue';
+
 
 const routes = [
   {path: '/', name: 'Inicio', component: Inicio},
-  { path: '/autoayuda', name: 'autoayuda', component: Autoayuda},
+  {path: '/autoayuda', name: 'autoayuda', component: Autoayuda},
   {path: '/PrimeraCita', name: 'PrimeraCita', component: PrimeraCita},
   {path: '/Horario', name: 'Horario' , component: Horario},
   {path: '/FormsPrimeraCita', name: 'FormsPrimeraCita', component: FormsPrimeraCita},
@@ -32,6 +35,9 @@ const routes = [
   {path: '/contraseña', name: '/contraseña', component: contraseña},
   {path: '/register', name: '/register', component: register},
   {path: '/ps1', name: '/ps1', component: ps1},
+
+  {path: '/inicioPsico', name: '/inicioPsico', component: inicioPsico},
+  {path: '/perfil', name: '/perfil', component: perfil},
 
 ];
 
