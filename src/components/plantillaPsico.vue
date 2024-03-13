@@ -26,7 +26,7 @@
   
         <!-- Botón de Inicio de Sesión -->
         <div class="boton-inicio-sesion">
-          <button @click="abrirEnlace('/inicio-sesion')">Iniciar sesión</button>
+          <button @click="abrirEnlace('/iniciosesion')">Iniciar sesión</button>
         </div>
       </nav>
   
