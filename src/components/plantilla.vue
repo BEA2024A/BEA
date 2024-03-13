@@ -125,8 +125,8 @@ export default {
 }
 
 /* Mostrar el menú en dispositivos móviles y tabletas */
-@media (max-width: 768px) {
-  .hamburguesa {
+@media only screen and (max-width: 600px) {
+ .hamburguesa {
     display: block; /* Mostrar en pantallas más pequeñas */
   }
 
@@ -181,6 +181,10 @@ export default {
   .boton-inicio-sesion button:hover {
     background-color: #a03722;
   }
+
+  .logo img {
+  max-height: 30px;
+}
 }
 
 /* Estilos para pantallas más grandes (desktop) */
@@ -283,5 +287,10 @@ export default {
   border: none;
   padding: 0;
   cursor: pointer;
+}
+
+/* Pantallas pequeñas (móviles) */
+@media only screen and (max-width: 600px) {
+  
 }
 </style>

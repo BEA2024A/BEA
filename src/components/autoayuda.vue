@@ -89,7 +89,7 @@ export default {
         },
         { 
           link: '/FatigaMental',
-          imagen: 'https://www.eltiempo.com/files/article_main_1200/uploads/2017/10/31/59f8cefa7bcab.jpeg',
+          imagen: 'https://aramanatural.es/wp-content/uploads/2021/01/fatiga-mental.jpg',
           descripcion: 'Fatiga Mental',
           sintomas: [
             'Te sientes agotado.',
@@ -262,11 +262,26 @@ export default {
   opacity: 1;
 }
 
-/* Media Queries para Tablet y Móvil */
-@media screen and (max-width: 1024px) {
+@media only screen and (max-width: 600px) {
+  .item-metodo {
+    width: 100%; 
+  }
   .item-metodo img {
-    width: 100%;
-    height: auto;
+    width: 300px; 
+    height: 500px;
+  }
+
+  .sintomas-metodo{
+    font-size: 10px;
+  }
+}
+
+/* Pantallas medianas (tabletas) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .item-metodo img {
+    width: 350px;
+    height: 400px;
+
   }
 }
 
