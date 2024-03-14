@@ -135,17 +135,14 @@ export default {
   }
   
   .submit-button {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
+    display: inline-block;
     background-color: #0078d4;
     color: white;
-    padding: 15px 30px;
-    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-bottom: 20px; /* Aumenta el margen inferior */
   }
   
   .submit-button:hover {

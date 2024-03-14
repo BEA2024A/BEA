@@ -19,9 +19,7 @@
         <!-- Secciones -->
         <div class="secciones-navegacion" :class="{ 'mostrar-menu': mostrarMenu }">
           <router-link to="/inicioPsico" class="enlace-navegacion">Alumnos</router-link>
-          <router-link to="/seguimiento" class="enlace-navegacion">Seguimiento</router-link>
-          <router-link to="/horario" class="enlace-navegacion">Calendario</router-link>
-          <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
+          <router-link to="/HorarioPsico" class="enlace-navegacion">Citas</router-link>
         </div>
   
         <!-- Botón de Inicio de Sesión -->
@@ -113,7 +111,7 @@
   
   /* Botón Hamburguesa */
   .hamburguesa {
-    display: none; /* Ocultar por defecto en pantallas más grandes */
+    display: none; 
     cursor: pointer;
   }
   
@@ -124,25 +122,25 @@
     margin: 6px 0;
   }
   
-  /* Mostrar el menú en dispositivos móviles y tabletas */
+  
   @media only screen and (max-width: 600px) {
    .hamburguesa {
-      display: block; /* Mostrar en pantallas más pequeñas */
+      display: block; 
     }
   
     .secciones-navegacion {
-      display: none; /* Ocultar por defecto en pantallas más pequeñas */
+      display: none; 
       flex-direction: column;
       background-color: black;
       position: absolute;
       top: 60px;
       left: 0;
       width: 100%;
-      z-index: 1; /* Asegura que el menú aparezca encima del contenido */
+      z-index: 1; 
     }
   
     .mostrar-menu {
-      display: flex; /* Mostrar cuando se active el menú */
+      display: flex;
     }
   
     .enlace-navegacion {
@@ -158,12 +156,11 @@
       color: #d45c37;
     }
   
-    /* Ajuste para mantener el estilo del botón de inicio de sesión */
+    
     .boton-inicio-sesion {
       order: -1;
     }
   
-    /* Estilo del botón de inicio de sesión en dispositivos móviles y tabletas */
     .boton-inicio-sesion button {
       background-color: #d45c37;
       color: white;
@@ -190,11 +187,11 @@
   /* Estilos para pantallas más grandes (desktop) */
   @media (min-width: 769px) {
     .hamburguesa {
-      display: none; /* Ocultar el botón hamburguesa en pantallas más grandes */
+      display: none; 
     }
   
     .secciones-navegacion {
-      display: flex; /* Mostrar las secciones en pantallas más grandes */
+      display: flex; 
     }
   
     .enlace-navegacion {
@@ -250,7 +247,7 @@
   /* Estilos responsivos para el Pie de Página */
   @media (max-width: 768px) {
     .contenido-pie {
-      flex-direction: column; /* Cambiar a un diseño de columna en pantallas más pequeñas */
+      flex-direction: column; 
     }
   }
   

@@ -17,6 +17,7 @@ import ps1 from './components/psicologos/ps1.vue';
 
 import inicioPsico from './components/inicioPsico.vue';
 import perfil from './components/perfil.vue';
+import HorarioPsico from './components/HorarioPsico.vue';
 
 
 const routes = [
@@ -38,6 +39,7 @@ const routes = [
 
   {path: '/inicioPsico', name: '/inicioPsico', component: inicioPsico},
   {path: '/perfil', name: '/perfil', component: perfil},
+  {path: '/HorarioPsico', name: 'HorarioPsico' , component: HorarioPsico},
 
 ];
 

@@ -6,8 +6,9 @@
           <div class="perfil">
             <img :src="perfil.imagen" alt="Foto de perfil" class="imagen-perfil">
             <h1>{{ perfil.nombre }}</h1>
+            <p>ID: 00{{ perfil.ide }}</p>
             <p>Edad: {{ perfil.edad }}</p>
-            <p>Ocupación: {{ perfil.ocupacion }}</p>
+            <p>Carrera: {{ perfil.carrera }}</p>
             <p>Problemas principales: {{ perfil.problemas }}</p>
             <p>Historial médico: {{ perfil.historial }}</p>
             <p>Medicación actual: {{ perfil.medicacion }}</p>
@@ -36,15 +37,16 @@ export default {
   data() {
     return {
       perfil: {
-        nombre: 'Carlos Gonzales',
+        nombre: 'Carlos González',
+        ide: 456641,
         edad: 22,
-        ocupacion: 'Estudiante Ingenieria',
+        carrera: 'Ingenieria en Tecnologías de la Información y Negocios Digitales',
         problemas: 'Ansiedad y depresión',
         historial: 'Ha tenido episodios de ansiedad desde la adolescencia. Ha experimentado síntomas de depresión en los últimos dos años.',
         medicacion: 'Actualmente toma medicamentos recetados para la ansiedad.',
         tratamientosAnteriores: 'Ha recibido terapia cognitivo-conductual en el pasado.',
         expectativas: 'Espera encontrar herramientas para manejar mejor su ansiedad y depresión, así como mejorar su calidad de vida en general.',
-        imagen: 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png'
+        imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png'
       },
       calendarOptions: {
         plugins: [dayGridPlugin],

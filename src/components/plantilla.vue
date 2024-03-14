@@ -23,7 +23,7 @@
         <router-link to="/horario" class="enlace-navegacion">Calendario</router-link>
         <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
 
-        <router-link to="/inicioPsico" class="enlace-navegacion">Inico Psicologos</router-link>
+        <router-link to="/inicioPsico" class="enlace-navegacion">Inicio Psicologos</router-link>
       </div>
 
       <!-- Botón de Inicio de Sesión -->
