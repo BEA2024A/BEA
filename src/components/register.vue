@@ -1,113 +1,151 @@
 <template>
-    <div class="login-container">
-      <div class="background-image"></div>
-      <div class="login-box" @mouseover="changeCursor">
-        <img src="https://www.anahuac.mx/sites/default/files/LogoRUA_HUB_1.png" class="logo">
-        <div class="content">
-          <h3 class="title">Registro</h3>
-          <div class="input-group">
-            <input type="text" v-model="id" class="input-field" placeholder="ID" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="nombre" class="input-field" placeholder="Nombre" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="apellido" class="input-field" placeholder="Apellido" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="email" class="input-field" placeholder="user@anahuac.mx" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="password" v-model="password" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="password" v-model="confirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="back-to-home" @click="goToHome">
-            <span class="arrow">←</span>
-            <span class="text">Regresar al inicio</span>
-          </div>
+  <div class="login-container">
+    <div class="background-image"></div>
+    <div class="login-box" @mouseover="changeCursor">
+      <img src="https://www.anahuac.mx/sites/default/files/LogoRUA_HUB_1.png" class="logo">
+      <div class="content">
+        <h3 class="title">Registro</h3>
+        <div class="input-group">
+          <input type="text" v-model="id" class="input-field" placeholder="ID" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
         </div>
-        <button @click="submit" class="submit-button">Registrarse</button>
+        <div class="input-group">
+          <input type="text" v-model="nombre" class="input-field" placeholder="Nombre" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" v-model="apellidoPaterno" class="input-field" placeholder="Apellido Paterno" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" v-model="apellidoMaterno" class="input-field" placeholder="Apellido Materno" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" v-model="email" class="input-field" placeholder="user@anahuac.mx" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="password" v-model="password" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="password" v-model="confirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="back-to-home" @click="goToHome">
+          <span class="arrow">←</span>
+          <span class="text">Regresar al inicio</span>
+        </div>
       </div>
+      <button @click="submit" class="submit-button">Registrarse</button>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        id: '',
-        nombre: '',
-        apellido: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      id: '',
+      nombre: '',
+      apellidoPaterno: '',
+      apellidoMaterno: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
+  },
+  methods: {
+    submit() {
+      // Validar ID
+      if (!/^\d{8}$/.test(this.id)) {
+        alert('ID debe contener 8 dígitos numéricos');
+        return;
       }
+      
+      // Validar nombre
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
+        alert('Nombre solo puede contener letras y espacios');
+        return;
+      }
+      
+      // Validar apellidos
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoPaterno)) {
+        alert('Apellido Paterno solo puede contener letras y espacios');
+        return;
+      }
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoMaterno)) {
+        alert('Apellido Materno solo puede contener letras y espacios');
+        return;
+      }
+      
+      // Validar correo electrónico
+      if (!this.email.endsWith('@anahuac.mx')) {
+        alert('El correo electrónico debe ser @anahuac.mx');
+        return;
+      }
+      
+      // Validar contraseña
+      if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
+        alert('Contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número');
+        return;
+      }
+      
+      // Confirmar contraseña
+      if (this.password !== this.confirmPassword) {
+        alert('Las contraseñas no coinciden');
+        return;
+      }
+
+      // Obtener los datos del formulario
+      const formData = new FormData();
+      formData.append('ID_ALUMNO', this.id);
+      formData.append('NOMBRE', this.nombre);
+      formData.append('APELLIDO_PATERNO', this.apellidoPaterno);
+      formData.append('APELLIDO_MATERNO', this.apellidoMaterno);
+      formData.append('CORREO', this.email);
+      formData.append('CONTRASEÑA', this.password);
+
+      // Enviar los datos a través de Axios
+      axios.post('http://localhost/BEA/back/registro.php', formData)
+        .then(response => {
+          // Manejar la respuesta del servidor, si es necesario
+          console.log(response.data);
+          // Redirigir a la página de inicio de sesión u otra página de confirmación si es necesario
+          this.$router.push('/iniciosesion');
+        })
+        .catch(error => {
+          // Manejar errores
+          console.error(error);
+        })
+        .finally(() => {
+    // Redirigir después de enviar el formulario (incluso si hay un error)
+    this.$router.push('/iniciosesion');
+  });
+
+        
     },
-    methods: {
-      submit() {
-        // Validar ID
-        if (!/^\d{8}$/.test(this.id)) {
-          alert('ID debe contener 8 dígitos numéricos');
-          return;
-        }
-        
-        // Validar nombre
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
-          alert('Nombre solo puede contener letras y espacios');
-          return;
-        }
-        
-        // Validar apellido
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellido)) {
-          alert('Apellido solo puede contener letras y espacios');
-          return;
-        }
-        
-        // Validar correo electrónico
-        if (!this.email.endsWith('@anahuac.mx')) {
-          alert('El correo electrónico debe ser @anahuac.mx');
-          return;
-        }
-        
-        // Validar contraseña
-        if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
-          alert('Contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número');
-          return;
-        }
-        
-        // Confirmar contraseña
-        if (this.password !== this.confirmPassword) {
-          alert('Las contraseñas no coinciden');
-          return;
-        }
-  
-        // Si pasa todas las validaciones, se podría enviar el formulario
-        this.$router.push('/iniciosesion');
-      },
-      hideBottomBorder() {
-        this.$refs.emailInput.style.borderBottom = 'none';
-      },
-      showBottomBorder() {
-        this.$refs.emailInput.style.borderBottom = '2px solid blue';
-      },
-      changeCursor() {
-        this.$refs.emailInput.style.cursor = 'text';
-      },
-      goToHome() {
-        // Redirigir a "/"
-        this.$router.push('/');
-      }
+    hideBottomBorder() {
+      this.$refs.emailInput.style.borderBottom = 'none';
+    },
+    showBottomBorder() {
+      this.$refs.emailInput.style.borderBottom = '2px solid blue';
+    },
+    changeCursor() {
+      this.$refs.emailInput.style.cursor = 'text';
+    },
+    goToHome() {
+      // Redirigir a "/"
+      this.$router.push('/');
     }
   }
-  </script>
+};
+</script>
+
+
   
   <style scoped>
   .login-container {
