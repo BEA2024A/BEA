@@ -1,6 +1,6 @@
 <template>
-  <plantillaPsico>
-    <div class="plantillaPsico">
+  <plantilla-psico>
+    <div class="plantilla-psico">
       <div class="contenido">
         <div class="contenido-derecha">
           <div class="perfil">
@@ -17,11 +17,15 @@
           </div>
         </div>
         <div class="contenido-izquierda">
-          <FullCalendar :options="calendarOptions" :events="calendarEvents" @dateClick="handleDateClick" />
+          <FullCalendar :options="calendarOptions" :events="events" @dateClick="handleDateClick" />
+          <div class="comentarios">
+            <h2>Comentarios del paciente</h2>
+            <p>{{ perfil.comentarios }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </plantillaPsico>
+  </plantilla-psico>
 </template>
 
 <script>
@@ -46,7 +50,8 @@ export default {
         medicacion: 'Actualmente toma medicamentos recetados para la ansiedad.',
         tratamientosAnteriores: 'Ha recibido terapia cognitivo-conductual en el pasado.',
         expectativas: 'Espera encontrar herramientas para manejar mejor su ansiedad y depresión, así como mejorar su calidad de vida en general.',
-        imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png'
+        imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png',
+        comentarios: "Últimamente he estado experimentando mucha ansiedad en situaciones sociales. Me siento nervioso y tenso, y a veces evito encontrarme con amigos o familiares. Creo que esto está afectando mi vida social y mi bienestar emocional. Me gustaría hablar sobre estrategias para manejar esta ansiedad y sentirme más cómodo en estas situaciones."
       },
       calendarOptions: {
         plugins: [dayGridPlugin],
@@ -72,21 +77,15 @@ export default {
       }
     }
   },
-  computed: {
-    calendarEvents() {
-      return this.events;
-    }
-  }
 };
 </script>
 
 <style scoped>
-.plantillaPsico {
+.plantilla-psico {
   display: flex;
 }
 
 .perfil {
-  font-family: Arial, sans-serif;
   margin-right: 20px;
   width: 100%; 
   padding: 20px;
@@ -95,6 +94,15 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
+  text-align: justify;
+  
+}
+
+.perfil p {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #666;
+  text-align: justify; 
 }
 
 .imagen-perfil {
@@ -110,12 +118,31 @@ export default {
   font-size: 2rem;
   margin-top: 0;
   color: #444;
+  text-align: center;
 }
 
-.perfil p {
-  margin-bottom: 10px;
+.comentarios {
+  margin-top: 20px; 
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9; 
+  border: 1px solid #ddd; 
+  border-radius: 5px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.comentarios h2 {
+  font-size: 1.5rem; 
+  margin-top: 0; 
+  color: #333; 
+  text-align: justify;
+}
+
+.comentarios p {
   font-size: 1.2rem;
+  line-height: 1.5; 
   color: #666;
+  text-align: justify;
 }
 
 .contenido {
@@ -125,7 +152,6 @@ export default {
 
 .contenido-derecha {
   flex: 30%;
-  
 }
 
 .contenido-izquierda {

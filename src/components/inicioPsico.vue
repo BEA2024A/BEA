@@ -3,9 +3,7 @@
     <div class="contenido">
       <router-view></router-view>
       <div class="perfil-header">
-        <!-- Título del psicoterapeuta -->
         <h1 class="titulo-psicoterapeuta">{{ psicologo.nombre }}</h1>
-        <!-- Barra de color con círculo -->
         <div class="barra-color">
           <div class="circulo" :style="{ backgroundImage: 'url(' + imagenPsicologo[0] + ')' }"></div>
         </div>
@@ -145,7 +143,7 @@ export default {
   }
 
   .perfil-header {
-    margin-top: 60px;
+    margin-top: 0px;
     margin-bottom: 60px;
     background-color: #2e271f;
     height: 200px; 
@@ -161,8 +159,8 @@ export default {
   }
   
   .circulo {
-    width: 300px; 
-    height: 300px; 
+    width: 190px; 
+    height: 190px; 
     background-color: #2e271f; 
     border-radius: 50%; 
     position: absolute;
@@ -175,15 +173,13 @@ export default {
   
   .titulo-psicoterapeuta {
     position: absolute;
-    top: 50%;
+    top: 0%;
     transform: translateY(-50%);
     color: white;
     font-weight: bold;
     left: 50px;
-    
-
+    top: 80px;
   }
-
   </style>
   
   

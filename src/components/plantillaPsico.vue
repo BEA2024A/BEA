@@ -177,6 +177,7 @@
   
     .boton-inicio-sesion button:hover {
       background-color: #a03722;
+      left: 150px;
     }
   
     .logo img {
