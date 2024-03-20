@@ -23,7 +23,6 @@
             <div class="descripcion-psicologo" :class="{ 'mostrar-descripcion': psicologo.mostrarDescripcion }">
               <h3>{{ psicologo.nombre }}</h3>
               <p class="title">{{ psicologo.puesto }}</p>
-              <p>{{ psicologo.educacion }}</p>
               <p><button @click="redirigirPerfil(psicologo.perfil)">Ir al perfil</button></p>
             </div>
           </div>
@@ -46,9 +45,9 @@ export default {
     return {
       indiceBannerActual: 0,
       banners: [
-        "https://i.ibb.co/G0DQd1D/Whats-App-Image-2024-02-11-at-6-53-05-PM.jpg",
-        "https://i.ibb.co/2yLFNQf/Whats-App-Image-2024-02-11-at-7-50-21-PM.jpg",
-        "https://i.ibb.co/Qv8WMW5/Whats-App-Image-2024-02-11-at-7-50-21-PM-1.jpg",
+        "https://i.postimg.cc/VLBkG7K4/banner-1.png",
+        "https://i.postimg.cc/t4qCLhfb/banner-2.png",
+        "https://i.postimg.cc/XY13mtdK/banner3.png",
       ],
       itemsMetodo: [
         { link: '/PrimeraCita', imagen: 'https://static.ohga.it/wp-content/uploads/sites/24/2020/04/psicologo-ospedale.jpg', descripcion: 'Agenda tu Primera Cita' },
@@ -56,14 +55,14 @@ export default {
         { link: '/autoayuda', imagen: 'https://img.freepik.com/fotos-premium/mujer-joven-meditando-computadora-portatil-casa_768733-4666.jpg', descripcion: 'Sesiones de Autoayuda en Casa' },
       ],
       psicologos: [
-        { nombre: 'DRA. ELVIRA GOPAR CANSECO', puesto: 'TERAPIA HUMANISTA', educacion: 'Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica,tallerista y conferencista', perfil: '/ps1', imagen: 'https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png'},
-        { nombre: 'MTRA. KENIA GARCÍA GUTIÉRREZ', puesto: 'TERAPIA GESTALT', educacion: 'Atención psicoterapéutica y seguimientos psiquiátricos, evaluación neuropsicológica, deneuroeducación emocional.', perfil: '/ps1', imagen: 'https://i.postimg.cc/BZNJVVw2/MTRA-KENIA-GARC-A-GUTI-RREZ.png'},
-        { nombre: 'MTRA. SYLVIA GUTIÉRREZ CANDIANI', puesto: 'TERAPIA COGNITIVO CONDUCTUAL', educacion: 'Evaluación y diagnóstico en adolescentes y psicoterapia', perfil: '/ps1', imagen: 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png'},
-        { nombre: 'LIC. MARÍA GODARD ZAPATA', puesto: 'TERAPIA HUMANISTA', educacion: 'Tanatología, Constelaciones Familiares, problemas personales, familiares y laborales, alcoholismo, drogadicción, pérdidas, orientación sexual, aborto y divorcio.', perfil: '/ps1', imagen: 'https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png'},
-        { nombre: 'MTRA. LAURA LORENA HERNÁNDEZ VELASCO', puesto: 'TERAPIA HUMANISTA', educacion: 'Práctica privada en atención a niños, adolescentes y adultos en psicodiagnóstico y psicoterapia, psicoterapia individual y de pareja, cursos y talleres.', perfil: '/ps1', imagen: 'https://i.postimg.cc/653BJfDg/MTRA-LAURA-LORENA-HERN-NDEZ-VELASCO.png'},
-        { nombre: 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', puesto: 'PSIQUIATRIA DE ENLACE', educacion: 'Médico Psiquiatra enfocado en niños, adolescentes y adultos', perfil: '/ps1', imagen: 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png'},
-        { nombre: 'DR. JORGE LUIS CORTÉS LÓPEZ', puesto: 'PSIQUIATRIA DE ENLACE', educacion: 'Médico Psiquiatra, posgraduado en el Instituto Nacional de Psiquiatría “Ramón de la Fuente”', perfil: '/ps1', imagen: 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png'},
-        { nombre: 'DR. VIRGILIO SANTIAGO LÓPEZ', puesto: 'TERAPIA COGNITIVO CONDUCTUAL', educacion: 'Médico Cirujano especialista en Psiquiatría', perfil: '/ps1', imagen: 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png'},
+        { nombre: 'DRA. ELVIRA GOPAR CANSECO', puesto: 'TERAPIA HUMANISTA', perfil: '/ps1', imagen: 'https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png'},
+        { nombre: 'MTRA. KENIA GARCÍA GUTIÉRREZ', puesto: 'TERAPIA GESTALT',perfil: '/ps1', imagen: 'https://i.postimg.cc/BZNJVVw2/MTRA-KENIA-GARC-A-GUTI-RREZ.png'},
+        { nombre: 'MTRA. SYLVIA GUTIÉRREZ CANDIANI', puesto: 'TERAPIA COGNITIVO CONDUCTUAL',perfil: '/ps1', imagen: 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png'},
+        { nombre: 'LIC. MARÍA GODARD ZAPATA', puesto: 'TERAPIA HUMANISTA', perfil: '/ps1', imagen: 'https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png'},
+        { nombre: 'MTRA. LAURA LORENA HERNÁNDEZ VELASCO', puesto: 'TERAPIA HUMANISTA',perfil: '/ps1', imagen: 'https://i.postimg.cc/653BJfDg/MTRA-LAURA-LORENA-HERN-NDEZ-VELASCO.png'},
+        { nombre: 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', puesto: 'PSIQUIATRIA DE ENLACE', perfil: '/ps1', imagen: 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png'},
+        { nombre: 'DR. JORGE LUIS CORTÉS LÓPEZ', puesto: 'PSIQUIATRIA DE ENLACE', perfil: '/ps1', imagen: 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png'},
+        { nombre: 'DR. VIRGILIO SANTIAGO LÓPEZ', puesto: 'TERAPIA COGNITIVO CONDUCTUAL', perfil: '/ps1', imagen: 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png'},
         
         // Agrega más psicólogos según sea necesario
       ],
@@ -114,7 +113,6 @@ export default {
   .banner-bienvenida img {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(194, 160, 160, 0.1);
   }
 
@@ -170,7 +168,13 @@ export default {
   }
 
   .seccion-psicologos h1 {
-    font-size:xx-large ;
+    font-size:28px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
+   background-color: rgba(240, 248, 255, 0.603);
+   display: inline-block;
+   padding: 10px 20px;
+   border-radius: 5px;
+   margin-left: 10px;
   }
 
   .profile-cards {
@@ -181,7 +185,6 @@ export default {
   }
 
   .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     max-width: 300px;
     margin: 25px;
     text-align: center;

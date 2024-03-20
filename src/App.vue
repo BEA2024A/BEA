@@ -15,15 +15,19 @@ export default {
 
 <style>
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Kumbh Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "YOPQ" 300;
   margin: 0;
   padding: 0;
+  background-color:aliceblue;
 }
 
 #app {
-  max-width: auto; /* Establecer el ancho máximo según tus necesidades */
-  margin: 0 auto; /* Centrar el contenido */
+  max-width: auto;
+  margin: 0 auto;
   text-align: center;
 }
-
 </style>
