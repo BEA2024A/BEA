@@ -99,7 +99,6 @@ export default {
 </script>
 
 <style scoped>
-/* Barra de Navegación */
 .barra-navegacion {
   display: flex;
   justify-content: space-around;
@@ -113,9 +112,8 @@ export default {
   max-height: 40px;
 }
 
-/* Botón Hamburguesa */
 .hamburguesa {
-  display: none; /* Ocultar por defecto en pantallas más grandes */
+  display: none;
   cursor: pointer;
 }
 
@@ -126,25 +124,24 @@ export default {
   margin: 6px 0;
 }
 
-/* Mostrar el menú en dispositivos móviles y tabletas */
 @media only screen and (max-width: 600px) {
  .hamburguesa {
-    display: block; /* Mostrar en pantallas más pequeñas */
+    display: block;
   }
 
   .secciones-navegacion {
-    display: none; /* Ocultar por defecto en pantallas más pequeñas */
+    display: none;
     flex-direction: column;
     background-color: black;
     position: absolute;
     top: 60px;
     left: 0;
     width: 100%;
-    z-index: 1; /* Asegura que el menú aparezca encima del contenido */
+    z-index: 1;
   }
 
   .mostrar-menu {
-    display: flex; /* Mostrar cuando se active el menú */
+    display: flex;
   }
 
   .enlace-navegacion {
@@ -160,12 +157,10 @@ export default {
     color: #d45c37;
   }
 
-  /* Ajuste para mantener el estilo del botón de inicio de sesión */
   .boton-inicio-sesion {
     order: -1;
   }
 
-  /* Estilo del botón de inicio de sesión en dispositivos móviles y tabletas */
   .boton-inicio-sesion button {
     background-color: #d45c37;
     color: white;
@@ -189,14 +184,13 @@ export default {
 }
 }
 
-/* Estilos para pantallas más grandes (desktop) */
 @media (min-width: 769px) {
   .hamburguesa {
-    display: none; /* Ocultar el botón hamburguesa en pantallas más grandes */
+    display: none;
   }
 
   .secciones-navegacion {
-    display: flex; /* Mostrar las secciones en pantallas más grandes */
+    display: flex;
   }
 
   .enlace-navegacion {
@@ -205,12 +199,9 @@ export default {
     text-decoration: none;
     transition: color 0.3s ease;
   }
-
   .enlace-navegacion:hover {
     color: #d45c37;
   }
-
-  /* Estilo del botón de inicio de sesión en desktop */
   .boton-inicio-sesion button {
     background-color: #d45c37;
     color: white;
@@ -224,51 +215,39 @@ export default {
     border-radius: 5px;
     transition: background-color 0.3s ease;
   }
-
   .boton-inicio-sesion button:hover {
     background-color: #a03722;
   }
 }
-
-/* Contenido de la Página */
 .contenido-pagina {
   padding: 10px;
 }
-
-/* Pie de Página */
 .pie-pagina {
   background-color: black;
   color: white;
   padding: 30px;
 }
-
 .contenido-pie {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }
-
-/* Estilos responsivos para el Pie de Página */
 @media (max-width: 768px) {
   .contenido-pie {
-    flex-direction: column; /* Cambiar a un diseño de columna en pantallas más pequeñas */
+    flex-direction: column;
   }
 }
-
 .derecha-pie img {
   max-height: 80px;
 }
-
 .contacto-pie p {
   margin: 10px;
 }
-
 .botones-pie {
   display: flex;
   flex-direction: column;
 }
-
 .boton-pie {
   background-color: #000000;
   color: white;
@@ -278,12 +257,10 @@ export default {
   border-radius: 5px;
   margin-bottom: 10px;
 }
-
 .botones-sociales-pie img {
   max-height: 35px;
   margin-right: 5px;
 }
-
 .botones-sociales-pie button {
   background: none;
   border: none;
@@ -291,7 +268,6 @@ export default {
   cursor: pointer;
 }
 
-/* Pantallas pequeñas (móviles) */
 @media only screen and (max-width: 600px) {
   
 }

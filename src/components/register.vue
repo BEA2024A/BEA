@@ -60,19 +60,14 @@ export default {
   },
   methods: {
     submit() {
-      // Validar ID
       if (!/^\d{8}$/.test(this.id)) {
         alert('ID debe contener 8 dígitos numéricos');
         return;
       }
-      
-      // Validar nombre
       if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
         alert('Nombre solo puede contener letras y espacios');
         return;
       }
-      
-      // Validar apellidos
       if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoPaterno)) {
         alert('Apellido Paterno solo puede contener letras y espacios');
         return;
@@ -81,26 +76,18 @@ export default {
         alert('Apellido Materno solo puede contener letras y espacios');
         return;
       }
-      
-      // Validar correo electrónico
       if (!this.email.endsWith('@anahuac.mx')) {
         alert('El correo electrónico debe ser @anahuac.mx');
         return;
       }
-      
-      // Validar contraseña
       if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
         alert('Contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número');
         return;
       }
-      
-      // Confirmar contraseña
       if (this.password !== this.confirmPassword) {
         alert('Las contraseñas no coinciden');
         return;
       }
-
-      // Obtener los datos del formulario
       const formData = new FormData();
       formData.append('ID_ALUMNO', this.id);
       formData.append('NOMBRE', this.nombre);
@@ -109,24 +96,17 @@ export default {
       formData.append('CORREO', this.email);
       formData.append('CONTRASEÑA', this.password);
 
-      // Enviar los datos a través de Axios
       axios.post('http://localhost/BEA/back/registro.php', formData)
         .then(response => {
-          // Manejar la respuesta del servidor, si es necesario
           console.log(response.data);
-          // Redirigir a la página de inicio de sesión u otra página de confirmación si es necesario
           this.$router.push('/iniciosesion');
         })
         .catch(error => {
-          // Manejar errores
           console.error(error);
         })
         .finally(() => {
-    // Redirigir después de enviar el formulario (incluso si hay un error)
     this.$router.push('/iniciosesion');
-  });
-
-        
+  });   
     },
     hideBottomBorder() {
       this.$refs.emailInput.style.borderBottom = 'none';
@@ -138,15 +118,12 @@ export default {
       this.$refs.emailInput.style.cursor = 'text';
     },
     goToHome() {
-      // Redirigir a "/"
       this.$router.push('/');
     }
   }
 };
 </script>
 
-
-  
   <style scoped>
   .login-container {
     position: relative;
@@ -190,7 +167,7 @@ export default {
   .title {
     font-size: 30px;
     margin-top: 60px;
-    margin-bottom: 10px; /* Ajuste del margen inferior */
+    margin-bottom: 10px; 
     color: rgb(24, 23, 23);
   }
   

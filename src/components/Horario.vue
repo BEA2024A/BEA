@@ -1,13 +1,9 @@
 <template>
   <plantilla>
-    
     <div class="contenido-pagina">
       <router-view></router-view>
-
       <!-- Calendario -->
       <FullCalendar :options="calendarOptions" :events="calendarEvents" @dateClick="handleDateClick" />
-
-      
     </div>
   </plantilla>
 </template>
@@ -55,17 +51,8 @@ export default {
 }
 </script>
 
-
 <style scoped>
-
-
-
-/* Contenido de la Página */
 .contenido-pagina {
   padding: 30px;
 }
-
-
-
-
 </style>

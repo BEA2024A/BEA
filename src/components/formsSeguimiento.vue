@@ -25,7 +25,7 @@
     data() {
       return {
         preguntas: [
-"ESCRIBE AQUI COMO HAS ESTADO DURANTE ESTE TIEMPO",
+        "ESCRIBE AQUI COMO HAS ESTADO DURANTE ESTE TIEMPO",
         ],
         respuestas: Array.from({ length: 10 }, () => ""),
         preguntaActual: 0,

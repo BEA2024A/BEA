@@ -88,7 +88,6 @@ export default {
 
 <style scoped>
 
-/* Estilos para la sección de Autoayuda */
 .banner-autoayuda {
 position: relative;
 text-align: center;
@@ -132,7 +131,7 @@ to {
   opacity: 1;
 }
 }
-/* Estilos para la sección de Ansiedad */
+
 .seccion-ansiedad {
   background-color: #e6e3e3;
   overflow: hidden;
@@ -161,7 +160,6 @@ to {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para la sección "Sesiones que podrían ayudarte" */
 .sesiones-ayuda {
   margin-top: 20px;
   text-align: center;

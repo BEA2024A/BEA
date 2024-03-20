@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     submit() {
-      // Aquí puedes agregar la lógica para validar y enviar el correo electrónico
       if (this.email.endsWith('@anahuac.mx')) {
           this.$router.push('/contraseña');
       } else {
@@ -48,11 +47,9 @@ export default {
       this.$refs.emailInput.style.cursor = 'text';
     },
     goToHome() {
-      // Redirigir a "/"
       this.$router.push('/');
     },
     goToRegister() {
-      // Redirigir a la página de registro
       this.$router.push('/register');
     }
   }
@@ -64,7 +61,7 @@ export default {
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center; /* Alinear verticalmente al centro */
+    align-items: center;
     height: 100vh;
   }
   
@@ -76,11 +73,11 @@ export default {
     height: 100%;
     background-image: url("https://i.postimg.cc/N0L2dw5v/Captura-de-pantalla-2024-03-12-213903.png");
     background-size: cover;
-    z-index: -1; /* Asegura que el fondo esté detrás del cuadro de inicio de sesión */
+    z-index: -1;
   }
   
   .login-box {
-    background-color: rgb(255, 255, 255); /* Fondo blanco semi-transparente */
+    background-color: rgb(255, 255, 255);
     padding: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: left;
@@ -105,12 +102,10 @@ export default {
     margin-bottom: 20px;
     color:rgb(24, 23, 23)
   }
-  
   .email-input {
     position: relative;
     margin-bottom: 20px;
   }
-  
   .input-field {
     width: 100%;
     padding: 10px 0;
@@ -118,9 +113,8 @@ export default {
     border-bottom: 2px solid blue;
     background-color: transparent;
     font-size: 16px;
-    outline: none; /* Elimina el contorno al enfocar */
+    outline: none; 
   }
-  
   .input-line {
     position: absolute;
     bottom: 0;
@@ -129,11 +123,9 @@ export default {
     height: 2px;
     background-color:#0078d4;
   }
-  
   .input-line:hover {
     background-color: grey;
   }
-  
   .submit-button {
     display: inline-block;
     background-color: #0078d4;
@@ -142,35 +134,29 @@ export default {
     text-decoration: none;
     border-radius: 5px;
     margin-top: 20px;
-    margin-bottom: 20px; /* Aumenta el margen inferior */
+    margin-bottom: 20px; 
   }
-  
   .submit-button:hover {
     background-color: #005a9e;
   }
-  
   .back-to-home {
     display: flex;
     align-items: center;
     cursor: pointer;
     color:grey;
   }
-  
   .arrow {
     font-size: 20px;
     margin-right: 5px;
   }
-  
   .text {
     font-size: 14px;
   }
-
   .register-link {
   margin-top: 10px;
   cursor: pointer;
   color: #005a9e;
 }
-
 .register-link:hover {
   color: grey;
 }

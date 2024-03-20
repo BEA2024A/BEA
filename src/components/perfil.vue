@@ -86,6 +86,7 @@ export default {
 }
 
 .perfil {
+  font-family: Arial, sans-serif;
   margin-right: 20px;
   width: 100%; 
   padding: 20px;
@@ -95,7 +96,6 @@ export default {
   position: sticky;
   top: 0;
   text-align: justify;
-  
 }
 
 .perfil p {
@@ -123,8 +123,7 @@ export default {
 
 .comentarios {
   margin-top: 20px; 
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 20px; 
   background-color: #f9f9f9; 
   border: 1px solid #ddd; 
   border-radius: 5px; 

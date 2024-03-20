@@ -3,11 +3,8 @@
       
       <div class="contenido-pagina">
         <router-view></router-view>
-  
         <!-- Calendario -->
         <FullCalendar :options="calendarOptions" :events="calendarEvents" @dateClick="handleDateClick" />
-  
-        
       </div>
     </plantillaPsico>
   </template>
@@ -57,9 +54,7 @@
   </script>
   
   <style scoped>
-
   .contenido-pagina {
     padding: 30px;
   }
-  
   </style>

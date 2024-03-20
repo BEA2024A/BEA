@@ -28,8 +28,7 @@
     },
     methods: {
       submit() {
-        // Aquí puedes agregar la lógica para validar y enviar la contraseña
-        if (this.password === 'contraseña') { // Ejemplo de validación de contraseña
+        if (this.password === 'contraseña') {
           this.$router.push('/');
         } else {
           alert('Contraseña incorrecta');
@@ -45,7 +44,6 @@
         this.$refs.passwordInput.style.cursor = 'text';
       },
       goToHome() {
-        // Redirigir a "/"
         this.$router.push('/iniciosesion');
       }
     }

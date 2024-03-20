@@ -95,7 +95,6 @@
   </script>
   
   <style scoped>
-  /* Barra de Navegación */
   .barra-navegacion {
     display: flex;
     justify-content: space-around;
@@ -108,8 +107,6 @@
   .logo img {
     max-height: 40px;
   }
-  
-  /* Botón Hamburguesa */
   .hamburguesa {
     display: none; 
     cursor: pointer;
@@ -121,13 +118,10 @@
     background-color: white;
     margin: 6px 0;
   }
-  
-  
   @media only screen and (max-width: 600px) {
    .hamburguesa {
       display: block; 
     }
-  
     .secciones-navegacion {
       display: none; 
       flex-direction: column;
@@ -138,11 +132,9 @@
       width: 100%;
       z-index: 1; 
     }
-  
     .mostrar-menu {
       display: flex;
     }
-  
     .enlace-navegacion {
       margin-right: 0;
       padding: 10px;
@@ -151,16 +143,12 @@
       text-decoration: none;
       transition: color 0.3s ease;
     }
-  
     .enlace-navegacion:hover {
       color: #d45c37;
     }
-  
-    
     .boton-inicio-sesion {
       order: -1;
     }
-  
     .boton-inicio-sesion button {
       background-color: #d45c37;
       color: white;
@@ -174,39 +162,30 @@
       border-radius: 5px;
       transition: background-color 0.3s ease;
     }
-  
     .boton-inicio-sesion button:hover {
       background-color: #a03722;
       left: 150px;
     }
-  
     .logo img {
     max-height: 30px;
   }
   }
-  
-  /* Estilos para pantallas más grandes (desktop) */
   @media (min-width: 769px) {
     .hamburguesa {
       display: none; 
     }
-  
     .secciones-navegacion {
       display: flex; 
     }
-  
     .enlace-navegacion {
       margin-right: 30px;
       color: white;
       text-decoration: none;
       transition: color 0.3s ease;
     }
-  
     .enlace-navegacion:hover {
       color: #d45c37;
     }
-  
-    /* Estilo del botón de inicio de sesión en desktop */
     .boton-inicio-sesion button {
       background-color: #d45c37;
       color: white;
@@ -220,51 +199,39 @@
       border-radius: 5px;
       transition: background-color 0.3s ease;
     }
-  
     .boton-inicio-sesion button:hover {
       background-color: #a03722;
     }
   }
-  
-  /* Contenido de la Página */
   .contenido-pagina {
     padding: 10px;
   }
-  
-  /* Pie de Página */
   .pie-pagina {
     background-color: black;
     color: white;
     padding: 30px;
   }
-  
   .contenido-pie {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
   }
-  
-  /* Estilos responsivos para el Pie de Página */
   @media (max-width: 768px) {
     .contenido-pie {
       flex-direction: column; 
     }
   }
-  
   .derecha-pie img {
     max-height: 80px;
   }
-  
   .contacto-pie p {
     margin: 10px;
   }
-  
   .botones-pie {
     display: flex;
     flex-direction: column;
   }
-  
   .boton-pie {
     background-color: #000000;
     color: white;
@@ -274,7 +241,6 @@
     border-radius: 5px;
     margin-bottom: 10px;
   }
-  
   .botones-sociales-pie img {
     max-height: 35px;
     margin-right: 5px;
@@ -286,8 +252,7 @@
     padding: 0;
     cursor: pointer;
   }
-  
-  /* Pantallas pequeñas (móviles) */
+
   @media only screen and (max-width: 600px) {
     
   }

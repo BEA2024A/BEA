@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     
-    <!-- Otros elementos de tu aplicación -->
     <router-view></router-view>
     
   </div>
@@ -9,7 +8,6 @@
 
 <script>
 export default {
-  // Lógica de tu componente App.vue
 }
 </script>
 

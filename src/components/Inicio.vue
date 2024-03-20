@@ -7,14 +7,12 @@
       <section class="banner-bienvenida">
         <img :src="bannerActual" width="1800" alt="Banner de Bienvenida">
       </section>
-      <!-- Sección de Método de Trabajo -->
       <section class="seccion-metodo">
         <div v-for="(item, index) in itemsMetodo" :key="index" class="item-metodo" @click="abrirEnlace(item.link)">
           <img :src="item.imagen" alt="Método de Trabajo">
           <div class="descripcion-metodo">{{ item.descripcion }}</div>
         </div>
       </section>
-      <!-- Sección de Psicólogos Asociados -->
       <section class="seccion-psicologos">
         <h1>Psicólogos Asociados</h1>
         <div class="profile-cards">
@@ -31,7 +29,6 @@
     </div>
   </plantilla>
 </template>
-
 
 <script>
 import Plantilla from './plantilla.vue';
@@ -63,8 +60,6 @@ export default {
         { nombre: 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', puesto: 'PSIQUIATRIA DE ENLACE', perfil: '/ps1', imagen: 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png'},
         { nombre: 'DR. JORGE LUIS CORTÉS LÓPEZ', puesto: 'PSIQUIATRIA DE ENLACE', perfil: '/ps1', imagen: 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png'},
         { nombre: 'DR. VIRGILIO SANTIAGO LÓPEZ', puesto: 'TERAPIA COGNITIVO CONDUCTUAL', perfil: '/ps1', imagen: 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png'},
-        
-        // Agrega más psicólogos según sea necesario
       ],
       temporizadorBanner: null,
     };
@@ -104,7 +99,6 @@ export default {
 };
 </script>
 <style scoped>
-  /* Banner de Bienvenida */
   .banner-bienvenida {
     text-align: center;
     margin-top: 20px;
@@ -115,8 +109,6 @@ export default {
     height: auto;
     box-shadow: 0 4px 8px rgba(194, 160, 160, 0.1);
   }
-
-  /* Método de Trabajo */
   .seccion-metodo {
     display: flex;
     flex-wrap: wrap;
@@ -159,14 +151,11 @@ export default {
   .item-metodo:hover .descripcion-metodo {
     opacity: 1;
   }
-
-  /* Sección de Psicólogos Asociados */
   .seccion-psicologos {
     text-align: center;
     margin-top: 100px;
     margin-bottom: 50px;
   }
-
   .seccion-psicologos h1 {
     font-size:28px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
@@ -176,14 +165,12 @@ export default {
    border-radius: 5px;
    margin-left: 10px;
   }
-
   .profile-cards {
     display: flex;
     justify-content:center;
     flex-wrap: wrap;
     background-color: rgba(0, 0, 0, 0.089);
   }
-
   .card {
     max-width: 300px;
     margin: 25px;
@@ -191,17 +178,14 @@ export default {
     transition: transform 0.3s ease;
     position: relative;
   }
-
   .card:hover {
     transform: scale(1.02);
   }
-
   .card img {
     width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
-
   .descripcion-psicologo {
     position: absolute;
     bottom: 0;
@@ -214,16 +198,13 @@ export default {
     transition: opacity 0.3s ease;
     opacity: 0;
   }
-
   .mostrar-descripcion {
     opacity: 1;
   }
-
   .title {
     color: grey;
     font-size: 18px;
   }
-
   button {
     border: none;
     outline: 0;
@@ -236,14 +217,10 @@ export default {
     width: 100%;
     font-size: 18px;
   }
-
   button:hover,
   a:hover {
     opacity: 0.7;
   }
-
-
- /* Pantallas pequeñas (móviles) */
 @media only screen and (max-width: 600px) {
   .item-metodo {
     width: 100%;
@@ -252,15 +229,11 @@ export default {
     width: 350px;
     height: 200px;
   }
-
   .card {
     max-width: calc(50% - 30px); 
     margin: 15px;
   }
 }
-
-
-  /* Pantallas medianas (tabletas) */
   @media only screen and (min-width: 601px) and (max-width: 1024px) {
     .item-metodo img {
       width: 250px;
@@ -272,6 +245,4 @@ export default {
     margin: 15px;
   }
   }
-
-  
 </style>

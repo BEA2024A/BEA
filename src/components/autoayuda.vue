@@ -103,7 +103,6 @@ export default {
     };
   },
   mounted() {
-    // Agregar un retraso de 3 segundos antes de hacer scroll down
     setTimeout(() => {
       window.scrollBy({
         top: window.innerHeight,
@@ -136,12 +135,10 @@ export default {
 
 
 <style scoped>
-/* Contenido de la Página */
 .contenido-pagina {
   padding: 10px;
 }
 
-/* Estilos para la sección de Autoayuda */
 .banner-autoayuda {
   position: relative;
   margin-top: 0px;
@@ -196,7 +193,6 @@ export default {
   }
 }
 
-/* Método de Trabajo */
 .sintomas-metodo {
   position: absolute;
   top: 50%;
@@ -276,7 +272,6 @@ export default {
   }
 }
 
-/* Pantallas medianas (tabletas) */
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
   .item-metodo img {
     width: 350px;

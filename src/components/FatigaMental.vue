@@ -13,7 +13,6 @@
           <h1>FATIGA MENTAL</h1>
         </div>
       </section>
-      <!-- Sección "¿Qué es la ansiedad?" -->
       <section class="seccion-ansiedad">
         <div class="ansiedad-info">
           <div class="texto-ansiedad">
@@ -30,32 +29,24 @@
           </div>
         </div>
       </section>
-      <!-- Sección "Sesiones que podrían ayudarte" -->
       <section class="sesiones-ayuda">
         <div class="sesiones-titulo">
           <h2>Sesiones que podrían ayudarte</h2>
         </div>
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <!-- Slide 1 -->
             <div class="swiper-slide">
               <iframe width="100%" height="315" src="https://www.youtube.com/embed/LE2tlZLmzG4?si=XESO68vyLhp42Ccn" frameborder="0" allowfullscreen></iframe>
             </div>
-            <!-- Slide 2 -->
             <div class="swiper-slide">
               <iframe width="100%" height="315" src="https://www.youtube.com/embed/lAXdkk6O2Nc?si=wg9oUUGpRsutaPSR" frameborder="0" allowfullscreen></iframe>
             </div>
-
-            <!-- Slide 3 -->
             <div class="swiper-slide">
               <iframe width="100%" height="315" src="https://www.youtube.com/embed/nAR2PUPyH1I?si=B3_yOEwBT7iaV50K" frameborder="0" allowfullscreen></iframe>
             </div>
           </div>
-          
         </div>
       </section>
-
-      
     </div>
   </plantilla>
 </template>
@@ -68,12 +59,9 @@ export default {
   },
   data() {
     return {
-     
-      
     };
   },
   mounted() {
-    // Agregar un retraso de 3 segundos antes de hacer scroll down
     setTimeout(() => {
       window.scrollBy({
         top: window.innerHeight,
@@ -103,8 +91,6 @@ export default {
 </script>
 
 <style scoped>
-
-/* Estilos para la sección de Autoayuda */
 .banner-autoayuda {
 position: relative;
 text-align: center;
@@ -148,7 +134,6 @@ to {
   opacity: 1;
 }
 }
-/* Estilos para la sección de Ansiedad */
 .seccion-ansiedad {
   background-color: #e6e3e3;
   overflow: hidden;
@@ -176,7 +161,6 @@ to {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-/* Pie de Página */
 .pie-pagina {
   background-color: black;
   color: white;

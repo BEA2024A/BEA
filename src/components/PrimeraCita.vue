@@ -33,19 +33,15 @@ export default {
           this.textoActual = this.listaDeTextos[this.indiceDeTexto];
           this.indiceDeTexto++;
         }
-  
-        // tiempo
         setTimeout(this.cambiarTexto, 3000);
       },
       redirigirAFormulario() {
-        // Busca si el clic se realizó en el elemento enlace
         if (event.target.classList.contains('enlace')) {
           this.$router.push('/FormsPrimeraCita');
         }
       },
     },
     mounted() {
-      // cambio de texto
       this.cambiarTexto();
     },
   };
@@ -67,13 +63,11 @@ export default {
     opacity: 0;
     animation: aparecer 1s forwards;
     font-style: italic;
-    cursor: pointer; /* Añadido cursor de puntero para indicar que es un enlace */
+    cursor: pointer;
   }
-  
   .texto-centrado.animado {
     animation: aparecer 1s forwards;
   }
-  
   @keyframes aparecer {
     to {
       opacity: 1;
