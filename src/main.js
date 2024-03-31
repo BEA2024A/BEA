@@ -1,7 +1,9 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router'; // Importa tu archivo de configuración del enrutador
+import router from './router';
+import store from './store/store'; 
 
-const app = createApp(App);
-app.use(router);
-app.mount('#app'); // Utiliza la cadena de caracteres '#' en lugar de la sintaxis de etiquetas HTML
+const app = createApp(App)
+  .use(store)
+  .use(router)
+  .mount('#app');

@@ -88,6 +88,7 @@ export default {
         alert('Las contraseñas no coinciden');
         return;
       }
+      // Preparar los datos para enviar al servidor
       const formData = new FormData();
       formData.append('ID_ALUMNO', this.id);
       formData.append('NOMBRE', this.nombre);
@@ -96,17 +97,26 @@ export default {
       formData.append('CORREO', this.email);
       formData.append('CONTRASEÑA', this.password);
 
+      // Enviar la petición al servidor
       axios.post('http://localhost/BEA/back/registro.php', formData)
         .then(response => {
-          console.log(response.data);
-          this.$router.push('/iniciosesion');
+          // Manejar la respuesta del servidor
+          if (response.data === "El ID ya está registrado. Por favor, inicia sesión con tu cuenta." ||
+              response.data === "El correo ya está en uso con otra cuenta.") {
+            alert(response.data);
+          } else if (response.data === "Registro exitoso") {
+            // Registro exitoso
+            this.$router.push('/iniciosesion');
+          } else {
+            // Otros mensajes del servidor
+            alert("Error desconocido: " + response.data);
+          }
         })
         .catch(error => {
-          console.error(error);
-        })
-        .finally(() => {
-    this.$router.push('/iniciosesion');
-  });   
+          // Error en la petición
+          console.error('Error en la petición:', error);
+          alert('Ocurrió un error al realizar el registro.');
+        });
     },
     hideBottomBorder() {
       this.$refs.emailInput.style.borderBottom = 'none';
@@ -125,12 +135,25 @@ export default {
 </script>
 
   <style scoped>
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Opacidad inicial */
+  }
+  to {
+    opacity: 1; /* Opacidad final */
+  }
+}
+
+
+
   .login-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    animation: fadeIn 1s ease forwards;
   }
   
   .background-image {
@@ -139,7 +162,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("https://i.postimg.cc/N0L2dw5v/Captura-de-pantalla-2024-03-12-213903.png");
+    background-image: url("https://i.postimg.cc/RCgngn7k/fondo-sesion.png");
     background-size: cover;
     z-index: -1;
   }

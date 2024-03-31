@@ -21,7 +21,7 @@
             <div class="descripcion-psicologo" :class="{ 'mostrar-descripcion': psicologo.mostrarDescripcion }">
               <h3>{{ psicologo.nombre }}</h3>
               <p class="title">{{ psicologo.puesto }}</p>
-              <p><button @click="redirigirPerfil(psicologo.perfil)">Ir al perfil</button></p>
+              <p><button @click="redirigirPerfil(psicologo.perfil)">Perfil</button></p>
             </div>
           </div>
         </div>
@@ -99,6 +99,18 @@ export default {
 };
 </script>
 <style scoped>
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px); 
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
   .banner-bienvenida {
     text-align: center;
     margin-top: 20px;
@@ -120,7 +132,8 @@ export default {
     margin-top: 20px;
     margin-bottom: 20px;
     overflow: hidden;
-    transition: transform 0.3s ease, filter 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;  
+    cursor: pointer;
   }
   .item-metodo:hover {
     transform: scale(1.02);
@@ -153,56 +166,83 @@ export default {
   }
   .seccion-psicologos {
     text-align: center;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+   background-color:#ff5900 ;
+    border: 1px;
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 30px; /* Espaciado interno */
+   height: auto;
+   width: auto;
   }
+
+
   .seccion-psicologos h1 {
-    font-size:28px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
-   background-color: rgba(240, 248, 255, 0.603);
-   display: inline-block;
-   padding: 10px 20px;
-   border-radius: 5px;
-   margin-left: 10px;
+    font-size: 28px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: rgba(240, 248, 255, 0.788);
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: font-size 0.3s, background-color 0.3s;
   }
+  .seccion-psicologos h1:hover {
+    font-size: 32px; 
+    background-color: rgba(240, 248, 255, 1); 
+  }
+
   .profile-cards {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.089);
+    background-color:rgba(0, 0, 0, 0.26);
+    padding-top: 20px;
+    padding-bottom: 20px;
+
   }
+
   .card {
     max-width: 300px;
     margin: 25px;
     text-align: center;
     transition: transform 0.3s ease;
     position: relative;
+    padding: 10px;
+    
   }
   .card:hover {
     transform: scale(1.02);
   }
   .card img {
-    width: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.521);
+    width: 100%;
+  height: 300px; /* Establece una altura fija para las imágenes */
+  object-fit: cover; /* Mantiene la relación de aspecto sin distorsionar la imagen */
+  animation: slideIn 1s ease forwards;
   }
   .descripcion-psicologo {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(19, 17, 17, 0.9);
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     transition: opacity 0.3s ease;
     opacity: 0;
+    color :aliceblue;
   }
   .mostrar-descripcion {
     opacity: 1;
   }
   .title {
-    color: grey;
+    color: rgba(255, 255, 255, 0.815);
     font-size: 18px;
   }
   button {
@@ -211,38 +251,15 @@ export default {
     display: inline-block;
     padding: 8px;
     color: white;
-    background-color: #000000;
+    background-color: #fcfcfc;
     text-align: center;
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+    color:black;
   }
   button:hover,
   a:hover {
     opacity: 0.7;
-  }
-@media only screen and (max-width: 600px) {
-  .item-metodo {
-    width: 100%;
-  }
-  .item-metodo img {
-    width: 350px;
-    height: 200px;
-  }
-  .card {
-    max-width: calc(50% - 30px); 
-    margin: 15px;
-  }
-}
-  @media only screen and (min-width: 601px) and (max-width: 1024px) {
-    .item-metodo img {
-      width: 250px;
-      height: 200px;
-    }
-
-    .card {
-    max-width: calc(50% - 30px); 
-    margin: 15px;
-  }
   }
 </style>

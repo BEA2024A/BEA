@@ -1,12 +1,12 @@
 <template>
   <plantilla>
     <div class="contenido-pagina">
-      <!-- Cabecera -->
-      <div class="cabecera">
+      <!-- Cabecera con animación de aparición -->
+      <div class="cabecera" v-if="loaded">
         <!-- Lado izquierdo: Nombre y especialidad -->
-        <div class="info-izquierda">
+        <div class="info-izquierda" ref="infoIzquierda">
           <h1>{{ informacion.nombre }}</h1>
-          <h3>{{ informacion.especialidad }}</h3>
+          <h3>{{ informacion.tipo }}</h3>
           <div class="contacto">
             <img src="https://cdn.icon-icons.com/icons2/1993/PNG/512/direction_gps_location_map_maps_navigation_pin_icon_123198.png" alt="Icono de Ubicación">
             <a href="https://maps.app.goo.gl/2FA8ovzMAt5UbWrM9" target="_blank"><p>{{ informacion.direccion }}</p></a>
@@ -16,14 +16,20 @@
           <p>{{ informacion.modalidad }}</p>
         </div>
         <!-- Lado derecho: Imagen en círculo con sombra naranja -->
-        <div class="imagen-derecha">
+        <div class="imagen-derecha" ref="imagenDerecha">
           <div class="circulo-con-sombra">
             <img :src="imagenPsicologo[0]" alt="Imagen del psicoterapeuta">
           </div>
         </div>
+
+        <!-- Botón de scroll-down con el icono proporcionado -->
+        <button class="boton-scroll" @click="scrollDown">
+          <img class="icono-scroll" src="https://cdn-icons-png.freepik.com/512/9923/9923629.png" alt="Icono de scroll-down">
+        </button>
       </div>
-      <!-- Información del psicoterapeuta -->
-      <div class="informacion-psicoterapeuta">
+
+      <!-- Información del psicoterapeuta con animación de aparición -->
+      <div class="informacion-psicoterapeuta" v-if="loaded" ref="informacionPsicoterapeuta">
         <div class="trabajo">
           <div class="columna-izquierda">
             <h3>ESPECIALIDAD</h3>
@@ -33,18 +39,15 @@
           </div>
           <div class="columna-derecha">
             <h3>FORMACIÓN ACADÉMICA</h3>
-            <div v-html="formatFormacion(informacion.formacion)" ></div>
+            <div v-html="formatFormacion(informacion.formacion)"></div>
           </div>
         </div>
       </div>
       <!-- Botón Regresar al inicio -->
-      <router-link to="/" class="boton-regresar">Regresar al inicio</router-link>
+      <router-link to="/" class="boton-regresar" v-if="loaded">Regresar al inicio</router-link>
     </div>
   </plantilla>
 </template>
-
-
-
 
 <script>
 import Plantilla from '../plantilla.vue';
@@ -61,19 +64,33 @@ export default {
       ],
       informacion: {
         nombre: 'DRA. ELVIRA GOPAR CANSECO',
-        especialidad: 'TERAPIA HUMANISTA',
+        tipo: 'TERAPIA HUMANISTA',
         telefono: '951 109 63 72',
-        whatsapp: '549511096372',
-        direccion: 'Independencia 305, interior 105. Casi esquina con Crespo, Centro.',
+       
+        especialidad:'Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica, tallerista y conferencista.',
+        direccion: 'Independencia 305, interior 105',
         poblacion: 'Niños, adolescentes, adultos y pareja.',
         formacion: 'Licenciada en Psicología. Cédula Profesional: 6092318\nMaestría en Psicoterapia Humanista. Cédula Profesional: 9475952\nMaestría en Sexualidad Humana. Cédula Profesional: 12274318\nDoctorado en Psicología, por el Instituto Universitario Carl Rogers, Puebla.',
         modalidad: 'Presencial / Virtual'
-      }
+      },
+      loaded: false, // Indicador de carga de la página
     };
+  },
+  mounted() {
+    // Establecer un retraso para simular la carga de la página
+    setTimeout(() => {
+      this.loaded = true;
+    }, 500);
   },
   methods: {
     formatFormacion(formacion) {
       return formacion.split('\n').map(parrafo => `<p>${parrafo}</p>`).join('');
+    },
+    scrollDown() {
+      window.scrollBy({
+        top: window.innerHeight, // Cantidad de desplazamiento (una ventana completa)
+        behavior: 'smooth' // Efecto de desplazamiento suave
+      });
     }
   } 
 };
@@ -82,13 +99,42 @@ export default {
 
 
 <style scoped>
-/* Estilos para la cabecera */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Opacidad inicial */
+  }
+  to {
+    opacity: 1; /* Opacidad final */
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px); /* Por ejemplo, deslizamiento desde arriba */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce{
+  0% {transform: translateY(0);}
+  40%{transform: translateY(-20px);}
+  60%{transform: translateY(-10px);}
+  80%{transform: translateY(-20px);}
+  100%{transform: translateY(0);}
+}
+
+
 .cabecera {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 200px;
+  height: 100vh; /* Ajusta la altura al 100% del viewport */
+  
 }
 
 .cabecera::before {
@@ -98,16 +144,22 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://media.licdn.com/dms/image/C4D12AQEKxoyM6Eh4TQ/article-cover_image-shrink_720_1280/0/1638387238044?e=2147483647&v=beta&t=RR7sSnAFIBtbK39vAQZx7ilT02ZCeZJsfOd9VLh1eYw');
+  background-image: url('https://subjetivamente.cl/wp-content/uploads/2022/11/woman-g47b5f01f3_1920.jpg');
   background-size: cover;
   background-position: center;
   filter: brightness(0.5); /* Se aplica el filtro de oscuridad solo a la imagen de fondo */
 }
 
 /* Estilos para el contenido dentro de la cabecera */
-.info-izquierda,
+.info-izquierda{
+  z-index: 1; /* Asegura que el contenido esté sobre la imagen de fondo */
+  margin: 0 auto; /* Centra horizontalmente los elementos */
+  animation: slideIn 1s ease forwards; /* Animación de aparición */
+}
 .imagen-derecha {
   z-index: 1; /* Asegura que el contenido esté sobre la imagen de fondo */
+  margin: 0 auto; /* Centra horizontalmente los elementos */
+  animation: slideIn 1s ease forwards;
 }
 
 .info-izquierda h1 {
@@ -146,12 +198,50 @@ export default {
   object-fit: cover; /* Ajusta la imagen para cubrir el círculo */
 }
 
+.boton-scroll {
+  position: absolute;
+  bottom: 120px; /* Distancia desde la parte inferior */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translateX(-50%); /* Centrar horizontalmente */
+  right: 50%; 
+  transform: translateY(-50%); /* Centrar horizontalmente */
+  background-color: rgba(240, 248, 255, 0.603); /* Color de fondo */
+  border: none; /* Sin borde */
+  border-radius: 50%; /* Botón circular */
+  width: 60px; /* Ancho del botón */
+  height: 60px; /* Altura del botón */
+  font-size: 24px; /* Tamaño del ícono */
+  color: #000; /* Color del ícono */
+  cursor: pointer; /* Cursor de puntero al pasar sobre el botón */
+  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  transition: transform 0.3s;
+  animation: fadeIn 5s ease forwards;
+  animation: bounce 2s infinite;
+}
+.icono-scroll {
+  margin-top: 3px;
+  width: 40px; /* Tamaño del icono */
+  height: 40px; /* Tamaño del icono */
+  transition: transform 0.3s;
+}
+
+.icono-scroll:hover{
+  transform: scale(1.2);
+}
+
+.boton-scroll:hover {
+  background-color: rgba(200, 220, 255, 0.8); /* Color de fondo al pasar el cursor */
+  transform: scale(1.2);
+}
+
+/* Estilos para el ícono dentro del botón */
+
 /* Estilos para la información del psicoterapeuta */
 .informacion-psicoterapeuta {
-  margin-top: 40px; /* Aumenta el margen superior */
+  margin-top: 80px; /* Aumenta el margen superior */
   margin-bottom: 100px; /* Aumenta el margen inferior */
   padding: 20px; /* Aumenta el espacio interno */
-  color: #333; /* Cambio de color del texto a un tono más oscuro */
+  color: #000000; /* Cambio de color del texto a un tono más oscuro */
   font-size: 18px; /* Aumenta el tamaño de la fuente */
 }
 
@@ -175,7 +265,7 @@ export default {
   color:aliceblue;
   text-decoration: none;
   margin-block: 10px;
-  margin-inline-end: 10px;
+  margin-inline-end: 90px;
 }
 
 
@@ -223,7 +313,7 @@ export default {
   text-decoration: none;
   border-radius: 5px;
   margin-top: 20px;
-  margin-bottom: 20px; /* Aumenta el margen inferior */
+  margin-bottom: 60px; /* Aumenta el margen inferior */
 }
 
 .boton-regresar:hover {

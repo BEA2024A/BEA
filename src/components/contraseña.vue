@@ -65,7 +65,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("https://i.postimg.cc/N0L2dw5v/Captura-de-pantalla-2024-03-12-213903.png");
+    background-image: url("https://i.postimg.cc/RCgngn7k/fondo-sesion.png");
     background-size: cover;
     z-index: -1;
   }
@@ -126,23 +126,18 @@
   }
   
   .submit-button {
-    position: absolute;
-    bottom: 30px;
-    right: 0px;
+    display: inline-block;
     background-color: #0078d4;
     color: white;
-    padding: 10px 10px;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px; 
   }
-  
   .submit-button:hover {
     background-color: #005a9e;
   }
-  
   .back-to-home {
     display: flex;
     align-items: center;

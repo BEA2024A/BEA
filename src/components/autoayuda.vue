@@ -1,5 +1,4 @@
 <template>
-
   <plantilla>
     <!-- Contenido de la Página -->
     <div class="contenido-pagina">
@@ -12,30 +11,75 @@
         </div>
         <div class="titulo-autoayuda">
           <h1>AUTOAYUDA</h1>
-          <p>Elige el caso con el que más te identifiques</p>
+          <p>El cambio empieza por ti</p>
+        </div>
+        <!-- Botón de scroll-down -->
+        <button class="boton-scroll" @click="scrollDown">
+          <img class="icono-scroll" src="https://cdn-icons-png.freepik.com/512/9923/9923629.png" alt="Icono de scroll-down">
+        </button>
+      </section>
+
+   <!-- Sección de Blog -->
+   <section class="seccion-blog">
+        <div class="titulo-blog">
+          <h3>Descubre artículos y consejos para mejorar tu bienestar</h3>
+        </div>
+        <div class="contenedor-entradas">
+          <div class="entrada-blog" v-for="(entrada, index) in entradasBlog" :key="index">
+            <h3>{{ entrada.titulo }}</h3>
+            <a :href="entrada.link" target="_blank">
+              <img :src="entrada.imagen" alt="Imagen de entrada de blog">
+            </a>
+            <p>{{ entrada.contenido }}</p>
+          </div>
         </div>
       </section>
 
-      <!-- Sección de Método de Trabajo -->
-    <section class="seccion-metodo">
-      <div
-        v-for="(item, index) in itemsMetodo"
-        :key="index"
-        class="item-metodo"
-        @click="abrirEnlace(item.link)"
-        @mouseover="mostrarSintomas(item)"
-        @mouseleave="ocultarSintomas"
-      >
-        <img :src="item.imagen" alt="Método de Trabajo">
-        <div class="descripcion-metodo" v-if="!item.mostrarSintomas">{{ item.descripcion }}</div>
-        <div class="sintomas-metodo" v-if="item.mostrarSintomas">
-          <ul>
-            <li v-for="(sintoma, i) in item.sintomas" :key="i">{{ sintoma }}</li>
-          </ul>
+    <!-- Sección de Videos de Meditación -->
+<section class="seccion-videos">
+  <div class="titulo-videos">
+    <h2>Relájate con estos videos de meditación</h2>
+    <div class="contenedor-videos">
+      <div class="video" v-for="(video, index) in videos" :key="index">
+        <div class="video-overlay-btn">
+          <button class="open-video-btn" @click="openVideo(index)"></button>
         </div>
-      </div>
-    </section>
+  <iframe width="560" height="315" :src="video.link" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+  </div>
+</section>
+
+<!-- Cuadro de superposición para el video -->
+<div class="video-overlay" v-if="showVideo">
+  <div class="video-container">
+    <iframe width="1080" height="720" :src="currentVideoLink" frameborder="0" allowfullscreen></iframe>
+    <button class="close-video-btn" @click="closeVideo">
+    <img class="icono-cerrar" src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png">
+    </button>
+  </div>
+</div>
   
+<!-- Sección de Mensaje e Opciones -->
+<section class="seccion-opciones">
+  <div class="mensaje-importante">
+    <h1>Recueda que trabajar contigo mismo es importante</h1>
+    <p>en BEA nos queremos apoyarte a hacerlo</p>
+  </div>
+  <div class="opciones">
+    <div class="opcion">
+      <router-link to="/PrimeraCita">
+        <button class="boton-opcion">Agenda tu primera cita</button>
+      </router-link>
+    </div>
+    <div class="opcion">
+      <router-link to="/Seguimiento">
+        <button class="boton-opcion">Administra tu seguimiento</button>
+      </router-link>
+    </div>
+  </div>
+</section>
+
     </div>
   </plantilla>
 </template>
@@ -49,140 +93,91 @@ export default {
   },
   data() {
     return {
-      itemsMetodo: [
-        { 
-          link: '/Ansiedad',
-          imagen: 'https://clicandpost.com/wp-content/uploads/2021/02/young-woman-is-depressed-on-white-bed-scaled-1.jpg',
-          descripcion: 'Ansiedad',
-          sintomas: [
-            'Tienes preocupación excesiva.',
-            'Sientes inquietud o nerviosismo.',
-            'Te dan palpitaciones, sudoración o temblores.',
-            'Llegas a tener dificultad para respirar.',
-            'Problemas para conciliar el sueño.'
-          ],
-          mostrarSintomas: false,
+      showVideo: false,
+      currentVideoIndex: null,
+      entradasBlog: [
+        {
+          titulo: 'Consejos para manejar el estrés diario',
+          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
+          imagen: 'https://blogs.ucontinental.edu.pe/wp-content/uploads/2021/05/los-libros-de-autoayuda-realmente-nos-ayudan-especialista-responde-universidad-continental-2.jpg',
+          link: 'https://medlineplus.gov/spanish/ency/article/001942.htm#:~:text=Pasar%20tiempo%20con%20familiares%20y,claridad%20y%20a%20tener%20m%C3%A1s%20energ%C3%ADa.'
         },
-        { 
-          link: '/Estres',
-          imagen: 'https://staticnew-prod.topdoctors.cl/files/Image/large/6352d12da0b186ad8dd0b6810704aa56.jpg',
-          descripcion: 'Estrés',
-          sintomas: [
-            ' Sientes fatiga o agotamiento.',
-            ' Te duele el cuerpo.',
-            'Te cuesta concentrarte.',
-            'Cambios en tus patrones de sueño.'
-          ],
-          mostrarSintomas: false,
+        {
+          titulo: 'Cómo superar la ansiedad en tiempos difíciles',
+          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
+          imagen: 'https://leccionamexico.b-cdn.net/wp-content/uploads/2022/03/cursos-de-autoayuda-y-superacion-personal.jpg',
+          link: 'https://www.funespana.es/controlar-la-ansiedad/'
         },
-        { 
-          link: '/Depresion',
-          imagen: 'https://www.huelvainformacion.es/2023/07/15/vivir_en_huelva/joven-muestra-tristeza-junto-ventana_1811529230_188959071_667x375.jpg',
-          descripcion: 'Depresión',
-          sintomas: [
-            'Te sientes triste de manera persistente.',
-            'Pierdes de interés en actividades que te gustan.',
-            'Cambios en tu apetito o peso.',
-            'Sientes problemas para conciliar el sueño o duermes en exceso.'
-          ],
-          mostrarSintomas: false,
+        {
+          titulo: 'Mejora tu bienestar emocional en 5 pasos',
+          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
+          imagen: 'https://www.artiemhotels.com/uploads/c391546e-6280-4324-a195-e056a018e5eb/c391546e-6280-4324-a195-e056a018e5eb.png',
+          link: 'https://terapygo.com/5-pasos-para-el-bienestar-mental/'
         },
-        { 
-          link: '/FatigaMental',
-          imagen: 'https://aramanatural.es/wp-content/uploads/2021/01/fatiga-mental.jpg',
-          descripcion: 'Fatiga Mental',
-          sintomas: [
-            'Te sientes agotado.',
-            'Se te dificulta concentrarte.',
-            'Sensación de falta de energía cognitiva.',
-            'Sientes que no puedes para manejar el estrés mental.'
-          ],
-          mostrarSintomas: false,
-        },
+        
+        
       ],
+      videos: [
+        {
+          titulo: 'Meditación para la calma interior',
+          link: 'https://www.youtube.com/embed/SR5tBmzZoCY?si=vmANM3IEjoQlxvN8'
+        },
+        {
+          titulo: 'Meditación guiada para reducir el estrés',
+          link: 'https://www.youtube.com/embed/aBsnQjJ2_Nk?si=hGQTbWtlZiw8TAde'
+        },
+        {
+          titulo: 'Meditación guiada para reducir el estrés',
+          link: 'https://www.youtube.com/embed/FReFf1CLf-c?si=fx9loaMXf4z059R7'
+        },
+        
+
+        // Agrega más videos según necesites
+      ],
+
+      
     };
-  },
-  mounted() {
-    setTimeout(() => {
-      window.scrollBy({
-        top: window.innerHeight,
-        behavior: 'smooth',
-      });
-    }, 3000);
+
+    
   },
   methods: {
-    abrirEnlace(url) {
-      window.location.href = url;
-    },
-    mostrarSintomas(item) {
-      this.itemsMetodo.forEach((otherItem) => {
-        if (otherItem !== item) {
-          otherItem.mostrarSintomas = false;
-        }
+    scrollDown() {
+      window.scrollBy({
+        top: window.innerHeight, // Cantidad de desplazamiento (una ventana completa)
+        behavior: 'smooth' // Efecto de desplazamiento suave
       });
-      item.mostrarSintomas = true;
     },
-    ocultarSintomas() {
-      this.itemsMetodo.forEach((item) => {
-        item.mostrarSintomas = false;
-      });
+    openVideo(index) {
+      // Muestra el cuadro de superposición y carga el enlace del video correspondiente
+      this.showVideo = true;
+      this.currentVideoIndex = index;
+    },
+    closeVideo() {
+      // Oculta el cuadro de superposición
+      this.showVideo = false;
+      this.currentVideoIndex = null;
+    },
+    getYouTubeId(link) {
+      // Implementa la lógica para extraer el ID de video de un enlace de YouTube
+      // Por ejemplo, si el enlace es "https://www.youtube.com/embed/SR5tBmzZoCY?si=vmANM3IEjoQlxvN8"
+      // Devolvería "SR5tBmzZoCY"
+    },
+  },
+  computed: {
+    currentVideoLink() {
+      // Obtiene el enlace del video actualmente seleccionado
+      if (this.currentVideoIndex !== null && this.videos[this.currentVideoIndex]) {
+        return this.videos[this.currentVideoIndex].link;
+      }
+      return '';
     },
   },
 };
 </script>
 
-
-
-
 <style scoped>
-.contenido-pagina {
-  padding: 10px;
-}
 
-.banner-autoayuda {
-  position: relative;
-  margin-top: 0px;
-}
 
-.fondo-autoayuda {
-  overflow: hidden;
-  max-width: 1920px;
-  margin: 0;
-  border-radius: 0px;
-}
-
-.fondo-autoayuda img {
-  max-width: 100%;
-  height: auto;
-  filter: brightness(50%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.fondo-autoayuda:hover img {
-  filter: brightness(30%);
-}
-
-.titulo-autoayuda {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-align: center;
-}
-
-.titulo-autoayuda h1 {
-  font-size: 50px;
-  margin: 0;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-}
-
-.titulo-autoayuda p {
-  font-size: 18px;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards 0.5s;
-}
 
 @keyframes fadeIn {
   from {
@@ -193,104 +188,324 @@ export default {
   }
 }
 
-.sintomas-metodo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-weight: bold;
-  text-align: justify;
-  width: 80%;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px); /* Por ejemplo, deslizamiento desde arriba */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.seccion-metodo {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 20px;
+@keyframes bounce{
+  0% {transform: translateY(0);}
+  40%{transform: translateY(-20px);}
+  60%{transform: translateY(-10px);}
+  80%{transform: translateY(-20px);}
+  100%{transform: translateY(0);}
 }
 
-.item-metodo {
+.banner-autoayuda {
   position: relative;
-  text-align: center;
-  margin-bottom: 20px;
-  overflow: hidden;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  height: 100vh; /* Se ajusta a la altura total del viewport */
+  margin-top: 0px;
 }
 
-.item-metodo:hover {
-  transform: scale(1.05);
+.fondo-autoayuda {
+  overflow: hidden; /* Se asegura de que la imagen no se desborde */
 }
 
-.item-metodo img {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  width: 400px;
-  height: 600px;
+.fondo-autoayuda img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 10px;
   filter: brightness(50%);
-  transition: filter 0.3s;
-  animation: fadeIn 7s ease forwards;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.item-metodo:hover img {
-  filter: brightness(20%);
-}
 
-.descripcion-metodo {
+
+.titulo-autoayuda {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  font-weight: bold;
   text-align: center;
-  width: 80%;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+  z-index: 1; /* Asegura que el texto esté sobre la imagen de fondo */
 }
 
-.item-metodo:hover .descripcion-metodo {
-  opacity: 1;
+
+.titulo-autoayuda h1 {
+  font-size: 50px;
+  margin: 0;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+.titulo-autoayuda p {
+  font-size: 18px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 0.5s;
 }
 
-@media only screen and (max-width: 600px) {
-  .item-metodo {
-    width: 100%; 
-  }
-  .item-metodo img {
-    width: 300px; 
-    height: 500px;
-  }
-
-  .sintomas-metodo{
-    font-size: 10px;
-  }
+.boton-scroll {
+  position: absolute;
+  bottom: 120px; /* Distancia desde la parte inferior */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translateX(-50%); /* Centrar horizontalmente */
+  right: 50%; 
+  transform: translateY(-50%); /* Centrar horizontalmente */
+  background-color: rgba(240, 248, 255, 0.603); /* Color de fondo */
+  border: none; /* Sin borde */
+  border-radius: 50%; /* Botón circular */
+  width: 60px; /* Ancho del botón */
+  height: 60px; /* Altura del botón */
+  font-size: 24px; /* Tamaño del ícono */
+  color: #000; /* Color del ícono */
+  cursor: pointer; /* Cursor de puntero al pasar sobre el botón */
+  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  transition: transform 0.3s;
+  animation: bounce 2s infinite;
+}
+.icono-scroll {
+  margin-top: 3px;
+  width: 40px; /* Tamaño del icono */
+  height: 40px; /* Tamaño del icono */
+  transition: transform 0.3s;
 }
 
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
-  .item-metodo img {
-    width: 350px;
-    height: 400px;
-
-  }
+.icono-scroll:hover{
+  transform: scale(1.2);
 }
 
-@media screen and (max-width: 768px) {
-  .titulo-autoayuda h1 {
-    font-size: 40px;
-  }
-
-  .titulo-autoayuda p {
-    font-size: 16px;
-  }
-
-  .item-metodo {
-    width: 100%;
-  }
+.boton-scroll:hover {
+  background-color: rgba(200, 220, 255, 0.8); /* Color de fondo al pasar el cursor */
+  transform: scale(1.2);
 }
+
+
+/* Estilos para la sección de Blog */
+.seccion-blog {
+  margin-top: 150px;
+  background-image: url("https://somospsicoterapia.es/images/blog/inconsciente.jpg");
+  padding-top: 30px;
+}
+
+.titulo-blog {
+  text-align: center;
+  font-size:25px;
+  border: 1px ; /* Borde de color gris */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 2px; /* Espaciado interno */
+  margin-left: 60px; /* Margen automático a la izquierda */
+  margin-right: 60px; /* Margen automático a la derecha */
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+  
+}
+.titulo-blog:hover{
+  transform: translateY(-5px);
+}
+
+.contenedor-entradas {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: slideIn 4s ease forwards;
+  padding-bottom: 20px;
+}
+
+.entrada-blog {
+  width: 400px;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  background-color: #ffffff;
+  
+}
+
+.entrada-blog:hover {
+  transform: translateY(-5px);
+}
+
+.entrada-blog h3 {
+  margin-top: 0;
+}
+
+.entrada-blog img {
+  width: 100%;
+  height: 250px; /* Establece una altura fija para las imágenes */
+  object-fit: cover; /* Mantiene la relación de aspecto sin distorsionar la imagen */
+  border-radius: 10px;
+  margin-bottom: 10px;
+  
+}
+
+/* Estilos para la sección de Videos de Meditación */
+.seccion-videos {
+  text-align: center;
+  margin-top: 50px;
+  padding-top: 20px;
+ 
+  
+}
+
+.titulo-videos h2 {
+  border: 1px ; /* Borde de color gris */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 30px; /* Espaciado interno */
+  margin-left: 60px; /* Margen automático a la izquierda */
+  margin-right: 60px; /* Margen automático a la derecha */
+  background-color: #ff5900;
+  transition: transform 0.3s ease;
+  color:aliceblue;
+}
+
+.titulo-videos h2:hover{
+  transform: translateY(-5px);
+}
+
+.contenedor-videos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+.video {
+  margin: 20px;
+  border-radius: 10px;
+  position: relative; /* Establece la posición relativa para el contenedor de video */
+  transition: transform 0.6s ease;
+  padding-bottom: 20px;
+}
+
+.video:hover {
+  transform: scale(1.1);
+}
+
+
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Asegura que el video esté por encima de otros elementos */
+}
+
+.video-overlay-btn {
+  position: absolute; /* Posición absoluta para el botón */
+  top: 0;
+  left: 0;
+  width: 100%; /* Abarca todo el ancho del contenedor de video */
+  height: 100%; /* Abarca todo el alto del contenedor de video */
+}
+
+.video-container {
+  position: relative;
+  width: 80%; /* Ancho del contenedor de video */
+  max-width: 1080px; /* Ancho máximo del video */
+}
+
+.close-video-btn {
+  position: absolute;
+  bottom: 0%; /* Ajusta la posición vertical */
+  left: 50%; /* Centra horizontalmente */
+  transform: translateX(-50%); /* Centra horizontalmente */
+  z-index: 10000; /* Asegura que el botón esté por encima del video */
+  margin-bottom: -100px;
+  position: absolute;
+  background-color: rgba(240, 248, 255, 0.603); /* Color de fondo */
+  border-radius: 50%; /* Botón circular */
+  width: 60px; /* Ancho del botón */
+  height: 60px; /* Altura del botón */
+  font-size: 24px; /* Tamaño del ícono */
+  color: #000; /* Color del ícono */
+  cursor: pointer; /* Cursor de puntero al pasar sobre el botón */
+  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  transition: transform 0.3s; 
+}
+
+
+.icono-cerrar{
+  margin-top: 7px;
+  width: 30px; /* Tamaño del icono */
+  height: 30px; /* Tamaño del icono */
+  transition: transform 0.3s;
+}
+
+.icono-cerrar:hover{
+  transform: scale(1.2);
+}
+
+.open-video-btn {
+  width: 100%; /* Abarca todo el ancho del contenedor de video */
+  height: 100%; /* Abarca todo el alto del contenedor de video */
+  padding: 0; /* Sin relleno */
+  font-size: 16px;
+  background-color: transparent; /* Botón transparente */
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 1; /* Asegura que el botón esté por encima del video */
+  opacity: 0.7; /* Opacidad del botón */
+  transition: opacity 0.3s; /* Transición suave para la opacidad */
+}
+
+.open-video-btn:hover {
+  opacity: 1; /* Aumenta la opacidad al pasar el ratón sobre el botón */
+}
+
+/* Estilos para la sección de Mensaje e Opciones */
+.seccion-opciones {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+ padding: 20px;
+  animation: slideIn 4s ease forwards;
+  background-image: url("https://somospsicoterapia.es/images/blog/inconsciente.jpg");
+  color: rgb(0, 0, 0);
+}
+
+
+
+
+.mensaje-importante p {
+  text-align: center;
+  font-size:22px;
+  
+ 
+}
+
+.opciones {
+  display: flex;
+  justify-content: center;
+}
+
+.opcion {
+  margin:30px;
+}
+
+.boton-opcion {
+  padding: 20px 20px;
+  font-size: 18px;
+  background-color: #3f271b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+
+
 </style>

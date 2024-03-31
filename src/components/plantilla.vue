@@ -25,11 +25,22 @@
 
         <router-link to="/inicioPsico" class="enlace-navegacion">Inicio Psicologos</router-link>
       </div>
+ <!-- Botón de Inicio de Sesión, solo visible si no hay usuario logueado -->
+ <div class="boton-inicio-sesion" v-if="!usuario">
+      <button @click="abrirEnlace('/iniciosesion')">Iniciar sesión</button>
+    </div>
+ 
+  <!-- Botón de Usuario Logueado y Menú Desplegable -->
+<div v-if="usuario" class="usuario-menu">
+  <img src="https://cdn-icons-png.flaticon.com/512/1361/1361728.png" alt="Usuario" class="icono-usuario" @click="toggleUsuarioMenu">
+  <div v-if="mostrarMenuUsuario" class="menu-usuario">
+    <div class="saludo">¡Hola {{ usuario.nombre }}!</div>
+    <div class="opcion-menu" @click="abrirEnlace('/perfil_alumno')">Ver perfil</div>
+    <div class="opcion-menu" @click="cerrarSesionYCerrarMenu">Cerrar sesión</div>
+  </div>
+</div>
 
-      <!-- Botón de Inicio de Sesión -->
-      <div class="boton-inicio-sesion">
-        <button @click="abrirEnlace('/iniciosesion')">Iniciar sesión</button>
-      </div>
+
     </nav>
 
     <!-- Contenido de la Página -->
@@ -68,10 +79,13 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   data() {
     return {
       mostrarMenu: false,
+      mostrarMenuUsuario: false,
       botonesSociales: [
         { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redFacebook_1.png', enlace: 'https://www.facebook.com/anahuacoaxaca/' },
         { icono: 'https://www.anahuac.mx/oaxaca/sites/default/files/img/redInstagram.png', enlace: 'https://www.instagram.com/anahuacoaxaca' },
@@ -84,24 +98,56 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters(['usuario']),
+    textoBoton() {
+      return this.usuario ? `Hola ${this.usuario.nombre}` : 'Iniciar sesión';
+    },
+    urlRedireccion() {
+      return this.usuario ? '/ps1' : '/iniciosesion';
+    }
+  },
   methods: {
+    abrirEnlaceUsuario() {
+      if (this.usuario) {
+        window.location.href = this.urlRedireccion;
+      } else {
+        // Si no hay usuario logueado, redirige a la página de inicio de sesión
+        this.$router.push(this.urlRedireccion);
+      }
+    },
+    ...mapActions(['cerrarSesion']), // Mapea la acción de cerrar sesión desde Vuex
     abrirMapa() {
       window.location.href = 'https://maps.app.goo.gl/te3G28WuD56cTgyHA';
     },
     abrirEnlace(url) {
-      window.location.href = url;
+      // Modifica este método para manejar la redirección del botón de inicio de sesión
+      // basado en si hay un usuario logueado o no
+      if (url === '/iniciosesion') {
+        this.abrirEnlaceUsuario();
+      } else {
+        window.location.href = url;
+      }
     },
     toggleMenu() {
       this.mostrarMenu = !this.mostrarMenu;
+    },
+    toggleUsuarioMenu() {
+      this.mostrarMenuUsuario = !this.mostrarMenuUsuario;
+    },
+    cerrarSesionYCerrarMenu() {
+      this.cerrarSesion(); // Acción de Vuex para cerrar sesión
+      this.mostrarMenuUsuario = false; // Oculta el menú
     },
   },
 };
 </script>
 
+
 <style scoped>
 .barra-navegacion {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   padding: 15px;
   background-color: black;
@@ -123,6 +169,53 @@ export default {
   background-color: white;
   margin: 6px 0;
 }
+
+
+.usuario-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.icono-usuario {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  filter: invert(1);
+}
+
+.menu-usuario {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 150px;
+  z-index: 10;
+  text-align: left;
+  color: #000000;
+}
+
+.saludo {
+  padding: 10px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.opcion-menu {
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.opcion-menu:hover {
+  background-color: #ff5900;
+  color: #f0f0f0;
+}
+
 
 @media only screen and (max-width: 600px) {
  .hamburguesa {
@@ -231,7 +324,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
 }
 @media (max-width: 768px) {
   .contenido-pie {

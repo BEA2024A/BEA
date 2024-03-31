@@ -8,34 +8,77 @@
       </div>
       <img src="https://www.anahuac.mx/sites/default/files/LogoRUA_HUB_1.png" class="logo">
       <div class="content">
-        <h3 class="title">Iniciar sesión</h3>
-        <div class="email-input">
-          <input type="text" v-model="email" placeholder="user@anahuac.mx" class="input-field" @focus="hideBottomBorder" @blur="showBottomBorder">
+        <h3 class="title" v-if="paso === 1">Iniciar sesión</h3>
+        <h3 class="title" v-if="paso === 2">Escribir Contraseña</h3>
+
+        <!-- Correo -->
+        <div class="email-input" v-if="paso === 1">
+          <input type="email" v-model="email" placeholder="user@anahuac.mx" class="input-field" @focus="hideBottomBorder" @blur="showBottomBorder">
           <div class="input-line"></div>
         </div>
-        <div class="register-link" @click="goToRegister">
+
+        <!-- Contraseña -->
+        <div class="email-input" v-if="paso === 2">
+          <input type="password" v-model="password" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+
+        <div class="register-link" @click="goToRegister" v-if="paso === 1">
           <span class="text">¿Es tu primera vez? Regístrate</span>
         </div>
       </div>
-      <button @click="submit" class="submit-button">Siguiente</button>
+      <button @click="avanzarOPostear" class="submit-button">{{ botonTexto }}</button>
     </div>
   </div>
 </template>
 
+
 <script>
+import axios from 'axios';
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
-      email: ''
-    }
+      email: '',
+      password: '',
+      paso: 1, // Nuevo estado para controlar el paso actual
+    };
+  },
+  computed: {
+    botonTexto() {
+      return this.paso === 1 ? 'Siguiente' : 'Iniciar Sesión';
+    },
   },
   methods: {
-    submit() {
-      if (this.email.endsWith('@anahuac.mx')) {
-          this.$router.push('/contraseña');
+    ...mapActions(['iniciarSesion']),
+    avanzarOPostear() {
+      if (this.paso === 1) {
+        this.paso = 2; // Avanza al siguiente paso
       } else {
-        alert('El correo electrónico debe ser @anahuac.mx');
+        this.postearLogin(); // Intenta iniciar sesión
       }
+    },
+    postearLogin() {
+      const formData = new FormData();
+      formData.append('CORREO', this.email);
+      formData.append('CONTRASEÑA', this.password);
+
+      axios.post('http://localhost/BEA/back/verificar_credenciales.php', formData)
+        .then(response => {
+          if (response.data.exito) {
+            this.$store.dispatch('iniciarSesion', { nombre: response.data.nombreUsuario });
+            this.$router.push('/');
+          } else {
+            alert('Correo electrónico o contraseña incorrectos.');
+            this.paso = 1; // Regresa al primer paso si falla
+          }
+        })
+        .catch(error => {
+          console.error('Error en la petición:', error);
+          alert('Ocurrió un error al intentar iniciar sesión.');
+          this.paso = 1; // Regresa al primer paso si falla
+        });
     },
     hideBottomBorder() {
       this.$refs.emailInput.style.borderBottom = 'none';
@@ -55,14 +98,32 @@ export default {
   }
 }
 </script>
+
+
+
+
   
   <style scoped>
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Opacidad inicial */
+  }
+  to {
+    opacity: 1; /* Opacidad final */
+  }
+}
+
+
+
+
   .login-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    animation: fadeIn 1s ease forwards;
   }
   
   .background-image {
@@ -71,14 +132,14 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("https://i.postimg.cc/N0L2dw5v/Captura-de-pantalla-2024-03-12-213903.png");
+    background-image: url("https://i.postimg.cc/RCgngn7k/fondo-sesion.png");
     background-size: cover;
     z-index: -1;
   }
   
   .login-box {
     background-color: rgb(255, 255, 255);
-    padding: 40px;
+    padding: 60px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: left;
     position: relative;
@@ -98,7 +159,7 @@ export default {
   }
   
   .title {
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 20px;
     color:rgb(24, 23, 23)
   }
@@ -144,6 +205,7 @@ export default {
     align-items: center;
     cursor: pointer;
     color:grey;
+    margin-top: 60px;
   }
   .arrow {
     font-size: 20px;
@@ -161,4 +223,3 @@ export default {
   color: grey;
 }
   </style>
-  
