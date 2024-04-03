@@ -67,7 +67,13 @@ export default {
       axios.post('http://localhost/BEA/back/verificar_credenciales.php', formData)
         .then(response => {
           if (response.data.exito) {
-            this.$store.dispatch('iniciarSesion', { nombre: response.data.nombreUsuario });
+            this.$store.dispatch('iniciarSesion', { nombre: response.data.nombreUsuario,
+                                                    correo: response.data.correoUsuario,
+                                                    id: response.data.idUsuario,
+                                                    a_paterno: response.data.a_paternoUsuario,
+                                                    a_materno: response.data.a_maternoUsuario,
+                                                  });
+
             this.$router.push('/');
           } else {
             alert('Correo electrónico o contraseña incorrectos.');
@@ -107,10 +113,10 @@ export default {
 
 @keyframes fadeIn {
   from {
-    opacity: 0; /* Opacidad inicial */
+    opacity: 0; 
   }
   to {
-    opacity: 1; /* Opacidad final */
+    opacity: 1; 
   }
 }
 

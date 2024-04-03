@@ -132,7 +132,6 @@ export default {
         },
         
 
-        // Agrega más videos según necesites
       ],
 
       
@@ -143,7 +142,7 @@ export default {
   methods: {
     scrollDown() {
       window.scrollBy({
-        top: window.innerHeight, // Cantidad de desplazamiento (una ventana completa)
+        top: window.innerHeight, 
         behavior: 'smooth' // Efecto de desplazamiento suave
       });
     },
@@ -157,11 +156,7 @@ export default {
       this.showVideo = false;
       this.currentVideoIndex = null;
     },
-    getYouTubeId(link) {
-      // Implementa la lógica para extraer el ID de video de un enlace de YouTube
-      // Por ejemplo, si el enlace es "https://www.youtube.com/embed/SR5tBmzZoCY?si=vmANM3IEjoQlxvN8"
-      // Devolvería "SR5tBmzZoCY"
-    },
+    
   },
   computed: {
     currentVideoLink() {
@@ -191,7 +186,7 @@ export default {
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-50px); /* Por ejemplo, deslizamiento desde arriba */
+    transform: translateY(-50px); 
   }
   to {
     opacity: 1;
@@ -209,12 +204,12 @@ export default {
 
 .banner-autoayuda {
   position: relative;
-  height: 100vh; /* Se ajusta a la altura total del viewport */
+  height: 100vh; 
   margin-top: 0px;
 }
 
 .fondo-autoayuda {
-  overflow: hidden; /* Se asegura de que la imagen no se desborde */
+  overflow: hidden;
 }
 
 .fondo-autoayuda img {
@@ -234,7 +229,7 @@ export default {
   transform: translate(-50%, -50%);
   color: white;
   text-align: center;
-  z-index: 1; /* Asegura que el texto esté sobre la imagen de fondo */
+  z-index: 1; 
 }
 
 
@@ -252,27 +247,27 @@ export default {
 
 .boton-scroll {
   position: absolute;
-  bottom: 120px; /* Distancia desde la parte inferior */
-  left: 50%; /* Centrar horizontalmente */
-  transform: translateX(-50%); /* Centrar horizontalmente */
+  bottom: 120px; 
+  left: 50%; 
+  transform: translateX(-50%); 
   right: 50%; 
-  transform: translateY(-50%); /* Centrar horizontalmente */
-  background-color: rgba(240, 248, 255, 0.603); /* Color de fondo */
-  border: none; /* Sin borde */
-  border-radius: 50%; /* Botón circular */
-  width: 60px; /* Ancho del botón */
-  height: 60px; /* Altura del botón */
-  font-size: 24px; /* Tamaño del ícono */
-  color: #000; /* Color del ícono */
-  cursor: pointer; /* Cursor de puntero al pasar sobre el botón */
-  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  transform: translateY(-50%); 
+  background-color: rgba(240, 248, 255, 0.603); 
+  border: none;
+  border-radius: 50%; 
+  width: 60px;
+  height: 60px; 
+  font-size: 24px; 
+  color: #000; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
   transition: transform 0.3s;
   animation: bounce 2s infinite;
 }
 .icono-scroll {
   margin-top: 3px;
-  width: 40px; /* Tamaño del icono */
-  height: 40px; /* Tamaño del icono */
+  width: 40px; 
+  height: 40px; 
   transition: transform 0.3s;
 }
 
@@ -281,7 +276,7 @@ export default {
 }
 
 .boton-scroll:hover {
-  background-color: rgba(200, 220, 255, 0.8); /* Color de fondo al pasar el cursor */
+  background-color: rgba(200, 220, 255, 0.8); 
   transform: scale(1.2);
 }
 
@@ -296,11 +291,11 @@ export default {
 .titulo-blog {
   text-align: center;
   font-size:25px;
-  border: 1px ; /* Borde de color gris */
-  border-radius: 10px; /* Bordes redondeados */
-  padding: 2px; /* Espaciado interno */
-  margin-left: 60px; /* Margen automático a la izquierda */
-  margin-right: 60px; /* Margen automático a la derecha */
+  border: 1px ; 
+  border-radius: 10px; 
+  padding: 2px;
+  margin-left: 60px; 
+  margin-right: 60px; 
   background-color: #ffffff;
   transition: transform 0.3s ease;
   
@@ -338,8 +333,8 @@ export default {
 
 .entrada-blog img {
   width: 100%;
-  height: 250px; /* Establece una altura fija para las imágenes */
-  object-fit: cover; /* Mantiene la relación de aspecto sin distorsionar la imagen */
+  height: 250px; 
+  object-fit: cover; 
   border-radius: 10px;
   margin-bottom: 10px;
   
@@ -350,16 +345,14 @@ export default {
   text-align: center;
   margin-top: 50px;
   padding-top: 20px;
- 
-  
 }
 
 .titulo-videos h2 {
-  border: 1px ; /* Borde de color gris */
-  border-radius: 10px; /* Bordes redondeados */
-  padding: 30px; /* Espaciado interno */
-  margin-left: 60px; /* Margen automático a la izquierda */
-  margin-right: 60px; /* Margen automático a la derecha */
+  border: 1px ; 
+  border-radius: 10px; 
+  padding: 30px; 
+  margin-left: 60px; 
+  margin-right: 60px; 
   background-color: #ff5900;
   transition: transform 0.3s ease;
   color:aliceblue;
@@ -379,7 +372,7 @@ export default {
 .video {
   margin: 20px;
   border-radius: 10px;
-  position: relative; /* Establece la posición relativa para el contenedor de video */
+  position: relative; 
   transition: transform 0.6s ease;
   padding-bottom: 20px;
 }
@@ -395,51 +388,51 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+  background-color: rgba(0, 0, 0, 0.7); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Asegura que el video esté por encima de otros elementos */
+  z-index: 9999; 
 }
 
 .video-overlay-btn {
-  position: absolute; /* Posición absoluta para el botón */
+  position: absolute; 
   top: 0;
   left: 0;
-  width: 100%; /* Abarca todo el ancho del contenedor de video */
-  height: 100%; /* Abarca todo el alto del contenedor de video */
+  width: 100%; 
+  height: 100%; 
 }
 
 .video-container {
   position: relative;
-  width: 80%; /* Ancho del contenedor de video */
-  max-width: 1080px; /* Ancho máximo del video */
+  width: 80%; 
+  max-width: 1080px; 
 }
 
 .close-video-btn {
   position: absolute;
-  bottom: 0%; /* Ajusta la posición vertical */
-  left: 50%; /* Centra horizontalmente */
-  transform: translateX(-50%); /* Centra horizontalmente */
-  z-index: 10000; /* Asegura que el botón esté por encima del video */
+  bottom: 0%;
+  left: 50%; 
+  transform: translateX(-50%); 
+  z-index: 10000; 
   margin-bottom: -100px;
   position: absolute;
-  background-color: rgba(240, 248, 255, 0.603); /* Color de fondo */
-  border-radius: 50%; /* Botón circular */
-  width: 60px; /* Ancho del botón */
-  height: 60px; /* Altura del botón */
-  font-size: 24px; /* Tamaño del ícono */
-  color: #000; /* Color del ícono */
-  cursor: pointer; /* Cursor de puntero al pasar sobre el botón */
-  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  background-color: rgba(240, 248, 255, 0.603); 
+  border-radius: 50%; 
+  width: 60px; 
+  height: 60px; 
+  font-size: 24px; 
+  color: #000; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
   transition: transform 0.3s; 
 }
 
 
 .icono-cerrar{
   margin-top: 7px;
-  width: 30px; /* Tamaño del icono */
-  height: 30px; /* Tamaño del icono */
+  width: 30px; 
+  height: 30px; 
   transition: transform 0.3s;
 }
 
@@ -448,21 +441,21 @@ export default {
 }
 
 .open-video-btn {
-  width: 100%; /* Abarca todo el ancho del contenedor de video */
-  height: 100%; /* Abarca todo el alto del contenedor de video */
-  padding: 0; /* Sin relleno */
+  width: 100%; 
+  height: 100%;
+  padding: 0;
   font-size: 16px;
-  background-color: transparent; /* Botón transparente */
+  background-color: transparent; 
   border: none;
   color: white;
   cursor: pointer;
-  z-index: 1; /* Asegura que el botón esté por encima del video */
-  opacity: 0.7; /* Opacidad del botón */
-  transition: opacity 0.3s; /* Transición suave para la opacidad */
+  z-index: 1; 
+  opacity: 0.7; 
+  transition: opacity 0.3s; 
 }
 
 .open-video-btn:hover {
-  opacity: 1; /* Aumenta la opacidad al pasar el ratón sobre el botón */
+  opacity: 1; 
 }
 
 /* Estilos para la sección de Mensaje e Opciones */

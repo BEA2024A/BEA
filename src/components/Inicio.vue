@@ -13,6 +13,7 @@
           <div class="descripcion-metodo">{{ item.descripcion }}</div>
         </div>
       </section>
+      <div class="fondo-psicologos">
       <section class="seccion-psicologos">
         <h1>Psicólogos Asociados</h1>
         <div class="profile-cards">
@@ -26,6 +27,7 @@
           </div>
         </div>
       </section>
+    </div>
     </div>
   </plantilla>
 </template>
@@ -110,7 +112,7 @@ export default {
     transform: translateY(0);
   }
 }
-
+/*BANNER BIENVENIDA */
   .banner-bienvenida {
     text-align: center;
     margin-top: 20px;
@@ -121,11 +123,14 @@ export default {
     height: auto;
     box-shadow: 0 4px 8px rgba(194, 160, 160, 0.1);
   }
+
+  /*METODO DE TRABAJO */
   .seccion-metodo {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
   .item-metodo {
     position: relative;
     text-align: center;
@@ -164,66 +169,57 @@ export default {
   .item-metodo:hover .descripcion-metodo {
     opacity: 1;
   }
-  .seccion-psicologos {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-left: 20px;
-    margin-right: 20px;
-   background-color:#ff5900 ;
-    border: 1px;
-  border-radius: 10px; /* Bordes redondeados */
-  padding: 30px; /* Espaciado interno */
-   height: auto;
-   width: auto;
+
+/*PSICOLOGOS */
+  .fondo-psicologos{
+    background-color:#ff5900;
+    padding: 30px;
+    margin-top: 50px
   }
 
+  .seccion-psicologos {
+    margin: 30px;
+    background-color:#ffffff ;
+    border-radius: 10px;
+    padding: 30px;
+   
+  }
 
   .seccion-psicologos h1 {
     font-size: 28px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: rgba(240, 248, 255, 0.788);
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 20px;
+    border-radius: 10px;
     margin-left: 10px;
-    transition: font-size 0.3s, background-color 0.3s;
+    transition: font-size 0.3s;
   }
   .seccion-psicologos h1:hover {
     font-size: 32px; 
-    background-color: rgba(240, 248, 255, 1); 
   }
 
   .profile-cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    background-color:rgba(0, 0, 0, 0.26);
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-  }
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-around; 
+  flex-wrap: wrap;
+}
 
   .card {
-    max-width: 300px;
-    margin: 25px;
     text-align: center;
     transition: transform 0.3s ease;
     position: relative;
-    padding: 10px;
-    
   }
   .card:hover {
     transform: scale(1.02);
   }
   .card img {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.521);
+  border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
     width: 100%;
-  height: 300px; /* Establece una altura fija para las imágenes */
-  object-fit: cover; /* Mantiene la relación de aspecto sin distorsionar la imagen */
-  animation: slideIn 1s ease forwards;
+    height: 300px; 
+    object-fit: cover; 
+    animation: slideIn 1s ease forwards;
   }
   .descripcion-psicologo {
     position: absolute;
@@ -236,30 +232,22 @@ export default {
     text-align: center;
     transition: opacity 0.3s ease;
     opacity: 0;
-    color :aliceblue;
+    color :rgb(255, 255, 255);
   }
   .mostrar-descripcion {
     opacity: 1;
   }
-  .title {
-    color: rgba(255, 255, 255, 0.815);
-    font-size: 18px;
-  }
+  
   button {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 8px;
-    color: white;
     background-color: #fcfcfc;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
     font-size: 18px;
     color:black;
   }
-  button:hover,
-  a:hover {
-    opacity: 0.7;
-  }
+
+
+/* RESPONSIVIDAD*/
+
+
+
+
 </style>

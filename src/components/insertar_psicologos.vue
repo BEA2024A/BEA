@@ -80,7 +80,7 @@ import PlantillaPsico from './plantillaPsico.vue';
         axios.post('http://localhost/BEA/back/insertar_psicologos.php', formData)
           .then(response => {
             alert(response.data);
-            // Aquí puedes redirigir o limpiar el formulario
+          
           })
           .catch(error => {
             console.error('Hubo un error al insertar el psicólogo:', error);

@@ -1,12 +1,21 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Content-Type: application/json; charset=UTF-8');
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'path/to/PHPMailer/src/Exception.php';
-require 'path/to/PHPMailer/src/PHPMailer.php';
-require 'path/to/PHPMailer/src/SMTP.php';
+$_POST = json_decode(file_get_contents('php://input'), true);
+
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
 
 $mail = new PHPMailer(true);
+
 
 try {
     $mail->isSMTP();
@@ -18,11 +27,11 @@ try {
     $mail->Port = 587;
 
     $mail->setFrom('bienestar_emocional_uao@outlook.com', 'Bienestar Emocional UAO');
-    $mail->addAddress('antoniogc984@gmail.com'); // Aquí va el correo del usuario logueado
+    $mail->addAddress($_POST['correoDestinatario']); 
 
     $mail->isHTML(true);
     $mail->Subject = 'Recordatorio de Evento';
-    $mail->Body = 'Este es un recordatorio para tu evento: ' ;
+    $mail->Body = 'Este es un recordatorio para tu evento: ' . $_POST['mensaje'];
 
     $mail->send();
     echo 'El mensaje ha sido enviado';

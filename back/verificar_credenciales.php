@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Recibe los datos del correo y contraseña del cliente
+// Recibe los datos del correo y contraseña 
 $CORREO = $_POST['CORREO'];
 $CONTRASEÑA = md5( $_POST['CONTRASEÑA']);
 
@@ -29,13 +29,16 @@ $sql = "SELECT * FROM registro WHERE CORREO = '$CORREO' AND CONTRASEÑA = '$CONT
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // Si la consulta devuelve al menos una fila, las credenciales son correctas
+    // Si la consulta devuelve al menos una fila las credenciales son correctas
     $fila = $result->fetch_assoc(); // Obtiene los datos del usuario
     // Prepara y envía la respuesta como JSON
     echo json_encode([
         'exito' => true,
         'nombreUsuario' => $fila['NOMBRE'],
-        'correoUsuario' => $fila['CORREO'] 
+        'correoUsuario' => $fila['CORREO'], 
+        'idUsuario' => $fila['ID_ALUMNO'], 
+        'a_paternoUsuario' => $fila['APELLIDO_PATERNO'], 
+        'a_maternoUsuario' => $fila['APELLIDO_MATERNO'], 
     ]);
     
 } else {

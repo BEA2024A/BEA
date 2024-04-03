@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-03-2024 a las 06:52:37
+-- Tiempo de generación: 03-04-2024 a las 06:51:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -26,6 +26,44 @@ USE `bea`;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `eventos`
+--
+
+DROP TABLE IF EXISTS `eventos`;
+CREATE TABLE `eventos` (
+  `id_evento` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `inicio` datetime NOT NULL,
+  `fin` datetime NOT NULL,
+  `id_alumno` int(8) DEFAULT NULL,
+  `recordatorio_activado` tinyint(1) DEFAULT 0,
+  `recordatorio_tiempo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `psicologos`
+--
+
+DROP TABLE IF EXISTS `psicologos`;
+CREATE TABLE `psicologos` (
+  `id_psicologo` int(11) NOT NULL,
+  `nombre` varchar(20) DEFAULT NULL,
+  `tipo` varchar(20) DEFAULT NULL,
+  `telefono` int(10) DEFAULT NULL,
+  `especialidad` text DEFAULT NULL,
+  `direccion` text DEFAULT NULL,
+  `poblacion` text DEFAULT NULL,
+  `formacion` text DEFAULT NULL,
+  `modalidad` varchar(20) DEFAULT NULL,
+  `imagenes` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `registro`
 --
 
@@ -44,21 +82,62 @@ CREATE TABLE `registro` (
 --
 
 INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`) VALUES
-(0, '', '', '', '', ''),
-(446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_arcia@anahuac.mx', 'g6027L04'),
-(503445, 'Antonio', 'Garcia', 'Cruz', 'evasconcelos@anahuac.mx', 'Contraseña123');
+(8, 'pruebas', 'de', 'pagina', 'root', '1'),
+(345678, 'q', 'q', 'q', '@anahuac.mx', 'cc9e617ba48b17a34cd19b4775e28ac3'),
+(446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_garcia@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182'),
+(446028, 'antonio', 'garcia', 'cruz', 'antoniogc984@gmail.com', '4c882dcb24bcb1bc225391a602feca7c'),
+(456897, 'tadeo', 'martinez', 'quero', 'tadeo_martinez@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182'),
+(465875, 'estefania', 'vasconcelos', 'perez', 'evasconcelos@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `eventos`
+--
+ALTER TABLE `eventos`
+  ADD PRIMARY KEY (`id_evento`),
+  ADD KEY `id_alumno` (`id_alumno`);
+
+--
+-- Indices de la tabla `psicologos`
+--
+ALTER TABLE `psicologos`
+  ADD PRIMARY KEY (`id_psicologo`);
+
+--
 -- Indices de la tabla `registro`
 --
 ALTER TABLE `registro`
   ADD PRIMARY KEY (`ID_ALUMNO`),
-  ADD UNIQUE KEY `CORREO` (`CORREO`),
-  ADD UNIQUE KEY `CONTRASEÑA` (`CONTRASEÑA`);
+  ADD UNIQUE KEY `CORREO` (`CORREO`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `eventos`
+--
+ALTER TABLE `eventos`
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `psicologos`
+--
+ALTER TABLE `psicologos`
+  MODIFY `id_psicologo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `eventos`
+--
+ALTER TABLE `eventos`
+  ADD CONSTRAINT `eventos_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `registro` (`ID_ALUMNO`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -22,24 +22,30 @@
         <router-link to="/seguimiento" class="enlace-navegacion">Seguimiento</router-link>
         <router-link to="/horario" class="enlace-navegacion">Calendario</router-link>
         <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
-
-        <router-link to="/inicioPsico" class="enlace-navegacion">Inicio Psicologos</router-link>
+        <router-link to="/inicioPsico" class="enlace-navegacion">Inicio Psicologos</router-link>   
       </div>
- <!-- Botón de Inicio de Sesión, solo visible si no hay usuario logueado -->
+ 
+      <!-- Botón de Inicio de Sesión, solo visible si no hay usuario logueado -->
  <div class="boton-inicio-sesion" v-if="!usuario">
-      <button @click="abrirEnlace('/iniciosesion')">Iniciar sesión</button>
+      <button @click="abrirEnlace('/iniciosesion')">
+        <img src="https://cdn-icons-png.flaticon.com/512/58/58950.png" class="inicio-sesion-icono">
+      </button>
     </div>
  
-  <!-- Botón de Usuario Logueado y Menú Desplegable -->
-<div v-if="usuario" class="usuario-menu">
-  <img src="https://cdn-icons-png.flaticon.com/512/1361/1361728.png" alt="Usuario" class="icono-usuario" @click="toggleUsuarioMenu">
+ <!-- Botón de Usuario Logueado y Menú Desplegable -->
+<div v-if="usuario" class="usuario-menu-contenedor" @click="toggleUsuarioMenu" ref="menuUsuario">
+  <div class="usuario-menu">
+    <!-- Texto "Tu Perfil" al lado izquierdo de la imagen -->
+    <div class="texto-usuario">{{ usuario.nombre }}</div>
+    <img src="https://cdn-icons-png.flaticon.com/512/1361/1361728.png" alt="Usuario" class="icono-usuario">
+  </div>
+  <div class="menu-perfil">
   <div v-if="mostrarMenuUsuario" class="menu-usuario">
-    <div class="saludo">¡Hola {{ usuario.nombre }}!</div>
-    <div class="opcion-menu" @click="abrirEnlace('/perfil_alumno')">Ver perfil</div>
-    <div class="opcion-menu" @click="cerrarSesionYCerrarMenu">Cerrar sesión</div>
+    <div class="opcion-menu" @click.stop="abrirEnlace('/perfil_alumno')">Ver perfil</div>
+    <div class="opcion-menu" @click.stop="cerrarSesionYCerrarMenu">Cerrar sesión</div>
   </div>
 </div>
-
+</div>
 
     </nav>
 
@@ -100,13 +106,21 @@ export default {
   },
   computed: {
     ...mapGetters(['usuario']),
-    textoBoton() {
-      return this.usuario ? `Hola ${this.usuario.nombre}` : 'Iniciar sesión';
-    },
+    
     urlRedireccion() {
-      return this.usuario ? '/ps1' : '/iniciosesion';
+      return this.usuario ? '/perfil_alumno' : '/iniciosesion';
     }
   },
+
+  mounted() {
+    // Añade el listener cuando el componente se monta
+    document.addEventListener('click', this.handleOutsideClick);
+  },
+  beforeDestroy() {
+    // Remueve el listener cuando el componente se destruya
+    document.removeEventListener('click', this.handleOutsideClick);
+  },
+
   methods: {
     abrirEnlaceUsuario() {
       if (this.usuario) {
@@ -116,13 +130,11 @@ export default {
         this.$router.push(this.urlRedireccion);
       }
     },
-    ...mapActions(['cerrarSesion']), // Mapea la acción de cerrar sesión desde Vuex
+    ...mapActions(['cerrarSesion']), 
     abrirMapa() {
       window.location.href = 'https://maps.app.goo.gl/te3G28WuD56cTgyHA';
     },
     abrirEnlace(url) {
-      // Modifica este método para manejar la redirección del botón de inicio de sesión
-      // basado en si hay un usuario logueado o no
       if (url === '/iniciosesion') {
         this.abrirEnlaceUsuario();
       } else {
@@ -135,9 +147,17 @@ export default {
     toggleUsuarioMenu() {
       this.mostrarMenuUsuario = !this.mostrarMenuUsuario;
     },
+    handleOutsideClick(e) {
+      
+      const menuUsuario = this.$refs.menuUsuario;
+      
+      if (menuUsuario && !menuUsuario.contains(e.target) && !e.target.classList.contains('icono-usuario') && !e.target.classList.contains('texto-usuario')) {
+        this.mostrarMenuUsuario = false;
+      }
+    },
     cerrarSesionYCerrarMenu() {
-      this.cerrarSesion(); // Acción de Vuex para cerrar sesión
-      this.mostrarMenuUsuario = false; // Oculta el menú
+      this.cerrarSesion(); 
+      this.mostrarMenuUsuario = false;
     },
   },
 };
@@ -145,6 +165,20 @@ export default {
 
 
 <style scoped>
+
+@keyframes slideIn {
+  from {
+    opacity: 1;
+    transform: translateY(-5px); 
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*BARRA */
+
 .barra-navegacion {
   display: flex;
   justify-content: space-between;
@@ -171,20 +205,75 @@ export default {
 }
 
 
-.usuario-menu {
+.secciones-navegacion {
+    display: flex;
+  }
+
+  .enlace-navegacion {
+    margin-right: 30px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .enlace-navegacion:hover {
+    color:#d45c37;
+  }
+
+/* BOTONES */
+  .boton-inicio-sesion{
+    margin-right: 30px;
+    transition: color 0.3s ease;
+  } 
+
+.inicio-sesion-icono{
+  width: 25px;
+  filter:invert(50%);
+  transition: color 0.3s ease;
+}
+
+  .usuario-menu {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   position: relative;
+  cursor: pointer;
+}
+
+.usuario-menu-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.usuario-menu-contenedor:hover .texto-usuario,
+.usuario-menu-contenedor:hover .icono-usuario {
+  filter: invert(0.5) saturate(0); 
+}
+
+.texto-usuario {
+  color: white; 
+  margin-right: 10px; 
+  font-weight: bold; 
+  transition: 0.3s ease;
+ 
 }
 
 .icono-usuario {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  cursor: pointer;
   filter: invert(1);
+  transition: filter 0.3s ease;
 }
+
 
 .menu-usuario {
   position: absolute;
@@ -197,13 +286,10 @@ export default {
   z-index: 10;
   text-align: left;
   color: #000000;
+  animation: slideIn 0.3s ease forwards;
+  margin-top:17px ;
 }
 
-.saludo {
-  padding: 10px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #f0f0f0;
-}
 
 .opcion-menu {
   padding: 10px;
@@ -212,109 +298,13 @@ export default {
 }
 
 .opcion-menu:hover {
-  background-color: #ff5900;
+  background-color: #00000046;
   color: #f0f0f0;
+  
 }
 
+/* PIE DE PAGINA */
 
-@media only screen and (max-width: 600px) {
- .hamburguesa {
-    display: block;
-  }
-
-  .secciones-navegacion {
-    display: none;
-    flex-direction: column;
-    background-color: black;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-  }
-
-  .mostrar-menu {
-    display: flex;
-  }
-
-  .enlace-navegacion {
-    margin-right: 0;
-    padding: 10px;
-    text-align: center;
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .enlace-navegacion:hover {
-    color: #d45c37;
-  }
-
-  .boton-inicio-sesion {
-    order: -1;
-  }
-
-  .boton-inicio-sesion button {
-    background-color: #d45c37;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-
-  .boton-inicio-sesion button:hover {
-    background-color: #a03722;
-  }
-
-  .logo img {
-  max-height: 30px;
-}
-}
-
-@media (min-width: 769px) {
-  .hamburguesa {
-    display: none;
-  }
-
-  .secciones-navegacion {
-    display: flex;
-  }
-
-  .enlace-navegacion {
-    margin-right: 30px;
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  .enlace-navegacion:hover {
-    color: #d45c37;
-  }
-  .boton-inicio-sesion button {
-    background-color: #d45c37;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  .boton-inicio-sesion button:hover {
-    background-color: #a03722;
-  }
-}
-.contenido-pagina {
-  padding: 10px;
-}
 .pie-pagina {
   background-color: black;
   color: white;
@@ -325,11 +315,7 @@ export default {
   flex-wrap: wrap;
   justify-content: space-around;
 }
-@media (max-width: 768px) {
-  .contenido-pie {
-    flex-direction: column;
-  }
-}
+
 .derecha-pie img {
   max-height: 80px;
 }
@@ -360,7 +346,137 @@ export default {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
+
+
+
+/* RESPONSIVIDAD*/
+
+
+@media (max-width: 639px) {
+  .contenido-pie {
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+
+  .enlace-navegacion,
+  .usuario-menu-contenedor {
+    margin: 10px 0;
+  }
+
+  .hamburguesa {
+    display: block;
+    order: -1;
+  }
+
+
+
+  .logo img {
+  max-height: 30px;
+  transform: translateX(10px)
+}
+
+  .secciones-navegacion {
+    display: none;
+    flex-direction: column;
+    background-color:#ff5900 ;
+    position: absolute;
+    top: 95px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    animation: slideIn 0.5s ease forwards;
+    align-items: center;
+
+  }
+
+  .mostrar-menu {
+    display: flex;
+  }
+
+  .usuario-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  cursor: pointer;
+}
+/*******/
+
+.boton-inicio-sesion{
+
+    transition: color 0.3s ease;
+  } 
+
+.inicio-sesion-icono{
+  width: 25px;
+  filter:invert(50%);
+  transition: color 0.3s ease;
+}
+
+
+
+/** */
+.usuario-menu-contenedor {
+  justify-content: center;
+}
+
+.usuario-menu-contenedor:hover .texto-usuario,
+.usuario-menu-contenedor:hover .icono-usuario {
+  filter: invert(0.5) saturate(0); 
+}
+
+
+
+.icono-usuario {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  filter: invert(1);
+  transition: filter 0.3s ease;
+  transform: translateX(-20px);
+}
+
+
+.menu-usuario {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 150px;
+  z-index: 10;
+  text-align: left;
+  color: #000000;
+  animation: slideIn 0.3s ease forwards;
+  margin-top:17px ;
+}
+
+.texto-usuario{
+    display: none;
+}
+
+
+.opcion-menu {
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.opcion-menu:hover {
+  background-color: #00000046;
+  color: #f0f0f0;
   
 }
+
+
+}
+
+
+
+
+
 </style>
+
