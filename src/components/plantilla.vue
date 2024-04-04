@@ -382,7 +382,7 @@ export default {
     flex-direction: column;
     background-color:#ff5900 ;
     position: absolute;
-    top: 95px;
+    top: 75px;
     left: 0;
     width: 100%;
     z-index: 1;

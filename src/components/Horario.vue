@@ -6,7 +6,7 @@
         <h2>Citas próximas</h2>
         <ul class="events-list">
           <li v-for="event in calendarOptions.events" :key="event.title">
-            {{ event.title }} - {{ event.date }}
+            {{ event.title }} - {{ event.date }} - {{ event.time }} hrs
           </li>
         </ul>
       </div>
@@ -33,7 +33,6 @@ import axios from 'axios';
 import Plantilla from './plantilla.vue'; 
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
-
 import { mapGetters } from 'vuex';
 import esLocale from '@fullcalendar/core/locales/es';
 
@@ -54,10 +53,7 @@ export default {
           right: 'dayGridMonth,dayGridWeek,dayGridDay'
         },
         events: [
-          { title: 'Evento 1', date: '2024-04-01', color: '#ff5900'},
-          { title: 'Evento 2', date: '2024-04-02', color: '#ff5900' },
-          {title: 'noti de prueba', date: '2024-03-30', color: '#ff5900'},
-          {title: 'cita', date: '2024-04-03', color: '#ff5900'},
+          {title: 'cita de prueba', date: '2024-04-03', time: '15:00', color: '#ff5900'},
           
   
         ],
@@ -78,11 +74,11 @@ export default {
       if (!("Notification" in window)) {
         alert("Este navegador no soporta notificaciones del sistema");
       } else if (Notification.permission === "granted") {
-        this.verificarEventosHoy(); // Si ya están los permisos, revisamos eventos hoy
+        this.verificarEventosHoy(); 
       } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then(permission => {
           if (permission === "granted") {
-            this.verificarEventosHoy(); // Si el usuario acepta, revisamos eventos hoy
+            this.verificarEventosHoy(); 
           }
         });
       }
@@ -102,19 +98,23 @@ export default {
     },
 
     enviarCorreoRecordatorio() {
-      const hoy = new Date().toISOString().slice(0, 10);
-      const correoDestinatario = this.usuario.correo; 
-      this.calendarOptions.events.forEach(evento => {
-        if (evento.date === hoy) {
-          axios.post('http://localhost/BEA/back/enviarCorreo.php', {
-            correoDestinatario: correoDestinatario,
-            mensaje: `¡Hola ${this.usuario.nombre}! tienes un Recordatorio: ${evento.title} el dia ${evento.date}`
-          })
-          .then(response => console.log(response.data))
-          .catch(error => console.error(error));
-        }
-      });
-    },
+  const hoy = new Date().toISOString().slice(0, 10);
+  const correoDestinatario = this.usuario.correo; 
+  this.calendarOptions.events.forEach(evento => {
+    if (evento.date === hoy) {
+      axios.post('http://localhost/BEA/back/enviarCorreo.php', {
+        correoDestinatario: correoDestinatario,
+        mensaje: `¡Hola ${this.usuario.nombre}! tienes un Recordatorio: ${evento.title} el dia ${evento.date} a las ${evento.time} hrs`
+      })
+      .then(response => {
+        console.log(response.data);
+        alert('Correo enviado');
+      })
+      .catch(error => console.error(error));
+    }
+  });
+},
+
 
   }
 };
@@ -235,13 +235,13 @@ export default {
 
 
 
-/* Estilos para aumentar el espacio entre los botones del calendario */
+
 .fc .fc-button-group > .fc-button {
   margin-right: 50px; 
 }
 
 .fc .fc-button-group > .fc-button:last-child {
-  margin-right: 0; /* Asegura que el último botón no tenga un margen extra a la derecha */
+  margin-right: 0;  
 }
 
 
@@ -249,8 +249,68 @@ export default {
   padding: 8px 120px; 
 }
 
-/* Si necesitas ajustar el espacio vertical entre los botones y otros elementos */
+
 .fc-header-toolbar {
-  margin-bottom: 20px; /* Ajusta este valor según necesites */
+  margin-bottom: 30px; 
 }
+
+
+
+@media (max-width: 639px) {
+
+  .container {
+  flex-direction: column;
+  padding:10px;
+  padding-right: 20px; 
+}
+
+.calendar-container {
+  padding: 40px;
+  border-radius: 8px;
+  margin: 5px;
+  padding-bottom: 100px;
+}
+
+.events-container{
+  margin: 30px;
+}
+
+.events-list {
+  list-style-type:none;
+  text-align: center;
+  transform: translateX(0%);
+}
+
+.eventos{
+  margin-top: 0;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.botones {
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+/* Orden de visualización */
+.calendar-container {
+  order: 1;
+}
+
+.events-container {
+  order: 2;
+}
+
+.botones {
+  order: 3;
+}
+
+
+}
+
 </style>

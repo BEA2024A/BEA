@@ -97,4 +97,34 @@ to {
   opacity: 1;
 }
 }
+
+@media (max-width: 639px) {
+
+
+.pregunta-animada {
+transform: translateY(-40px);
+}
+
+.textbox-animado {
+opacity: 0;
+animation: aparecer 1s forwards;
+width: 300px;
+height: 500px;
+padding: 10px;
+}
+.boton-siguiente,
+.boton-enviar {
+
+border: none;
+font-size: 18px;
+width: 150px;
+height: 56px;
+margin-top:10px ;
+}
+.boton-siguiente:hover,
+.boton-enviar:hover {
+background-color: #625750;
+}
+
+}
 </style>

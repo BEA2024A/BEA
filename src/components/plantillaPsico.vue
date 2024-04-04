@@ -20,6 +20,7 @@
       <div class="secciones-navegacion" :class="{ 'mostrar-menu': mostrarMenu }">
         <router-link to="/HorarioPsico" class="enlace-navegacion">Horarios</router-link>
         <router-link to="/insertar_psicologos" class="enlace-navegacion">agregar un psicologoto</router-link>
+        <router-link to="/" class="enlace-navegacion">regresar</router-link>
         
       </div>
  <!-- Botón de Inicio de Sesión, solo visible si no hay usuario logueado -->

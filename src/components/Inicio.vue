@@ -247,7 +247,89 @@ export default {
 
 /* RESPONSIVIDAD*/
 
+@media (max-width: 639px) {
 
+/*BANNER BIENVENIDA */
+.banner-bienvenida {
+    margin-top: 0px;
+    margin-bottom: 30px;
+  }
+
+/*METODO DE TRABAJO */
+
+  .seccion-metodo {
+  display:block;
+  padding-left: 10px;
+  padding-right: 15px;
+}
+
+  .item-metodo {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+  }
+
+  .item-metodo img {
+    object-fit: cover;
+    width: 400px;
+  }
+
+/*PSICOLOGOS */
+.fondo-psicologos{
+    padding: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .seccion-psicologos {
+    margin: 10px;
+    padding: 20px;
+   
+  }
+
+  .seccion-psicologos h1 {
+    font-size: 25px;
+  }
+  .seccion-psicologos h1:hover {
+    font-size: 25px; 
+  }
+
+
+  
+  .card img {
+  border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+    width: 100%;
+    height: 300px; 
+    object-fit: cover; 
+    animation: slideIn 1s ease forwards;
+  }
+  .descripcion-psicologo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(19, 17, 17, 0.9);
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    color :rgb(255, 255, 255);
+  }
+  .mostrar-descripcion {
+    opacity: 1;
+  }
+  
+  button {
+    background-color: #fcfcfc;
+    font-size: 18px;
+    color:black;
+  }
+
+
+
+}
 
 
 </style>

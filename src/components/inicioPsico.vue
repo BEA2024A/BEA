@@ -10,14 +10,16 @@
       </div>
       <section class="seccion-alumnos">
         <h1>Alumnos</h1>
+        <input type="text" v-model="filtro" placeholder="Buscar por nombre, ID o carrera" class="campo-busqueda">
         <div class="profile-cards">
-          <div v-for="(alumno, index) in alumnos" :key="index" class="card" v-on:mouseenter="mostrarDescripcion(alumno, true)" v-on:mouseleave="mostrarDescripcion(alumno, false)">
+          <div v-for="(alumno, index) in alumnosFiltrados" :key="index" class="card" v-on:mouseenter="mostrarDescripcion(alumno, true)" v-on:mouseleave="mostrarDescripcion(alumno, false)">
             <img v-bind:src="alumno.imagen" alt="Foto de perfil">
             <div class="descripcion-alumno" v-bind:class="{ 'mostrar-descripcion': alumno.mostrarDescripcion }">
               <h3>{{ alumno.nombre }}</h3>
               <p class="title">{{ alumno.carrera }}</p>
-              <p>00{{ alumno.ide }}</p>
-              <p><button v-on:click="redirigirPerfil(alumno.perfil)">Ir al perfil</button></p>
+              <p>{{ alumno.ide }}</p>
+              <p><button v-on:click="redirigirPerfil(alumno.perfil)">Perfil</button></p>
+              <p><button v-on:click="redirigirPerfil(alumno.notas)">Notas</button></p>
             </div>
           </div>
         </div>
@@ -35,16 +37,27 @@ export default {
   },
   data() {
     return {
+      filtro: '', 
       alumnos: [
-        { nombre: 'Carlos González', carrera: 'Tecnologias de la Información', ide: 456641, perfil: '/perfil', imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png', mostrarDescripcion: false },
-        { nombre: 'Antonio Garcia', carrera: 'Tecnologias de la Información', ide: 456732, perfil: '/perfil', imagen: 'https://i.postimg.cc/3NXPFHgV/Dise-o-sin-t-tulo-1.png', mostrarDescripcion: false },
-        { nombre: 'Tadeo Martinez', carrera: 'Tecnologias de la Información', ide: 458931, perfil: '/perfil', imagen: 'https://i.postimg.cc/d3wtzQ8g/Dise-o-sin-t-tulo-2.png', mostrarDescripcion: false }
+        { nombre: 'Carlos González', carrera: 'Tecnologias de la Información', ide:456641, perfil: '/perfil', notas: '/Notas', imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png', mostrarDescripcion: false },
+        { nombre: 'Antonio Garcia', carrera: 'Tecnologias de la Información', ide: 456732, perfil: '/perfil', notas: '/Notas',imagen: 'https://i.postimg.cc/3NXPFHgV/Dise-o-sin-t-tulo-1.png', mostrarDescripcion: false },
+        { nombre: 'Tadeo Martinez', carrera: 'Tecnologias de la Información', ide: 458931, perfil: '/perfil', notas: '/Notas', imagen: 'https://i.postimg.cc/d3wtzQ8g/Dise-o-sin-t-tulo-2.png', mostrarDescripcion: false }
       ],
       imagenPsicologo: [
         "https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png"
       ],
       psicologo: { nombre: 'SYLVIA GUTIÉRREZ CANDIANI', imagen: 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png' }
     };
+  },
+  computed: {
+    alumnosFiltrados() {
+      const filtroLowerCase = this.filtro.toLowerCase();
+      return this.alumnos.filter(alumno =>
+        alumno.nombre.toLowerCase().includes(filtroLowerCase) ||
+        String(alumno.ide).includes(this.filtro) ||
+        alumno.carrera.toLowerCase().includes(filtroLowerCase)
+      );
+    }
   },
   methods: {
     redirigirPerfil(perfil) {
@@ -57,7 +70,6 @@ export default {
 };
 </script>
 
-  
   <style>
   .seccion-alumnos {
     text-align: center;
@@ -180,6 +192,18 @@ export default {
     left: 50px;
     top: 80px;
   }
+  .campo-busqueda {
+  margin: 20px auto; 
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 50px; 
+  width: calc(100% - 20px);
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.campo-busqueda:focus {
+  outline: none;
+  box-shadow: 0 0 3px 0 #6c63ff;
+}
   </style>
-  
-  

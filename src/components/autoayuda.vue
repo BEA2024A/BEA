@@ -201,7 +201,7 @@ export default {
   80%{transform: translateY(-20px);}
   100%{transform: translateY(0);}
 }
-
+/*BANNER*/
 .banner-autoayuda {
   position: relative;
   height: 100vh; 
@@ -220,8 +220,6 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-
 .titulo-autoayuda {
   position: absolute;
   top: 50%;
@@ -231,7 +229,6 @@ export default {
   text-align: center;
   z-index: 1; 
 }
-
 
 .titulo-autoayuda h1 {
   font-size: 50px;
@@ -281,7 +278,7 @@ export default {
 }
 
 
-/* Estilos para la sección de Blog */
+/* BLOG */
 .seccion-blog {
   margin-top: 150px;
   background-image: url("https://somospsicoterapia.es/images/blog/inconsciente.jpg");
@@ -340,7 +337,7 @@ export default {
   
 }
 
-/* Estilos para la sección de Videos de Meditación */
+/* VIDEOS */
 .seccion-videos {
   text-align: center;
   margin-top: 50px;
@@ -458,7 +455,117 @@ export default {
   opacity: 1; 
 }
 
-/* Estilos para la sección de Mensaje e Opciones */
+/* MENSAJE */
+.seccion-opciones {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+ padding: 20px;
+  animation: slideIn 4s ease forwards;
+  background-image: url("https://somospsicoterapia.es/images/blog/inconsciente.jpg");
+  color: rgb(0, 0, 0);
+}
+
+
+
+
+.mensaje-importante p {
+  text-align: center;
+  font-size:22px;
+  
+ 
+}
+
+.opciones {
+  display: flex;
+  justify-content: center;
+}
+
+.opcion {
+  margin:30px;
+}
+
+.boton-opcion {
+  padding: 20px 20px;
+  font-size: 18px;
+  background-color: #3f271b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+@media (max-width: 639px) {
+
+/*BANNER*/
+.banner-autoayuda {
+  position: relative;
+  height: 30vh; 
+  margin-top: 0px;
+}
+.titulo-autoayuda h1 {
+  font-size: 30px;
+}
+.titulo-autoayuda p {
+  font-size: 14px;
+}
+.boton-scroll {
+  display:none;
+}
+
+/*BLOGS */
+
+.seccion-blog {
+  margin-top: 15px;
+}
+
+.titulo-blog {
+  text-align: center;
+  font-size:20px;
+}
+
+
+.entrada-blog img {
+  width: 100%;
+  height: 250px; 
+  object-fit: cover; 
+  border-radius: 10px;
+  margin-bottom: 10px;
+  
+}
+
+/* VIDEOS */
+.seccion-videos {
+  margin-top: 30px;
+  padding-top: 20px;
+}
+
+.titulo-videos h2 {
+  padding: 10px; 
+  margin-left: 30px; 
+  margin-right: 30px; 
+}
+
+
+.video {
+  margin: 10px;
+  border-radius: 10px;
+  position: relative; 
+  transition: transform 0.6s ease;
+  padding-bottom: 20px;
+}
+
+
+.video-overlay-btn {
+  display:none;
+}
+
+iframe{
+  width: 400px
+}
+
+/* MENSAJE */
 .seccion-opciones {
   text-align: center;
   margin-top: 50px;
@@ -500,5 +607,6 @@ export default {
 }
 
 
+}
 
 </style>

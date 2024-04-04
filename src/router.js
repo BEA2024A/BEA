@@ -16,6 +16,9 @@ import perfil_alumno from './components/perfiles/perfil_alumno.vue';
 import inicioPsico from './components/inicioPsico.vue';
 import perfil from './components/perfil.vue';
 import HorarioPsico from './components/HorarioPsico.vue';
+import Notas from './components/Notas.vue';
+import NotasLeer from './components/NotasLeer.vue';
+import NotasCrear from './components/NotasCrear.vue';
 import insertar_psicologos from './components/insertar_psicologos.vue';
 
 
@@ -38,6 +41,9 @@ const routes = [
   {path: '/inicioPsico', name: '/inicioPsico', component: inicioPsico},
   {path: '/perfil', name: '/perfil', component: perfil},
   {path: '/HorarioPsico', name: 'HorarioPsico' , component: HorarioPsico},
+  {path: '/Notas', name: 'Notas', component: Notas},
+  {path: '/NotasLeer', name: 'NotasLeer', component: NotasLeer},
+  {path: '/NotasCrear', name: 'NotasCrear', component: NotasCrear},
   {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},
 
 ];
