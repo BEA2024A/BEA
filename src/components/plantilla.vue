@@ -380,12 +380,12 @@ export default {
   .secciones-navegacion {
     display: none;
     flex-direction: column;
-    background-color:#ff5900 ;
+    background-color:#030303 ;
     position: absolute;
     top: 75px;
     left: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 99;
     animation: slideIn 0.5s ease forwards;
     align-items: center;
 

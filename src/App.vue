@@ -26,25 +26,24 @@ body {
   text-align: center;
 }
 
-/* Estilos para la barra de desplazamiento */
-/* Cambiar la barra de desplazamiento */
 ::-webkit-scrollbar {
-  width: 10px; /* Ancho de la barra de desplazamiento */
+  width: 6px; /* Ancho de la barra de desplazamiento */
 }
 
-/* Cambiar el riel de la barra de desplazamiento */
+
+/*  riel de la barra de desplazamiento */
 ::-webkit-scrollbar-track {
-  background-color: transparent; /* Fondo transparente */
+  background-color: transparent; 
 }
 
-/* Cambiar el agarre de la barra de desplazamiento */
+/*  agarre de la barra de desplazamiento */
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.3); /* Color semi-transparente para el agarre */
-  border-radius: 5px; /* Borde redondeado del agarre */
+  background-color: #9e9e9e62;
+  border-radius: 5px; 
 }
 
-/* Cambiar el color de fondo cuando se pasa el mouse sobre la barra de desplazamiento */
+/*  color de fondo cuando se pasa el mouse sobre la barra de desplazamiento */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.5); /* Color semi-transparente más oscuro */
+  background-color:#c44501;
 }
 </style>

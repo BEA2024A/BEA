@@ -4,7 +4,7 @@ import VuexPersistence from 'vuex-persist';
 // Crea una instancia de VuexPersistence configurada para usar el almacenamiento local
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
-  reducer: (state) => ({ usuario: state.usuario }), // Solo haz persistente el estado necesario
+  reducer: (state) => ({ usuario: state.usuario }), 
 });
 
 export default createStore({
@@ -31,5 +31,5 @@ export default createStore({
     usuario: (state) => state.usuario,
     isUsuarioLogueado: (state) => !!state.usuario,
   },
-  plugins: [vuexLocal.plugin], // Añade VuexPersistence como un plugin a tu store
+  plugins: [vuexLocal.plugin], 
 });

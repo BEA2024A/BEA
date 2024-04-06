@@ -39,9 +39,26 @@ export default {
     return {
       filtro: '', 
       alumnos: [
-        { nombre: 'Carlos González', carrera: 'Tecnologias de la Información', ide:456641, perfil: '/perfil', notas: '/Notas', imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png', mostrarDescripcion: false },
-        { nombre: 'Antonio Garcia', carrera: 'Tecnologias de la Información', ide: 456732, perfil: '/perfil', notas: '/Notas',imagen: 'https://i.postimg.cc/3NXPFHgV/Dise-o-sin-t-tulo-1.png', mostrarDescripcion: false },
-        { nombre: 'Tadeo Martinez', carrera: 'Tecnologias de la Información', ide: 458931, perfil: '/perfil', notas: '/Notas', imagen: 'https://i.postimg.cc/d3wtzQ8g/Dise-o-sin-t-tulo-2.png', mostrarDescripcion: false }
+  { nombre: 'Carlos González', carrera: 'Tecnologias de la Información', ide:456641, perfil: '/perfil', notas: '/Notas', imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png', mostrarDescripcion: false },
+  { nombre: 'Antonio Garcia', carrera: 'Tecnologias de la Información', ide: 456732, perfil: '/perfil', notas: '/Notas',imagen: 'https://i.postimg.cc/3NXPFHgV/Dise-o-sin-t-tulo-1.png', mostrarDescripcion: false },
+  { nombre: 'Tadeo Martinez', carrera: 'Tecnologias de la Información', ide: 458931, perfil: '/perfil', notas: '/Notas', imagen: 'https://i.postimg.cc/d3wtzQ8g/Dise-o-sin-t-tulo-2.png', mostrarDescripcion: false },
+  { nombre: 'Luisa Fernandez', carrera: 'Ingeniería Civil', ide: 134567, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Javier Martinez', carrera: 'Medicina', ide: 768593, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Sofia Lopez', carrera: 'Diseño Gráfico', ide: 245679, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Diego Ramirez', carrera: 'Arquitectura', ide: 978452, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Valentina Torres', carrera: 'Psicología', ide: 123456, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Mariano Fernandez', carrera: 'Biología', ide: 789012, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Carlos González', carrera: 'Contaduría', ide: 345678, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Luis Martinez', carrera: 'Derecho', ide: 890123, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Elena Rodriguez', carrera: 'Administración de Empresas', ide: 567890, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Juan Pablo Suarez', carrera: 'Tecnologias de la Información', ide: 234567, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Maria Rodriguez', carrera: 'Ingeniería Industrial', ide: 890123, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Nicolas Gonzalez', carrera: 'Tecnologias de la Información', ide: 345678, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Florencia Lopez', carrera: 'Medicina', ide: 678901, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Alejandro Martinez', carrera: 'Diseño Gráfico', ide: 456789, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Valeria Ramirez', carrera: 'Arquitectura', ide: 901234, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Manuel Suarez', carrera: 'Psicología', ide: 678901, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false },
+  { nombre: 'Carla Fernandez', carrera: 'Biología', ide: 123456, perfil: '/perfil', notas: '/Notas', imagen: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', mostrarDescripcion: false }
       ],
       imagenPsicologo: [
         "https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png"

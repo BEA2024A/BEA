@@ -129,6 +129,7 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;
+  
 }
 
   .item-metodo {
@@ -139,12 +140,14 @@ export default {
     overflow: hidden;
     transition: transform 0.3s ease, filter 0.3s ease;  
     cursor: pointer;
+   
+    padding-right: 10px;
   }
   .item-metodo:hover {
     transform: scale(1.02);
   }
   .item-metodo img {
-    width: 500px;
+    width: 400px;
     height: 300px;
     object-fit: cover;
     border-radius: 10px;
@@ -217,7 +220,7 @@ export default {
   border-radius: 10px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
     width: 100%;
-    height: 300px; 
+    height: 250px; 
     object-fit: cover; 
     animation: slideIn 1s ease forwards;
   }

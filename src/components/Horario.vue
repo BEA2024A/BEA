@@ -53,8 +53,10 @@ export default {
           right: 'dayGridMonth,dayGridWeek,dayGridDay'
         },
         events: [
-          {title: 'cita de prueba', date: '2024-04-03', time: '15:00', color: '#ff5900'},
-          
+          {title: 'cita de prueba', date: '2024-04-03', color: '#ff5900'},
+          {title: 'cita de prueba', date: '2024-04-04', color: '#ff5900'},
+          {title: 'cita de prueba', date: '2024-04-05', color: '#ff5900'},
+          {title: 'cita de prueba', date: '2024-04-06', color: '#ff5900'},
   
         ],
         locale: esLocale,

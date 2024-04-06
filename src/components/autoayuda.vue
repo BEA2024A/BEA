@@ -44,7 +44,7 @@
         <div class="video-overlay-btn">
           <button class="open-video-btn" @click="openVideo(index)"></button>
         </div>
-  <iframe width="560" height="315" :src="video.link" frameborder="0" allowfullscreen></iframe>
+  <iframe width="430" height="300" :src="video.link" frameborder="0" allowfullscreen></iframe>
           </div>
         </div>
   </div>
@@ -53,7 +53,7 @@
 <!-- Cuadro de superposición para el video -->
 <div class="video-overlay" v-if="showVideo">
   <div class="video-container">
-    <iframe width="1080" height="720" :src="currentVideoLink" frameborder="0" allowfullscreen></iframe>
+    <iframe width="800" height="500" :src="currentVideoLink" frameborder="0" allowfullscreen></iframe>
     <button class="close-video-btn" @click="closeVideo">
     <img class="icono-cerrar" src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png">
     </button>
@@ -562,7 +562,8 @@ export default {
 }
 
 iframe{
-  width: 400px
+  width: 350px;
+  height: 200px;
 }
 
 /* MENSAJE */

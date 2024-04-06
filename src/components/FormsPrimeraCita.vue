@@ -108,8 +108,8 @@ transform: translateY(-40px);
 .textbox-animado {
 opacity: 0;
 animation: aparecer 1s forwards;
-width: 300px;
-height: 500px;
+width: 200px;
+height: 400px;
 padding: 10px;
 }
 .boton-siguiente,
