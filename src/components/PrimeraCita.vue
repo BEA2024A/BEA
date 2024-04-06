@@ -1,77 +1,101 @@
 <template>
-<plantilla>
-    <div class="fondo">
-      <div class="texto-centrado" :key="textoActual" v-html="textoActual" @click="redirigirAFormulario">
+  <plantilla>
+  <div class="fondo">
+    <div class="leonel">
+      <img src="https://i.postimg.cc/0QYjnHzx/Leonel-Me-dico-removebg-preview.png" alt="Leonel Médico"/>
+      <div class="burbuja">
+        <div :key="indiceDeTexto" v-html="textoActual" class="texto-animado" @click="redirigirAFormulario"></div>
       </div>
     </div>
-  </plantilla>
-  </template>
-  
-  <script>
-  import Plantilla from './plantilla.vue';
+  </div>
+</plantilla>
+</template>
 
+<script>
+import Plantilla from './plantilla.vue';
 export default {
   components: {
     Plantilla,
   },
-    data() {
-      return {
-        listaDeTextos: [
-          "HOLA",
-          "GRACIAS POR COMUNICARTE A ACOMPAÑAMIENTO",
-          "A CONTINUACIÓN VERÁS UN CUESTIONARIO",
-          "TODA LA INFORMACIÓN ES 100% CONFIDENCIAL",
-          "CUANDO ESTÉS LISTO, PRESIONA <span class='enlace'>AQUÍ</span>",
-        ],
-        textoActual: "",
-        indiceDeTexto: 0,
-      };
+  data() {
+    return {
+      listaDeTextos: [
+        "HOLA" ,
+        "GRACIAS POR COMUNICARTE A ACOMPAÑAMIENTO",
+        "A CONTINUACIÓN VERÁS UN CUESTIONARIO",
+        "TODA LA INFORMACIÓN ES 100% CONFIDENCIAL",
+        'CUANDO ESTÉS LISTO, PRESIONA <span class="enlace">AQUÍ</span>',
+      ],
+      textoActual: "",
+      indiceDeTexto: 0,
+    };
+  },
+  methods: {
+    cambiarTexto() {
+      this.textoActual = this.listaDeTextos[this.indiceDeTexto];
+      this.indiceDeTexto++;
+      if (this.indiceDeTexto >= this.listaDeTextos.length) {
+        this.indiceDeTexto = 4;
+      }
+      setTimeout(this.cambiarTexto, 3000);
     },
-    methods: {
-      cambiarTexto() {
-        if (this.indiceDeTexto < this.listaDeTextos.length) {
-          this.textoActual = this.listaDeTextos[this.indiceDeTexto];
-          this.indiceDeTexto++;
-        }
-        setTimeout(this.cambiarTexto, 3000);
-      },
-      redirigirAFormulario() {
-        if (event.target.classList.contains('enlace')) {
-          this.$router.push('/FormsPrimeraCita');
-        }
-      },
+    redirigirAFormulario(event) {
+      if (event.target.classList.contains('enlace')) {
+        this.$router.push('/FormsPrimeraCita');
+      }
     },
-    mounted() {
-      this.cambiarTexto();
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .fondo {
-    background-color: #ff5900;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  
-  .texto-centrado {
-    color: #fff;
-    font-size: 24px;
+  },
+  mounted() {
+    this.cambiarTexto();
+  },
+};
+</script>
+
+<style scoped>
+.fondo {
+  background-color: #ff5900;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.leonel img {
+  width: 30%;
+  transform: translateX(60%);
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 70px;
+}
+
+.burbuja {
+  position: absolute;
+  width: 100vw;
+  bottom: -10px;
+  left: 0;
+  padding: 100px;
+  background-color: #0000006b;
+  color: aliceblue;
+  font-size: 30px;
+  z-index: 1;
+  text-align: left;
+  margin-bottom: 70px;
+}
+
+.texto-animado {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {
     opacity: 0;
-    animation: aparecer 1s forwards;
-    font-style: italic;
-    cursor: pointer;
   }
-  .texto-centrado.animado {
-    animation: aparecer 1s forwards;
+  100% {
+    opacity: 1;
   }
-  @keyframes aparecer {
-    to {
-      opacity: 1;
-    }
-  }
-  </style>
-  
+}
+
+</style>

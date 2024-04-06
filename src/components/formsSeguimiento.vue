@@ -2,22 +2,34 @@
   <plantilla>
   <div class="fondo">
     <div class="formulario">
-      <div v-if="preguntaActual < preguntas.length" class="pregunta-animada">
-        <h2 class="pregunta-texto">{{ preguntas[preguntaActual] }}</h2>
-        <textarea v-model="respuestas[preguntaActual]" rows="4" class="textbox-animado"></textarea>
-        <button @click="siguientePregunta" class="boton-siguiente">Siguiente</button>
+      <div v-if="preguntaActual < preguntas.length">
+        <!-- Textarea y botón Siguiente fuera y arriba de la burbuja -->
+        <textarea v-model="respuestas[preguntaActual]" rows="4" class="textarea-animada" placeholder="ESCRIBE TU RESPUESTA AQUI"></textarea>
+      
       </div>
-      <div v-else>
-        <h2 class="pregunta-animada">TU SIGUIENTE CITA ES EL DIA XX-XX-XXX</h2>
-        <button @click="enviarFormulario" class="boton-enviar">ver en tu calendario</button>
+
+      <div class="leonel">
+        <img src="https://www.anahuac.mx/sites/default/files/gbb-uploads/img_leonel-i5aru2.png" alt="Leonel Médico"/>
+        <div class="burbuja">
+          <!-- Solo la pregunta dentro de la burbuja -->
+          <div v-if="preguntaActual < preguntas.length" class="pregunta-animada" :key="preguntaActual">
+            <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+            <button @click="siguientePregunta" class="boton-siguiente">Siguiente</button>
+          </div>
+          <div v-else class="finalizado-animado">
+        <p>MUCHAS GRACIAS {{ usuario.nombre.toUpperCase() }}</p>
+        <p>TU SIGUENTE CITA ES EL DIA: xx-xx-xx </p>
+        <button @click="enviarFormulario" class="boton-enviar">ir a tu calendario</button>
+      </div> 
+        </div>
       </div>
     </div>
   </div>
 </plantilla>
 </template>
-<script>
-import Plantilla from './plantilla.vue';
 
+<script>import Plantilla from './plantilla.vue';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   components: {
     Plantilla,
@@ -27,17 +39,24 @@ export default {
       preguntas: [
       "ESCRIBE AQUI COMO HAS ESTADO DURANTE ESTE TIEMPO",
       ],
-      respuestas: Array.from({ length: 10 }, () => ""),
+      respuestas: Array.from({ length: 3 }, () => ""),
       preguntaActual: 0,
     };
   },
+
+  computed: {
+    ...mapGetters(['usuario']),
+
+  },
+
   methods: {
     siguientePregunta() {
       this.preguntaActual++;
     },
     enviarFormulario() {
       console.log("Respuestas:", this.respuestas);
-      this.$router.push('/Horario');
+      // Implementar lógica de envío aquí
+       this.$router.push('/horario');
     },
   },
 };
@@ -45,55 +64,108 @@ export default {
 
 <style scoped>
 .fondo {
-background-color: #ff5900;
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
+  background-color: #ff5900; /* Mismo color de fondo que primeracita.vue */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
+
 .formulario {
-color: #fff;
-font-size: 18px;
-text-align: center;
+  color: aliceblue; /* Mismo color de texto que primeracita.vue */
+  font-size: 18px;
+  text-align: center;
+  margin-right: 800px;
+  margin-bottom: 400px;
 }
+
 .pregunta-animada {
-opacity: 0;
-animation: aparecer 1s forwards;
-margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  margin-bottom: 20px;
 }
+
+.finalizado-animado {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  font-size: 24px;
+}
+
 .pregunta-texto {
-font-size: 30px; 
+  font-size: 24px;
 }
-.textbox-animado {
-opacity: 0;
-animation: aparecer 1s forwards;
-width: 100%;
-padding: 2px;
-font-size: 30px; 
-border: 2px solid #423a38;
-border-radius: 8px;
-resize: none;
+
+.textarea-animada {
+  width: 600px;
+  height: 300px;
+  padding: 15px;
+  font-size: 18px;
+  border: 2px solid #423a38;
+  border-radius: 8px;
+  resize: none;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
 }
+
 .boton-siguiente,
 .boton-enviar {
-background-color: #423a38;
-color: #fff;
-padding: 15px 20px;
-border: none;
-font-size: 18px;
-cursor: pointer;
-border-radius: 8px;
-transition: background-color 0.3s ease;
-margin-top: 20px;
+  background-color: #423a38; 
+  color: #fff;
+  width: 10%;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
+
 .boton-siguiente:hover,
 .boton-enviar:hover {
-background-color: #625750;
+  background-color: #625750;
 }
-@keyframes aparecer {
-to {
-  opacity: 1;
+
+.leonel img {
+  width: 40%;
+  transform: translateX(100%);
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 70px;
 }
+
+.burbuja {
+  position: absolute;
+  width: 100vw;
+  bottom: -10px;
+  left: 0;
+  padding: 100px;
+  background-color: #0000006b;
+  color: aliceblue;
+  font-size: 30px;
+  z-index: 1;
+  text-align: left;
+  margin-bottom: 70px;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Media queries para ajustes responsivos */
+@media (max-width: 639px) {
+  .textarea-animada {
+    width: 100%; /* Ajuste para dispositivos móviles */
+  }
+  .boton-siguiente,
+  .boton-enviar {
+    width: auto;
+    padding: 10px 15px;
+  }
 }
 </style>
