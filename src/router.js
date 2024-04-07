@@ -7,7 +7,6 @@ import FormsPrimeraCita from './components/FormsPrimeraCita.vue';
 import Seguimiento from './components/Seguimiento.vue';
 import InicioSesion from './components/InicioSesion.vue';
 import formsSeguimiento from './components/formsSeguimiento.vue';
-import contraseña from './components/contraseña.vue';
 import register from './components/register.vue';
 
 import ps1 from './components/perfiles/ps1.vue';
@@ -32,7 +31,6 @@ const routes = [
   {path: '/Seguimiento', name: '/Seguimiento', component: Seguimiento},
   {path: '/formsSeguimiento', name: '/formnsSeguimiento', component: formsSeguimiento},
   {path: '/InicioSesion', name: '/InicioSesion', component: InicioSesion},
-  {path: '/contraseña', name: '/contraseña', component: contraseña},
   {path: '/register', name: '/register', component: register},
 
   {path: '/ps1', name: '/ps1', component: ps1},
@@ -53,7 +51,24 @@ const router = createRouter({
   routes
 });
 
+
+router.beforeEach((to, from, next) => {
+ 
+  const rutasProtegidas = ['/horario', '/perfil_alumno', '/seguimiento', '/primeracita','/FormsPrimeraCita', '/formsSeguimiento', '/inicioPsico'  ]; 
+  const usuarioEstaAutenticado = localStorage.getItem('usuario'); 
+  
+  if (rutasProtegidas.includes(to.path) && !usuarioEstaAutenticado) {
+   
+    next('/InicioSesion');
+  } else {
+   
+    next();
+  }
+});
+
 export default router;
+
+
 
 
 

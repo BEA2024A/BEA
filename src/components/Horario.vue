@@ -1,5 +1,16 @@
 <template>
   <plantilla>
+
+
+
+    <div v-if="!usuario" class="overlay"></div>
+<div v-if="!usuario" class="modal-sesion">
+  <h3>Necesitas iniciar sesión para ver tu calendario</h3>
+  <button @click="$router.push('/inicioSesion')">Iniciar sesión</button>
+  <button @click="$router.push('/')">regresar al inicio</button>
+</div>
+
+
     <div class="container">
       <div class="events-container">
         <div class="eventos">
@@ -53,10 +64,7 @@ export default {
           right: 'dayGridMonth,dayGridWeek,dayGridDay'
         },
         events: [
-          {title: 'cita de prueba', date: '2024-04-03', color: '#ff5900'},
-          {title: 'cita de prueba', date: '2024-04-04', color: '#ff5900'},
-          {title: 'cita de prueba', date: '2024-04-05', color: '#ff5900'},
-          {title: 'cita de prueba', date: '2024-04-06', color: '#ff5900'},
+          
   
         ],
         locale: esLocale,
@@ -69,9 +77,25 @@ export default {
   },
 
   mounted() {
-    this.verificarEventosHoy();
+    if (!this.usuario) {
+    this.mostrarMensajeSesion();
+  } else {
+    this.obtenerEventosUsuario();
+  }
   },
   methods: {
+
+
+    obtenerEventosUsuario() {
+    const idUsuario = this.usuario.id; 
+    axios.get(`http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idUsuario}`)
+      .then(response => {
+        this.calendarOptions.events = response.data;
+      })
+      .catch(error => console.error("Hubo un error al obtener los eventos:", error));
+  },
+
+
     activarNotificaciones() {
       if (!("Notification" in window)) {
         alert("Este navegador no soporta notificaciones del sistema");
@@ -118,6 +142,9 @@ export default {
 },
 
 
+
+
+
   }
 };
 </script>
@@ -134,6 +161,44 @@ export default {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.712);
+  z-index: 1;
+}
+
+.modal-sesion {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  text-align: center;
+  z-index: 2; 
+  animation: fedeIn 0.5s ease forwards;
+}
+
+.modal-sesion button {
+  margin-top: 20px;
+  padding: 10px;
 }
 
 
@@ -203,9 +268,8 @@ export default {
 }
 
 .events-list {
-  list-style-type:disc;
-  text-align: justify;
-  transform: translateX(32%);
+  list-style-type:none;
+  text-align:center;
 }
 
 .events-list li {

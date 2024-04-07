@@ -26,10 +26,7 @@
       <div class="informacion-psicoterapeuta" v-if="loaded" ref="informacionPsicoterapeuta">
         <div class="trabajo">
           <div class="columna-izquierda">
-            <h3>ESPECIALIDAD</h3>
-            <p>{{ informacion.especialidad }}</p>
-            <h3>POBLACIÓN A ATENDER</h3>
-            <p>{{ informacion.poblacion }}</p>
+            
           </div>
           <div class="columna-derecha">
             <h3>FORMACIÓN ACADÉMICA</h3>

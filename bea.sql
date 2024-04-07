@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-04-2024 a las 06:51:34
+-- Tiempo de generación: 07-04-2024 a las 09:27:16
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -32,14 +32,24 @@ USE `bea`;
 DROP TABLE IF EXISTS `eventos`;
 CREATE TABLE `eventos` (
   `id_evento` int(11) NOT NULL,
-  `titulo` varchar(255) NOT NULL,
-  `descripcion` text DEFAULT NULL,
-  `inicio` datetime NOT NULL,
-  `fin` datetime NOT NULL,
-  `id_alumno` int(8) DEFAULT NULL,
-  `recordatorio_activado` tinyint(1) DEFAULT 0,
-  `recordatorio_tiempo` int(11) DEFAULT NULL
+  `id_usuario` int(11) DEFAULT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `hora` time DEFAULT NULL,
+  `color` varchar(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `eventos`
+--
+
+INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `color`) VALUES
+(1, 446027, 'Consulta Psicológica', '2024-04-07', '13:00:00', '#FFD700'),
+(2, 446027, 'Consulta Psicológica', '2024-04-08', '13:00:00', '#FFD700'),
+(3, 446027, 'Consulta Psicológica', '2024-04-09', '13:00:00', '#FFD700'),
+(4, 456897, 'Sesión de Orientación', '2024-04-20', '15:00:00', '#007BFF'),
+(5, 456897, 'Taller de Manejo del Estrés', '2024-04-22', '11:00:00', '#28A745'),
+(6, 456897, 'Reunión de Seguimiento', '2024-05-01', '09:00:00', '#DC3545');
 
 -- --------------------------------------------------------
 
@@ -82,10 +92,7 @@ CREATE TABLE `registro` (
 --
 
 INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`) VALUES
-(8, 'pruebas', 'de', 'pagina', 'root', '1'),
-(345678, 'q', 'q', 'q', '@anahuac.mx', 'cc9e617ba48b17a34cd19b4775e28ac3'),
 (446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_garcia@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182'),
-(446028, 'antonio', 'garcia', 'cruz', 'antoniogc984@gmail.com', '4c882dcb24bcb1bc225391a602feca7c'),
 (456897, 'tadeo', 'martinez', 'quero', 'tadeo_martinez@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182'),
 (465875, 'estefania', 'vasconcelos', 'perez', 'evasconcelos@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182');
 
@@ -98,7 +105,7 @@ INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MAT
 --
 ALTER TABLE `eventos`
   ADD PRIMARY KEY (`id_evento`),
-  ADD KEY `id_alumno` (`id_alumno`);
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `psicologos`
@@ -121,13 +128,13 @@ ALTER TABLE `registro`
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id_psicologo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_psicologo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -137,7 +144,7 @@ ALTER TABLE `psicologos`
 -- Filtros para la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  ADD CONSTRAINT `eventos_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `registro` (`ID_ALUMNO`) ON DELETE SET NULL;
+  ADD CONSTRAINT `eventos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `registro` (`ID_ALUMNO`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

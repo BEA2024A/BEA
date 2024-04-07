@@ -30,7 +30,7 @@
           <div class="input-line"></div>
         </div>
         <div class="input-group">
-          <input type="password" v-model="confirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <input type="password" v-model="confirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="submit"  >
           <div class="input-line"></div>
         </div>
         <div class="back-to-home" @click="goToHome">

@@ -13,13 +13,13 @@
 
         <!-- Correo -->
         <div class="email-input" v-if="paso === 1">
-          <input type="email" v-model="email" placeholder="user@anahuac.mx" class="input-field" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <input type="email" v-model="email" placeholder="user@anahuac.mx" class="input-field" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="avanzarOPostear">
           <div class="input-line"></div>
         </div>
 
         <!-- Contraseña -->
         <div class="email-input" v-if="paso === 2">
-          <input type="password" v-model="password" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <input type="password" v-model="password" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="avanzarOPostear">
           <div class="input-line"></div>
         </div>
 
