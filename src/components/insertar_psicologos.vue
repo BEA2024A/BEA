@@ -98,7 +98,7 @@ import PlantillaPsico from './plantillaPsico.vue';
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #adabab;
+  background-color: #ff5900;
 }
 
 .registro-box {
@@ -106,7 +106,7 @@ import PlantillaPsico from './plantillaPsico.vue';
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  max-width: 700px;
   width: 100%;
   margin: 30px;
 }
@@ -141,7 +141,7 @@ h2 {
 }
 
 button {
-  background-color: #ff4800;
+  background-color: #000000;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -151,9 +151,6 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #ff4800;
-}
 
 </style>
 

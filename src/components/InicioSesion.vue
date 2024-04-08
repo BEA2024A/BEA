@@ -60,32 +60,39 @@ export default {
       }
     },
     postearLogin() {
-      const formData = new FormData();
-      formData.append('CORREO', this.email);
-      formData.append('CONTRASEÑA', this.password);
+  const formData = new FormData();
+  formData.append('CORREO', this.email);
+  formData.append('CONTRASEÑA', this.password);
 
-      axios.post('http://localhost/BEA/back/verificar_credenciales.php', formData)
-        .then(response => {
-          if (response.data.exito) {
-            this.$store.dispatch('iniciarSesion', { nombre: response.data.nombreUsuario,
-                                                    correo: response.data.correoUsuario,
-                                                    id: response.data.idUsuario,
-                                                    a_paterno: response.data.a_paternoUsuario,
-                                                    a_materno: response.data.a_maternoUsuario,
-                                                  });
-
-            this.$router.push('/');
-          } else {
-            alert('Correo electrónico o contraseña incorrectos.');
-            this.paso = 1; // Regresa al primer paso si falla
-          }
-        })
-        .catch(error => {
-          console.error('Error en la petición:', error);
-          alert('Ocurrió un error al intentar iniciar sesión.');
-          this.paso = 1; // Regresa al primer paso si falla
+  axios.post('http://localhost/BEA/back/verificar_credenciales.php', formData)
+    .then(response => {
+      if (response.data.exito) {
+        this.$store.dispatch('iniciarSesion', {
+          nombre: response.data.nombreUsuario,
+          correo: response.data.correoUsuario,
+          id: response.data.idUsuario,
+          tipo: response.data.tipoUsuario, // Agregamos el tipo de usuario
         });
-    },
+
+        // Redirige según el tipo de usuario
+        if (response.data.tipoUsuario === 'administrador') {
+          this.$router.push('/inicioPsico');
+        } else {
+          this.$router.push('/');
+        }
+      } else {
+        alert('Correo electrónico o contraseña incorrectos.');
+        this.paso = 1;
+      }
+    })
+    .catch(error => {
+      console.error('Error en la petición:', error);
+      alert('Ocurrió un error al intentar iniciar sesión.');
+      this.paso = 1;
+    });
+},
+
+
     hideBottomBorder() {
       this.$refs.emailInput.style.borderBottom = 'none';
     },

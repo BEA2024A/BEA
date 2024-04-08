@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-04-2024 a las 09:27:16
+-- Tiempo de generación: 08-04-2024 a las 06:39:59
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -39,18 +39,6 @@ CREATE TABLE `eventos` (
   `color` varchar(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `eventos`
---
-
-INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `color`) VALUES
-(1, 446027, 'Consulta Psicológica', '2024-04-07', '13:00:00', '#FFD700'),
-(2, 446027, 'Consulta Psicológica', '2024-04-08', '13:00:00', '#FFD700'),
-(3, 446027, 'Consulta Psicológica', '2024-04-09', '13:00:00', '#FFD700'),
-(4, 456897, 'Sesión de Orientación', '2024-04-20', '15:00:00', '#007BFF'),
-(5, 456897, 'Taller de Manejo del Estrés', '2024-04-22', '11:00:00', '#28A745'),
-(6, 456897, 'Reunión de Seguimiento', '2024-05-01', '09:00:00', '#DC3545');
-
 -- --------------------------------------------------------
 
 --
@@ -84,7 +72,7 @@ CREATE TABLE `registro` (
   `APELLIDO_PATERNO` varchar(60) NOT NULL,
   `APELLIDO_MATERNO` varchar(60) NOT NULL,
   `CORREO` varchar(60) NOT NULL,
-  `CONTRASEÑA` varchar(60) NOT NULL
+  `CONTRASEÑA` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -92,9 +80,7 @@ CREATE TABLE `registro` (
 --
 
 INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`) VALUES
-(446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_garcia@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182'),
-(456897, 'tadeo', 'martinez', 'quero', 'tadeo_martinez@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182'),
-(465875, 'estefania', 'vasconcelos', 'perez', 'evasconcelos@anahuac.mx', 'ed5f12a868656d35b8d477bc8bf2b182');
+(446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_garcia@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da');
 
 --
 -- Índices para tablas volcadas

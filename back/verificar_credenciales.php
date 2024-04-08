@@ -11,39 +11,47 @@ $dbname = "bea";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verifica la conexión
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Recibe los datos del correo y contraseña 
 $CORREO = $_POST['CORREO'];
-$CONTRASEÑA = md5( $_POST['CONTRASEÑA']);
+$CONTRASEÑA = hash('sha256', $_POST['CONTRASEÑA']);
 
-// Previene inyección SQL escapando los valores
+
 $CORREO = mysqli_real_escape_string($conn, $CORREO);
 $CONTRASEÑA = mysqli_real_escape_string($conn, $CONTRASEÑA);
 
-// Consulta la base de datos para verificar las credenciales
+// Intenta encontrar al usuario en la tabla de registros
 $sql = "SELECT * FROM registro WHERE CORREO = '$CORREO' AND CONTRASEÑA = '$CONTRASEÑA'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // Si la consulta devuelve al menos una fila las credenciales son correctas
-    $fila = $result->fetch_assoc(); // Obtiene los datos del usuario
-    // Prepara y envía la respuesta como JSON
+    $fila = $result->fetch_assoc();
     echo json_encode([
         'exito' => true,
         'nombreUsuario' => $fila['NOMBRE'],
-        'correoUsuario' => $fila['CORREO'], 
-        'idUsuario' => $fila['ID_ALUMNO'], 
-        'a_paternoUsuario' => $fila['APELLIDO_PATERNO'], 
-        'a_maternoUsuario' => $fila['APELLIDO_MATERNO'], 
+        'correoUsuario' => $fila['CORREO'],
+        'idUsuario' => $fila['ID_ALUMNO'],
+        'tipoUsuario' => 'usuario',
     ]);
-    
 } else {
-    // Si la consulta no devuelve ninguna fila, las credenciales son incorrectas
-    echo json_encode(['exito' => false]);
+    // Intenta encontrar al usuario en la tabla de administradores
+    $sqlAdmin = "SELECT * FROM administradores WHERE CORREO = '$CORREO' AND CONTRASEÑA = '$CONTRASEÑA'";
+    $resultAdmin = $conn->query($sqlAdmin);
+
+    if ($resultAdmin->num_rows > 0) {
+        $filaAdmin = $resultAdmin->fetch_assoc();
+        echo json_encode([
+            'exito' => true,
+            'nombreUsuario' => $filaAdmin['NOMBRE'],
+            'correoUsuario' => $filaAdmin['CORREO'],
+            'idUsuario' => $filaAdmin['ID_ALUMNO'],
+            'tipoUsuario' => 'administrador',
+        ]);
+    } else {
+        echo json_encode(['exito' => false]);
+    }
 }
 
 $conn->close();

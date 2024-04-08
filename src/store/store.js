@@ -12,17 +12,18 @@ export default createStore({
     usuario: null, // Aquí almacenas la información del usuario
   },
   mutations: {
-    setUsuario(state, usuario) {
-      state.usuario = usuario;
+    setUsuario(state, { nombre, correo, id, a_paterno, a_materno }) {
+      state.usuario = { nombre, correo, id, a_paterno, a_materno };
     },
     clearUsuario(state) {
       state.usuario = null;
     },
   },
   actions: {
-    iniciarSesion({ commit }, usuario, correo, id, a_paterno, a_materno) {
-      commit('setUsuario', usuario, correo, id, a_paterno, a_materno);
+    iniciarSesion({ commit }, { nombre, correo, id, a_paterno, a_materno }) {
+      commit('setUsuario', { nombre, correo, id, a_paterno, a_materno });
     },
+    
     cerrarSesion({ commit }) {
       commit('clearUsuario');
     },

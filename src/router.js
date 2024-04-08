@@ -19,6 +19,7 @@ import Notas from './components/Notas.vue';
 import NotasLeer from './components/NotasLeer.vue';
 import NotasCrear from './components/NotasCrear.vue';
 import insertar_psicologos from './components/insertar_psicologos.vue';
+import agregarAdministrador from './components/agregarAdministrador.vue';
 
 
 const routes = [
@@ -43,6 +44,7 @@ const routes = [
   {path: '/NotasLeer', name: 'NotasLeer', component: NotasLeer},
   {path: '/NotasCrear', name: 'NotasCrear', component: NotasCrear},
   {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},
+  {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
 
 ];
 
@@ -53,15 +55,22 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
- 
-  const rutasProtegidas = ['/horario', '/perfil_alumno', '/seguimiento', '/primeracita','/FormsPrimeraCita', '/formsSeguimiento', '/inicioPsico'  ]; 
-  const usuarioEstaAutenticado = localStorage.getItem('usuario'); 
-  
+  const rutasProtegidas = ['/horario', '/perfil_alumno', '/seguimiento', '/primeracita', '/FormsPrimeraCita', '/formsSeguimiento', '/inicioPsico'];
+  const rutasAdministrativas = ['/agregarAdministrador', '/insertar_psicologos']; // Rutas exclusivas para el administrador
+
+  const estadoAlmacenado = localStorage.getItem('vuex') ? JSON.parse(localStorage.getItem('vuex')) : null;
+
+  // Determinar si el usuario está autenticado y su ID
+  const usuarioEstaAutenticado = estadoAlmacenado && estadoAlmacenado.usuario && estadoAlmacenado.usuario.id;
+  const idUsuario = estadoAlmacenado && estadoAlmacenado.usuario && estadoAlmacenado.usuario.id; // Asumiendo que el ID se guarda en esta ruta
+
+  // Verificar acceso a rutas protegidas
   if (rutasProtegidas.includes(to.path) && !usuarioEstaAutenticado) {
-   
+    next('/InicioSesion');
+  } else if (rutasAdministrativas.includes(to.path) && idUsuario !== '123456') {
+    // Si intenta acceder a una ruta administrativa y no es el admin, redirigir a inicio o a donde consideres adecuado
     next('/InicioSesion');
   } else {
-   
     next();
   }
 });

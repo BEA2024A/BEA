@@ -19,21 +19,21 @@ $ID_ALUMNO = $_POST['ID_ALUMNO'];
 $CORREO = $_POST['CORREO'];
 
 // Verificar si el ID ya existe en la base de datos
-$query = "SELECT * FROM registro WHERE ID_ALUMNO = '$ID_ALUMNO'";
+$query = "SELECT * FROM administradores WHERE ID_ALUMNO = '$ID_ALUMNO'";
 $result = $conn->query($query);
 
 if ($result->num_rows > 0) {
-    echo "El ID ya está registrado. Por favor, inicia sesión con tu cuenta.";
+    echo "El ID ya está registrado.";
     $conn->close();
     exit();
 }
 
 // Verificar si el correo ya existe en la base de datos
-$query = "SELECT * FROM registro WHERE CORREO = '$CORREO'";
+$query = "SELECT * FROM administradores WHERE CORREO = '$CORREO'";
 $result = $conn->query($query);
 
 if ($result->num_rows > 0) {
-    echo "El correo ya está en uso con otra cuenta.";
+    echo "El correo ya está en uso con otro administrador.";
     $conn->close();
     exit();
 }
@@ -45,13 +45,13 @@ $APELLIDO_MATERNO = $_POST['APELLIDO_MATERNO'];
 $CONTRASEÑA = hash('sha256', $_POST['CONTRASEÑA']);
 
 
-$sql = "INSERT INTO registro (ID_ALUMNO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, CORREO, CONTRASEÑA) 
+$sql = "INSERT INTO administradores (ID_ALUMNO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, CORREO, CONTRASEÑA) 
 VALUES ('$ID_ALUMNO', '$NOMBRE', '$APELLIDO_PATERNO', '$APELLIDO_MATERNO', '$CORREO', '$CONTRASEÑA')";
 
 if ($conn->query($sql) === TRUE) {
     echo "Registro exitoso";
 } else {
-    echo "Error al registrar el usuario: " . $conn->error;
+    echo "Error al registrar el administrador: " . $conn->error;
 }
 
 $conn->close();
