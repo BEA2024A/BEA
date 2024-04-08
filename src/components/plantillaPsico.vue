@@ -155,6 +155,7 @@ export default {
     cerrarSesionYCerrarMenu() {
       this.cerrarSesion(); 
       this.mostrarMenuUsuario = false;
+      this.$router.push('/');
     },
   },
 };
