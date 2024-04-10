@@ -33,6 +33,8 @@ if ($result->num_rows > 0) {
         'nombreUsuario' => $fila['NOMBRE'],
         'correoUsuario' => $fila['CORREO'],
         'idUsuario' => $fila['ID_ALUMNO'],
+        'a_paternoUsuario' => $fila['APELLIDO_PATERNO'],
+        'a_maternoUsuario' => $fila['APELLIDO_MATERNO'],
         'tipoUsuario' => 'usuario',
     ]);
 } else {
@@ -47,6 +49,8 @@ if ($result->num_rows > 0) {
             'nombreUsuario' => $filaAdmin['NOMBRE'],
             'correoUsuario' => $filaAdmin['CORREO'],
             'idUsuario' => $filaAdmin['ID_ALUMNO'],
+            'a_paternoUsuario' => $filaAdmin['APELLIDO_PATERNO'],
+            'a_maternoUsuario' => $filaAdmin['APELLIDO_MATERNO'],
             'tipoUsuario' => 'administrador',
         ]);
     } else {

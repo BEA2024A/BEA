@@ -70,6 +70,8 @@ export default {
         this.$store.dispatch('iniciarSesion', {
           nombre: response.data.nombreUsuario,
           correo: response.data.correoUsuario,
+          a_paterno: response.data.a_paternoUsuario,
+          a_materno: response.data.a_maternoUsuario,
           id: response.data.idUsuario,
           tipo: response.data.tipoUsuario, // Agregamos el tipo de usuario
         });

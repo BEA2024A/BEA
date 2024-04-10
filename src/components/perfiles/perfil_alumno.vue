@@ -74,7 +74,6 @@ export default {
 
   },
   mounted() {
-    // Establecer un retraso para simular la carga de la página
     setTimeout(() => {
       this.loaded = true;
     }, 500);
