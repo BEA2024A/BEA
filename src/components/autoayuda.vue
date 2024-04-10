@@ -19,21 +19,27 @@
         </button>
       </section>
 
-   <!-- Sección de Blog -->
-   <section class="seccion-blog">
-        <div class="titulo-blog">
-          <h3>Descubre artículos y consejos para mejorar tu bienestar</h3>
+  <!-- Sección de Blog con Carrusel -->
+  <section class="seccion-blog">
+  <div class="titulo-blog">
+    <h3>Descubre artículos y consejos para mejorar tu bienestar</h3>
+  </div>
+  <div class="carrusel-blogs">
+    <carousel :itemsToShow="3" class="blogs-carousel">
+      <slide v-for="entrada in entradasBlog" :key="entrada.id">
+        <div class="carousel__item">
+          <p>{{ entrada.titulo }}</p>
+          <img :src="entrada.imagen" alt="Imagen del blog" class="imagen-blog">
+          <a :href="entrada.link" target="_blank" class="boton-leer">Leer más</a>
         </div>
-        <div class="contenedor-entradas">
-          <div class="entrada-blog" v-for="(entrada, index) in entradasBlog" :key="index">
-            <h3>{{ entrada.titulo }}</h3>
-            <a :href="entrada.link" target="_blank">
-              <img :src="entrada.imagen" alt="Imagen de entrada de blog">
-            </a>
-            <p>{{ entrada.contenido }}</p>
-          </div>
-        </div>
-      </section>
+      </slide>
+      <template #addons>
+        <navigation />
+      </template>
+    </carousel>
+  </div>
+</section>
+
 
     <!-- Sección de Videos de Meditación -->
 <section class="seccion-videos">
@@ -85,11 +91,16 @@
 </template>
 
 <script>
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
+import 'vue3-carousel/dist/carousel.css';
 import Plantilla from './plantilla.vue';
 
 export default {
   components: {
     Plantilla,
+    Carousel,
+    Slide,
+    Navigation,
   },
   data() {
     return {
@@ -107,6 +118,24 @@ export default {
           contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
           imagen: 'https://leccionamexico.b-cdn.net/wp-content/uploads/2022/03/cursos-de-autoayuda-y-superacion-personal.jpg',
           link: 'https://www.funespana.es/controlar-la-ansiedad/'
+        },
+        {
+          titulo: 'Mejora tu bienestar emocional en 5 pasos',
+          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
+          imagen: 'https://www.artiemhotels.com/uploads/c391546e-6280-4324-a195-e056a018e5eb/c391546e-6280-4324-a195-e056a018e5eb.png',
+          link: 'https://terapygo.com/5-pasos-para-el-bienestar-mental/'
+        },
+        {
+          titulo: 'Mejora tu bienestar emocional en 5 pasos',
+          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
+          imagen: 'https://www.artiemhotels.com/uploads/c391546e-6280-4324-a195-e056a018e5eb/c391546e-6280-4324-a195-e056a018e5eb.png',
+          link: 'https://terapygo.com/5-pasos-para-el-bienestar-mental/'
+        },
+        {
+          titulo: 'Mejora tu bienestar emocional en 5 pasos',
+          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
+          imagen: 'https://www.artiemhotels.com/uploads/c391546e-6280-4324-a195-e056a018e5eb/c391546e-6280-4324-a195-e056a018e5eb.png',
+          link: 'https://terapygo.com/5-pasos-para-el-bienestar-mental/'
         },
         {
           titulo: 'Mejora tu bienestar emocional en 5 pasos',
@@ -280,63 +309,94 @@ export default {
 
 /* BLOG */
 .seccion-blog {
-  margin-top: 150px;
-  background-image: url("https://somospsicoterapia.es/images/blog/inconsciente.jpg");
-  padding-top: 30px;
+  text-align: center;
+  margin: 40px 0;
+  margin-top: 120px;
+  padding: 20px;
+  background-image: url('https://somospsicoterapia.es/images/blog/inconsciente.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white; 
 }
+
+.seccion-blog p{
+  color:#000;
+  font-size: 20px;
+}
+
 
 .titulo-blog {
-  text-align: center;
-  font-size:25px;
-  border: 1px ; 
-  border-radius: 10px; 
-  padding: 2px;
-  margin-left: 60px; 
-  margin-right: 60px; 
-  background-color: #ffffff;
-  transition: transform 0.3s ease;
-  
-}
-.titulo-blog:hover{
-  transform: translateY(-5px);
+  font-size: 24px;
+  margin-bottom: 30px;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.contenedor-entradas {
+/* Estilos para el carrusel */
+.carrusel-blogs {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: slideIn 4s ease forwards;
-  padding-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.entrada-blog {
-  width: 400px;
-  margin: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
+
+
+
+.carousel__item {
+  background-color: rgba(255, 255, 255, 0.8); 
   border-radius: 10px;
-  transition: transform 0.3s ease;
-  background-color: #ffffff;
-  
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 30px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.entrada-blog:hover {
-  transform: translateY(-5px);
-}
-
-.entrada-blog h3 {
-  margin-top: 0;
-}
-
-.entrada-blog img {
-  width: 100%;
-  height: 250px; 
+.imagen-blog {
+  width: 100%; 
+  height: 200px; 
   object-fit: cover; 
-  border-radius: 10px;
-  margin-bottom: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
   
 }
 
+.boton-leer {
+  background-color: #3f271b;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  align-self: center;
+  margin-top: 15px;
+}
+
+
+
+
+/* Ajustes para la navegación del carrusel (flechas) */
+.vue3-carousel-navigation-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vue3-carousel-navigation-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
 /* VIDEOS */
 .seccion-videos {
   text-align: center;

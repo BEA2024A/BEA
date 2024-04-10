@@ -20,6 +20,7 @@ import NotasLeer from './components/NotasLeer.vue';
 import NotasCrear from './components/NotasCrear.vue';
 import insertar_psicologos from './components/insertar_psicologos.vue';
 import agregarAdministrador from './components/agregarAdministrador.vue';
+import carrucel from './components/carrucel.vue';
 
 
 const routes = [
@@ -35,7 +36,6 @@ const routes = [
   {path: '/register', name: '/register', component: register},
 
   {path: '/ps1', name: '/ps1', component: ps1},
-  {path: '/perfil_alumno', name: '/perfil_alumno', component: perfil_alumno},
 
   {path: '/inicioPsico', name: '/inicioPsico', component: inicioPsico},
   {path: '/perfil', name: '/perfil', component: perfil},
@@ -44,6 +44,7 @@ const routes = [
   {path: '/NotasLeer', name: 'NotasLeer', component: NotasLeer},
   {path: '/NotasCrear', name: 'NotasCrear', component: NotasCrear},
   {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},
+  {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
   {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
 
 ];
