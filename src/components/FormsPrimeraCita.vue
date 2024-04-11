@@ -1,176 +1,132 @@
 <template>
   <plantilla>
-  <div class="fondo">
-    <div class="formulario">
-      <div v-if="preguntaActual < preguntas.length">
-        <!-- Textarea y botón Siguiente fuera y arriba de la burbuja -->
-        <textarea v-model="respuestas[preguntaActual]" rows="4" class="textarea-animada" placeholder="ESCRIBE TU RESPUESTA AQUI"></textarea>
-      
-      </div>
+    <div class="fondo">
+      <form @submit.prevent="enviarFormulario" class="formulario">
+        <h2>Agenda tu primera cita</h2>
 
-      <div class="leonel">
-        <img src="https://www.anahuac.mx/sites/default/files/gbb-uploads/img_leonel-i5aru2.png" alt="Leonel Médico"/>
-        <div class="burbuja">
-          <!-- Solo la pregunta dentro de la burbuja -->
-          <div v-if="preguntaActual < preguntas.length" class="pregunta-animada" :key="preguntaActual">
-            <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
-            <button @click="siguientePregunta" class="boton-siguiente">Siguiente</button>
-          </div>
-          <div v-else class="finalizado-animado">
-        <p>EN UNOS MINUTOS TE LLEGARA UN CORREO CON LOS DATOS DE TU CITA</p>
-        <p>PUEDES ADMINISTRAR TUS CITAS EN TU CALENDARIO</p>
-        <button @click="enviarFormulario" class="boton-enviar">ir a tu calendario</button>
-      </div> 
+        <div class="campo-formulario">
+          <label for="carrera">¿Cuál es tu carrera?</label>
+          <select id="carrera" v-model="respuestas.carrera" required>
+            <option disabled value="">Selecciona una carrera</option>
+            <option v-for="carrera in carreras" :key="carrera" :value="carrera">{{ carrera }}</option>
+          </select>
         </div>
-      </div>
+
+        <div class="campo-formulario">
+          <label for="semestre">¿Qué semestre estás cursando?</label>
+          <input id="semestre" type="number" v-model.number="respuestas.semestre" min="1" max="12" required>
+        </div>
+
+        <div class="campo-formulario">
+          <label for="motivo">¿Por qué decidiste comunicarte con acompañamiento?</label>
+          <input id="motivo" type="text" v-model="respuestas.motivo" maxlength="140" required>
+        </div>
+
+        <div class="campo-formulario">
+          <label for="expectativa">¿Qué esperas de nosotros?</label>
+          <input id="expectativa" type="text" v-model="respuestas.expectativa" maxlength="140" required>
+        </div>
+
+        <button type="submit">Enviar</button>
+      </form>
     </div>
-  </div>
-</plantilla>
+  </plantilla>
 </template>
 
 <script>
 import Plantilla from './plantilla.vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
+import axios from 'axios';
+
 export default {
   components: {
     Plantilla,
   },
   data() {
     return {
-      preguntas: [
-        "¿CUAL ES TU CARRERA?",
-        "¿QUE SEMESTRE ESTAS CURSANDO?",
-        "¿PORQUE DECIDISTE COMUNICARTE CON ACOMPAÑAMIENTO?",
-        "¿QUE ESPERAS DE NOSOTROS?"
+      respuestas: {
+        carrera: '',
+        semestre: null,
+        motivo: '',
+        expectativa: '',
+      },
+      carreras: [
+        'Licenciatura en Médico Cirujano',
+        // Añade aquí todas las carreras
       ],
-      respuestas: Array.from({ length: 3 }, () => ""),
-      preguntaActual: 0,
     };
   },
-
   computed: {
     ...mapGetters(['usuario']),
   },
-
   methods: {
-    siguientePregunta() {
-      this.preguntaActual++;
-    },
-
     enviarFormulario() {
-      console.log("Respuestas:", this.respuestas);
-       this.$router.push('/horario');
+      // Preparación de los datos a enviar
+      const datosFormulario = {
+        ...this.respuestas,
+        id_usuario: this.usuario.id,
+        nombre: this.usuario.nombre,
+        a_paterno: this.usuario.a_paterno,
+        a_materno: this.usuario.a_materno,
+      };
+
+      // Envío del formulario
+      axios.post('http://localhost/BEA/back/agregarCita.php', datosFormulario)
+        .then(response => {
+          alert('Cita agendada con éxito');
+          this.$router.push('/horario'); // Ajusta según sea necesario
+        })
+        .catch(error => {
+          console.error('Error al agendar la cita:', error);
+        });
     },
-
-
   },
 };
 </script>
 
 <style scoped>
 .fondo {
-  background-color: #ff5900; /* Mismo color de fondo que primeracita.vue */
-  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  overflow: hidden;
-  position: relative;
+  padding: 20px;
 }
 
 .formulario {
-  color: aliceblue; /* Mismo color de texto que primeracita.vue */
-  font-size: 18px;
-  text-align: center;
-  margin-right: 800px;
-  margin-bottom: 400px;
-}
-
-.pregunta-animada {
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  margin-bottom: 20px;
-}
-
-.finalizado-animado {
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  font-size: 24px;
-}
-
-.pregunta-texto {
-  font-size: 24px;
-}
-
-.textarea-animada {
-  width: 600px;
-  height: 300px;
-  padding: 15px;
-  font-size: 18px;
-  border: 2px solid #423a38;
+  width: 100%;
+  max-width: 500px;
+  background-color: #f2f2f2;
+  padding: 20px;
   border-radius: 8px;
-  resize: none;
-  margin-bottom: 20px;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
 }
 
-.boton-siguiente,
-.boton-enviar {
-  background-color: #423a38; 
-  color: #fff;
-  width: 10%;
+.campo-formulario {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="number"], input[type="text"], select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
   border: none;
-  font-size: 18px;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
 }
 
-.boton-siguiente:hover,
-.boton-enviar:hover {
-  background-color: #625750;
-}
-
-.leonel img {
-  width: 40%;
-  transform: translateX(100%);
-  z-index: 2;
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 70px;
-}
-
-.burbuja {
-  position: absolute;
-  width: 100vw;
-  bottom: -10px;
-  left: 0;
-  padding: 100px;
-  background-color: #0000006b;
-  color: aliceblue;
-  font-size: 30px;
-  z-index: 1;
-  text-align: left;
-  margin-bottom: 70px;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-/* Media queries para ajustes responsivos */
-@media (max-width: 639px) {
-  .textarea-animada {
-    width: 100%; /* Ajuste para dispositivos móviles */
-  }
-  .boton-siguiente,
-  .boton-enviar {
-    width: auto;
-    padding: 10px 15px;
-  }
+button:hover {
+  background-color: #0056b3;
 }
 </style>

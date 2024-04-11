@@ -202,15 +202,15 @@ export default {
         
       ],
       videos: [
-        {
+        { id:'1',
           titulo: 'Meditación para la calma interior',
           link: 'https://www.youtube.com/embed/SR5tBmzZoCY?si=vmANM3IEjoQlxvN8'
         },
-        {
+        {id:'2',
           titulo: 'Meditación guiada para reducir el estrés',
           link: 'https://www.youtube.com/embed/aBsnQjJ2_Nk?si=hGQTbWtlZiw8TAde'
         },
-        {
+        {id:'3',
           titulo: 'Meditación guiada para reducir el estrés',
           link: 'https://www.youtube.com/embed/FReFf1CLf-c?si=fx9loaMXf4z059R7'
         },
@@ -233,7 +233,13 @@ export default {
         entrada.autor.toLowerCase().includes(this.busquedaBlogs.toLowerCase()) ||
         entrada.tipo.toLowerCase().includes(this.busquedaBlogs.toLowerCase())
       );
-    }
+    },
+    currentVideoLink() {
+      if (this.currentVideoIndex !== null && this.videos[this.currentVideoIndex]) {
+        return this.videos[this.currentVideoIndex].link;
+      }
+      return '';
+    },
   },
   methods: {
     scrollDown() {
@@ -252,15 +258,7 @@ export default {
       this.currentVideoIndex = null;
     },
   },
-  computed: {
-    currentVideoLink() {
-      // Obtiene el enlace del video actualmente seleccionado
-      if (this.currentVideoIndex !== null && this.videos[this.currentVideoIndex]) {
-        return this.videos[this.currentVideoIndex].link;
-      }
-      return '';
-    },
-  },
+
 };
 </script>
 

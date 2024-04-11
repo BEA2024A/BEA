@@ -1,41 +1,35 @@
-terminamos la logica de las secciones de autoayuda
- implementamos la base del componente de aseguimineto
- corregimos las rutas de la seccion "metodos de trabajo" en inicio.vue
-
-
-opcion para psicologos asociados 1
-
 <template>
   <plantilla>
-    <!-- Contenido de la Página -->
-    <div class="contenido-pagina">
-      <router-view></router-view>
-      <!-- Banner de Bienvenida -->
-      <section class="banner-bienvenida">
-        <img :src="bannerActual" width="1800" alt="Banner de Bienvenida">
-      </section>
-      <!-- Sección de Método de Trabajo -->
-      <section class="seccion-metodo">
-        <div v-for="(item, index) in itemsMetodo" :key="index" class="item-metodo" @click="abrirEnlace(item.link)">
-          <img :src="item.imagen" alt="Método de Trabajo">
-          <div class="descripcion-metodo">{{ item.descripcion }}</div>
-        </div>
-      </section>
-      <!-- Sección de Psicólogos Asociados -->
-      <section class="seccion-psicologos">
-        <h2>Psicólogos Asociados</h2>
-        <div class="profile-cards">
-          <div v-for="(psicologo, index) in psicologos" :key="index" class="card" @mouseenter="psicologo.mostrarDescripcion = true" @mouseleave="psicologo.mostrarDescripcion = false">
-            <img :src="psicologo.imagen" alt="Foto de perfil">
-            <div class="descripcion-psicologo" :class="{ 'mostrar-descripcion': psicologo.mostrarDescripcion }">
-              <h1>{{ psicologo.nombre }}</h1>
-              <p class="title">{{ psicologo.puesto }}</p>
-              <p>{{ psicologo.educacion }}</p>
-              <p><button @click="redirigirPerfil(psicologo.perfil)">Ir al perfil</button></p>
-            </div>
+    <div class="fondo">
+      <div class="formulario">
+        <div class="leonel">
+          <img src="https://www.anahuac.mx/sites/default/files/gbb-uploads/img_leonel-i5aru2.png" alt="Leonel Médico"/>
+          <div class="burbuja">
+            <form @submit.prevent="enviarFormulario">
+              <div v-if="preguntaActual === 0" class="campo-entrada">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <select v-model="respuestas.carrera" required class="animacion-entrada">
+                  <option v-for="carrera in carreras" :key="carrera" :value="carrera">{{ carrera }}</option>
+                </select>
+              </div>
+              <div v-if="preguntaActual === 1" class="pregunta-animada">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <input type="number" v-model.number="respuestas.semestre" min="1" max="12" required>
+              </div>
+              <div v-if="preguntaActual === 2" class="pregunta-animada">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <input type="text" v-model="respuestas.motivo" maxlength="140" required>
+              </div>
+              <div v-if="preguntaActual === 3" class="pregunta-animada">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <input type="text" v-model="respuestas.expectativa" maxlength="140" required>
+              </div>
+              <button v-if="preguntaActual < preguntas.length - 1" @click="siguientePregunta" class="boton-siguiente">Siguiente</button>
+              <button v-else class="boton-enviar" type="submit">Enviar</button>
+            </form>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   </plantilla>
 </template>
@@ -43,237 +37,175 @@ opcion para psicologos asociados 1
 
 <script>
 import Plantilla from './plantilla.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     Plantilla,
   },
- 
   data() {
     return {
-      indiceBannerActual: 0,
-      banners: [
-        "https://i.ibb.co/G0DQd1D/Whats-App-Image-2024-02-11-at-6-53-05-PM.jpg",
-        "https://i.ibb.co/2yLFNQf/Whats-App-Image-2024-02-11-at-7-50-21-PM.jpg",
-        "https://i.ibb.co/Qv8WMW5/Whats-App-Image-2024-02-11-at-7-50-21-PM-1.jpg",
+      preguntas: [
+        "¿Cuál es tu carrera?",
+        "¿Qué semestre estás cursando?",
+        "¿Por qué decidiste comunicarte con acompañamiento?",
+        "¿Qué esperas de nosotros?"
       ],
-      itemsMetodo: [
-        { link: '/PrimeraCita', imagen: 'https://static.ohga.it/wp-content/uploads/sites/24/2020/04/psicologo-ospedale.jpg', descripcion: 'Agenda tu Primera Cita' },
-        { link: '/Seguimiento', imagen: 'https://www.shutterstock.com/image-photo/two-diverse-business-executive-partners-600nw-2021639234.jpg', descripcion: 'Administra tus Sesiones de Seguimiento' },
-        { link: '/autoayuda', imagen: 'https://img.freepik.com/fotos-premium/mujer-joven-meditando-computadora-portatil-casa_768733-4666.jpg', descripcion: 'Sesiones de Autoayuda en Casa' },
+      respuestas: {
+        carrera: '',
+        semestre: null,
+        motivo: '',
+        expectativa: ''
+      },
+      preguntaActual: 0,
+      carreras: [
+      'licenciatura en derecho',
+      'licenciatura en psicologia',
+      'licenciatura en ingenieria civil',
+      'licenciatura en ingenierua para la direccion',
+      'licenciatura en finanzas y contaduria publica',
+      'licenciatura en administracion y direccion de empresas',
+      'licenciatura en mercadotectnia estrategica',
+      'licenciatura en negocios internacionales',
+      'licenciatura en comunicacion',
+      'licenciatura en diseño multimedia',
+      'licenciatura en diseño industrial',
+      'licenciatura en ingenieria biomedica',
+      'licenciatura en ingenieria mecatronica',
+      'licenciatura en diseño grafico',
+      'licenciatura en diseño de moda e innovacion',
+      'ingenieria en tecnologias de la informacion y negocios digitales',
       ],
-      psicologos: [
-        { nombre: 'DRA. ELVIRA GOPAR CANSECO', puesto: 'TERAPIA HUMANISTA', educacion: 'Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica,tallerista y conferencista', perfil: '/Autoayuda', imagen: 'https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png'},
-        { nombre: 'MTRA. KENIA GARCÍA GUTIÉRREZ', puesto: 'TERAPIA GESTALT', educacion: 'Atención psicoterapéutica y seguimientos psiquiátricos, evaluación neuropsicológica, deneuroeducación emocional.', perfil: '/Autoayuda', imagen: 'https://i.postimg.cc/BZNJVVw2/MTRA-KENIA-GARC-A-GUTI-RREZ.png'},
-        { nombre: 'MTRA. SYLVIA GUTIÉRREZ CANDIANI', puesto: 'TERAPIA COGNITIVO CONDUCTUAL', educacion: 'Evaluación y diagnóstico en adolescentes y psicoterapia', perfil: '/Autoayuda', imagen: 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png'},
-        { nombre: 'LIC. MARÍA GODARD ZAPATA', puesto: 'TERAPIA HUMANISTA', educacion: 'Psicoterapia Gestalt, Tanatología y Constelaciones Familiares de la Terapia Sistémica. Abordamos problemas personales, familiares y laborales, como alcoholismo, drogadicción, pérdidas diversas, orientación sexual, aborto y divorcio.', perfil: '/Autoayuda', imagen: 'https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png'},
-        { nombre: 'MTRA. LAURA LORENA HERNÁNDEZ VELASCO', puesto: 'TERAPIA HUMANISTA', educacion: 'Práctica privada en atención a niños, adolescentes y adultos en psicodiagnóstico y psicoterapia, psicoterapia individual y de pareja, cursos y talleres.', perfil: '/Autoayuda', imagen: 'https://i.postimg.cc/653BJfDg/MTRA-LAURA-LORENA-HERN-NDEZ-VELASCO.png'},
-        { nombre: 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', puesto: 'PSIQUIATRIA DE ENLACE', educacion: 'Médico Psiquiatra enfocado en niños, adolescentes y adultos', perfil: '/Autoayuda', imagen: 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png'},
-        { nombre: 'DR. JORGE LUIS CORTÉS LÓPEZ', puesto: 'PSIQUIATRIA DE ENLAC', educacion: 'Médico Psiquiatra, posgraduado en el Instituto Nacional de Psiquiatría “Ramón de la Fuente”', perfil: '/Autoayuda', imagen: 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png'},
-        { nombre: 'DR. VIRGILIO SANTIAGO LÓPEZ', puesto: 'TERAPIA COGNITIVO CONDUCTUAL', educacion: 'Médico Cirujano especialista en Psiquiatría', perfil: '/Autoayuda', imagen: 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png'},
-        
-        
-        // Agrega más psicólogos según sea necesario
-      ],
-      temporizadorBanner: null,
     };
   },
-  mounted() {
-    this.iniciarTemporizadorBanner();
-  },
-  beforeDestroy() {
-    this.detenerTemporizadorBanner();
+  computed: {
+    ...mapGetters(['usuario']),
   },
   methods: {
+    siguientePregunta() {
+      this.preguntaActual++;
+    },
+     enviarFormulario() {
+    const datosFormulario = {
+      id_usuario: this.usuario.id,
+      nombre: this.usuario.nombre,
+      a_paterno: this.usuario.a_paterno,
+      a_materno: this.usuario.a_materno,
+      carrera: this.respuestas.carrera,
+      semestre: this.respuestas.semestre,
+      motivo: this.respuestas.motivo,
+      expectativa: this.respuestas.expectativa,
+    };
 
-    mostrarDescripcion(index) {
-      this.$set(this.psicologos, index, { ...this.psicologos[index], mostrarDescripcion: true });
-    },
-    ocultarDescripcion(index) {
-      this.$set(this.psicologos, index, { ...this.psicologos[index], mostrarDescripcion: false });
-    },
-
-
-    abrirEnlace(url) {
-      window.location.href = url;
-    },
-    iniciarTemporizadorBanner() {
-      this.temporizadorBanner = setInterval(this.cambiarBanner, 6000);
-    },
-    detenerTemporizadorBanner() {
-      clearInterval(this.temporizadorBanner);
-    },
-    cambiarBanner() {
-      this.indiceBannerActual = (this.indiceBannerActual + 1) % this.banners.length;
-    },
-    redirigirA(ruta) {
-      this.$router.push(ruta);
-    },
-    redirigirPerfil(perfil) {
-    this.$router.push(perfil);
-  },
-  },
-  computed: {
-    bannerActual() {
-      return this.banners[this.indiceBannerActual];
-    },
+    axios.post('http://localhost/BEA/back/agregarCita.php', JSON.stringify(datosFormulario), {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+      alert('Cita guardada con éxito');
+      this.$router.push('/horario');
+    })
+    .catch(error => {
+      console.error("Hubo un error al enviar el formulario:", error);
+      alert('Error al guardar la cita');
+    });
   }
+
+
+    
+  },
 };
 </script>
+
+
 <style scoped>
-/* Banner de Bienvenida */
-.banner-bienvenida {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 50px;
-}
-.banner-bienvenida img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(194, 160, 160, 0.1);
-}
 
-/* Método de Trabajo */
-.seccion-metodo {
+
+.animacion-entrada {
+    margin-bottom: 20px;
+  }
+
+.fondo {
+  background-color: #ff5900; /* Mismo color de fondo que primeracita.vue */
+  height: 100vh;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-.item-metodo {
-  position: relative;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-.item-metodo:hover {
-  transform: scale(1.02);
-}
-.item-metodo img {
-  width: 500px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 10px;
-  filter: brightness(50%);
-  transition: filter 0.3s;
-}
-.item-metodo:hover img {
-  filter: brightness(20%);
-}
-.descripcion-metodo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  width: 80%;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-.item-metodo:hover .descripcion-metodo {
-  opacity: 1;
+  position: relative;
+ 
 }
 
-/* Sección de Psicólogos Asociados */
-.seccion-psicologos {
-  text-align: center;
-  margin-top: 6%;
-  margin-bottom: 10%;
-
-}
-
-.profile-cards {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: 20px;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: scale(1.02);
-}
-
-.card img {
-  width: 100%;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.card h1 {
-  margin-top: 10px;
-}
-
-.title {
-  color: grey;
+.leonel {
   font-size: 18px;
+  text-align: center;
+  margin-right: 800px;
+  margin-bottom: 400px;
 }
 
-button {
+.pregunta-animada {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  margin-bottom: 20px;
+}
+
+.finalizado-animado {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  font-size: 24px;
+}
+
+.pregunta-texto {
+  font-size: 24px;
+}
+
+
+
+.boton-siguiente,
+.boton-enviar {
+  background-color: #423a38; 
+  color: #fff;
+  width: 10%;
   border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
   font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
-a {
-  text-decoration: none;
-  font-size: 22px;
-  color: black;
+.boton-siguiente:hover,
+.boton-enviar:hover {
+  background-color: #625750;
 }
 
-button:hover,
-a:hover {
-  opacity: 0.7;
+.leonel img {
+  width: 40%;
+  transform: translateX(100%);
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 70px;
 }
 
-.card .descripcion-psicologo {
-  display: none;
-  text-align: center;
-  margin-top: 10px;
-  transition: opacity 0.3s ease;
+.burbuja {
+  position: absolute;
+  width: 100vw;
+  bottom: -10px;
+  left: 0;
+  padding: 100px;
+  background-color: #0000006b;
+  color: aliceblue;
+  font-size: 30px;
+  z-index: 1;
+  text-align: left;
+  margin-bottom: 70px;
 }
 
-.card:hover .descripcion-psicologo {
-  display: block;
-}
-
-.card .descripcion-psicologo.mostrar {
-  opacity: 1;
-}
-
-/* Pantallas pequeñas (móviles) */
-@media only screen and (max-width: 600px) {
-  .item-metodo {
-    width: 100%;
-  }
-  .item-metodo img {
-    width: 350px;
-    height: 200px;
-  }
-}
-
-/* Pantallas medianas (tabletas) */
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
-  .item-metodo img {
-    width: 250px;
-    height: 200px;
+@keyframes fadeIn {
+  to {
+    opacity: 1;
   }
 }
 
