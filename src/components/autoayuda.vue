@@ -19,29 +19,29 @@
         </button>
       </section>
 
-  <!-- Sección de Blog con Carrusel -->
-  <section class="seccion-blog">
-  <div class="titulo-blog">
-    <h3>Descubre artículos y consejos para mejorar tu bienestar</h3>
-  </div>
-  <div class="carrusel-blogs">
-    <carousel :itemsToShow="3" class="blogs-carousel">
-      <slide v-for="entrada in entradasBlog" :key="entrada.id">
-        <div class="carousel__item">
-          <p>{{ entrada.titulo }}</p>
-          <img :src="entrada.imagen" alt="Imagen del blog" class="imagen-blog">
-          <a :href="entrada.link" target="_blank" class="boton-leer">Leer más</a>
+      <!-- Sección de Blog con Carrusel -->
+      <section class="seccion-blog">
+        <div class="titulo-blog">
+          <h3>Blogs de ayuda</h3>
         </div>
-      </slide>
-      <template #addons>
-        <navigation />
-      </template>
-    </carousel>
-  </div>
-</section>
+        <input type="text" v-model="busquedaBlogs" placeholder="Buscar blogs..." class="campo-busqueda">
+        <div class="carrusel-blogs">
+          <carousel :itemsToShow="3" class="blogs-carousel">
+            <slide v-for="entrada in blogsFiltrados" :key="entrada.id">
+              <div class="carousel__item">
+                <p>{{ entrada.titulo }}</p>
+                <img :src="entrada.imagen" alt="Imagen del blog" class="imagen-blog">
+                <a :href="entrada.link" target="_blank" class="boton-leer">Leer más</a>
+              </div>
+            </slide>
+            <template #addons>
+              <navigation />
+            </template>
+          </carousel>
+        </div>
+      </section>
 
-
-    <!-- Sección de Videos de Meditación -->
+     <!-- Sección de Videos de Meditación -->
 <section class="seccion-videos">
   <div class="titulo-videos">
     <h2>Relájate con estos videos de meditación</h2>
@@ -65,30 +65,51 @@
     </button>
   </div>
 </div>
-  
-<!-- Sección de Mensaje e Opciones -->
-<section class="seccion-opciones">
-  <div class="mensaje-importante">
-    <h1>Recueda que trabajar contigo mismo es importante</h1>
-    <p>en BEA nos queremos apoyarte a hacerlo</p>
-  </div>
-  <div class="opciones">
-    <div class="opcion">
-      <router-link to="/PrimeraCita">
-        <button class="boton-opcion">Agenda tu primera cita</button>
-      </router-link>
-    </div>
-    <div class="opcion">
-      <router-link to="/Seguimiento">
-        <button class="boton-opcion">Administra tu seguimiento</button>
-      </router-link>
-    </div>
-  </div>
-</section>
 
+            <!-- Sección de Libro con Carrusel -->
+            <section class="seccion-libro">
+        <div class="titulo-libro">
+          <h3>Libros que te pueden ayudar</h3>
+        </div>
+        <input type="text" v-model="busquedaLibros" placeholder="Buscar libros..." class="campo-busqueda">
+        <div class="carrusel-libro">
+          <carousel :itemsToShow="3" class="libro-carousel">
+            <slide v-for="entrada in librosFiltrados" :key="entrada.id">
+              <div class="carousel__item">
+                <img :src="entrada.imagen" alt="Imagen del libro" class="imagen-libro">
+                <a :href="entrada.link" target="_blank" class="boton-leer">Leer libro</a>
+              </div>
+            </slide>
+            <template #addons>
+              <navigation />
+            </template>
+          </carousel>
+        </div>
+      </section>
+  
+      <!-- Sección de Mensaje e Opciones -->
+      <section class="seccion-opciones">
+        <div class="mensaje-importante">
+          <h1>Recueda que trabajar contigo mismo es importante</h1>
+          <p>en BEA nos queremos apoyarte a hacerlo</p>
+        </div>
+        <div class="opciones">
+          <div class="opcion">
+            <router-link to="/PrimeraCita">
+              <button class="boton-opcion">Agenda tu primera cita</button>
+            </router-link>
+          </div>
+          <div class="opcion">
+            <router-link to="/Seguimiento">
+              <button class="boton-opcion">Administra tu seguimiento</button>
+            </router-link>
+          </div>
+        </div>
+      </section>
     </div>
   </plantilla>
 </template>
+
 
 <script>
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
@@ -106,44 +127,78 @@ export default {
     return {
       showVideo: false,
       currentVideoIndex: null,
-      entradasBlog: [
+      busquedaBlogs: '',
+      busquedaLibros: '',
+      blog: [
         {
-          titulo: 'Consejos para manejar el estrés diario',
-          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
-          imagen: 'https://blogs.ucontinental.edu.pe/wp-content/uploads/2021/05/los-libros-de-autoayuda-realmente-nos-ayudan-especialista-responde-universidad-continental-2.jpg',
-          link: 'https://medlineplus.gov/spanish/ency/article/001942.htm#:~:text=Pasar%20tiempo%20con%20familiares%20y,claridad%20y%20a%20tener%20m%C3%A1s%20energ%C3%ADa.'
+          id: '1',
+          titulo: 'Gestión del tiempo para controlar el estrés',
+          autor: 'PSIQUION',
+          imagen: 'https://i.postimg.cc/yxr2K5j0/estres-falta-tiempo-chica-liros.jpg',
+          link: 'https://www.psiquion.com/blog/gestion-del-tiempo-controlar-estres',
+          tipo: 'Estres',
         },
         {
-          titulo: 'Cómo superar la ansiedad en tiempos difíciles',
-          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
-          imagen: 'https://leccionamexico.b-cdn.net/wp-content/uploads/2022/03/cursos-de-autoayuda-y-superacion-personal.jpg',
-          link: 'https://www.funespana.es/controlar-la-ansiedad/'
-        },
-        {
-          titulo: 'Mejora tu bienestar emocional en 5 pasos',
-          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
-          imagen: 'https://www.artiemhotels.com/uploads/c391546e-6280-4324-a195-e056a018e5eb/c391546e-6280-4324-a195-e056a018e5eb.png',
-          link: 'https://terapygo.com/5-pasos-para-el-bienestar-mental/'
-        },
-        {
-          titulo: 'Mejora tu bienestar emocional en 5 pasos',
-          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
-          imagen: 'https://www.artiemhotels.com/uploads/c391546e-6280-4324-a195-e056a018e5eb/c391546e-6280-4324-a195-e056a018e5eb.png',
-          link: 'https://terapygo.com/5-pasos-para-el-bienestar-mental/'
-        },
-        {
-          titulo: 'Mejora tu bienestar emocional en 5 pasos',
-          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
-          imagen: 'https://www.artiemhotels.com/uploads/c391546e-6280-4324-a195-e056a018e5eb/c391546e-6280-4324-a195-e056a018e5eb.png',
-          link: 'https://terapygo.com/5-pasos-para-el-bienestar-mental/'
-        },
-        {
-          titulo: 'Mejora tu bienestar emocional en 5 pasos',
-          contenido: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis libero vel dolor dignissim scelerisque. Etiam vel odio in justo suscipit tristique. Nulla facilisi.',
-          imagen: 'https://www.artiemhotels.com/uploads/c391546e-6280-4324-a195-e056a018e5eb/c391546e-6280-4324-a195-e056a018e5eb.png',
-          link: 'https://terapygo.com/5-pasos-para-el-bienestar-mental/'
+          id: '2',
+          titulo: 'Cómo superar el estrés',
+          autor: 'SARA MONTEJANO',
+          imagen: 'https://i.postimg.cc/hjY0tBF4/estres.jpg',
+          link: 'https://www.psiquion.com/blog/como-superar-estres',
+          tipo: 'Estres',
         },
         
+        {
+          id: '3',
+          titulo: 'la ansiedad con la ayuda de un psicólogo',
+          autor: 'Irene Garrido',
+          imagen: 'https://blogs.ucontinental.edu.pe/wp-content/uploads/2021/05/los-libros-de-autoayuda-realmente-nos-ayudan-especialista-responde-universidad-continental-2.jpg',
+          link: 'https://ailapsicologia.com/ansiedad/',
+          tipo: 'Ansiedad',
+        },
+        
+        {
+          id: '4',
+          titulo: 'Consejos para manejar el estrés diario',
+          autor: 'Mark Greyson',
+          imagen: 'https://blogs.ucontinental.edu.pe/wp-content/uploads/2021/05/los-libros-de-autoayuda-realmente-nos-ayudan-especialista-responde-universidad-continental-2.jpg',
+          link: 'https://medlineplus.gov/spanish/ency/article/001942.htm#:~:text=Pasar%20tiempo%20con%20familiares%20y,claridad%20y%20a%20tener%20m%C3%A1s%20energ%C3%ADa.',
+          tipo: '',
+        }, 
+      ],
+
+      libro: [
+        {
+          id: '1',
+          titulo: 'Lo bueno de tenr un mal día',
+          autor: 'Anabel Gonzalez',
+          imagen: 'https://i.postimg.cc/mrgtndZ3/7a97f58a-baa5-4078-b743-f2b7ea465acf.jpg',
+          link: 'https://www.planetadelibros.com.mx/libro-lo-bueno-de-tener-un-mal-dia/339451',
+          tipo: 'Estrés',
+        },
+        {
+          id: '2',
+          titulo: 'Terapia Conignitva sobre transtonos de Ansiedad',
+          autor: 'David A. Clark',
+          imagen: 'https://i.postimg.cc/MpKPpQW6/61a2ec68-882b-45a8-ac16-9ce05ddc484c.jpg',
+          link: 'https://ww3.lectulandia.com/book/terapia-cognitiva-para-trastornos-de-ansiedad/',
+          tipo: 'Ansiedad',
+        },
+        {
+          id: '3',
+          titulo: 'Eliminar el estrés',
+          autor: 'Brian Weiss',
+          imagen: 'https://i.postimg.cc/gJHMz5zn/319b2d47-6a5e-408e-b6c5-bd05128ea231.jpg',
+          link: 'https://books.google.com.mx/books/about/Eliminar_el_estrés.html?id=qPY4AwAAQBAJ&redir_esc=y',
+          tipo: 'meditacion',
+        },
+        {
+          id: '4',
+          titulo: 'Cómo superar la ansiedad',
+          autor: ' Enrique Rojas',
+          imagen: 'https://i.postimg.cc/d0xC8j54/16febb9e-6b9c-4b10-b588-cd8fb8889a3f.jpg',
+          link: 'https://www.academia.edu/52549903/COMO_SUPERAR_LA_ANSIEDAD_ENRIQUE_ROJAS_Nn_Am',
+          tipo: 'Ansiedad',
+        },
         
       ],
       videos: [
@@ -162,17 +217,29 @@ export default {
         
 
       ],
-
-      
     };
-
-    
+  },
+  computed: {
+    librosFiltrados() {
+      return this.libro.filter(entrada =>
+        entrada.titulo.toLowerCase().includes(this.busquedaLibros.toLowerCase()) ||
+        entrada.autor.toLowerCase().includes(this.busquedaLibros.toLowerCase()) ||
+        entrada.tipo.toLowerCase().includes(this.busquedaLibros.toLowerCase())
+      );
+    },
+    blogsFiltrados() {
+      return this.blog.filter(entrada =>
+        entrada.titulo.toLowerCase().includes(this.busquedaBlogs.toLowerCase()) ||
+        entrada.autor.toLowerCase().includes(this.busquedaBlogs.toLowerCase()) ||
+        entrada.tipo.toLowerCase().includes(this.busquedaBlogs.toLowerCase())
+      );
+    }
   },
   methods: {
     scrollDown() {
       window.scrollBy({
         top: window.innerHeight, 
-        behavior: 'smooth' // Efecto de desplazamiento suave
+        behavior: 'smooth' 
       });
     },
     openVideo(index) {
@@ -181,11 +248,9 @@ export default {
       this.currentVideoIndex = index;
     },
     closeVideo() {
-      // Oculta el cuadro de superposición
       this.showVideo = false;
       this.currentVideoIndex = null;
     },
-    
   },
   computed: {
     currentVideoLink() {
@@ -198,6 +263,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 
@@ -335,32 +401,18 @@ export default {
 }
 
 /* Estilos para el carrusel */
-.carrusel-blogs {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
 
 
-
-
-.carousel__item {
+.blogs-carousel .carousel__item {
   background-color: rgba(255, 255, 255, 0.8); 
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  padding: 30px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  align-items: center;
-  text-align: center;
-  margin-left: 20px;
-  margin-right: 20px;
+  color: var(--vc-clr-white); 
+  font-size: 20px; 
+  border-radius: 20px; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 16px 24px; 
+  margin: 0 10px 20px; 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .imagen-blog {
@@ -382,10 +434,6 @@ export default {
   margin-top: 15px;
 }
 
-
-
-
-/* Ajustes para la navegación del carrusel (flechas) */
 .vue3-carousel-navigation-wrapper {
   display: flex;
   justify-content: space-between;
@@ -397,6 +445,100 @@ export default {
   border: none;
   cursor: pointer;
 }
+
+/* LIBRO */
+.seccion-libro {
+  text-align: center;
+  margin: 40px 0;
+  margin-top: 120px;
+  padding: 20px;
+  background-image: url('https://somospsicoterapia.es/images/blog/inconsciente.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white; 
+}
+
+.seccion-libro p{
+  color:#000;
+  font-size: 20px;
+}
+
+
+.titulo-libro {
+  font-size: 24px;
+  margin-bottom: 30px;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Estilos para el carrusel */
+
+
+.carrusel-libro .carousel__item {
+  min-height: 300px; 
+  width: 200px; 
+  background-color: rgba(255, 255, 255, 0.8); 
+  color: var(--vc-clr-white); 
+  font-size: 20px; 
+  border-radius: 20px; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 16px 24px; 
+  margin: 0 10px 20px; 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.imagen-libro {
+  width: 100%; 
+  height: 200px; 
+  object-fit: cover; 
+  border-radius: 5px;
+  margin-bottom: 15px;
+  
+}
+
+.boton-leer {
+  background-color: #3f271b;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  align-self: center;
+  margin-top: 15px;
+}
+
+.vue3-carousel-navigation-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vue3-carousel-navigation-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.campo-busqueda {
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  width: calc(100% - 20px);
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-left: 24px;
+  margin-right: 100px;
+}
+
+.campo-busqueda:focus {
+  outline: none;
+  box-shadow: 0 0 3px 0 #fc5e25;
+}
+
+
 /* VIDEOS */
 .seccion-videos {
   text-align: center;
@@ -437,7 +579,6 @@ export default {
 .video:hover {
   transform: scale(1.1);
 }
-
 
 .video-overlay {
   position: fixed;
@@ -522,29 +663,22 @@ export default {
   margin-bottom: 50px;
  padding: 20px;
   animation: slideIn 4s ease forwards;
-  background-image: url("https://somospsicoterapia.es/images/blog/inconsciente.jpg");
-  color: rgb(0, 0, 0);
+  background-color:#ff5900;
+  color:#ffffff;
 }
-
-
-
 
 .mensaje-importante p {
   text-align: center;
   font-size:22px;
-  
- 
 }
 
 .opciones {
   display: flex;
   justify-content: center;
 }
-
 .opcion {
   margin:30px;
 }
-
 .boton-opcion {
   padding: 20px 20px;
   font-size: 18px;
@@ -555,7 +689,6 @@ export default {
   cursor: pointer;
   transition: 0.3s ease;
 }
-
 @media (max-width: 639px) {
 
 /*BANNER*/
@@ -575,7 +708,6 @@ export default {
 }
 
 /*BLOGS */
-
 .seccion-blog {
   margin-top: 15px;
 }
@@ -584,7 +716,6 @@ export default {
   text-align: center;
   font-size:20px;
 }
-
 
 .entrada-blog img {
   width: 100%;
@@ -607,7 +738,6 @@ export default {
   margin-right: 30px; 
 }
 
-
 .video {
   margin: 10px;
   border-radius: 10px;
@@ -615,7 +745,6 @@ export default {
   transition: transform 0.6s ease;
   padding-bottom: 20px;
 }
-
 
 .video-overlay-btn {
   display:none;
@@ -637,14 +766,9 @@ iframe{
   color: rgb(0, 0, 0);
 }
 
-
-
-
 .mensaje-importante p {
   text-align: center;
   font-size:22px;
-  
- 
 }
 
 .opciones {
@@ -666,8 +790,6 @@ iframe{
   cursor: pointer;
   transition: 0.3s ease;
 }
-
-
 }
 
 </style>

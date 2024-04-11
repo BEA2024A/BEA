@@ -10,7 +10,7 @@ import formsSeguimiento from './components/formsSeguimiento.vue';
 import register from './components/register.vue';
 
 import ps1 from './components/perfiles/ps1.vue';
-import perfil_alumno from './components/perfiles/perfil_alumno.vue';
+import perfil_alumno from './components/perfil_alumno.vue';
 
 import inicioPsico from './components/inicioPsico.vue';
 import perfil from './components/perfil.vue';
@@ -20,7 +20,8 @@ import NotasLeer from './components/NotasLeer.vue';
 import NotasCrear from './components/NotasCrear.vue';
 import insertar_psicologos from './components/insertar_psicologos.vue';
 import agregarAdministrador from './components/agregarAdministrador.vue';
-import carrucel from './components/carrucel.vue';
+import agregarEventos from './components/agregarEventos.vue';
+
 
 
 const routes = [
@@ -45,7 +46,8 @@ const routes = [
   {path: '/NotasCrear', name: 'NotasCrear', component: NotasCrear},
   {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},
   {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
-  {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
+  {path: '/perfil_alumno', name: 'perfil_alumno', component: perfil_alumno},
+  {path: '/agregarEventos', name: 'agregarEventos', component: agregarEventos},
 
 ];
 
@@ -57,7 +59,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const rutasProtegidas = ['/horario', '/perfil_alumno', '/seguimiento', '/primeracita', '/FormsPrimeraCita', '/formsSeguimiento', '/inicioPsico'];
-  const rutasAdministrativas = ['/agregarAdministrador', '/insertar_psicologos']; // Rutas exclusivas para el administrador
+  const rutasAdministrativas = ['/agregarAdministrador', '/insertar_psicologos', '/agregarEventos']; // Rutas exclusivas para el administrador
   const estadoAlmacenado = localStorage.getItem('vuex') ? JSON.parse(localStorage.getItem('vuex')) : null;
 
   // Determinar si el usuario está autenticado y su ID

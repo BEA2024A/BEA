@@ -68,15 +68,19 @@ export default {
   },
   methods: {
     enviarNotas() {
+      const hoy = new Date();
+      const fechaSeleccionada = new Date(this.fecha);
       
-      console.log('Número de sesión:', this.numeroSesion);
-      console.log('Fecha:', this.fecha);
-      console.log('Notas:', this.notas);
-      
-      
-      this.numeroSesion = '';
-      this.fecha = '';
-      this.notas = '';
+      if (fechaSeleccionada > hoy) {
+        console.log('Número de sesión:', this.numeroSesion);
+        console.log('Fecha:', this.fecha);
+        console.log('Notas:', this.notas);
+        this.numeroSesion = '';
+        this.fecha = '';
+        this.notas = '';
+      } else {
+        alert('La fecha seleccionada debe ser posterior a hoy');
+      }
     }
   }
 };

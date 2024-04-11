@@ -28,7 +28,9 @@
 </plantilla>
 </template>
 
-<script>import Plantilla from './plantilla.vue';
+<script>
+import Plantilla from './plantilla.vue';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   components: {
     Plantilla,
@@ -45,15 +47,22 @@ export default {
       preguntaActual: 0,
     };
   },
+
+  computed: {
+    ...mapGetters(['usuario']),
+  },
+
   methods: {
     siguientePregunta() {
       this.preguntaActual++;
     },
+
     enviarFormulario() {
       console.log("Respuestas:", this.respuestas);
-      // Implementar lógica de envío aquí
        this.$router.push('/horario');
     },
+
+
   },
 };
 </script>

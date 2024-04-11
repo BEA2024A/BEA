@@ -40,7 +40,6 @@
   </div>
   <div class="menu-perfil">
   <div v-if="mostrarMenuUsuario" class="menu-usuario">
-    <div class="opcion-menu" @click.stop="abrirEnlace('/perfil_alumno')">Ver perfil</div>
     <div class="opcion-menu" @click.stop="cerrarSesionYCerrarMenu">Cerrar sesión</div>
   </div>
 </div>

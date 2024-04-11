@@ -12,7 +12,7 @@
         <!-- Lado derecho: Imagen en círculo con sombra naranja -->
         <div class="imagen-derecha" ref="imagenDerecha">
           <div class="circulo-con-sombra">
-            <img :src="imagenPsicologo[0]" alt="Imagen del psicoterapeuta">
+            <img :src="imagenAlumno[0]" alt="Imagen del psicoterapeuta">
           </div>
         </div>
 
@@ -22,17 +22,38 @@
         </button>
       </div>
 
-      <!-- Información del psicoterapeuta con animación de aparición -->
+      
       <div class="informacion-psicoterapeuta" v-if="loaded" ref="informacionPsicoterapeuta">
-        <div class="trabajo">
-          <div class="columna-izquierda">
-            
+        <div v-if="!usuario" class="overlay"></div>
+      <div v-if="!usuario" class="modal-sesion">
+        <h3>Necesitas iniciar sesión para ver tu calendario</h3>
+        <button @click="$router.push('/inicioSesion')">Iniciar sesión</button>
+        <button @click="$router.push('/')">Regresar al inicio</button>
+      </div>
+
+      <div class="container" v-else>
+        <div class="events-container">
+          <div class="eventos">
+            <h2>Citas próximas</h2>
+            <ul class="events-list">
+              <li v-for="event in calendarOptions.events" :key="event.title">
+                {{ event.title }} - {{ event.date }} - {{ event.time }} hrs
+              </li>
+            </ul>
           </div>
-          <div class="columna-derecha">
-            <h3>FORMACIÓN ACADÉMICA</h3>
-            <div v-html="formatFormacion(informacion.formacion)"></div>
+          <div class="botones">
+            <button @click="activarNotificaciones" class="notifications-button">
+              Activar notificaciones del sistema
+            </button>
+            <button @click="enviarCorreoRecordatorio" class="mail-notifications-button">
+              Activar notificaciones por correo
+            </button>
           </div>
         </div>
+        <div class="calendar-container">
+          <FullCalendar :options="calendarOptions" />
+        </div>
+      </div>
       </div>
       <!-- Botón Regresar al inicio -->
       <router-link to="/" class="boton-regresar" v-if="loaded">Regresar al inicio</router-link>
@@ -41,37 +62,40 @@
 </template>
 
 <script>
-import Plantilla from '../plantilla.vue';
-import { mapGetters, mapActions } from 'vuex';
+import axios from 'axios';
+import Plantilla from './plantilla.vue';
+import FullCalendar from '@fullcalendar/vue3';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { mapGetters } from 'vuex';
+import esLocale from '@fullcalendar/core/locales/es';
+
 export default {
   components: {
+    FullCalendar,
     Plantilla,
   },
   data() {
     return {
-      imagenPsicologo: [
+      imagenAlumno: [
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
         
       ],
-      informacion: {
-        nombre: 'DRA. ELVIRA GOPAR CANSECO',
-        tipo: 'TERAPIA HUMANISTA',
-        telefono: '951 109 63 72',
-       
-        especialidad:'Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica, tallerista y conferencista.',
-        direccion: 'Independencia 305, interior 105',
-        poblacion: 'Niños, adolescentes, adultos y pareja.',
-        formacion: 'Licenciada en Psicología. Cédula Profesional: 6092318\nMaestría en Psicoterapia Humanista. Cédula Profesional: 9475952\nMaestría en Sexualidad Humana. Cédula Profesional: 12274318\nDoctorado en Psicología, por el Instituto Universitario Carl Rogers, Puebla.',
-        modalidad: 'Presencial / Virtual'
-      },
       loaded: false, // Indicador de carga de la página
+      calendarOptions: {
+        plugins: [dayGridPlugin],
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        },
+        events: [],
+        locale: esLocale,
+      }
     };
-    
   },
-
   computed: {
-    ...mapGetters(['usuario']),
-
+    ...mapGetters(['usuario'])
   },
   mounted() {
     setTimeout(() => {
@@ -87,7 +111,62 @@ export default {
         top: window.innerHeight, // Cantidad de desplazamiento (una ventana completa)
         behavior: 'smooth' // Efecto de desplazamiento suave
       });
+    },
+
+    obtenerEventosUsuario() {
+    const idUsuario = this.usuario.id; 
+    axios.get(`http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idUsuario}`)
+      .then(response => {
+        this.calendarOptions.events = response.data;
+      })
+      .catch(error => console.error("Hubo un error al obtener los eventos:", error));
+  },
+
+  activarNotificaciones() {
+      if (!("Notification" in window)) {
+        alert("Este navegador no soporta notificaciones del sistema");
+      } else if (Notification.permission === "granted") {
+        this.verificarEventosHoy(); 
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            this.verificarEventosHoy(); 
+          }
+        });
+      }
+    },
+    verificarEventosHoy() {
+      const hoy = new Date().toISOString().slice(0, 10); // Obtiene la fecha de hoy
+      this.calendarOptions.events.forEach(evento => {
+        if (evento.date === hoy) {
+          this.enviarNotificacion(evento);
+        }
+      });
+    },
+    enviarNotificacion(evento) {
+      new Notification("Evento Hoy", {
+        body: `Recordatorio: ${evento.title}`,
+      });
+    },
+
+    enviarCorreoRecordatorio() {
+  const hoy = new Date().toISOString().slice(0, 10);
+  const correoDestinatario = this.usuario.correo; 
+  this.calendarOptions.events.forEach(evento => {
+    if (evento.date === hoy) {
+      axios.post('http://localhost/BEA/back/enviarCorreo.php', {
+        correoDestinatario: correoDestinatario,
+        mensaje: `¡Hola ${this.usuario.nombre}! tienes un Recordatorio: ${evento.title} el dia ${evento.date} a las ${evento.time} hrs`
+      })
+      .then(response => {
+        console.log(response.data);
+        alert('Correo enviado');
+      })
+      .catch(error => console.error(error));
     }
+  });
+},
+    
   } 
 };
 </script>
@@ -230,78 +309,7 @@ export default {
   transform: scale(1.2);
 }
 
-/* Estilos para el ícono dentro del botón */
-
-/* Estilos para la información del psicoterapeuta */
-.informacion-psicoterapeuta {
-  margin-top: 80px; /* Aumenta el margen superior */
-  margin-bottom: 100px; /* Aumenta el margen inferior */
-  padding: 20px; /* Aumenta el espacio interno */
-  color: #000000; /* Cambio de color del texto a un tono más oscuro */
-  font-size: 18px; /* Aumenta el tamaño de la fuente */
-}
-
-/* Estilos para el contacto */
-.contacto {
-  margin-bottom: 20px; /* Aumenta el margen inferior */
-  display: flex;
-  align-items: center;
-}
-
-
-.contacto img {
-  width: 30px; /* Tamaño del icono */
-  height: 30px; /* Tamaño del icono */
-  margin-right: 5px; /* Espacio entre el icono y el texto */
-  filter: invert(1);
-}
-
-
-.contacto a {
-  color:aliceblue;
-  text-decoration: none;
-  margin-block: 10px;
-  margin-inline-end: 90px;
-}
-
-
-
-/* Estilos para el trabajo */
-.trabajo h3 {
-  color: rgb(255, 118, 5); /* Color del texto */
-  margin-top: 30px; /* Aumenta el margen superior */
-  margin-bottom: 30px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra naranja */
-  background-color: rgba(240, 248, 255, 0.603);
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin-left: 10px;
-}
-
-.trabajo {
-  display: flex;
-}
-
-/* Estilos para la columna izquierda */
-.columna-izquierda {
-  flex: 1; /* Ocupa el 50% del ancho disponible */
-  padding-right: 20px; /* Espacio entre las dos columnas */
-}
-
-/* Estilos para la columna derecha */
-.columna-derecha {
-  flex: 1; /* Ocupa el 50% del ancho disponible */
-}
-
-.columna-derecha p {
-  text-align: left; /* Justificar el texto */
-}
-
-
-
-/* Estilos para el botón de regresar */
-.boton-regresar {
+.boton-regresar{
   display: inline-block;
   background-color: #ff5901;
   color: white;
