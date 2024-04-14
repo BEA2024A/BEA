@@ -7,7 +7,7 @@
 <div v-if="!usuario" class="modal-sesion">
   <h3>Necesitas iniciar sesión para ver tu calendario</h3>
   <button @click="$router.push('/inicioSesion')">Iniciar sesión</button>
-  <button @click="$router.push('/')">regresar al inicio</button>
+  <button @click="$router.push('/inicioPsico')">regresar al inicio</button>
 </div>
 
 

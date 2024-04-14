@@ -1,0 +1,86 @@
+
+POBLAR REGISTRO
+
+
+
+$nombres = ['Ana', 'Luis', 'Carlos', 'María', 'Elena', 'Jorge', 'Sergio', 'Laura', 'Patricia', 'Miguel'];
+$apellidos = ['Hernández', 'García', 'Martínez', 'López', 'González', 'Pérez', 'Rodríguez', 'Sánchez', 'Ramírez', 'Cruz'];
+
+
+$hashed_password = '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da';
+
+
+for ($i = 0; $i < 100; $i++) {
+    $nombre = $nombres[array_rand($nombres)];
+    $apellidoPaterno = $apellidos[array_rand($apellidos)];
+    $apellidoMaterno = $apellidos[array_rand($apellidos)];
+    $correo = strtolower($nombre . '.' . $apellidoPaterno) . '@anahuac.mx';
+
+
+
+    $idAlumno = rand(10000000, 99999999);
+
+    $sql = "INSERT INTO registro (ID_ALUMNO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, CORREO, CONTRASEÑA) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("isssss", $idAlumno, $nombre, $apellidoPaterno, $apellidoMaterno, $correo, $hashed_password);
+    $stmt->execute();
+}
+
+echo "100 registros insertados exitosamente";
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+POBLAR CITAS
+
+$carreras = [
+    'licenciatura en derecho',
+    'licenciatura en psicologia',
+    'licenciatura en ingenieria civil',
+    'licenciatura en ingenieria para la direccion',
+    'licenciatura en finanzas y contaduria publica',
+    'licenciatura en administracion y direccion de empresas',
+    'licenciatura en mercadotectnia estrategica',
+    'licenciatura en negocios internacionales',
+    'licenciatura en comunicacion',
+    'licenciatura en diseño multimedia',
+    'licenciatura en diseño industrial',
+    'licenciatura en ingenieria biomedica',
+    'licenciatura en ingenieria mecatronica',
+    'licenciatura en diseño grafico',
+    'licenciatura en diseño de moda e innovacion',
+    'ingenieria en tecnologias de la informacion y negocios digitales'
+];
+
+
+$sqlEstudiantes = "SELECT ID_ALUMNO FROM registro WHERE ID_ALUMNO NOT IN (SELECT ID_ALUMNO FROM citas)";
+$resultEstudiantes = $conn->query($sqlEstudiantes);
+
+if ($resultEstudiantes->num_rows > 0) {
+    while ($row = $resultEstudiantes->fetch_assoc()) {
+        $idAlumno = $row['ID_ALUMNO'];
+
+        
+        $sqlAdmin = "SELECT ID_ALUMNO FROM administradores ORDER BY RAND() LIMIT 1";
+        $resultAdmin = $conn->query($sqlAdmin);
+        $idAdmin = $resultAdmin->fetch_assoc()['ID_ALUMNO'];
+
+        
+        $carrera = $carreras[array_rand($carreras)];
+        $semestre = rand(1, 12);
+        $motivo = "Motivo de la cita generado automáticamente.";
+        $expectativa = "Expectativa generada automáticamente.";
+
+       
+        $sqlCita = "INSERT INTO citas (ID_ALUMNO, ID_ADMIN, CARRERA, SEMESTRE, MOTIVO, EXPECTATIVA) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sqlCita);
+        $stmt->bind_param("iisiss", $idAlumno, $idAdmin, $carrera, $semestre, $motivo, $expectativa);
+        $stmt->execute();
+    }
+    echo "Citas insertadas exitosamente";
+} else {
+    echo "Todos los estudiantes ya tienen citas.";
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------

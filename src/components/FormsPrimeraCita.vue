@@ -1,58 +1,102 @@
 <template>
   <plantilla>
     <div class="fondo">
-      <form @submit.prevent="enviarFormulario" class="formulario">
-        <h2>Agenda tu primera cita</h2>
-
-        <div class="campo-formulario">
-          <label for="carrera">¿Cuál es tu carrera?</label>
-          <select id="carrera" v-model="respuestas.carrera" required>
-            <option disabled value="">Selecciona una carrera</option>
-            <option v-for="carrera in carreras" :key="carrera" :value="carrera">{{ carrera }}</option>
-          </select>
+      <div class="formulario">
+        <div class="leonel">
+          <img src="https://www.anahuac.mx/sites/default/files/gbb-uploads/img_leonel-i5aru2.png" alt="Leonel Médico"/>
+          <form @submit.prevent="enviarFormulario">
+            <!-- Entrada para '¿Cuál es tu carrera?' -->
+            <div v-if="preguntaActual === 0" class="campo-entrada">
+              <select v-model="respuestas.carrera" required class="animacion-entrada entrada-carrera">
+                <option disabled value="">Selecciona tu carrera</option>
+                <option v-for="carrera in carreras" :key="carrera" :value="carrera">{{ carrera }}</option>
+              </select>
+            </div>
+           
+            <div v-if="preguntaActual === 1" class="campo-entrada">
+              <select v-model="respuestas.semestre" required class="entrada-semestre">
+                <option disabled value="">Elige un semestre</option>
+                <option v-for="num in 12" :key="num" :value="num">{{ num }}</option>
+              </select>
+            </div>
+            <!-- Entrada para '¿Por qué decidiste comunicarte con acompañamiento?' -->
+            <div v-if="preguntaActual === 2" class="campo-entrada">
+              <textarea v-model="respuestas.motivo" maxlength="500" required class="entrada-motivo" rows="5" placeholder="escribe tu respuesta aqui"></textarea>
+            </div>
+            <!-- Entrada para '¿Qué esperas de nosotros?' -->
+            <div v-if="preguntaActual === 3" class="campo-entrada">
+              <textarea v-model="respuestas.expectativa" maxlength="500" required class="entrada-expectativa" rows="5" placeholder="escribe tu respuesta aqui"></textarea>
+            </div>
+            
+            <div class="burbuja">
+              <!-- Contenido de burbuja para pregunta y botón -->
+              <div v-if="preguntaActual === 0">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.carrera">Siguiente</button>
+              </div>
+              <div v-if="preguntaActual === 1">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.semestre">Siguiente</button>
+              </div>
+              <div v-if="preguntaActual === 2">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.motivo">Siguiente</button>
+              </div>
+              <div v-if="preguntaActual === 3">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <button type="submit" class="boton-enviar" :disabled="!respuestas.expectativa">Enviar</button>
+              </div>
+            </div>
+          </form>
         </div>
-
-        <div class="campo-formulario">
-          <label for="semestre">¿Qué semestre estás cursando?</label>
-          <input id="semestre" type="number" v-model.number="respuestas.semestre" min="1" max="12" required>
-        </div>
-
-        <div class="campo-formulario">
-          <label for="motivo">¿Por qué decidiste comunicarte con acompañamiento?</label>
-          <input id="motivo" type="text" v-model="respuestas.motivo" maxlength="140" required>
-        </div>
-
-        <div class="campo-formulario">
-          <label for="expectativa">¿Qué esperas de nosotros?</label>
-          <input id="expectativa" type="text" v-model="respuestas.expectativa" maxlength="140" required>
-        </div>
-
-        <button type="submit">Enviar</button>
-      </form>
+      </div>
     </div>
   </plantilla>
 </template>
 
+
 <script>
-import Plantilla from './plantilla.vue';
-import { mapGetters } from 'vuex';
 import axios from 'axios';
+import { mapGetters } from 'vuex';
+import plantilla from './plantilla.vue';
 
 export default {
-  components: {
-    Plantilla,
+  components:{
+    plantilla,
   },
   data() {
+ 
     return {
+      preguntas: [
+        "¿Cuál es tu carrera?",
+        "¿Qué semestre estás cursando?",
+        "¿Por qué decidiste comunicarte con acompañamiento?",
+        "¿Qué esperas de nosotros?"
+      ],
       respuestas: {
         carrera: '',
         semestre: null,
         motivo: '',
-        expectativa: '',
+        expectativa: ''
       },
+      preguntaActual: 0,
       carreras: [
-        'Licenciatura en Médico Cirujano',
-        // Añade aquí todas las carreras
+      'licenciatura en derecho',
+      'licenciatura en psicologia',
+      'licenciatura en ingenieria civil',
+      'licenciatura en ingenieria para la direccion',
+      'licenciatura en finanzas y contaduria publica',
+      'licenciatura en administracion y direccion de empresas',
+      'licenciatura en mercadotectnia estrategica',
+      'licenciatura en negocios internacionales',
+      'licenciatura en comunicacion',
+      'licenciatura en diseño multimedia',
+      'licenciatura en diseño industrial',
+      'licenciatura en ingenieria biomedica',
+      'licenciatura en ingenieria mecatronica',
+      'licenciatura en diseño grafico',
+      'licenciatura en diseño de moda e innovacion',
+      'ingenieria en tecnologias de la informacion y negocios digitales',
       ],
     };
   },
@@ -60,73 +104,153 @@ export default {
     ...mapGetters(['usuario']),
   },
   methods: {
+    siguientePregunta() {
+      if (this.preguntaActual < this.preguntas.length - 1) {
+        this.preguntaActual++;
+      } else {
+        this.enviarFormulario();
+      }
+    },
     enviarFormulario() {
-      // Preparación de los datos a enviar
-      const datosFormulario = {
-        ...this.respuestas,
-        id_usuario: this.usuario.id,
-        nombre: this.usuario.nombre,
-        a_paterno: this.usuario.a_paterno,
-        a_materno: this.usuario.a_materno,
-      };
+      const formData = new FormData();
+      formData.append('ID_ALUMNO', this.usuario.id); // Asegúrate de que `usuario.id` exista y tenga el valor correcto.
+      formData.append('CARRERA', this.respuestas.carrera);
+      formData.append('SEMESTRE', this.respuestas.semestre);
+      formData.append('MOTIVO', this.respuestas.motivo);
+      formData.append('EXPECTATIVA', this.respuestas.expectativa);
 
-      // Envío del formulario
-      axios.post('http://localhost/BEA/back/agregarCita.php', datosFormulario)
+      axios.post('http://localhost/BEA/back/citas.php', formData)
         .then(response => {
-          alert('Cita agendada con éxito');
-          this.$router.push('/horario'); // Ajusta según sea necesario
+          this.$router.push('/agradecimiento');
         })
         .catch(error => {
-          console.error('Error al agendar la cita:', error);
+          console.error('Error al enviar los datos:', error);
+          alert('Ocurrió un error al enviar los datos.');
         });
-    },
+    }
   },
 };
 </script>
 
+
 <style scoped>
+
+
+.animacion-entrada {
+    margin-bottom: 20px;
+  }
+
 .fondo {
+  background-color: #ff5900; 
+  height: 100vh;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 20px;
+  overflow: hidden;
+  position: relative;
+ 
 }
 
-.formulario {
-  width: 100%;
-  max-width: 500px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  border-radius: 8px;
+.leonel {
+  margin-right: 800px;
+  margin-bottom: 400px;
 }
 
-.campo-formulario {
-  margin-bottom: 15px;
+.pregunta-animada {
+  animation: fadeIn 1s ease forwards;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
+.finalizado-animado {
+  animation: fadeIn 1s ease forwards;
 }
 
-input[type="number"], input[type="text"], select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.pregunta-texto {
+  font-size: 30px;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
+
+
+.boton-siguiente,
+.boton-enviar {
+  background-color: #423a38; 
+  color: #fff;
+  width: 10%;
   border: none;
-  border-radius: 5px;
+  font-size: 18px;
   cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #0056b3;
+.boton-siguiente:hover,
+.boton-enviar:hover {
+  background-color: #625750;
 }
+
+.leonel img {
+  width: 40%;
+  transform: translateX(100%);
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 70px;
+}
+
+.entrada-carrera {
+  width: 100%;
+  height: 100px;
+  font-size: 20px;
+  animation: fadeIn 1s ease forwards;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc; 
+  resize: none; 
+}
+
+.entrada-semestre {
+  width: 310%;
+  height: 100px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
+  font-size: 20px;
+  border: 2px solid #625750;
+  animation: fadeIn 1s ease forwards;
+  transform: translateX(-35%);
+}
+
+
+
+.entrada-motivo, .entrada-expectativa {
+  height: 300px;
+  width: 200%; 
+  font-size: 20px;
+  padding: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc; 
+  resize: none;
+  transform: translateX(-30%);
+}
+
+.entrada-motivo::placeholder, .entrada-expectativa::placeholder {
+  text-align: left; 
+}
+
+.burbuja {
+  position: absolute;
+  width: 100vw;
+  bottom: -10px;
+  left: 0;
+  padding: 100px;
+  background-color: #0000006b;
+  color: aliceblue;
+  font-size: 30px;
+  z-index: 1;
+  text-align: left;
+  margin-bottom: 70px;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
 </style>

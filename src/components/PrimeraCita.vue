@@ -1,18 +1,32 @@
 <template>
   <plantilla>
-  <div class="fondo">
-    <div class="leonel">
-      <img src="https://i.postimg.cc/0QYjnHzx/Leonel-Me-dico-removebg-preview.png" alt="Leonel Médico"/>
-      <div class="burbuja">
-        <div :key="indiceDeTexto" v-html="textoActual" class="texto-animado" @click="redirigirAFormulario"></div>
+    <div class="fondo">
+      <div class="leonel">
+        <img v-if="!usuarioYaRegistrado" src="https://i.postimg.cc/0QYjnHzx/Leonel-Me-dico-removebg-preview.png" alt="Leonel Médico"/>
+        <div class="burbuja">
+
+
+          <div v-if="usuarioYaRegistrado" class="overlay"></div>
+          <div v-if="usuarioYaRegistrado" class="modal-sesion">
+            <h3>Ya has agendado tu primera cita anteriormente</h3>
+            <button @click="$router.push('/seguimiento')">Administra tu seguimiento</button>
+            <button @click="$router.push('/')">Volver al inicio</button>
+          </div>
+
+
+          <div :key="indiceDeTexto" v-if="!usuarioYaRegistrado" v-html="textoActual" class="texto-animado" @click="redirigirAFormulario"></div>
+        </div>
       </div>
     </div>
-  </div>
-</plantilla>
+  </plantilla>
 </template>
 
+
 <script>
+import axios from 'axios';
 import Plantilla from './plantilla.vue';
+import { mapGetters } from 'vuex';
+
 export default {
   components: {
     Plantilla,
@@ -28,14 +42,18 @@ export default {
       ],
       textoActual: "",
       indiceDeTexto: 0,
+      usuarioYaRegistrado: false, // Nuevo estado para controlar si el usuario ya tiene una cita
     };
+  },
+  computed: {
+    ...mapGetters(['usuario'])
   },
   methods: {
     cambiarTexto() {
       this.textoActual = this.listaDeTextos[this.indiceDeTexto];
       this.indiceDeTexto++;
       if (this.indiceDeTexto >= this.listaDeTextos.length) {
-        this.indiceDeTexto = 4;
+        this.indiceDeTexto = 4; // Mantener el último mensaje visible
       }
       setTimeout(this.cambiarTexto, 3000);
     },
@@ -44,12 +62,26 @@ export default {
         this.$router.push('/FormsPrimeraCita');
       }
     },
+    verificarCita() {
+      // Suposición: El ID del usuario está disponible y es el correcto
+      axios.get(`http://localhost/BEA/back/verificarCita.php?idUsuario=${this.usuario.id}`)
+        .then(response => {
+          if (response.data.hasCita) {
+            this.usuarioYaRegistrado = true; // Cambia el estado basado en la respuesta del backend
+          }
+        })
+        .catch(error => console.error("Error al verificar la cita:", error));
+    }
   },
   mounted() {
     this.cambiarTexto();
+    if (this.usuario) {
+      this.verificarCita();
+    }
   },
 };
 </script>
+
 
 <style scoped>
 .fondo {
@@ -60,6 +92,39 @@ export default {
   justify-content: center;
   overflow: hidden;
   position: relative;
+}
+
+
+
+.modal-sesion {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  text-align: center;
+  z-index: 3; 
+  animation: fedeIn 0.5s ease forwards;
+  color:black;
+  font-size: 20px;
+}
+
+.modal-sesion button {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.712);
+  z-index: 3;
 }
 
 .leonel img {

@@ -20,6 +20,7 @@ import NotasCrear from './components/NotasCrear.vue';
 import insertar_psicologos from './components/insertar_psicologos.vue';
 import agregarAdministrador from './components/agregarAdministrador.vue';
 import agregarEventos from './components/agregarEventos.vue';
+import agradecimiento from './components/agradecimiento.vue';
 
 
 
@@ -46,6 +47,7 @@ const routes = [
   {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},
   {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
   {path: '/agregarEventos', name: 'agregarEventos', component: agregarEventos},
+  {path: '/agradecimiento', name: 'agradecimeinto', component:agradecimiento},
 
 ];
 
