@@ -247,6 +247,8 @@ export default {
   margin-bottom: 70px;
 }
 
+
+
 @keyframes fadeIn {
   to {
     opacity: 1;

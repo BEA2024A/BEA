@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-04-2024 a las 09:49:13
+-- Tiempo de generación: 15-04-2024 a las 11:23:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -158,7 +158,7 @@ CREATE TABLE `eventos` (
 --
 
 INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `color`) VALUES
-(7, 446027, 'Consulta Psicológica', '2024-04-08', '10:00:00', '#FFD700'),
+(7, 446027, 'Consulta Psicológica', '2024-04-15', '13:00:00', '#FFD700'),
 (8, 446027, 'Consulta Psicológica', '2024-04-09', '10:00:00', '#FFD700'),
 (9, 446027, 'Consulta Psicológica', '2024-04-10', '10:00:00', '#FFD700'),
 (11, 446028, 'Consulta Psicológica', '2024-04-08', '13:00:00', '#FFD700');
@@ -171,17 +171,30 @@ INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `co
 
 DROP TABLE IF EXISTS `psicologos`;
 CREATE TABLE `psicologos` (
-  `id_psicologo` int(11) NOT NULL,
-  `nombre` varchar(20) DEFAULT NULL,
-  `tipo` varchar(20) DEFAULT NULL,
-  `telefono` int(10) DEFAULT NULL,
-  `especialidad` text DEFAULT NULL,
-  `direccion` text DEFAULT NULL,
-  `poblacion` text DEFAULT NULL,
-  `formacion` text DEFAULT NULL,
-  `modalidad` varchar(20) DEFAULT NULL,
-  `imagenes` text DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `tipo` varchar(100) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
+  `especialidad` text NOT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `poblacion` varchar(255) NOT NULL,
+  `formacion` text NOT NULL,
+  `modalidad` varchar(50) NOT NULL,
+  `imagen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `psicologos`
+--
+
+INSERT INTO `psicologos` (`id`, `nombre`, `tipo`, `telefono`, `especialidad`, `direccion`, `poblacion`, `formacion`, `modalidad`, `imagen`) VALUES
+(1, 'DRA. ELVIRA GOPAR CANSECO', 'TERAPIA HUMANISTA', '9511096372', 'Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica, tallerista y conferencista.', 'Independencia 305, interior 105', 'Niños, adolescentes, adultos y pareja.', 'Licenciada en Psicología. Cédula Profesional: 6092318 Maestría en Psicoterapia Humanista. Cédula Profesional: 9475952 Maestría en Sexualidad Humana. Cédula Profesional: 12274318 Doctorado en Psicología, por el Instituto Universitario Carl Rogers, Puebla.', 'Presencial / Virtual', 'https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png'),
+(2, 'MTRA. KENIA GARCÍA GUTIÉRREZ', 'TERAPIA GESTALT', '9515792158', 'Atención psicoterapéutica y seguimiento psicológico a pacientes psiquiátricos, evaluación neuropsicológica, evaluaciones psicológicas y de la personalidad, talleres y pláticas de neuroeducación emocional.', 'Prolongación Eucaliptos 102, San Felipe del Agua', 'Adolescentes y adultos', 'Licenciada en Psicología por la Universidad Regional del Sureste. Cédula profesional: 4594859 Maestría en Educación Emocional por la Universidad Anáhuac Mx Sur. Cédula profesional: En trámite Especialidad en Psicoterapia Gestalt, Centro Gestalt Oaxaca. Cédula Profesional: 7730994', 'Presencial / Virtual', 'https://i.postimg.cc/BZNJVVw2/MTRA-KENIA-GARC-A-GUTI-RREZ.png'),
+(3, 'MTRA. SYLVIA GUTIÉRREZ CANDIANI', 'TERAPIA COGNITIVO CONDUCTUAL', '9512165928', 'Evaluación y diagnóstico en adolescentes y psicoterapia', 'Privada de Rafael Osuna 448, Colonia Olímpica', 'Adolescentes y adultos', 'Licenciada en Psicología por la Universidad Anáhuac de Oaxaca Cédula Profesional: 10503063 Maestría en psicología adolescente por el Instituto Miguel de Cervantes Cédula Profesional: 12948167', 'Presencial / Virtual', 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png'),
+(4, 'LIC. MARÍA GODARD ZAPATA', 'TERAPIA HUMANISTA', '9511885535 (pre', 'Especialidad en Psicoterapia Gestalt, en Tanatología y en Constelaciones Familiares de la Terapia Sistémica, problemas personales y familiares así como laborales, alcoholismo y drogadicción, pérdidas de diferente tipo, orientación sexual, aborto, divorcio, entre otros.', 'Calzada del Panteón 511 San Felipe del Agua C.P. 68020', 'Adolescentes, adultos, adultos mayores, personas en cualquier tipo de duelo y parejas', 'Lic. en Pedagogía por el Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 3172500 Especialidad en Psicoterapia Gestalt y tanatología por el Centro de Desarrollo Humano y Psicoterapia Gestalt. Cédula Profesional: 4110728', 'Presencial / Virtual', 'https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png'),
+(5, 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', 'PSIQUIATRA DE ENLACE', '9515144801', 'Médico Psiquiatra', 'Calle Jazmines 509, Oaxaca de Juarez, Oaxaca', 'Niños, adolescentes y adultos', 'Psiquiatra por la Universidad Lasalle de México. Cédula profesional: 1733398', 'Presencial / Virtual', 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png'),
+(6, 'DR. JORGE LUIS CORTÉS LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9512257283', 'Médico Psiquiatra, posgraduado en el Instituto Nacional de Psiquiatría \'Ramón de la Fuente\'', 'Colón 421, Centro Oaxaca', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 4968848 Especialidad en Psiquiatría por la Universidad Nacional Autónoma de México Cédula Profesional: 6982040.', 'Presencial / Virtual', 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png'),
+(7, 'DR. VIRGILIO SANTIAGO LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9515178666', 'Médico Cirujano especialista en Psiquiatría', 'Emilio Carranza No. 1112 Clínica Neurociencias del Sureste, Col. Reforma', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 2809422 Especialidad en Psiquiatría, Universidad Nacional Autónoma de Mexico. Cédula Profesional: 5777340', 'Presencial / Virtual', 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png');
 
 -- --------------------------------------------------------
 
@@ -301,7 +314,7 @@ ALTER TABLE `eventos`
 -- Indices de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  ADD PRIMARY KEY (`id_psicologo`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `registro`
@@ -330,7 +343,7 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id_psicologo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

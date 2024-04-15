@@ -84,3 +84,110 @@ if ($resultEstudiantes->num_rows > 0) {
 }
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+
+infromacion de psicologos asociados:
+
+   [
+    {
+        "nombre": "DRA. ELVIRA GOPAR CANSECO",
+        "tipo": "TERAPIA HUMANISTA",
+        "telefono": "9511096372",
+        "especialidad": "Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica, tallerista y conferencista.",
+        "direccion": "Independencia 305, interior 105",
+        "poblacion": "Niños, adolescentes, adultos y pareja.",
+        "formacion": "Licenciada en Psicología. Cédula Profesional: 6092318 Maestría en Psicoterapia Humanista. Cédula Profesional: 9475952 Maestría en Sexualidad Humana. Cédula Profesional: 12274318 Doctorado en Psicología, por el Instituto Universitario Carl Rogers, Puebla.",
+        "modalidad": "Presencial / Virtual"
+        "imagen": "https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png"
+    },
+    {
+        "nombre": "MTRA. KENIA GARCÍA GUTIÉRREZ",
+        "tipo": "TERAPIA GESTALT",
+        "telefono": "9515792158",
+        "especialidad": "Atención psicoterapéutica y seguimiento psicológico a pacientes psiquiátricos, evaluación neuropsicológica, evaluaciones psicológicas y de la personalidad, talleres y pláticas de neuroeducación emocional.",
+        "direccion": "Prolongación Eucaliptos 102, San Felipe del Agua",
+        "poblacion": "Adolescentes y adultos",
+        "formacion": "Licenciada en Psicología por la Universidad Regional del Sureste. Cédula profesional: 4594859 Maestría en Educación Emocional por la Universidad Anáhuac Mx Sur. Cédula profesional: En trámite Especialidad en Psicoterapia Gestalt, Centro Gestalt Oaxaca. Cédula Profesional: 7730994",
+        "modalidad": "Presencial / Virtual",
+        "imagen": "https://i.postimg.cc/BZNJVVw2/MTRA-KENIA-GARC-A-GUTI-RREZ.png"
+    },
+    {
+        "nombre": "MTRA. SYLVIA GUTIÉRREZ CANDIANI",
+        "tipo": "TERAPIA COGNITIVO CONDUCTUAL",
+        "telefono": "9512165928",
+        "especialidad": "Evaluación y diagnóstico en adolescentes y psicoterapia",
+        "direccion": "Privada de Rafael Osuna 448, Colonia Olímpica",
+        "poblacion": "Adolescentes y adultos",
+        "formacion": "Licenciada en Psicología por la Universidad Anáhuac de Oaxaca Cédula Profesional: 10503063 Maestría en psicología adolescente por el Instituto Miguel de Cervantes Cédula Profesional: 12948167",
+        "modalidad": "Presencial / Virtual",
+        "imagen": "https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png"
+    },
+    {
+        "nombre": "LIC. MARÍA GODARD ZAPATA",
+        "tipo": "TERAPIA HUMANISTA",
+        "telefono": "9511885535 (previa cita)",
+        "especialidad": "Especialidad en Psicoterapia Gestalt, en Tanatología y en Constelaciones Familiares de la Terapia Sistémica, problemas personales y familiares así como laborales, alcoholismo y drogadicción, pérdidas de diferente tipo, orientación sexual, aborto, divorcio, entre otros.",
+        "direccion": "Calzada del Panteón 511 San Felipe del Agua C.P. 68020",
+        "poblacion": "Adolescentes, adultos, adultos mayores, personas en cualquier tipo de duelo y parejas",
+        "formacion": "Lic. en Pedagogía por el Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 3172500 Especialidad en Psicoterapia Gestalt y tanatología por el Centro de Desarrollo Humano y Psicoterapia Gestalt. Cédula Profesional: 4110728",
+        "modalidad": "Presencial / Virtual",
+        "imagen": "https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png"
+    },
+    {
+        "nombre": "MTRA. LAURA LORENA HERNÁNDEZ VELASCO",
+        "tipo": "TERAPIA HUMANISTA",
+        "telefono": "9515701076",
+        "especialidad": "Práctica privada en atención a niños, adolescentes y adultos en psicodiagnóstico y psicoterapia, psicoterapia individual y de pareja, cursos y talleres.",
+        "direccion": "Manuel Sabino Crespo No.524 Interior E.",
+        "poblacion": "Niños, adolescentes y adultos",
+        "formacion": "Lic. en Psicología. Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 2910361 Maestra en Educación y desarrollo cognitivo. Instituto Tecnológico de Estudios Superiores de Monterrey. Cédula Profesional: 10444914 Posgrado en Psicopatología Clínica. Universidad de Barcelona. Diplomado en Neuropsicología. Universidad Complutense de Madrid.",
+        "modalidad": "Presencial / Virtual",
+        "iamgen": "https://i.postimg.cc/653BJfDg/MTRA-LAURA-LORENA-HERN-NDEZ-VELASCO.png"
+    },
+    {
+        "nombre": "DR. JORGE G. JIMÉNEZ SÁNCHEZ",
+        "tipo": "PSIQUIATRA DE ENLACE",
+        "telefono": "9515144801",
+        "especialidad": "Médico Psiquiatra",
+        "direccion": "Calle Jazmines 509, Oaxaca de Juarez, Oaxaca",
+        "poblacion": "Niños, adolescentes y adultos",
+        "formacion": "Psiquiatra por la Universidad Lasalle de México. Cédula profesional: 1733398",
+        "modalidad": "Presencial / Virtual",
+        "imagen": "https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png"
+    },
+    {
+        "nombre": "DR. JORGE LUIS CORTÉS LÓPEZ",
+        "tipo": "TERAPIA COGNITIVO CONDUCTUAL",
+        "telefono": "9512257283",
+        "especialidad": "Médico Psiquiatra, posgraduado en el Instituto Nacional de Psiquiatría 'Ramón de la Fuente'",
+        "direccion": "Colón 421, Centro Oaxaca",
+        "poblacion": "Adolescentes y adultos",
+        "formacion": "Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 4968848 Especialidad en Psiquiatría por la Universidad Nacional Autónoma de México Cédula Profesional: 6982040.",
+        "modalidad": "Presencial / Virtual",
+        "imagen": "https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png"
+    },
+    {
+        "nombre": "DR. VIRGILIO SANTIAGO LÓPEZ",
+        "tipo": "TERAPIA COGNITIVO CONDUCTUAL",
+        "telefono": "9515178666",
+        "especialidad": "Médico Cirujano especialista en Psiquiatría",
+        "direccion": "Emilio Carranza No. 1112 Clínica Neurociencias del Sureste, Col. Reforma",
+        "poblacion": "Adolescentes y adultos",
+        "formacion": "Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 2809422 Especialidad en Psiquiatría, Universidad Nacional Autónoma de Mexico. Cédula Profesional: 5777340",
+        "modalidad": "Presencial / Virtual",
+        "imagen": "https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png"
+    }
+]
+
+
+$datosJson = file_get_contents('psicologos.json');
+$psicologos = json_decode($datosJson, true);
+
+foreach ($psicologos as $psicologo) {
+    $stmt = $conn->prepare("INSERT INTO psicologos (nombre, tipo, telefono, especialidad, direccion, poblacion, formacion, modalidad, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssss", $psicologo['nombre'], $psicologo['tipo'], $psicologo['telefono'], $psicologo['especialidad'], $psicologo['direccion'], $psicologo['poblacion'], $psicologo['formacion'], $psicologo['modalidad'], $psicologo['imagen']);
+    $stmt->execute();
+}
+
+echo "Datos insertados exitosamente";
+
+    

@@ -22,7 +22,7 @@
             <div class="descripcion-psicologo" :class="{ 'mostrar-descripcion': psicologo.mostrarDescripcion }">
               <h3>{{ psicologo.nombre }}</h3>
               <p class="title">{{ psicologo.puesto }}</p>
-              <p><button @click="redirigirPerfil(psicologo.perfil)">Perfil</button></p>
+              <button @click="redirigirPerfil(psicologo.id)">Perfil</button>
             </div>
           </div>
         </div>
@@ -33,13 +33,13 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Plantilla from './plantilla.vue';
 
 export default {
   components: {
     Plantilla,
   },
- 
   data() {
     return {
       indiceBannerActual: 0,
@@ -53,27 +53,33 @@ export default {
         { link: '/Seguimiento', imagen: 'https://www.shutterstock.com/image-photo/two-diverse-business-executive-partners-600nw-2021639234.jpg', descripcion: 'Administra tus Sesiones de Seguimiento' },
         { link: '/autoayuda', imagen: 'https://img.freepik.com/fotos-premium/mujer-joven-meditando-computadora-portatil-casa_768733-4666.jpg', descripcion: 'Sesiones de Autoayuda en Casa' },
       ],
-      psicologos: [
-        { nombre: 'DRA. ELVIRA GOPAR CANSECO', puesto: 'TERAPIA HUMANISTA', perfil: '/ps1', imagen: 'https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png'},
-        { nombre: 'MTRA. KENIA GARCÍA GUTIÉRREZ', puesto: 'TERAPIA GESTALT',perfil: '/ps1', imagen: 'https://i.postimg.cc/BZNJVVw2/MTRA-KENIA-GARC-A-GUTI-RREZ.png'},
-        { nombre: 'MTRA. SYLVIA GUTIÉRREZ CANDIANI', puesto: 'TERAPIA COGNITIVO CONDUCTUAL',perfil: '/ps1', imagen: 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png'},
-        { nombre: 'LIC. MARÍA GODARD ZAPATA', puesto: 'TERAPIA HUMANISTA', perfil: '/ps1', imagen: 'https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png'},
-        { nombre: 'MTRA. LAURA LORENA HERNÁNDEZ VELASCO', puesto: 'TERAPIA HUMANISTA',perfil: '/ps1', imagen: 'https://i.postimg.cc/653BJfDg/MTRA-LAURA-LORENA-HERN-NDEZ-VELASCO.png'},
-        { nombre: 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', puesto: 'PSIQUIATRIA DE ENLACE', perfil: '/ps1', imagen: 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png'},
-        { nombre: 'DR. JORGE LUIS CORTÉS LÓPEZ', puesto: 'PSIQUIATRIA DE ENLACE', perfil: '/ps1', imagen: 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png'},
-        { nombre: 'DR. VIRGILIO SANTIAGO LÓPEZ', puesto: 'TERAPIA COGNITIVO CONDUCTUAL', perfil: '/ps1', imagen: 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png'},
-      ],
+      psicologos: [],
       temporizadorBanner: null,
     };
   },
+
   mounted() {
     this.iniciarTemporizadorBanner();
+    this.cargarPsicologos();
   },
+
   beforeDestroy() {
     this.detenerTemporizadorBanner();
   },
-  methods: {
 
+  methods: {
+    cargarPsicologos() {
+      axios.get('http://localhost/bea/back/obtenerPsicologos.php')
+        .then(response => {
+          this.psicologos = response.data.map(psicologo => ({
+            ...psicologo,
+            perfil: `/ps1/${psicologo.id}` // Asigna un perfil dinámico basado en el ID
+          }));
+        })
+        .catch(error => {
+          console.error('Error al cargar los psicólogos:', error);
+        });
+    },
     abrirEnlace(url) {
       window.location.href = url;
     },
@@ -86,12 +92,11 @@ export default {
     cambiarBanner() {
       this.indiceBannerActual = (this.indiceBannerActual + 1) % this.banners.length;
     },
-    redirigirA(ruta) {
-      this.$router.push(ruta);
-    },
-    redirigirPerfil(perfil) {
-    this.$router.push(perfil);
-  },
+    redirigirPerfil(id) {
+  this.$router.push({ name: 'ps1', params: { id: id.toString() } });
+}
+
+
   },
   computed: {
     bannerActual() {
@@ -100,6 +105,8 @@ export default {
   }
 };
 </script>
+
+
 <style scoped>
 
 @keyframes slideIn {

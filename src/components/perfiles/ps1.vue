@@ -2,7 +2,7 @@
   <plantilla>
     <div class="contenido-pagina">
       <!-- Cabecera con animación de aparición -->
-      <div class="cabecera" v-if="loaded">
+      <div class="cabecera"  v-if="loaded" >
         <!-- Lado izquierdo: Nombre y especialidad -->
         <div class="info-izquierda" ref="infoIzquierda">
           <h1>{{ informacion.nombre }}</h1>
@@ -11,14 +11,17 @@
             <img src="https://cdn.icon-icons.com/icons2/1993/PNG/512/direction_gps_location_map_maps_navigation_pin_icon_123198.png" alt="Icono de Ubicación">
             <a href="https://maps.app.goo.gl/2FA8ovzMAt5UbWrM9" target="_blank"><p>{{ informacion.direccion }}</p></a>
             <img src="https://cdn.icon-icons.com/icons2/2248/PNG/512/whatsapp_icon_138013.png" alt="Icono de WhatsApp">
-            <a href="https://wa.me" target="_blank"><p>{{ informacion.telefono }}</p></a>
+            <a :href="'https://wa.me/' + informacion.telefono" target="_blank"><p>ir a whatsApp</p>
+</a>
+
+
           </div>
           <p>{{ informacion.modalidad }}</p>
         </div>
         <!-- Lado derecho: Imagen en círculo con sombra naranja -->
         <div class="imagen-derecha" ref="imagenDerecha">
           <div class="circulo-con-sombra">
-            <img :src="imagenPsicologo[0]" alt="Imagen del psicoterapeuta">
+            <img :src="informacion.imagen" alt="Imagen del psicoterapeuta">
           </div>
         </div>
 
@@ -29,7 +32,7 @@
       </div>
 
       <!-- Información del psicoterapeuta con animación de aparición -->
-      <div class="informacion-psicoterapeuta" v-if="loaded" ref="informacionPsicoterapeuta">
+      <div class="informacion-psicoterapeuta"  v-if="loaded" ref="informacionPsicoterapeuta">
         <div class="trabajo">
           <div class="columna-izquierda">
             <h3>ESPECIALIDAD</h3>
@@ -44,13 +47,14 @@
         </div>
       </div>
       <!-- Botón Regresar al inicio -->
-      <router-link to="/" class="boton-regresar" v-if="loaded">Regresar al inicio</router-link>
+      <router-link to="/" class="boton-regresar"  v-if="loaded" >Regresar al inicio</router-link>
     </div>
   </plantilla>
 </template>
 
 <script>
 import Plantilla from '../plantilla.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -58,43 +62,51 @@ export default {
   },
   data() {
     return {
-      imagenPsicologo: [
-        "https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png",
-        // Agrega más URL de imágenes según sea necesario
-      ],
       informacion: {
-        nombre: 'DRA. ELVIRA GOPAR CANSECO',
-        tipo: 'TERAPIA HUMANISTA',
-        telefono: '951 109 63 72',
-       
-        especialidad:'Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica, tallerista y conferencista.',
-        direccion: 'Independencia 305, interior 105',
-        poblacion: 'Niños, adolescentes, adultos y pareja.',
-        formacion: 'Licenciada en Psicología. Cédula Profesional: 6092318\nMaestría en Psicoterapia Humanista. Cédula Profesional: 9475952\nMaestría en Sexualidad Humana. Cédula Profesional: 12274318\nDoctorado en Psicología, por el Instituto Universitario Carl Rogers, Puebla.',
-        modalidad: 'Presencial / Virtual'
-      },
-      loaded: false, // Indicador de carga de la página
+        "nombre": "",
+        "tipo": "",
+        "telefono": "",
+        "especialidad": "",
+        "direccion": "",
+        "poblacion": "",
+        "formacion": "",
+        "modalidad": "",
+        "imagen": ""
+      }, 
+
+      loaded:false,
     };
   },
   mounted() {
-    // Establecer un retraso para simular la carga de la página
+    this.cargarInformacionPsicologo();
     setTimeout(() => {
       this.loaded = true;
-    }, 500);
+    }, 5);
   },
   methods: {
+    cargarInformacionPsicologo() {
+      const id = this.$route.params.id;
+      axios.get(`http://localhost/bea/back/ps1.php?id=${id}`)
+        .then(response => {
+          this.informacion = response.data;
+        })
+        .catch(error => {
+          console.error('Error al cargar los detalles del psicólogo:', error);
+        });
+    },
     formatFormacion(formacion) {
       return formacion.split('\n').map(parrafo => `<p>${parrafo}</p>`).join('');
     },
     scrollDown() {
       window.scrollBy({
-        top: window.innerHeight, // Cantidad de desplazamiento (una ventana completa)
-        behavior: 'smooth' // Efecto de desplazamiento suave
+        top: window.innerHeight,
+        behavior: 'smooth'
       });
     }
-  } 
+  }
 };
 </script>
+
 
 
 

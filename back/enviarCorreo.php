@@ -30,8 +30,8 @@ try {
     $mail->addAddress($_POST['correoDestinatario']); 
 
     $mail->isHTML(true);
-    $mail->Subject = 'Recordatorio de Evento';
-    $mail->Body = 'Este es un recordatorio para tu evento: ' . $_POST['mensaje'];
+    $mail->Subject = 'BIENESTAR EMOCIONAL ANAHUAC';
+    $mail->Body = $_POST['mensaje'];
 
     $mail->send();
     echo 'El mensaje ha sido enviado';

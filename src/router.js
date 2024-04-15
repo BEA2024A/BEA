@@ -36,10 +36,11 @@ const routes = [
   {path: '/InicioSesion', name: '/InicioSesion', component: InicioSesion},
   {path: '/register', name: '/register', component: register},
 
-  {path: '/ps1', name: '/ps1', component: ps1},
+  { path: '/ps1/:id', name: 'ps1', component: ps1, props: true },
 
-  {path: '/inicioPsico', name: '/inicioPsico', component: inicioPsico},
-  {path: '/perfil', name: '/perfil', component: perfil},
+
+  {path: '/inicioPsico', name: 'inicioPsico', component: inicioPsico},
+  {path: '/perfil', name: 'perfil', component: perfil},
   {path: '/HorarioPsico', name: 'HorarioPsico' , component: HorarioPsico},
   {path: '/Notas', name: 'Notas', component: Notas},
   {path: '/NotasLeer', name: 'NotasLeer', component: NotasLeer},

@@ -10,6 +10,9 @@ export default {
 </script>
 
 <style>
+
+
+
 body {
   font-family: "Kumbh Sans", sans-serif;
   font-optical-sizing: auto;
@@ -18,6 +21,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: aliceblue;
+  overflow-x: hidden;
 }
 
 #app {
@@ -27,22 +31,26 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px; /* Ancho de la barra de desplazamiento */
+  width: 2px; 
+  transition: transform 1s;
+}
+
+::-webkit-scrollbar:hover{
+  width: 10px;
 }
 
 
-/*  riel de la barra de desplazamiento */
 ::-webkit-scrollbar-track {
   background-color: transparent; 
 }
 
-/*  agarre de la barra de desplazamiento */
+
 ::-webkit-scrollbar-thumb {
-  background-color: #9e9e9e62;
+  background-color: transparent; 
   border-radius: 5px; 
 }
 
-/*  color de fondo cuando se pasa el mouse sobre la barra de desplazamiento */
+
 ::-webkit-scrollbar-thumb:hover {
   background-color:#c44501;
 }
