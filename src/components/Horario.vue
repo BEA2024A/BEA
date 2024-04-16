@@ -131,7 +131,7 @@ export default {
     if (evento.date === hoy) {
       axios.post('http://localhost/BEA/back/enviarCorreo.php', {
         correoDestinatario: correoDestinatario,
-        mensaje: `¡Hola ${this.usuario.nombre}! tienes un Recordatorio: ${evento.title} el dia ${evento.date} a las ${evento.time} hrs`
+        mensaje: '¡Hola ${this.usuario.nombre}! tienes un Recordatorio: ${evento.title} el dia ${evento.date} a las ${evento.time} hrs'
       })
       .then(response => {
         console.log(response.data);

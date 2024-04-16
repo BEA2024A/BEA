@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       listaDeTextos: [
-        "HOLA" ,
+        "HOLA",
         "GRACIAS POR COMUNICARTE A ACOMPAÑAMIENTO",
         "A CONTINUACIÓN VERÁS UN CUESTIONARIO",
         "TODA LA INFORMACIÓN ES 100% CONFIDENCIAL",

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2024 a las 11:23:15
+-- Tiempo de generación: 16-04-2024 a las 09:02:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -158,7 +158,7 @@ CREATE TABLE `eventos` (
 --
 
 INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `color`) VALUES
-(7, 446027, 'Consulta Psicológica', '2024-04-15', '13:00:00', '#FFD700'),
+(7, 446027, 'Consulta Psicológica', '0000-00-00', '13:00:00', '#FFD700'),
 (8, 446027, 'Consulta Psicológica', '2024-04-09', '10:00:00', '#FFD700'),
 (9, 446027, 'Consulta Psicológica', '2024-04-10', '10:00:00', '#FFD700'),
 (11, 446028, 'Consulta Psicológica', '2024-04-08', '13:00:00', '#FFD700');
@@ -194,7 +194,8 @@ INSERT INTO `psicologos` (`id`, `nombre`, `tipo`, `telefono`, `especialidad`, `d
 (4, 'LIC. MARÍA GODARD ZAPATA', 'TERAPIA HUMANISTA', '9511885535 (pre', 'Especialidad en Psicoterapia Gestalt, en Tanatología y en Constelaciones Familiares de la Terapia Sistémica, problemas personales y familiares así como laborales, alcoholismo y drogadicción, pérdidas de diferente tipo, orientación sexual, aborto, divorcio, entre otros.', 'Calzada del Panteón 511 San Felipe del Agua C.P. 68020', 'Adolescentes, adultos, adultos mayores, personas en cualquier tipo de duelo y parejas', 'Lic. en Pedagogía por el Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 3172500 Especialidad en Psicoterapia Gestalt y tanatología por el Centro de Desarrollo Humano y Psicoterapia Gestalt. Cédula Profesional: 4110728', 'Presencial / Virtual', 'https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png'),
 (5, 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', 'PSIQUIATRA DE ENLACE', '9515144801', 'Médico Psiquiatra', 'Calle Jazmines 509, Oaxaca de Juarez, Oaxaca', 'Niños, adolescentes y adultos', 'Psiquiatra por la Universidad Lasalle de México. Cédula profesional: 1733398', 'Presencial / Virtual', 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png'),
 (6, 'DR. JORGE LUIS CORTÉS LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9512257283', 'Médico Psiquiatra, posgraduado en el Instituto Nacional de Psiquiatría \'Ramón de la Fuente\'', 'Colón 421, Centro Oaxaca', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 4968848 Especialidad en Psiquiatría por la Universidad Nacional Autónoma de México Cédula Profesional: 6982040.', 'Presencial / Virtual', 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png'),
-(7, 'DR. VIRGILIO SANTIAGO LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9515178666', 'Médico Cirujano especialista en Psiquiatría', 'Emilio Carranza No. 1112 Clínica Neurociencias del Sureste, Col. Reforma', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 2809422 Especialidad en Psiquiatría, Universidad Nacional Autónoma de Mexico. Cédula Profesional: 5777340', 'Presencial / Virtual', 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png');
+(7, 'DR. VIRGILIO SANTIAGO LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9515178666', 'Médico Cirujano especialista en Psiquiatría', 'Emilio Carranza No. 1112 Clínica Neurociencias del Sureste, Col. Reforma', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 2809422 Especialidad en Psiquiatría, Universidad Nacional Autónoma de Mexico. Cédula Profesional: 5777340', 'Presencial / Virtual', 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png'),
+(9, 'MTRA. LAURA LORENA HERNÁNDEZ VELASCO', 'TERAPIA HUMANISTA', '9515701076', 'Práctica privada en atención a niños, adolescentes y adultos en psicodiagnóstico y psicoterapia, psicoterapia individual y de pareja, cursos y talleres.', 'Manuel Sabino Crespo No.524 Interior E.', 'Niños, adolescentes y adultos', 'Lic. en Psicología. Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 2910361 Maestra en Educación y desarrollo cognitivo. Instituto Tecnológico de Estudios Superiores de Monterrey. Cédula Profesional: 10444914 Posgrado en Psicopatología Clínica. Universidad de Barcelona. Diplomado en Neuropsicología. Universidad Complutense de Madrid.', 'Presencial / Virtual', 'https://i.postimg.cc/653BJfDg/MTRA-LAURA-LORENA-HERN-NDEZ-VELASCO.png');
 
 -- --------------------------------------------------------
 
@@ -343,7 +344,7 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas

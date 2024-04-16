@@ -113,7 +113,7 @@ export default {
     },
     enviarFormulario() {
       const formData = new FormData();
-      formData.append('ID_ALUMNO', this.usuario.id); // Asegúrate de que `usuario.id` exista y tenga el valor correcto.
+      formData.append('ID_ALUMNO', this.usuario.id); 
       formData.append('CARRERA', this.respuestas.carrera);
       formData.append('SEMESTRE', this.respuestas.semestre);
       formData.append('MOTIVO', this.respuestas.motivo);

@@ -19,8 +19,9 @@ import NotasLeer from './components/NotasLeer.vue';
 import NotasCrear from './components/NotasCrear.vue';
 import insertar_psicologos from './components/insertar_psicologos.vue';
 import agregarAdministrador from './components/agregarAdministrador.vue';
-import agregarEventos from './components/agregarEventos.vue';
+
 import agradecimiento from './components/agradecimiento.vue';
+
 
 
 
@@ -47,8 +48,9 @@ const routes = [
   {path: '/NotasCrear', name: 'NotasCrear', component: NotasCrear},
   {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},
   {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
-  {path: '/agregarEventos', name: 'agregarEventos', component: agregarEventos},
+
   {path: '/agradecimiento', name: 'agradecimeinto', component:agradecimiento},
+
 
 ];
 
@@ -60,7 +62,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const rutasProtegidas = ['/horario', '/seguimiento', '/primeracita', '/FormsPrimeraCita', '/formsSeguimiento', '/inicioPsico'];
-  const rutasAdministrativas = ['/agregarAdministrador', '/insertar_psicologos', '/agregarEventos']; // Rutas exclusivas para el administrador
+  const rutasAdministrativas = ['/agregarAdministrador', '/insertar_psicologos']; // Rutas exclusivas para el administrador
   const estadoAlmacenado = localStorage.getItem('vuex') ? JSON.parse(localStorage.getItem('vuex')) : null;
 
   // Determinar si el usuario está autenticado y su ID
