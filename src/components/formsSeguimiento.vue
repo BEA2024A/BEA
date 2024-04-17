@@ -1,115 +1,118 @@
 <template>
   <plantilla>
-  <div class="fondo">
-    <div class="formulario">
-      <div v-if="preguntaActual < preguntas.length">
-        <!-- Textarea y botón Siguiente fuera y arriba de la burbuja -->
-        <textarea v-model="respuestas[preguntaActual]" rows="4" class="textarea-animada" placeholder="ESCRIBE TU RESPUESTA AQUI"></textarea>
-      
-      </div>
+    <div class="fondo">
+      <div class="formulario">
+        <div class="leonel">
+          <img src="https://www.anahuac.mx/sites/default/files/gbb-uploads/img_leonel-i5aru2.png" alt="Leonel Médico"/>
+          <form @submit.prevent="enviarFormulario">
 
-      <div class="leonel">
-        <img src="https://www.anahuac.mx/sites/default/files/gbb-uploads/img_leonel-i5aru2.png" alt="Leonel Médico"/>
-        <div class="burbuja">
-          <!-- Solo la pregunta dentro de la burbuja -->
-          <div v-if="preguntaActual < preguntas.length" class="pregunta-animada" :key="preguntaActual">
-            <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
-            <button @click="siguientePregunta" class="boton-siguiente">Siguiente</button>
-          </div>
-          <div v-else class="finalizado-animado">
-        <p>MUCHAS GRACIAS {{ usuario.nombre.toUpperCase() }}</p>
-        <p>TU SIGUENTE CITA ES EL DIA: xx-xx-xx </p>
-        <button @click="enviarFormulario" class="boton-enviar">ir a tu calendario</button>
-      </div> 
+            <!-- Entrada para '¿Qué esperas de nosotros?' -->
+            <div v-if="preguntaActual === 0" class="campo-entrada">
+              <textarea v-model="respuestas.expectativa" maxlength="500" required class="entrada-expectativa" rows="5" placeholder="escribe tu respuesta aqui"></textarea>
+            </div>
+            
+            <div class="burbuja">
+              <!-- Contenido de burbuja para pregunta y botón -->
+              <div v-if="preguntaActual === 0">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <button type="submit" class="boton-enviar" :disabled="!respuestas.expectativa">Enviar</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
-</plantilla>
+  </plantilla>
 </template>
 
-<script>import Plantilla from './plantilla.vue';
-import { mapGetters, mapActions } from 'vuex';
+
+<script>
+import axios from 'axios';
+import { mapGetters } from 'vuex';
+import plantilla from './plantilla.vue';
+
 export default {
-  components: {
-    Plantilla,
+  components:{
+    plantilla,
   },
   data() {
+ 
     return {
       preguntas: [
-      "ESCRIBE AQUI COMO HAS ESTADO DURANTE ESTE TIEMPO",
+        "¿Como te has sentido desde tu ultima cita?"
       ],
-      respuestas: Array.from({ length: 3 }, () => ""),
+      respuestas: {
+        expectativa: ''
+      },
       preguntaActual: 0,
     };
   },
-
   computed: {
     ...mapGetters(['usuario']),
-
   },
-
   methods: {
     siguientePregunta() {
-      this.preguntaActual++;
+      if (this.preguntaActual < this.preguntas.length - 1) {
+        this.preguntaActual++;
+      } else {
+        this.enviarFormulario();
+      }
     },
     enviarFormulario() {
-      console.log("Respuestas:", this.respuestas);
-      // Implementar lógica de envío aquí
-       this.$router.push('/horario');
-    },
+      const formData = new FormData();
+      formData.append('ID_ALUMNO', this.usuario.id); 
+      formData.append('EXPECTATIVA', this.respuestas.expectativa);
+
+      axios.post('http://localhost/BEA/back/seguimiento.php', formData)
+        .then(response => {
+          this.$router.push('/agradecimiento');
+        })
+        .catch(error => {
+          console.error('Error al enviar los datos:', error);
+          alert('Ocurrió un error al enviar los datos.');
+        });
+    }
   },
 };
 </script>
 
+
 <style scoped>
+
+
+.animacion-entrada {
+    margin-bottom: 20px;
+  }
+
 .fondo {
-  background-color: #ff5900; /* Mismo color de fondo que primeracita.vue */
+  background-color: #ff5900; 
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
+ 
 }
 
-.formulario {
-  color: aliceblue; /* Mismo color de texto que primeracita.vue */
-  font-size: 18px;
-  text-align: center;
+.leonel {
   margin-right: 800px;
   margin-bottom: 400px;
 }
 
 .pregunta-animada {
-  opacity: 0;
   animation: fadeIn 1s ease forwards;
-  margin-bottom: 20px;
 }
 
 .finalizado-animado {
-  opacity: 0;
   animation: fadeIn 1s ease forwards;
-  font-size: 24px;
 }
 
 .pregunta-texto {
-  font-size: 24px;
+  font-size: 30px;
 }
 
-.textarea-animada {
-  width: 600px;
-  height: 300px;
-  padding: 15px;
-  font-size: 18px;
-  border: 2px solid #423a38;
-  border-radius: 8px;
-  resize: none;
-  margin-bottom: 20px;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
-}
+
 
 .boton-siguiente,
 .boton-enviar {
@@ -137,6 +140,43 @@ export default {
   margin-bottom: 70px;
 }
 
+.entrada-carrera {
+  width: 100%;
+  height: 100px;
+  font-size: 20px;
+  animation: fadeIn 1s ease forwards;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc; 
+  resize: none; 
+}
+
+.entrada-semestre {
+  width: 310%;
+  height: 100px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
+  font-size: 20px;
+  border: 2px solid #625750;
+  animation: fadeIn 1s ease forwards;
+  transform: translateX(-35%);
+}
+
+
+
+.entrada-motivo, .entrada-expectativa {
+  height: 300px;
+  width: 200%; 
+  font-size: 20px;
+  padding: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc; 
+  resize: none;
+  transform: translateX(-30%);
+}
+
+.entrada-motivo::placeholder, .entrada-expectativa::placeholder {
+  text-align: left; 
+}
+
 .burbuja {
   position: absolute;
   width: 100vw;
@@ -151,21 +191,12 @@ export default {
   margin-bottom: 70px;
 }
 
+
+
 @keyframes fadeIn {
   to {
     opacity: 1;
   }
 }
 
-/* Media queries para ajustes responsivos */
-@media (max-width: 639px) {
-  .textarea-animada {
-    width: 100%; /* Ajuste para dispositivos móviles */
-  }
-  .boton-siguiente,
-  .boton-enviar {
-    width: auto;
-    padding: 10px 15px;
-  }
-}
 </style>

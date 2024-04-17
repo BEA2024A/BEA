@@ -1,6 +1,7 @@
 <template>
   <plantilla-psico>
     <div class="plantilla-psico">
+      <div class="container">
       <div class="contenido">
         <div class="contenido-derecha">
           <div class="perfil">
@@ -18,11 +19,12 @@
       </div>
           <div class="comentarios">
             <h2>Comentarios del paciente</h2>
-            <p>{{ comentarios.notas }}</p>
+            <p>{{ comentarios.EXPECTATIVA }}</p>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </plantilla-psico>
 </template>
 
@@ -51,7 +53,7 @@ export default {
       },
 
       comentarios:{
-        notas:'Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, , en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, "Lorem ipsum dolor sit amet..", viene de una linea en la sección 1.10.32"'
+        EXPECTATIVA:''
       },
       calendarOptions: {
         plugins: [dayGridPlugin],
@@ -70,6 +72,7 @@ export default {
   mounted() {
     this.cargarDatosAlumno();
     this.obtenerEventosUsuario();
+    this.cargarComentarios();
 
   },
   methods: {
@@ -95,6 +98,17 @@ export default {
         });
     },
 
+    cargarComentarios() {
+      const idAlumno = this.$route.params.id; 
+    axios.get(`http://localhost/bea/back/cargarSeguimiento.php?idAlumno=${idAlumno}`)
+      .then(response => {
+        this.comentarios = response.data;
+      })
+      .catch(error => {
+        console.error('Error al cargar los comentarios del alumno:', error);
+      });
+  },
+
     obtenerEventosUsuario() {
     const idAlumno = this.$route.params.id; 
     axios.get(`http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idAlumno}`)
@@ -108,21 +122,30 @@ export default {
 </script>
 
 <style scoped>
-.plantilla-psico {
+
+.container {
   display: flex;
+  justify-content: space-between;
+  background-color: #ff5900;
+  z-index: -9999;
 }
+
 
 .perfil {
   font-family: Arial, sans-serif;
-  margin-right: 20px;
-  width: 100%; 
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  text-align: justify;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top:20px;
+    margin-bottom: 80px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+    position: sticky;
+    top: 0;
+    text-align: justify;
+    background-color: #fdfdfd;
 }
 
 .perfil p {
@@ -155,7 +178,7 @@ export default {
   background-color: #f9f9f9; 
   border: 1px solid #ddd; 
   border-radius: 5px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541); 
   background-color: #fbfdd5;
 }
 
@@ -183,10 +206,40 @@ export default {
 }
 
 .contenido-izquierda {
-  padding: 50px;
-  flex: 70%;
+  margin-top: 20px;
+  flex: 82%;
   padding-right: 60px;
   padding-left: 100px;
 }
+
+.calendar-container {
+  max-width: 200%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  transition: 0.3s ease;
+  animation: slideIn 0.5s ease forwards;
+  padding: 20px;
+}
+
+.fc .fc-button-group > .fc-button {
+  margin-right: 50px; 
+}
+
+.fc .fc-button-group > .fc-button:last-child {
+  margin-right: 0;  
+}
+
+
+.fc .fc-button {
+  padding: 8px 120px; 
+}
+
+
+.fc-header-toolbar {
+  margin-bottom: 30px; 
+}
+
 
 </style>
