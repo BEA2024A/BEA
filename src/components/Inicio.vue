@@ -22,7 +22,7 @@
             <div class="descripcion-psicologo" :class="{ 'mostrar-descripcion': psicologo.mostrarDescripcion }">
               <h3>{{ psicologo.nombre }}</h3>
               <p class="title">{{ psicologo.puesto }}</p>
-              <button @click="redirigirPerfil(psicologo.id)">Perfil</button>
+              <button @click="redirigirPerfil(psicologo.perfil)">Perfil</button>
             </div>
           </div>
         </div>
@@ -92,9 +92,9 @@ export default {
     cambiarBanner() {
       this.indiceBannerActual = (this.indiceBannerActual + 1) % this.banners.length;
     },
-    redirigirPerfil(id) {
-  this.$router.push({ name: 'ps1', params: { id: id.toString() } });
-}
+    redirigirPerfil(perfil) {
+      this.$router.push(perfil);
+    },
 
 
   },

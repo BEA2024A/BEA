@@ -1,66 +1,206 @@
 <template>
-    <plantilla-psico>
-      <div class="plantilla-psico">
-        <div class="contenido">
-          <div class="contenido-derecha">
-            <div class="perfil">
-              <img :src="perfil.imagen" alt="Foto de perfil" class="imagen-perfil">
-              <h1>{{ perfil.nombre }}</h1>
-              <p>ID: 00{{ perfil.ide }}</p>
-              <p>Edad: {{ perfil.edad }}</p>
-              <p>Carrera: {{ perfil.carrera }}</p>
-              <p>Problemas principales: {{ perfil.problemas }}</p>
-              <p>Historial médico: {{ perfil.historial }}</p>
-              <p>Medicación actual: {{ perfil.medicacion }}</p>
-              <p>Tratamientos anteriores: {{ perfil.tratamientosAnteriores }}</p>
-              <p>Expectativas para la terapia: {{ perfil.expectativas }}</p>
-            </div>
+  <plantillaPsico>
+    <div class="plantilla-psico">
+      <div class="contenido">
+        <div class="contenido-derecha">
+          <div class="perfil">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Foto de perfil" class="imagen-perfil">
+            <h1>{{ perfil.NOMBRE }} {{ perfil.APELLIDO_PATERNO }} {{ perfil.APELLIDO_MATERNO }}</h1>
+            <p>ID: 00{{ perfil.ID_ALUMNO }} </p>
+            <p>Carrera: {{ perfil.CARRERA}}</p>
+            <p>motivos de la cita: {{ perfil.MOTIVO }}</p>
+            <p>Expectativas para la terapia: {{ perfil.EXPECTATIVA }}</p>
           </div>
-          <div class="contenido-izquierda">
-            <button @click="redirect('hacer')" class="boton-notas">Hacer Notas</button>
-            <button @click="redirect('leer')" class="boton-notas">Leer Notas</button>
+        </div>
+        <div class="contenido-izquierda">
+          <button v-if="!mostrarHacer && !mostrarLeer" @click="showContent('hacer')" class="boton-notas">Hacer Notas</button>
+          <button v-if="!mostrarHacer && !mostrarLeer" @click="showContent('leer')" class="boton-notas">Leer Notas</button>
+          <!-- Contenido de hacer notas -->
+          <div v-if="mostrarHacer">
+      <div class="notas">
+        <label for="numero-sesion">Número de sesión:</label>
+        <input type="text" id="numero-sesion" v-model="numeroSesion">
+      </div>
+      <div class="notas">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" v-model="fecha">
+      </div>
+      <div class="notas">
+        <label for="notas">Notas:</label>
+        <textarea id="notas" v-model="notas"></textarea>
+      </div>
+      <button @click="enviarNotas" class="boton">Enviar</button>
+      <button @click="recargarPagina" class="boton">Regresar</button>
+    </div>
+          <!-- Contenido de leer notas -->
+          <div v-else-if="mostrarLeer">
+            <div class="notas">
+              <label for="numero-sesion">Número de sesión:</label>
+              <input type="text" id="numero-sesion" v-model="numeroSesion">
+            </div>
+            
+            <div class="notas">
+              <label for="fecha">Fecha:</label>
+              <input type="date" id="fecha" v-model="fecha">
+            </div>
+  
+            <button @click="solicitarNotas" class="boton">Solicitar</button>
+            
+            <div class="notas">
+              <label for="notas">Notas:</label>
+              <textarea id="notas" v-model="notas" readonly></textarea>
+            </div>
+            <button @click="recargarPagina" class="boton">Regresar</button>
           </div>
         </div>
       </div>
-    </plantilla-psico>
-  </template>
-  
-  <script>
-  import plantillaPsico from './plantillaPsico.vue'
-  
-  export default {
-    components: {
-      plantillaPsico,
-    },
-    data() {
-      return {
-        perfil: {
-          nombre: 'Carlos González',
-          ide: 456641,
-          edad: 22,
-          carrera: 'Ingenieria en Tecnologías de la Información y Negocios Digitales',
-          problemas: 'Ansiedad y depresión',
-          historial: 'Ha tenido episodios de ansiedad desde la adolescencia. Ha experimentado síntomas de depresión en los últimos dos años.',
-          medicacion: 'Actualmente toma medicamentos recetados para la ansiedad.',
-          tratamientosAnteriores: 'Ha recibido terapia cognitivo-conductual en el pasado.',
-          expectativas: 'Espera encontrar herramientas para manejar mejor su ansiedad y depresión, así como mejorar su calidad de vida en general.',
-          imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png',
-          comentarios: "Últimamente he estado experimentando mucha ansiedad en situaciones sociales. Me siento nervioso y tenso, y a veces evito encontrarme con amigos o familiares. Creo que esto está afectando mi vida social y mi bienestar emocional. Me gustaría hablar sobre estrategias para manejar esta ansiedad y sentirme más cómodo en estas situaciones."
-        },
-      };
-    },
-    methods: {
-  redirect(option) {
-    if (option === 'hacer') {
+    </div>
+  </plantillaPsico>
+</template>
+
+<script>
+import plantillaPsico from './plantillaPsico.vue';
+import axios from 'axios';
+import { mapGetters } from 'vuex';
+
+export default {
+  components: {
+    plantillaPsico,
+  },
+  data() {
+    return {
       
-      window.location.href = '/NotasCrear'; 
-    } else if (option === 'leer') {
-      window.location.href = '/NotasLeer'; 
-    }
+      perfil: {
+        NOMBRE: "",
+  APELLIDO_PATERNO: "",
+    APELLIDO_MATERNO: "",
+    CARRERA: "",
+    ID_ALUMNO: null,
+    MOTIVO: "",
+  EXPECTATIVA: ""
+      },
+      mostrarHacer: false,
+      mostrarLeer: false,
+      numeroSesion: '',
+      fecha: new Date().toISOString().slice(0, 10),
+      notas: '',
+      notasExistentes: [
+        { numeroSesion: '1', fecha: '2024-04-01', contenido: 'Hoy discutimos sobre las técnicas de respiración para reducir la ansiedad.' },
+        { numeroSesion: '2', fecha: '2024-04-14', contenido: 'En la sesión de hoy, exploramos los desencadenantes de la ansiedad social.' },
+        { numeroSesion: '3', fecha: '2024-04-29', contenido: 'Hablamos sobre estrategias para establecer límites saludables en las relaciones.' },
+        { numeroSesion: '4', fecha: '2024-05-12', contenido: 'En la sesión de hoy, discutimos la importancia de la autocompasión en el proceso de recuperación.' },
+      ]
+    };
+  },
+
+  mounted() {
+    this.cargarDatosAlumno();
+    this.cargarNotas();
+
+  },
+
+  computed: {
+    ...mapGetters(['usuario'])
+  },
+
+  methods: {
+
+    cargarDatosAlumno() {
+      const idAlumno = this.$route.params.id; 
+      axios.get(`http://localhost/bea/back/notas-perfil.php?idAlumno=${idAlumno}`)
+        .then(response => {
+          this.perfil = response.data;
+        })
+        .catch(error => {
+          console.error('Error al cargar los datos del alumno:', error);
+        });
+    },
+
+    cargarNotas() {
+  const idAlumno = this.$route.params.id; 
+  axios.get(`http://localhost/bea/back/cargarNotas.php?idAlumno=${idAlumno}`)
+    .then(response => {
+      
+      if (response.data && response.data.length > 0) {
+        
+        this.notasExistentes = response.data.map(nota => ({
+          numeroSesion: nota.numeroSesion.toString(),
+          fecha: nota.fecha,
+          contenido: nota.contenido
+        }));
+      } else {
+        console.error('La respuesta del servidor está vacía.');
+      }
+    })
+    .catch(error => {
+      console.error('Error al cargar las notas del alumno:', error);
+    });
+},
+
+    
+    showContent(option) {
+      if (option === 'hacer') {
+        this.mostrarHacer = true;
+        this.mostrarLeer = false;
+      } else if (option === 'leer') {
+        this.mostrarHacer = false;
+        this.mostrarLeer = true;
+      }
+    },
+    enviarNotas() {
+  const hoy = new Date().toISOString().slice(0, 10); // Obtiene la fecha de hoy
+
+  if (this.fecha != hoy) {
+    alert('Error de fecha.');
+    return; 
+  }
+
+
+  const formData = new FormData();
+  formData.append('numero_sesion', this.numeroSesion);
+  formData.append('fecha', this.fecha);
+  formData.append('contenido', this.notas);
+  formData.append('id_administrador', this.$store.state.usuario.id); 
+  formData.append('id_alumno', this.$route.params.id); 
+
+
+  axios.post('http://localhost/bea/back/guardar-nota.php', formData)
+    .then(response => {
+      
+      alert('nota enviada');
+    
+    })
+    .catch(error => {
+      
+      console.error('Error en la petición:', error);
+      alert('Ocurrió un error al guardar la nota.');
+    });
+
+
+  this.numeroSesion = '';
+  this.fecha = '';
+  this.notas = '';
+},
+
+    solicitarNotas() {
+  const notaEncontrada = this.notasExistentes.find(nota => {
+    return (nota.numeroSesion === this.numeroSesion && nota.fecha === this.fecha) ||
+           (nota.numeroSesion === this.numeroSesion && nota.fecha !== this.fecha);
+  });
+
+  if (notaEncontrada && notaEncontrada.fecha === this.fecha) {
+    this.notas = notaEncontrada.contenido;
+  } else {
+    this.notas = 'No se encontraron notas para la sesión y fecha especificadas.';
   }
 },
-  };
-  </script>
+    recargarPagina() {
+      window.location.reload();
+    },
+  },
+};
+</script>
+
   
   <style scoped>
   .plantilla-psico {
@@ -135,4 +275,63 @@
 .boton-notas:hover {
   background-color: #ffae00;
 }
-  </style>
+
+.boton {
+  top: 10px;
+  bottom: 20px;
+  background-color: #d45c37;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 37px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.boton:hover {
+  background-color: #ffae00;
+}
+
+/* Estilo base */
+.notas {
+  background-color: #d45c37;
+  border-radius: 12px;
+  color: white;
+  padding: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+/* Espaciado para los elementos internos */
+.notas > * {
+  margin-bottom: 10px;
+}
+
+/* Estilo para los inputs y textarea */
+.notas input[type="text"],
+.notas input[type="date"],
+.notas textarea {
+  width: calc(100% - 24px); /* Ten en cuenta el padding y el borde */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+/* Estilo específico para textarea */
+.notas textarea {
+  height: 200px;
+}
+
+.notas > :last-child {
+  margin-bottom: 0;
+}
+
+</style>

@@ -24,7 +24,14 @@
         <div class="titulo-blog">
           <h3>Blogs de ayuda</h3>
         </div>
-        <input type="text" v-model="busquedaBlogs" placeholder="Buscar blogs..." class="campo-busqueda">
+        <div class="busqueda-blog">
+          <select v-model="filtro.opcion" class="menu-busqueda">
+            <option value="titulo">Nombre</option>
+            <option value="autor">Autor</option>
+            <option value="tipo">Tipo</option>
+          </select>
+          <input type="text" v-model="busquedaBlogs" placeholder="Buscar..." class="campo-busqueda">
+        </div>
         <div class="carrusel-blogs">
           <carousel :itemsToShow="3" class="blogs-carousel">
             <slide v-for="entrada in blogsFiltrados" :key="entrada.id">
@@ -66,12 +73,19 @@
   </div>
 </div>
 
-            <!-- Sección de Libro con Carrusel -->
+
             <section class="seccion-libro">
         <div class="titulo-libro">
           <h3>Libros que te pueden ayudar</h3>
         </div>
-        <input type="text" v-model="busquedaLibros" placeholder="Buscar libros..." class="campo-busqueda">
+        <div class="busqueda-libro">
+          <select v-model="filtro.opcion" class="menu-busqueda">
+            <option value="titulo">Nombre</option>
+            <option value="autor">Autor</option>
+            <option value="tipo">Tipo</option>
+          </select>
+          <input type="text" v-model="busquedaLibros" placeholder="Buscar..." class="campo-busqueda">
+        </div>
         <div class="carrusel-libro">
           <carousel :itemsToShow="3" class="libro-carousel">
             <slide v-for="entrada in librosFiltrados" :key="entrada.id">
@@ -87,7 +101,6 @@
         </div>
       </section>
   
-      <!-- Sección de Mensaje e Opciones -->
       <section class="seccion-opciones">
         <div class="mensaje-importante">
           <h1>Recueda que trabajar contigo mismo es importante</h1>
@@ -127,8 +140,13 @@ export default {
     return {
       showVideo: false,
       currentVideoIndex: null,
+      filtro: {
+        opcion: 'nombre',
+        valor: ''
+      },
       busquedaBlogs: '',
       busquedaLibros: '',
+
       blog: [
         {
           id: '1',
@@ -214,26 +232,22 @@ export default {
           titulo: 'Meditación guiada para reducir el estrés',
           link: 'https://www.youtube.com/embed/FReFf1CLf-c?si=fx9loaMXf4z059R7'
         },
-        
-
       ],
     };
   },
   computed: {
     librosFiltrados() {
-      return this.libro.filter(entrada =>
-        entrada.titulo.toLowerCase().includes(this.busquedaLibros.toLowerCase()) ||
-        entrada.autor.toLowerCase().includes(this.busquedaLibros.toLowerCase()) ||
-        entrada.tipo.toLowerCase().includes(this.busquedaLibros.toLowerCase())
-      );
-    },
+  return this.libro.filter(entrada => {
+    const value = entrada[this.filtro.opcion];
+    return value && value.toLowerCase().includes(this.busquedaLibros.toLowerCase());
+  });
+},
     blogsFiltrados() {
-      return this.blog.filter(entrada =>
-        entrada.titulo.toLowerCase().includes(this.busquedaBlogs.toLowerCase()) ||
-        entrada.autor.toLowerCase().includes(this.busquedaBlogs.toLowerCase()) ||
-        entrada.tipo.toLowerCase().includes(this.busquedaBlogs.toLowerCase())
-      );
-    },
+  return this.blog.filter(entrada => {
+    const value = entrada[this.filtro.opcion];
+    return value && value.toLowerCase().includes(this.busquedaBlogs.toLowerCase());
+  });
+},
     currentVideoLink() {
       if (this.currentVideoIndex !== null && this.videos[this.currentVideoIndex]) {
         return this.videos[this.currentVideoIndex].link;
@@ -788,6 +802,50 @@ iframe{
   cursor: pointer;
   transition: 0.3s ease;
 }
+}
+
+/* Estilos para la sección de búsqueda de blogs */
+.busqueda-blog {
+  margin-bottom: 20px;
+  border-radius: 50px;
+}
+
+.menu-busqueda {
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+}
+
+.campo-busqueda {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+  border-radius: 50px;
+}
+
+/* Estilos para la sección de búsqueda de libros */
+.busqueda-libro {
+  margin-bottom: 20px;
+  border-radius: 50px;
+}
+
+.menu-busqueda {
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+}
+
+.campo-busqueda {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+  border-radius: 50px;
 }
 
 </style>

@@ -25,15 +25,23 @@
       </div>
       <section class="seccion-alumnos">
         <h1>Alumnos</h1>
-        <input type="text" v-model="filtro" placeholder="Buscar por nombre, ID o carrera" class="campo-busqueda">
+        <section class="seccion-busqueda">
+        <h2>Buscar por:</h2>
+        <select v-model="filtro.opcion" class="menu">
+          <option value="nombre">Nombre</option>
+          <option value="carrera">Carrera</option>
+          <option value="ide">IDE</option>
+        </select>
+        <input type="text" v-model="filtro.valor" placeholder="Buscar...">
+        </section>
         <div class="profile-cards">
           <div v-for="(alumno, index) in alumnosFiltrados" :key="index" class="card" v-on:mouseenter="mostrarDescripcion(alumno, true)" v-on:mouseleave="mostrarDescripcion(alumno, false)">
             <img v-bind:src="alumno.imagen" alt="Foto de perfil">
             <div class="descripcion-alumno" v-bind:class="{ 'mostrar-descripcion': alumno.mostrarDescripcion }">
               <h3>{{ alumno.nombre }}</h3>
               <p class="title">{{ alumno.carrera }}</p>
-              <p>{{ alumno.ide }}</p>
-              <p><button v-on:click="redirigirPerfil(alumno.perfil)">Perfil</button></p>
+              <p>00{{ alumno.ide }}</p>
+              <p><button v-on:click="redirigirPerfil(alumno.perfil)">Ir al perfil</button></p>
               <p><button v-on:click="redirigirPerfil(alumno.notas)">Notas</button></p>
             </div>
           </div>
@@ -54,11 +62,14 @@ export default {
   },
   data() {
     return {
-      filtro: '',
       alumnos: [],
       imagenPsicologo: [
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
       ],
+      filtro: {
+        opcion: 'nombre',
+        valor: ''
+      },
       loaded: false,
     };
   },
@@ -72,22 +83,29 @@ export default {
 
   computed: {
     alumnosFiltrados() {
-      const filtroLowerCase = this.filtro.toLowerCase();
-      return this.alumnos.filter(alumno =>
-        alumno.nombre.toLowerCase().includes(filtroLowerCase) ||
-        String(alumno.ide).includes(this.filtro) ||
-        alumno.carrera.toLowerCase().includes(filtroLowerCase)
-      );
+      if (this.filtro.valor.trim() === '') return this.alumnos;
+      return this.alumnos.filter(alumno => {
+        if (this.filtro.opcion === 'nombre') {
+          return alumno.nombre.toLowerCase().includes(this.filtro.valor.toLowerCase());
+        } else if (this.filtro.opcion === 'carrera') {
+          return alumno.carrera.toLowerCase().includes(this.filtro.valor.toLowerCase());
+        } else if (this.filtro.opcion === 'ide') {
+          return alumno.ide.toString().includes(this.filtro.valor);
+        }
+      });
     },
     ...mapGetters(['usuario']),
   },
   methods: {
-    cargarAlumnos() {
-      
+   cargarAlumnos() {
       if (this.usuario && this.usuario.id) {
         axios.get(`http://localhost/BEA/back/perfilesAlumnos.php?idPsicologo=${this.usuario.id}`)
           .then(response => {
-            this.alumnos = response.data;
+            this.alumnos = response.data.map(alumno => ({
+              ...alumno,
+              perfil: `/perfil/${alumno.ide}`, // Asigna un perfil dinámico basado en el ID del alumno
+              notas: `/Notas/${alumno.ide}` // Asigna una ruta dinámica para las notas del alumno
+            }));
           })
           .catch(error => {
             console.error("Error al cargar datos de los alumnos:", error);
@@ -99,6 +117,8 @@ export default {
     },
     mostrarDescripcion(alumno, mostrar) {
       alumno.mostrarDescripcion = mostrar;
+    },
+    filtrarAlumnos() {
     },
     scrollDown() {
       window.scrollBy({
@@ -383,4 +403,51 @@ export default {
   outline: none;
   box-shadow: 0 0 3px 0 #6c63ff;
 }
+
+.seccion-busqueda {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .seccion-busqueda h2 {
+    margin-bottom: 10px;
+    border-radius: 50px;
+  }
+
+  .seccion-busqueda select,
+  .seccion-busqueda input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    border-radius: 50px;
+  }
+
+  .seccion-busqueda button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: orangered;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50px;
+  }
+
+  .seccion-busqueda button:hover {
+    background-color: orange;
+  }
+
+  .menu {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .menu:focus {
+    outline: none;
+  }
   </style>

@@ -36,7 +36,7 @@
         <div class="trabajo">
           <div class="columna-izquierda">
             <h3>ESPECIALIDAD</h3>
-            <p>{{ informacion.especialidad }}</p>
+            <p>{{ informacion.especialidad }} </p>
             <h3>POBLACIÓN A ATENDER</h3>
             <p>{{ informacion.poblacion }}</p>
           </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-04-2024 a las 09:02:01
+-- Tiempo de generación: 17-04-2024 a las 12:31:40
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -166,6 +166,33 @@ INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `co
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `notas`
+--
+
+DROP TABLE IF EXISTS `notas`;
+CREATE TABLE `notas` (
+  `id_nota` int(11) NOT NULL,
+  `numero_sesion` int(11) NOT NULL,
+  `fecha` date DEFAULT NULL,
+  `contenido` text DEFAULT NULL,
+  `id_administrador` int(11) DEFAULT NULL,
+  `id_alumno` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `notas`
+--
+
+INSERT INTO `notas` (`id_nota`, `numero_sesion`, `fecha`, `contenido`, `id_administrador`, `id_alumno`) VALUES
+(2343, 1, '2024-04-17', 'erbtyrjmyehatrehtr', 123456, 33082835),
+(2344, 2, '2024-04-17', 'rbentrehtnehtraehra', 123456, 33082835),
+(2345, 3, '2024-04-17', 'rbrtn,uyitkyrjwrhgytrkmutkeehtr', 123456, 33082835),
+(2347, 4, '2024-04-17', 'hrejmyyrjhet4tyjjyt', 123456, 33082835),
+(2348, 1, '2024-04-17', 'hola mundo xd', 123456, 83737984);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `psicologos`
 --
 
@@ -312,6 +339,14 @@ ALTER TABLE `eventos`
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
+-- Indices de la tabla `notas`
+--
+ALTER TABLE `notas`
+  ADD PRIMARY KEY (`id_nota`),
+  ADD KEY `id_administrador` (`id_administrador`),
+  ADD KEY `id_alumno` (`id_alumno`);
+
+--
 -- Indices de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
@@ -341,6 +376,12 @@ ALTER TABLE `eventos`
   MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT de la tabla `notas`
+--
+ALTER TABLE `notas`
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2349;
+
+--
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
@@ -362,6 +403,13 @@ ALTER TABLE `citas`
 --
 ALTER TABLE `eventos`
   ADD CONSTRAINT `eventos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `registro` (`ID_ALUMNO`);
+
+--
+-- Filtros para la tabla `notas`
+--
+ALTER TABLE `notas`
+  ADD CONSTRAINT `notas_ibfk_1` FOREIGN KEY (`id_administrador`) REFERENCES `administradores` (`ID_ALUMNO`),
+  ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`id_alumno`) REFERENCES `registro` (`ID_ALUMNO`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

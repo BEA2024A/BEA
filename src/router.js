@@ -41,9 +41,9 @@ const routes = [
 
 
   {path: '/inicioPsico', name: 'inicioPsico', component: inicioPsico},
-  {path: '/perfil', name: 'perfil', component: perfil},
+  {path: '/perfil/:id', name: 'perfil', component: perfil, props: true},
   {path: '/HorarioPsico', name: 'HorarioPsico' , component: HorarioPsico},
-  {path: '/Notas', name: 'Notas', component: Notas},
+  {path: '/Notas/:id', name: 'Notas', component: Notas, props: true},
   {path: '/NotasLeer', name: 'NotasLeer', component: NotasLeer},
   {path: '/NotasCrear', name: 'NotasCrear', component: NotasCrear},
   {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},

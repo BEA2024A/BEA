@@ -4,23 +4,21 @@
       <div class="contenido">
         <div class="contenido-derecha">
           <div class="perfil">
-            <img :src="perfil.imagen" alt="Foto de perfil" class="imagen-perfil">
-            <h1>{{ perfil.nombre }}</h1>
-            <p>ID: 00{{ perfil.ide }}</p>
-            <p>Edad: {{ perfil.edad }}</p>
-            <p>Carrera: {{ perfil.carrera }}</p>
-            <p>Problemas principales: {{ perfil.problemas }}</p>
-            <p>Historial médico: {{ perfil.historial }}</p>
-            <p>Medicación actual: {{ perfil.medicacion }}</p>
-            <p>Tratamientos anteriores: {{ perfil.tratamientosAnteriores }}</p>
-            <p>Expectativas para la terapia: {{ perfil.expectativas }}</p>
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Foto de perfil" class="imagen-perfil">
+            <h1>{{ perfil.NOMBRE }} {{ perfil.APELLIDO_PATERNO }} {{ perfil.APELLIDO_MATERNO }}</h1>
+            <p>ID: 00{{ perfil.ID_ALUMNO }} </p>
+            <p>Carrera: {{ perfil.CARRERA}}</p>
+            <p>motivos de la cita: {{ perfil.MOTIVO }}</p>
+            <p>Expectativas para la terapia: {{ perfil.EXPECTATIVA }}</p>
           </div>
         </div>
         <div class="contenido-izquierda">
-          <FullCalendar :options="calendarOptions" :events="events" @dateClick="handleDateClick" />
+          <div class="calendar-container">
+        <FullCalendar :options="calendarOptions" />
+      </div>
           <div class="comentarios">
             <h2>Comentarios del paciente</h2>
-            <p>{{ perfil.comentarios }}</p>
+            <p>{{ comentarios.notas }}</p>
           </div>
         </div>
       </div>
@@ -29,10 +27,12 @@
 </template>
 
 <script>
-import FullCalendar from '@fullcalendar/vue3'
-import dayGridPlugin from '@fullcalendar/daygrid'
+import FullCalendar from '@fullcalendar/vue3';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { mapGetters } from 'vuex';
+import esLocale from '@fullcalendar/core/locales/es';
+import axios from 'axios';
 import plantillaPsico from './plantillaPsico.vue'
-
 export default {
   components: {
     plantillaPsico,
@@ -41,28 +41,36 @@ export default {
   data() {
     return {
       perfil: {
-        nombre: 'Carlos González',
-        ide: 456641,
-        edad: 22,
-        carrera: 'Ingenieria en Tecnologías de la Información y Negocios Digitales',
-        problemas: 'Ansiedad y depresión',
-        historial: 'Ha tenido episodios de ansiedad desde la adolescencia. Ha experimentado síntomas de depresión en los últimos dos años.',
-        medicacion: 'Actualmente toma medicamentos recetados para la ansiedad.',
-        tratamientosAnteriores: 'Ha recibido terapia cognitivo-conductual en el pasado.',
-        expectativas: 'Espera encontrar herramientas para manejar mejor su ansiedad y depresión, así como mejorar su calidad de vida en general.',
-        imagen: 'https://i.postimg.cc/05WbLPJJ/Dise-o-sin-t-tulo.png',
-        comentarios: "Últimamente he estado experimentando mucha ansiedad en situaciones sociales. Me siento nervioso y tenso, y a veces evito encontrarme con amigos o familiares. Creo que esto está afectando mi vida social y mi bienestar emocional. Me gustaría hablar sobre estrategias para manejar esta ansiedad y sentirme más cómodo en estas situaciones."
+        NOMBRE: "",
+  APELLIDO_PATERNO: "",
+    APELLIDO_MATERNO: "",
+    CARRERA: "",
+    ID_ALUMNO: null,
+    MOTIVO: "",
+  EXPECTATIVA: ""
+      },
+
+      comentarios:{
+        notas:'Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, , en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, "Lorem ipsum dolor sit amet..", viene de una linea en la sección 1.10.32"'
       },
       calendarOptions: {
         plugins: [dayGridPlugin],
         initialView: 'dayGridMonth',
-        weekends: false,
-        locale: 'es'
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        },
+        events: [],
+        locale: esLocale,
       },
-      events: [
-        { title: 'Meeting', start: new Date() }
-      ]
+      
     };
+  },
+  mounted() {
+    this.cargarDatosAlumno();
+    this.obtenerEventosUsuario();
+
   },
   methods: {
     handleDateClick(info) {
@@ -75,7 +83,26 @@ export default {
           allDay: true
         })
       }
-    }
+    },
+    cargarDatosAlumno() {
+      const idAlumno = this.$route.params.id; 
+      axios.get(`http://localhost/bea/back/notas-perfil.php?idAlumno=${idAlumno}`)
+        .then(response => {
+          this.perfil = response.data;
+        })
+        .catch(error => {
+          console.error('Error al cargar los datos del alumno:', error);
+        });
+    },
+
+    obtenerEventosUsuario() {
+    const idAlumno = this.$route.params.id; 
+    axios.get(`http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idAlumno}`)
+      .then(response => {
+        this.calendarOptions.events = response.data;
+      })
+      .catch(error => console.error("Hubo un error al obtener los eventos:", error));
+  },
   },
 };
 </script>
@@ -122,12 +149,14 @@ export default {
 }
 
 .comentarios {
-  margin-top: 20px; 
+  margin-top: 50px; 
+  margin-bottom: 80px;
   padding: 20px; 
   background-color: #f9f9f9; 
   border: 1px solid #ddd; 
   border-radius: 5px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  background-color: #fbfdd5;
 }
 
 .comentarios h2 {
@@ -154,8 +183,10 @@ export default {
 }
 
 .contenido-izquierda {
+  padding: 50px;
   flex: 70%;
   padding-right: 60px;
   padding-left: 100px;
 }
+
 </style>
