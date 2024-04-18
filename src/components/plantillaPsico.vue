@@ -21,6 +21,7 @@
         <router-link to="/HorarioPsico" class="enlace-navegacion">Horarios</router-link>
         <router-link to="/insertar_psicologos" class="enlace-navegacion">agregar nuevo psicologo</router-link>
         <router-link to="/agregarAdministrador" class="enlace-navegacion">agregar nuevo administrador</router-link> 
+        <router-link to="/Materiales" class="enlace-navegacion">Admistrar Materiales</router-link>
       </div>
  
       <!-- Botón de Inicio de Sesión, solo visible si no hay usuario logueado -->
@@ -471,10 +472,6 @@ export default {
 
 
 }
-
-
-
-
 
 </style>
 
