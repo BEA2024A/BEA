@@ -331,4 +331,24 @@ export default {
 .boton-regresar:hover {
   background-color: #e04400;
 }
+
+
+@media (max-width: 639px) {
+
+  .cabecera {
+  flex-direction: column; /* Cambiar la dirección del flex a columna */
+  align-items: center; /* Centrar verticalmente */
+  text-align: center; /* Alinear el texto al centro */
+  padding-top: 20px; /* Agregar espacio en la parte superior */
+}
+
+.info-izquierda {
+  margin-top: 20px; /* Espacio entre el círculo y el nombre */
+}
+
+.imagen-derecha {
+  margin-top: 20px; /* Espacio entre la información y el círculo */
+}
+
+}
 </style>

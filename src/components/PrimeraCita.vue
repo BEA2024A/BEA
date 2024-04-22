@@ -1,22 +1,25 @@
 <template>
   <plantilla>
     <div class="fondo">
+      <div class="contenido-derecha">
       <div class="leonel">
-        <img v-if="!usuarioYaRegistrado" src="https://i.postimg.cc/0QYjnHzx/Leonel-Me-dico-removebg-preview.png" alt="Leonel Médico"/>
-        <div class="burbuja">
+        <img v-if="!usuarioYaRegistrado" src="http://localhost/BEA/back/uploads/Leonel%20Me%cc%81dico2.png" alt="Leonel Médico"/>
+      </div>
 
 
-          <div v-if="usuarioYaRegistrado" class="overlay"></div>
+      <div v-if="usuarioYaRegistrado" class="overlay"></div>
           <div v-if="usuarioYaRegistrado" class="modal-sesion">
             <h3>Ya has agendado tu primera cita anteriormente</h3>
             <button @click="$router.push('/seguimiento')">Administra tu seguimiento</button>
             <button @click="$router.push('/')">Volver al inicio</button>
           </div>
-
-
+      
+        <div v-if="!usuarioYaRegistrado" class="burbuja">
+          <div class="contenido-izquierda">
           <div :key="indiceDeTexto" v-if="!usuarioYaRegistrado" v-html="textoActual" class="texto-animado" @click="redirigirAFormulario"></div>
         </div>
       </div>
+    </div>
     </div>
   </plantilla>
 </template>
@@ -34,10 +37,10 @@ export default {
   data() {
     return {
       listaDeTextos: [
-        "HOLA",
-        "GRACIAS POR COMUNICARTE A ACOMPAÑAMIENTO",
+        "BIENVENIDO A ACOMPAÑAMIENTO",
+        "GRACIAS POR COMUNICARTE",
         "A CONTINUACIÓN VERÁS UN CUESTIONARIO",
-        "TODA LA INFORMACIÓN ES 100% CONFIDENCIAL",
+        "TODA TU INFORMACIÓN ES CONFIDENCIAL",
         'CUANDO ESTÉS LISTO, PRESIONA <span class="enlace">AQUÍ</span>',
       ],
       textoActual: "",
@@ -71,21 +74,34 @@ export default {
           }
         })
         .catch(error => console.error("Error al verificar la cita:", error));
-    }
+    },
+    
+    bloquearScroll() {
+      document.body.style.overflow = 'hidden';
+    },
+   
   },
   mounted() {
     this.cambiarTexto();
+    this.bloquearScroll();
+
     if (this.usuario) {
       this.verificarCita();
     }
   },
+
 };
 </script>
 
 
 <style scoped>
+
+.bloquear-scroll {
+  overflow: hidden;
+}
+
 .fondo {
-  background-color: #ff5900;
+  background-image: linear-gradient(to bottom, #ff5900, #c21c02);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -93,9 +109,6 @@ export default {
   overflow: hidden;
   position: relative;
 }
-
-
-
 .modal-sesion {
   position: fixed;
   top: 50%;
@@ -128,8 +141,8 @@ export default {
 }
 
 .leonel img {
-  width: 30%;
-  transform: translateX(60%);
+  transform: translateX(20%);
+  width: 40%;
   z-index: 2;
   position: absolute;
   bottom: 0;
@@ -137,17 +150,19 @@ export default {
 }
 
 .burbuja {
-  position: absolute;
-  width: 100vw;
-  bottom: -10px;
+  background-color: white;
   left: 0;
-  padding: 100px;
-  background-color: #0000006b;
+  padding: 150px;
   color: aliceblue;
-  font-size: 30px;
+  font-size: 25px;
   z-index: 1;
   text-align: left;
-  margin-bottom: 70px;
+  margin-bottom: 100px;
+  transform: translateX(-35%);
+  color:black;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  background-color: white;
 }
 
 .texto-animado {
@@ -161,6 +176,46 @@ export default {
   100% {
     opacity: 1;
   }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px); 
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 639px) {
+@media (max-width: 639px) {
+
+
+  .leonel img {
+  transform: translateX(20%);
+  width: 40%;
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 70px;
+}
+
+.burbuja {
+
+  padding: 5px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  transform: translateX(0);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+}
+
 }
 
 </style>

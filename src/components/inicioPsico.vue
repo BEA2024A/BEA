@@ -30,7 +30,7 @@
         <select v-model="filtro.opcion" class="menu">
           <option value="nombre">Nombre</option>
           <option value="carrera">Carrera</option>
-          <option value="ide">IDE</option>
+          <option value="ide">Id</option>
         </select>
         <input type="text" v-model="filtro.valor" placeholder="Buscar...">
         </section>
@@ -103,8 +103,8 @@ export default {
           .then(response => {
             this.alumnos = response.data.map(alumno => ({
               ...alumno,
-              perfil: `/perfil/${alumno.ide}`, // Asigna un perfil dinámico basado en el ID del alumno
-              notas: `/Notas/${alumno.ide}` // Asigna una ruta dinámica para las notas del alumno
+              perfil: `/perfil/${alumno.ide}`, 
+              notas: `/Notas/${alumno.ide}` 
             }));
           })
           .catch(error => {

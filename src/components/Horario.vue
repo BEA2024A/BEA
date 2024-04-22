@@ -4,32 +4,32 @@
 
 
     <div v-if="!usuario" class="overlay"></div>
-<div v-if="!usuario" class="modal-sesion">
-  <h3>Necesitas iniciar sesión para ver tu calendario</h3>
-  <button @click="$router.push('/inicioSesion')">Iniciar sesión</button>
-  <button @click="$router.push('/')">regresar al inicio</button>
-</div>
+    <div v-if="!usuario" class="modal-sesion">
+      <h3>Necesitas iniciar sesión para ver tu calendario</h3>
+      <button @click="$router.push('/inicioSesion')">Iniciar sesión</button>
+      <button @click="$router.push('/')">regresar al inicio</button>
+    </div>
 
 
 
     <div class="container">
       <div class="events-container">
         <div class="eventos">
-        <h2>Citas próximas</h2>
-        <ul class="events-list">
-          <li v-for="event in calendarOptions.events" :key="event.title">
-            {{ event.title }} - {{ event.date }} - {{ event.time }} hrs
-          </li>
-        </ul>
-      </div>
+          <h2>Citas próximas</h2>
+          <ul class="events-list">
+            <li v-for="event in calendarOptions.events" :key="event.title">
+              {{ event.title }} - {{ event.date }} - {{ event.time }} hrs
+            </li>
+          </ul>
+        </div>
         <div class="botones">
-        <button @click="activarNotificaciones" class="notifications-button">
-          Activar notificaciones del sistema
-        </button>
-        <button @click="enviarCorreoRecordatorio" class="mail-notifications-button">
-          Activar notificaciones por correo
-        </button>
-      </div>
+          <button @click="activarNotificaciones" class="notifications-button">
+            Activar notificaciones del sistema
+          </button>
+          <button @click="enviarCorreoRecordatorio" class="mail-notifications-button">
+            Activar notificaciones por correo
+          </button>
+        </div>
       </div>
       <div class="calendar-container">
         <FullCalendar :options="calendarOptions" />
@@ -41,8 +41,8 @@
 
 
 <script>
-import axios from 'axios'; 
-import Plantilla from './plantilla.vue'; 
+import axios from 'axios';
+import Plantilla from './plantilla.vue';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { mapGetters } from 'vuex';
@@ -65,8 +65,8 @@ export default {
           right: 'dayGridMonth,dayGridWeek,dayGridDay'
         },
         events: [
-          
-  
+
+
         ],
         locale: esLocale,
       }
@@ -79,68 +79,119 @@ export default {
 
   mounted() {
     if (!this.usuario) {
-    this.mostrarMensajeSesion();
-  } else {
-    this.obtenerEventosUsuario();
-  }
+      this.mostrarMensajeSesion();
+    } else {
+      this.obtenerEventosUsuario();
+    }
   },
+
+  
   methods: {
 
 
     obtenerEventosUsuario() {
-    const idUsuario = this.usuario.id; 
-    axios.get(`http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idUsuario}`)
-      .then(response => {
-        this.calendarOptions.events = response.data;
-      })
-      .catch(error => console.error("Hubo un error al obtener los eventos:", error));
-  },
+      const idUsuario = this.usuario.id;
+      axios.get(`http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idUsuario}`)
+        .then(response => {
+          this.calendarOptions.events = response.data;
+        })
+        .catch(error => console.error("Hubo un error al obtener los eventos:", error));
+    },
 
 
     activarNotificaciones() {
       if (!("Notification" in window)) {
         alert("Este navegador no soporta notificaciones del sistema");
       } else if (Notification.permission === "granted") {
-        this.verificarEventosHoy(); 
+        this.verificarEventosHoy();
       } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then(permission => {
           if (permission === "granted") {
-            this.verificarEventosHoy(); 
+            this.verificarEventosHoy();
           }
         });
       }
     },
     verificarEventosHoy() {
-      const hoy = new Date().toISOString().slice(0, 10); // Obtiene la fecha de hoy
+      const fechaActual = new Date();
+      const dia = fechaActual.getDate();
+      const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+      const año = fechaActual.getFullYear();
+      const sysdate = `${año}-${mes < 10 ? '0' + mes : mes}-${dia < 10 ? '0' + dia : dia}`;
+
       this.calendarOptions.events.forEach(evento => {
-        if (evento.date === hoy) {
-          this.enviarNotificacion(evento);
+        const eventoDate = new Date(evento.date);
+        const unDiaAntes = new Date(eventoDate);
+        unDiaAntes.setDate(eventoDate.getDate() - 1);
+
+        // Notificación un día antes del evento
+        if (unDiaAntes.toISOString().slice(0, 10) === sysdate) {
+          this.enviarNotificacion("Recordatorio: Mañana tienes un evento", evento.title);
+        }
+
+        // Notificación el día del evento
+        if (evento.date === sysdate) {
+          this.enviarNotificacion("Evento Hoy", `Recordatorio: ${evento.title}`);
+        }
+
+        // Notificación 15 minutos antes del evento
+        const quinceMinutosAntes = new Date(eventoDate);
+        quinceMinutosAntes.setMinutes(eventoDate.getMinutes() - 15);
+        const ahora = new Date();
+        if (quinceMinutosAntes < ahora && eventoDate > ahora) {
+          this.enviarNotificacion("Evento en 15 minutos", `Recordatorio: ${evento.title}`);
         }
       });
     },
-    enviarNotificacion(evento) {
-      new Notification("Evento Hoy", {
-        body: `Recordatorio: ${evento.title}`,
+    enviarNotificacion(titulo, cuerpo) {
+      new Notification(titulo, {
+        body: cuerpo,
       });
     },
 
     enviarCorreoRecordatorio() {
-  const hoy = new Date().toISOString().slice(0, 10);
-  const correoDestinatario = this.usuario.correo; 
-  this.calendarOptions.events.forEach(evento => {
-    if (evento.date === hoy) {
+      const fechaActual = new Date();
+      const dia = fechaActual.getDate();
+      const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+      const año = fechaActual.getFullYear();
+      const hoy = `${año}-${mes < 10 ? '0' + mes : mes}-${dia < 10 ? '0' + dia : dia}`;
+      this.calendarOptions.events.forEach(evento => {
+        const eventoDate = new Date(evento.date);
+        const unDiaAntes = new Date(eventoDate);
+        unDiaAntes.setDate(eventoDate.getDate() - 1);
+
+        // Correo un día antes del evento
+        if (unDiaAntes.toISOString().slice(0, 10) === hoy) {
+          this.enviarCorreo("Recordatorio: tienes un evento proximo", `!Hola ${this.usuario.nombre}! Tienes un evento programado: ${evento.title} el ${evento.date} a las ${evento.time} hrs`);
+        }
+
+        // Correo el día del evento
+        if (evento.date === hoy) {
+          this.enviarCorreo("Evento Hoy", `!Hola ${this.usuario.nombre}! Tienes un evento programado para hoy: ${evento.title} a las ${evento.time} hrs`);
+        }
+
+        // Correo 15 minutos antes del evento
+        const quinceMinutosAntes = new Date(eventoDate);
+        quinceMinutosAntes.setMinutes(eventoDate.getMinutes() - 15);
+        const ahora = new Date();
+        if (quinceMinutosAntes < ahora && eventoDate > ahora) {
+          this.enviarCorreo("Evento en 15 minutos", `!Hola ${this.usuario.nombre}! Tu evento "${evento.title}" comienza en 15 minutos`);
+        }
+      });
+    },
+
+    enviarCorreo(asunto, mensaje) {
       axios.post('http://localhost/BEA/back/enviarCorreo.php', {
-        correoDestinatario: correoDestinatario,
-        mensaje: '¡Hola ${this.usuario.nombre}! tienes un Recordatorio: ${evento.title} el dia ${evento.date} a las ${evento.time} hrs'
+        correoDestinatario: this.usuario.correo,
+        asunto: asunto,
+        mensaje: mensaje
       })
-      .then(response => {
-        console.log(response.data);
-        alert('Correo enviado');
-      })
-      .catch(error => console.error(error));
-    }
-  });
-},
+        .then(response => {
+          console.log(response.data);
+          alert('Correo enviado');
+        })
+        .catch(error => console.error(error));
+    },
 
 
 
@@ -151,13 +202,15 @@ export default {
 </script>
 
 
-<style scoped>
 
+
+<style scoped>
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-50px); 
+    transform: translateY(-50px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -168,6 +221,7 @@ export default {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -191,9 +245,9 @@ export default {
   background-color: white;
   padding: 50px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  z-index: 2; 
+  z-index: 2;
   animation: fedeIn 0.5s ease forwards;
 }
 
@@ -217,10 +271,11 @@ export default {
   transition: 0.3s ease;
   animation: slideIn 0.5s ease forwards;
 }
+
 .container {
   display: flex;
   justify-content: space-between;
-  background-color: #ff5900;
+  background-image: linear-gradient(to bottom, #ff5900, #c21c02);
 }
 
 .events-container {
@@ -229,9 +284,9 @@ export default {
   margin-left: 20px;
 }
 
-.eventos{
+.eventos {
   margin-top: 50px;
-  padding-top:10px;
+  padding-top: 10px;
   padding-bottom: 25px;
   padding-left: 20px;
   padding-right: 20px;
@@ -243,21 +298,21 @@ export default {
 }
 
 
-.eventos:hover{
+.eventos:hover {
   transform: scale(1.02);
 }
 
-.botones:hover{
+.botones:hover {
   transform: scale(1.02);
 }
 
-.calendar-container:hover{
+.calendar-container:hover {
   transform: scale(1.02);
 }
 
-.botones{
+.botones {
   margin-top: 50px;
-  padding-top:10px;
+  padding-top: 10px;
   padding-bottom: 25px;
   padding-left: 20px;
   padding-right: 20px;
@@ -269,8 +324,8 @@ export default {
 }
 
 .events-list {
-  list-style-type:none;
-  text-align:center;
+  list-style-type: none;
+  text-align: center;
 }
 
 .events-list li {
@@ -300,84 +355,63 @@ export default {
 }
 
 
-
-
-
-.fc .fc-button-group > .fc-button {
-  margin-right: 50px; 
-}
-
-.fc .fc-button-group > .fc-button:last-child {
-  margin-right: 0;  
-}
-
-
-.fc .fc-button {
-  padding: 8px 120px; 
-}
-
-
-.fc-header-toolbar {
-  margin-bottom: 30px; 
-}
-
-
-
 @media (max-width: 639px) {
 
+
   .container {
-  flex-direction: column;
-  padding:10px;
-  padding-right: 20px; 
+    flex-direction: column;
+    padding: 10px;
+    padding-right: 20px;
+  }
+
+  .calendar-container {
+    padding: 40px;
+    border-radius: 8px;
+    margin: 5px;
+    padding-bottom: 100px;
+  }
+ 
+  .events-container {
+    margin: 30px;
+  }
+
+  .events-list {
+    list-style-type: none;
+    text-align: center;
+    transform: translateX(0%);
+  }
+
+  .eventos {
+    margin-top: 0;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .botones {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+
+
+  /* Orden de visualización */
+  .calendar-container {
+    order: 1;
+  }
+
+  .events-container {
+    order: 2;
+  }
+
+  .botones {
+    order: 3;
+  }
+
+
 }
-
-.calendar-container {
-  padding: 40px;
-  border-radius: 8px;
-  margin: 5px;
-  padding-bottom: 100px;
-}
-
-.events-container{
-  margin: 30px;
-}
-
-.events-list {
-  list-style-type:none;
-  text-align: center;
-  transform: translateX(0%);
-}
-
-.eventos{
-  margin-top: 0;
-  padding-top: 10px;
-  padding-bottom: 25px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.botones {
-  margin-top: 20px;
-  padding-top: 10px;
-  padding-bottom: 25px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-
-/* Orden de visualización */
-.calendar-container {
-  order: 1;
-}
-
-.events-container {
-  order: 2;
-}
-
-.botones {
-  order: 3;
-}
-
-
-}
-
 </style>

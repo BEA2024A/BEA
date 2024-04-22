@@ -1,188 +1,224 @@
 <template>
-    <plantilla-psico>
-      <div class="background-image"></div>
-      <div>
-        <div class="contenido">
-          <div class="contenido-derecha">
-            <div class="form-container">
-              <h1>Registrar nuevo material</h1>
-              <form @submit.prevent="submitForm">
-                <div class="form-group">
-                  <label for="nombre">Nombre:</label>
-                  <input type="text" id="nombre" v-model="material.nombre" required>
-                </div>
-                <div class="form-group">
-                  <label for="autor">Autor:</label>
-                  <input type="text" id="autor" v-model="material.autor" required>
-                </div>
-                <div class="form-group">
-                  <label for="area">Área que ayuda:</label>
-                  <input type="text" id="area" v-model="material.area" required>
-                </div>
-                <div class="form-group">
-                  <label for="tipo">Tipo de media:</label>
-                  <input type="text" id="tipo" v-model="material.tipo" required>
-                </div>
-                <div class="form-group">
-                  <label for="link">Link del material:</label>
-                  <input type="text" id="link" v-model="material.link" required>
-                </div>
-                <div class="form-group">
-                  <label for="imagen">Imagen del Material:</label>
-                  <input type="file" id="imagen" @change="handleFileUpload" required>
-                </div>
-                <button type="submit">Registrar Material</button>
-  
-                <div class="form-group">
-                  <label for="materialEliminar">Eliminar Material:</label>
-                  <select id="materialEliminar" class="eliminar-opciones" v-model="materialEliminar">
-                    <option value="" disabled>Seleccione un material</option>
-                    <option v-for="material in materiales" :key="material.id" :value="material.id">
-                      {{ material.nombre }}
-                    </option>
-                  </select>
-                  <button @click="eliminarMaterial">Eliminar</button>
-                </div>
-              </form>
-            </div>
+  <plantilla-psico>
+    <div class="background-image"></div>
+    <div>
+      <div class="contenido">
+        <div class="contenido-derecha">
+          <div class="form-container">
+            <h1 class="titulo">Registrar nuevo material</h1>
+            <form @submit.prevent="submitForm">
+              <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" v-model="material.nombre" placeholder="Nombre del material" required>
+              </div>
+              <div class="form-group">
+                <label for="autor">Autor:</label>
+                <input type="text" id="autor" v-model="material.autor" placeholder="Nombre del autor" required>
+              </div>
+              <div class="form-group">
+                <label for="area">Área que ayuda:</label>
+                <input type="text" id="area" v-model="material.area" placeholder="Área a la que pertenece el material" required>
+              </div>
+              <div class="form-group">
+                <label for="tipo">Tipo de media:</label>
+                <input type="text" id="tipo" v-model="material.tipo" placeholder="Tipo de material (video, libro, etc.)" required>
+              </div>
+              <div class="form-group">
+                <label for="link">Link del material:</label>
+                <input type="text" id="link" v-model="material.link" placeholder="Enlace al material (opcional)" required>
+              </div>
+              <div class="form-group">
+                <label for="imagen">Imagen del Material:</label>
+                <input type="file" id="imagen" @change="handleFileUpload" required>
+              </div>
+              <button type="submit" class="titulo">Registrar Material</button>
+            </form>
           </div>
-          <div class="contenido-izquierda">
-            <div class="fondo-materiales">
-              <section class="seccion-materiales">
-                <h1>Materiales Actuales</h1>
-                <div class="material-cards">
-                  <div v-for="(material, index) in materiales" :key="index" class="card" @mouseenter="material.mostrarDescripcion = true" @mouseleave="material.mostrarDescripcion = false">
-                    <img :src="material.imagen" alt="Imagen del material">
-                    <div class="descripcion-material" :class="{ 'mostrar-descripcion': material.mostrarDescripcion }">
-                      <h3>{{ material.nombre }}</h3>
-                      <p>Autor: {{ material.autor }}</p>
-                      <p>Área: {{ material.area }}</p>
-                      <p>Tipo: {{ material.tipo }}</p>
-                      <p><a :href="material.link" target="_blank">Enlace</a></p>
-                    </div>
+
+          <div class="form-container">
+            <h1 class="titulo">Eliminar material</h1>
+            <form @submit.prevent="eliminarMaterial">
+              <div class="form-group">
+                <label for="materialEliminar">Seleccione un material:</label>
+                <select id="materialEliminar" class="eliminar-opciones" v-model="materialEliminar" required>
+                  <option value="" disabled>Seleccione un material</option>
+                  <option v-for="material in materiales" :key="material.id" :value="material.id">
+                    {{ material.nombre }}
+                  </option>
+                </select>
+              </div>
+              <button type="submit" class="titulo">Eliminar</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="contenido-izquierda">
+          <div class="fondo-materiales">
+            <section class="seccion-materiales">
+              <h1>Materiales Actuales</h1>
+              <div class="material-cards">
+                <div v-for="(material, index) in materiales" :key="index" class="card" @mouseenter="material.mostrarDescripcion = true" @mouseleave="material.mostrarDescripcion = false">
+                  <img :src="material.imagen" alt="Imagen del material">
+                  <div class="descripcion-material" :class="{ 'mostrar-descripcion': material.mostrarDescripcion }">
+                    <h3>{{ material.nombre }}</h3>
+                    <p>{{ material.autor }}</p>
                   </div>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>
-    </plantilla-psico>
-  </template>
-  
-  
-  <script>
-  import axios from 'axios';
-  import PlantillaPsico from './plantillaPsico.vue';
-  
-  export default {
-    components: {
+    </div>
+  </plantilla-psico>
+</template>
+
+<script>
+import axios from 'axios';
+import PlantillaPsico from './plantillaPsico.vue';
+
+export default {
+  components: {
     PlantillaPsico,
-    },
-    data() {
-      return {
-        material: {
-          nombre: '',
-          autor: '',
-          area: '',
-          tipo: '',
-          link: '',
-          imagen: null,
-        },
-        materiales: [],
-        materialEliminar: ''
-      };
-    },
-    methods: {
-      handleFileUpload(event) {
-        this.material.imagen = event.target.files[0];
+  },
+  data() {
+    return {
+      material: {
+        nombre: '',
+        autor: '',
+        area: '',
+        tipo: '',
+        link: '',
+        imagen: null,
       },
-      submitForm() {
-        const formData = new FormData();
-        formData.append('nombre', this.material.nombre);
-        formData.append('autor', this.material.autor);
-        formData.append('area', this.material.area);
-        formData.append('tipo', this.material.tipo);
-        formData.append('link', this.material.link);
-        formData.append('imagen', this.material.imagen);
-  
-        axios.post('http://localhost/bea/back/insertarMaterial.php', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then(response => {
-          alert('Material registrado con éxito');
-          console.log(response.data);
-          window.location.reload();
-        })
-        .catch(error => {
-          console.error('Ocurrió un error al registrar el material:', error);
-          alert('Error al registrar el material.');
-        });
-      },
-      eliminarMaterial() {
-        if (!this.materialEliminar) {
-          alert('Seleccione un material para eliminar');
-          return;
+      materiales: [],
+      materialEliminar: ''
+    };
+  },
+  methods: {
+    handleFileUpload(event) {
+      this.material.imagen = event.target.files[0];
+    },
+    submitForm() {
+      const formData = new FormData();
+      formData.append('nombre', this.material.nombre);
+      formData.append('autor', this.material.autor);
+      formData.append('area', this.material.area);
+      formData.append('tipo', this.material.tipo);
+      formData.append('link', this.material.link);
+      formData.append('imagen', this.material.imagen);
+
+      axios.post('http://localhost/bea/back/insertarMaterial.php', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-        axios.post('http://localhost/bea/back/eliminarMaterial.php', {
-          id: this.materialEliminar
-        })
+      })
+      .then(response => {
+        alert('Material registrado con éxito');
+        console.log(response.data);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error('Ocurrió un error al registrar el material:', error);
+        alert('Error al registrar el material.');
+      });
+    },
+    eliminarMaterial() {
+      if (!this.materialEliminar) {
+        alert('Seleccione un material para eliminar');
+        return;
+      }
+      axios.post('http://localhost/bea/back/eliminarMaterial.php', {
+        id: this.materialEliminar
+      })
+      .then(response => {
+        alert('Material eliminado con éxito');
+        this.cargarMateriales(); 
+      })
+      .catch(error => {
+        console.error('Error al eliminar el material:', error);
+        alert('Error al eliminar el material.');
+      });
+    },
+    cargarMateriales() {
+      axios.get('http://localhost/bea/back/obtenerMateriales.php')
         .then(response => {
-          alert('Material eliminado con éxito');
-          this.cargarMateriales(); 
+          this.materiales = response.data.map(material => ({
+            ...material,
+            perfil: `/material/${material.id}`
+          }));
         })
         .catch(error => {
-          console.error('Error al eliminar el material:', error);
-          alert('Error al eliminar el material.');
+          console.error('Error al cargar los materiales:', error);
         });
-      },
-      cargarMateriales() {
-        axios.get('http://localhost/bea/back/obtenerMateriales.php')
-          .then(response => {
-            this.materiales = response.data.map(material => ({
-              ...material,
-              perfil: `/material/${material.id}`
-            }));
-          })
-          .catch(error => {
-            console.error('Error al cargar los materiales:', error);
-          });
-      }
     },
-    mounted() {
-      this.cargarMateriales();
-    }
-  };
-  </script>
+  },
+  mounted() {
+    this.cargarMateriales();
+  }
+};
+</script>
   
 
 <style scoped>
 .form-container {
-  max-width: 500px;
-  margin: auto;
-  padding: 10px;
+  max-width: 500px; 
+  margin: 40px auto;
+  padding: 40px; 
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  background-color: aliceblue;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  background-color: aliceblue; 
+  border-radius: 10px; 
 }
 
+
 .form-group {
-  margin-bottom: 10px;
+  margin-bottom: 10px; 
 }
 
 .form-group label {
-  display:flex;
-  margin-bottom: 5px;
+  display: block; 
+  font-weight: bold; 
 }
 
 .form-group input,
 .form-group textarea {
+  margin-top: 20px;
   width: 100%;
+  padding: 8px; 
+  box-sizing: border-box;
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+
+.form-group textarea {
+  width: 100%;
+  min-height:100px; 
   padding: 8px;
   box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none; 
+}
+
+ .titulo{
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out; 
+  margin-bottom: 10px;
+}
+
+.titulo:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px); 
+  border: 1px solid #ccc;
+}
+
+.titulo{
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 .background-image {
@@ -191,7 +227,7 @@
       left: 0;
       width: 100%;
       height: 120%;
-      background-color: #ff5900;
+      background-image: linear-gradient(to bottom, #ff5900, #c21c02);
       background-size: cover;
       z-index: -1;
     }
@@ -203,11 +239,12 @@
   .contenido {
       flex: 1;
       display: flex;
+      background-image: linear-gradient(to bottom, #ff5900, #c21c02);
     }
     
     .contenido-derecha {
       flex: 40%;
-      
+      padding-left: 50px;
     }
     
     .contenido-izquierda {

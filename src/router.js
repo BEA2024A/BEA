@@ -15,12 +15,13 @@ import inicioPsico from './components/inicioPsico.vue';
 import perfil from './components/perfil.vue';
 import HorarioPsico from './components/HorarioPsico.vue';
 import Notas from './components/Notas.vue';
-import NotasLeer from './components/NotasLeer.vue';
-import NotasCrear from './components/NotasCrear.vue';
+
 import insertar_psicologos from './components/insertar_psicologos.vue';
 import agregarAdministrador from './components/agregarAdministrador.vue';
 
 import agradecimiento from './components/agradecimiento.vue';
+
+import Materiales from './components/Materiales.vue';
 
 
 
@@ -44,12 +45,13 @@ const routes = [
   {path: '/perfil/:id', name: 'perfil', component: perfil, props: true},
   {path: '/HorarioPsico', name: 'HorarioPsico' , component: HorarioPsico},
   {path: '/Notas/:id', name: 'Notas', component: Notas, props: true},
-  {path: '/NotasLeer', name: 'NotasLeer', component: NotasLeer},
-  {path: '/NotasCrear', name: 'NotasCrear', component: NotasCrear},
+
   {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},
   {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
 
   {path: '/agradecimiento', name: 'agradecimeinto', component:agradecimiento},
+
+  {path:'/Materiales', name: 'materiales', component:Materiales},
 
 
 ];

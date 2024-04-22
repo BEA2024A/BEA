@@ -3,49 +3,63 @@
     <div class="fondo">
       <div class="formulario">
         <div class="leonel">
-          <img src="https://www.anahuac.mx/sites/default/files/gbb-uploads/img_leonel-i5aru2.png" alt="Leonel Médico"/>
+          <img src="http://localhost/BEA/back/uploads/Leonel%20Me%cc%81dico2.png" alt="Leonel Médico"/>
           <form @submit.prevent="enviarFormulario">
-            <!-- Entrada para '¿Cuál es tu carrera?' -->
-            <div v-if="preguntaActual === 0" class="campo-entrada">
+            
+            
+           
+           
+          
+          
+          
+            <div class="contenedor">
+            <div class="burbuja">
+              <!-- Contenido de burbuja para pregunta y botón -->
+              <div v-if="preguntaActual === 0">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <div v-if="preguntaActual === 0" class="campo-entrada">
               <select v-model="respuestas.carrera" required class="animacion-entrada entrada-carrera">
                 <option disabled value="">Selecciona tu carrera</option>
                 <option v-for="carrera in carreras" :key="carrera" :value="carrera">{{ carrera }}</option>
               </select>
             </div>
-           
-            <div v-if="preguntaActual === 1" class="campo-entrada">
+                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.carrera">Siguiente</button>
+              </div>
+
+
+
+              <div v-if="preguntaActual === 1">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <div v-if="preguntaActual === 1" class="campo-entrada">
               <select v-model="respuestas.semestre" required class="entrada-semestre">
                 <option disabled value="">Elige un semestre</option>
                 <option v-for="num in 12" :key="num" :value="num">{{ num }}</option>
               </select>
             </div>
-            <!-- Entrada para '¿Por qué decidiste comunicarte con acompañamiento?' -->
-            <div v-if="preguntaActual === 2" class="campo-entrada">
+                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.semestre">Siguiente</button>
+              </div>
+
+            
+              <div v-if="preguntaActual === 2">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
+                <div v-if="preguntaActual === 2" class="campo-entrada">
               <textarea v-model="respuestas.motivo" maxlength="500" required class="entrada-motivo" rows="5" placeholder="escribe tu respuesta aqui"></textarea>
             </div>
-            <!-- Entrada para '¿Qué esperas de nosotros?' -->
+                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.motivo">Siguiente</button>
+              </div>
+
+
+
+              <div v-if="preguntaActual === 3">
+                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
             <div v-if="preguntaActual === 3" class="campo-entrada">
               <textarea v-model="respuestas.expectativa" maxlength="500" required class="entrada-expectativa" rows="5" placeholder="escribe tu respuesta aqui"></textarea>
             </div>
-            
-            <div class="burbuja">
-              <!-- Contenido de burbuja para pregunta y botón -->
-              <div v-if="preguntaActual === 0">
-                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
-                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.carrera">Siguiente</button>
-              </div>
-              <div v-if="preguntaActual === 1">
-                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
-                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.semestre">Siguiente</button>
-              </div>
-              <div v-if="preguntaActual === 2">
-                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
-                <button @click="siguientePregunta" class="boton-siguiente" :disabled="!respuestas.motivo">Siguiente</button>
-              </div>
-              <div v-if="preguntaActual === 3">
-                <p class="pregunta-texto">{{ preguntas[preguntaActual] }}</p>
                 <button type="submit" class="boton-enviar" :disabled="!respuestas.expectativa">Enviar</button>
               </div>
+
+            </div>
+
             </div>
           </form>
         </div>
@@ -67,11 +81,12 @@ export default {
   data() {
  
     return {
+
       preguntas: [
         "¿Cuál es tu carrera?",
         "¿Qué semestre estás cursando?",
-        "¿Por qué decidiste comunicarte con acompañamiento?",
-        "¿Qué esperas de nosotros?"
+        "¿Por qué decidiste buscarnos?",
+        "¿Qué esperas de lograr con nosotros?"
       ],
       respuestas: {
         carrera: '',
@@ -81,29 +96,33 @@ export default {
       },
       preguntaActual: 0,
       carreras: [
-      'licenciatura en derecho',
-      'licenciatura en psicologia',
-      'licenciatura en ingenieria civil',
-      'licenciatura en ingenieria para la direccion',
-      'licenciatura en finanzas y contaduria publica',
-      'licenciatura en administracion y direccion de empresas',
-      'licenciatura en mercadotectnia estrategica',
-      'licenciatura en negocios internacionales',
-      'licenciatura en comunicacion',
-      'licenciatura en diseño multimedia',
-      'licenciatura en diseño industrial',
-      'licenciatura en ingenieria biomedica',
-      'licenciatura en ingenieria mecatronica',
-      'licenciatura en diseño grafico',
-      'licenciatura en diseño de moda e innovacion',
-      'ingenieria en tecnologias de la informacion y negocios digitales',
+        'Licenciatura en Derecho',
+        'Licenciatura en Psicología',
+        'Licenciatura en Ingeniería Civil',
+        'Licenciatura en Ingeniería para la Dirección',
+        'Licenciatura en Finanzas y Contaduría Pública',
+        'Licenciatura en Administración y Dirección de Empresas',
+        'Licenciatura en Mercadotecnia Estratégica',
+        'Licenciatura en Negocios Internacionales',
+        'Licenciatura en Comunicación',
+        'Licenciatura en Diseño Multimedia',
+        'Licenciatura en Diseño Industrial',
+        'Licenciatura en Ingeniería Biomédica',
+        'Licenciatura en Ingeniería Mecatrónica',
+        'Licenciatura en Diseño Gráfico',
+        'Licenciatura en Diseño de Moda e Innovación',
+        'Ingeniería en Tecnologías de la Información y Negocios Digitales',
       ],
     };
   },
   computed: {
     ...mapGetters(['usuario']),
   },
+
   methods: {
+
+   
+
     siguientePregunta() {
       if (this.preguntaActual < this.preguntas.length - 1) {
         this.preguntaActual++;
@@ -141,7 +160,7 @@ export default {
   }
 
 .fondo {
-  background-color: #ff5900; 
+  background-image: linear-gradient(to bottom, #ff5900, #c21c02);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -151,9 +170,11 @@ export default {
  
 }
 
-.leonel {
-  margin-right: 800px;
-  margin-bottom: 400px;
+.contenedor {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  height: 100vh; /* Ajustar al alto de la ventana */
 }
 
 .pregunta-animada {
@@ -165,7 +186,12 @@ export default {
 }
 
 .pregunta-texto {
-  font-size: 30px;
+  font-size: 1.5em; 
+  margin-bottom: 20px;
+}
+
+.campo-entrada {
+  margin-bottom: 20px; /* Agregar un espacio entre el campo de entrada y el botón */
 }
 
 
@@ -174,7 +200,7 @@ export default {
 .boton-enviar {
   background-color: #423a38; 
   color: #fff;
-  width: 10%;
+  width: 30%;
   border: none;
   font-size: 18px;
   cursor: pointer;
@@ -190,63 +216,81 @@ export default {
 .leonel img {
   width: 40%;
   transform: translateX(100%);
-  z-index: 2;
+  z-index: -1;
   position: absolute;
   bottom: 0;
   margin-bottom: 70px;
 }
 
 .entrada-carrera {
-  width: 100%;
+  width: 80%;
   height: 100px;
-  font-size: 20px;
+  font-size: 15px;
   animation: fadeIn 1s ease forwards;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccc; 
   resize: none; 
+  border-radius: 10px;
 }
 
 .entrada-semestre {
-  width: 310%;
+  width: 80%;
   height: 100px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
-  font-size: 20px;
-  border: 2px solid #625750;
+  font-size: 15px;
   animation: fadeIn 1s ease forwards;
-  transform: translateX(-35%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc; 
+  resize: none; 
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 
 
 .entrada-motivo, .entrada-expectativa {
-  height: 300px;
-  width: 200%; 
-  font-size: 20px;
-  padding: 10px; 
+  width: 80%;
+  height: 200px;
+  font-size: 15px;
+  animation: fadeIn 1s ease forwards;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccc; 
-  resize: none;
-  transform: translateX(-30%);
+  resize: none; 
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .entrada-motivo::placeholder, .entrada-expectativa::placeholder {
   text-align: left; 
 }
 
-.burbuja {
+.leonel img {
+  transform: translateX(20%);
+  width: 40%;
+  z-index: 2;
   position: absolute;
-  width: 100vw;
-  bottom: -10px;
-  left: 0;
-  padding: 100px;
-  background-color: #0000006b;
-  color: aliceblue;
-  font-size: 30px;
-  z-index: 1;
-  text-align: left;
+  bottom: 0;
   margin-bottom: 70px;
 }
 
+.burbuja {
+  background-color: white;
+  left: 0;
+  padding: 100px; /* Reducir el espacio dentro de la burbuja */
+  padding-left: 150px;
+  padding-right: 150px;
+  text-align: center; /* Centrar el contenido */
+  color: aliceblue;
+  font-size: 25px;
+  z-index: 2;
+  margin-bottom: 100px;
+  transform: translateX(-50%);
+  color:black;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  background-color: white;
+  height: auto; 
+      width:  400px;
+}
 
 
 @keyframes fadeIn {
@@ -254,5 +298,34 @@ export default {
     opacity: 1;
   }
 }
+
+@media (max-width: 639px) {
+
+
+.entrada-motivo, .entrada-expectativa {
+  width: 80%;
+  height: 100px;
+}
+
+
+.leonel img {
+  transform: translateX(20%);
+  z-index: 3;
+}
+
+.burbuja {
+  padding: 30px; 
+  padding-left: 0px;
+  padding-right: 0px;
+  font-size: 20px;
+  z-index: 2;
+  transform: translateX(0%);
+  height: 300px; 
+  width: 330px;
+  align-items: center;
+}
+
+}
+
 
 </style>

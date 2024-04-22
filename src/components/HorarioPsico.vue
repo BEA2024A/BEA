@@ -1,119 +1,119 @@
 <template>
-  <plantillaPsico>
-
-
-
+  <plantilla>
     <div v-if="!usuario" class="overlay"></div>
-<div v-if="!usuario" class="modal-sesion">
-  <h3>Necesitas iniciar sesión para ver tu calendario</h3>
-  <button @click="$router.push('/inicioSesion')">Iniciar sesión</button>
-  <button @click="$router.push('/inicioPsico')">regresar al inicio</button>
-</div>
-
-
+    <div v-if="!usuario" class="modal-sesion">
+      <h3>Necesitas iniciar sesión para ver tu calendario</h3>
+      <button @click="$router.push('/inicioSesion')">Iniciar sesión</button>
+      <button @click="$router.push('/')">regresar al inicio</button>
+    </div>
 
     <div class="container">
       <div class="events-container">
         <div class="eventos">
-        <h2>Citas próximas</h2>
-        <ul class="events-list">
-          <li v-for="event in calendarOptions.events" :key="event.title">
-            {{ event.title }} - {{ event.date }} - {{ event.time }} hrs
-          </li>
-        </ul>
-      </div>
+          <h2>Citas próximas</h2>
+          <ul class="events-list">
+            <li v-for="event in calendarOptions.events" :key="event.title">
+              {{ event.title }} - {{ event.date }} - {{ event.time }} hrs
+            </li>
+          </ul>
+        </div>
         <div class="botones">
-        <button @click="activarNotificaciones" class="notifications-button">
-          Activar notificaciones del sistema
-        </button>
-        <button @click="enviarCorreoRecordatorio" class="mail-notifications-button">
-          Activar notificaciones por correo
-        </button>
-      </div>
+          <button @click="activarNotificaciones" class="notifications-button">
+            Activar notificaciones del sistema
+          </button>
+          <button
+            @click="enviarCorreoRecordatorio"
+            class="mail-notifications-button"
+          >
+            Activar notificaciones por correo
+          </button>
+        </div>
       </div>
       <div class="calendar-container">
         <FullCalendar :options="calendarOptions" />
       </div>
     </div>
-  </plantillaPsico>
+  </plantilla>
 </template>
 
-
-
 <script>
-import axios from 'axios'; 
-import PlantillaPsico from './plantillaPsico.vue'; 
-import FullCalendar from '@fullcalendar/vue3';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import { mapGetters } from 'vuex';
-import esLocale from '@fullcalendar/core/locales/es';
-
+import axios from "axios";
+import Plantilla from "./plantilla.vue";
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import { mapGetters } from "vuex";
+import esLocale from "@fullcalendar/core/locales/es";
 
 export default {
   components: {
     FullCalendar,
-    PlantillaPsico,
+    Plantilla,
   },
   data() {
     return {
       calendarOptions: {
         plugins: [dayGridPlugin],
-        initialView: 'dayGridMonth',
+        initialView: "dayGridMonth",
         headerToolbar: {
-          left: 'prev,next',
-          center: 'title',
-          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+          left: "prev,next",
+          center: "title",
+          right: "dayGridMonth,dayGridWeek,dayGridDay",
         },
-        events: [
-          
-  
-        ],
+        events: [],
         locale: esLocale,
-      }
+      },
     };
   },
 
   computed: {
-    ...mapGetters(['usuario'])
+    ...mapGetters(["usuario"]),
   },
 
   mounted() {
     if (!this.usuario) {
-    this.mostrarMensajeSesion();
-  } else {
-    this.obtenerEventosUsuario();
-  }
+      this.mostrarMensajeSesion();
+    } else {
+      this.obtenerEventosUsuario();
+    }
   },
   methods: {
-
-
     obtenerEventosUsuario() {
-    const idUsuario = this.usuario.id; 
-    axios.get(`http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idUsuario}`)
-      .then(response => {
-        this.calendarOptions.events = response.data;
-      })
-      .catch(error => console.error("Hubo un error al obtener los eventos:", error));
-  },
-
+      const idUsuario = this.usuario.id;
+      axios
+        .get(
+          `http://localhost/BEA/back/obtenerEventosAdmin.php?idUsuario=${idUsuario}`
+        )
+        .then((response) => {
+          this.calendarOptions.events = response.data;
+        })
+        .catch((error) =>
+          console.error("Hubo un error al obtener los eventos:", error)
+        );
+    },
 
     activarNotificaciones() {
       if (!("Notification" in window)) {
         alert("Este navegador no soporta notificaciones del sistema");
       } else if (Notification.permission === "granted") {
-        this.verificarEventosHoy(); 
+        this.verificarEventosHoy();
       } else if (Notification.permission !== "denied") {
-        Notification.requestPermission().then(permission => {
+        Notification.requestPermission().then((permission) => {
           if (permission === "granted") {
-            this.verificarEventosHoy(); 
+            this.verificarEventosHoy();
           }
         });
       }
     },
     verificarEventosHoy() {
-      const hoy = new Date().toISOString().slice(0, 10); // Obtiene la fecha de hoy
-      this.calendarOptions.events.forEach(evento => {
-        if (evento.date === hoy) {
+      const fechaActual = new Date();
+      const dia = fechaActual.getDate();
+      const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+      const año = fechaActual.getFullYear();
+      const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${
+        dia < 10 ? "0" + dia : dia
+      }`;
+      this.calendarOptions.events.forEach((evento) => {
+        if (evento.date === sysdate) {
           this.enviarNotificacion(evento);
         }
       });
@@ -125,38 +125,32 @@ export default {
     },
 
     enviarCorreoRecordatorio() {
-  const hoy = new Date().toISOString().slice(0, 10);
-  const correoDestinatario = this.usuario.correo; 
-  this.calendarOptions.events.forEach(evento => {
-    if (evento.date === hoy) {
-      axios.post('http://localhost/BEA/back/enviarCorreo.php', {
-        correoDestinatario: correoDestinatario,
-        mensaje: `¡Hola ${this.usuario.nombre}! tienes un Recordatorio: ${evento.title} el dia ${evento.date} a las ${evento.time} hrs`
-      })
-      .then(response => {
-        console.log(response.data);
-        alert('Correo enviado');
-      })
-      .catch(error => console.error(error));
-    }
-  });
-},
-
-
-
-
-
-  }
+      const hoy = new Date().toISOString().slice(0, 10);
+      const correoDestinatario = this.usuario.correo;
+      this.calendarOptions.events.forEach((evento) => {
+        if (evento.date === hoy) {
+          axios
+            .post("http://localhost/BEA/back/enviarCorreo.php", {
+              correoDestinatario: correoDestinatario,
+              mensaje: `!Hola ${this.usuario.nombre}! tienes un nuevo recordatorio: ${evento.title} el ${evento.date} a las ${evento.time} `,
+            })
+            .then((response) => {
+              console.log(response.data);
+              alert("Correo enviado");
+            })
+            .catch((error) => console.error(error));
+        }
+      });
+    },
+  },
 };
 </script>
 
-
 <style scoped>
-
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-50px); 
+    transform: translateY(-50px);
   }
   to {
     opacity: 1;
@@ -191,9 +185,9 @@ export default {
   background-color: white;
   padding: 50px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  z-index: 2; 
+  z-index: 2;
   animation: fedeIn 0.5s ease forwards;
 }
 
@@ -201,7 +195,6 @@ export default {
   margin-top: 20px;
   padding: 10px;
 }
-
 
 .calendar-container {
   max-width: 700px;
@@ -229,9 +222,9 @@ export default {
   margin-left: 20px;
 }
 
-.eventos{
+.eventos {
   margin-top: 50px;
-  padding-top:10px;
+  padding-top: 10px;
   padding-bottom: 25px;
   padding-left: 20px;
   padding-right: 20px;
@@ -242,22 +235,21 @@ export default {
   animation: slideIn 0.5s ease forwards;
 }
 
-
-.eventos:hover{
+.eventos:hover {
   transform: scale(1.02);
 }
 
-.botones:hover{
+.botones:hover {
   transform: scale(1.02);
 }
 
-.calendar-container:hover{
+.calendar-container:hover {
   transform: scale(1.02);
 }
 
-.botones{
+.botones {
   margin-top: 50px;
-  padding-top:10px;
+  padding-top: 10px;
   padding-bottom: 25px;
   padding-left: 20px;
   padding-right: 20px;
@@ -269,8 +261,8 @@ export default {
 }
 
 .events-list {
-  list-style-type:none;
-  text-align:center;
+  list-style-type: none;
+  text-align: center;
 }
 
 .events-list li {
@@ -299,26 +291,72 @@ export default {
   transition: 0.3s ease;
 }
 
-
-
-
-
 .fc .fc-button-group > .fc-button {
-  margin-right: 50px; 
+  margin-right: 50px;
 }
 
 .fc .fc-button-group > .fc-button:last-child {
-  margin-right: 0;  
+  margin-right: 0;
 }
-
 
 .fc .fc-button {
-  padding: 8px 120px; 
+  padding: 8px 120px;
 }
-
 
 .fc-header-toolbar {
-  margin-bottom: 30px; 
+  margin-bottom: 30px;
 }
 
+@media (max-width: 639px) {
+  .container {
+    flex-direction: column;
+    padding: 10px;
+    padding-right: 20px;
+  }
+
+  .calendar-container {
+    padding: 40px;
+    border-radius: 8px;
+    margin: 5px;
+    padding-bottom: 100px;
+  }
+
+  .events-container {
+    margin: 30px;
+  }
+
+  .events-list {
+    list-style-type: none;
+    text-align: center;
+    transform: translateX(0%);
+  }
+
+  .eventos {
+    margin-top: 0;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .botones {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Orden de visualización */
+  .calendar-container {
+    order: 1;
+  }
+
+  .events-container {
+    order: 2;
+  }
+
+  .botones {
+    order: 3;
+  }
+}
 </style>

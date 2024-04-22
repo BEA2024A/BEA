@@ -4,7 +4,7 @@
       <div class="background-image"></div>
       <div class="login-box" @mouseover="changeCursor">
         <div class="content">
-          <h3 class="title">Registro de nuevo administrador</h3>
+          <h2 class="titulo">Registro de nuevo administrador</h2>
           <div class="input-group">
             <input type="text" v-model="id" class="input-field" placeholder="ID" @focus="hideBottomBorder" @blur="showBottomBorder">
             <div class="input-line"></div>
@@ -145,40 +145,17 @@
     }
   }
   
-  
-  
-    .login-container {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      animation: fadeIn 1s ease forwards;
-    }
-    
-    .background-image {
+  .background-image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #ff5900;
+      background-image: linear-gradient(to bottom, #ff5900, #c21c02);
       background-size: cover;
       z-index: -1;
     }
-    
-    .login-box {
-      background-color: rgb(255, 255, 255);
-      padding: 40px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      text-align: left;
-      position: relative;
-      width: 500px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    
+
     .logo {
       position: absolute;
       top: 30px;
@@ -186,56 +163,99 @@
       width: 150px;
       height: auto;
     }
-    
-    .title {
-      font-size: 30px;
-      margin-top: 60px;
-      margin-bottom: 10px; 
-      color: rgb(24, 23, 23);
-    }
-    
-    .input-group {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    
-    .input-field {
-      width: 100%;
-      padding: 10px 0;
-      border: none;
-      border-bottom: 2px solid blue;
-      background-color: transparent;
-      font-size: 16px;
-      outline: none;
-    }
-    
-    .input-line {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: #0078d4;
-    }
-    
-    .input-line:hover {
-      background-color: grey;
-    }
-    
-    .submit-button {
-      background-color: #0078d4;
-      color: white;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 18px;
-      transition: background-color 0.3s ease;
-    }
-    
-    .submit-button:hover {
-      background-color: #005a9e;
-    }
+  
+  .login-box {
+  width: 300px;
+  margin: 0 auto; /* Centra el cuadro horizontalmente */
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.content {
+  padding: 10px;
+}
+
+.title {
+  margin-top: 0;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.input-field {
+  width: calc(100% - 10px);
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.input-field:focus {
+  outline: none;
+}
+
+.input-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #007bff;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus + .input-line {
+  height: 2px;
+}
+
+.input-field::placeholder {
+  color: #555;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.titulo{
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out; 
+  margin-bottom: 10px;
+}
+
+.titulo:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px); 
+  border: 1px solid #ccc;
+}
+
+.titulo{
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
     
     .back-to-home {
       position: absolute;

@@ -54,4 +54,16 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-color:#c44501;
 }
+
+@media (max-width: 639px) {
+:root {
+  --fc-button-size: 20px; /* Tamaño base de los botones */
+}
+
+/* Estilos para los botones */
+.fc .fc-button {
+display: none;
+}
+
+}
 </style>

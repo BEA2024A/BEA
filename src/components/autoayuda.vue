@@ -18,15 +18,15 @@
           <img class="icono-scroll" src="https://cdn-icons-png.freepik.com/512/9923/9923629.png" alt="Icono de scroll-down">
         </button>
       </section>
-
+      
       <!-- Sección de Blog con Carrusel -->
       <section class="seccion-blog">
         <div class="titulo-blog">
           <h3>Blogs de ayuda</h3>
         </div>
         <div class="busqueda-blog">
-          <select v-model="filtro.opcion" class="menu-busqueda">
-            <option value="titulo">Nombre</option>
+          <select v-model="filtroBlogs.opcion" class="menu-busqueda">
+            <option value="nombre">Nombre</option>
             <option value="autor">Autor</option>
             <option value="tipo">Tipo</option>
           </select>
@@ -36,7 +36,7 @@
           <carousel :itemsToShow="3" class="blogs-carousel">
             <slide v-for="entrada in blogsFiltrados" :key="entrada.id">
               <div class="carousel__item">
-                <p>{{ entrada.titulo }}</p>
+                <p>{{ entrada.nombre }}</p> <!-- Mostramos el nombre del blog -->
                 <img :src="entrada.imagen" alt="Imagen del blog" class="imagen-blog">
                 <a :href="entrada.link" target="_blank" class="boton-leer">Leer más</a>
               </div>
@@ -47,40 +47,40 @@
           </carousel>
         </div>
       </section>
-
-     <!-- Sección de Videos de Meditación -->
-<section class="seccion-videos">
-  <div class="titulo-videos">
-    <h2>Relájate con estos videos de meditación</h2>
-    <div class="contenedor-videos">
-      <div class="video" v-for="(video, index) in videos" :key="index">
-        <div class="video-overlay-btn">
-          <button class="open-video-btn" @click="openVideo(index)"></button>
-        </div>
-  <iframe width="430" height="300" :src="video.link" frameborder="0" allowfullscreen></iframe>
+      
+      <!-- Sección de Videos de Meditación -->
+      <section class="seccion-videos">
+        <div class="titulo-videos">
+          <h2>Relájate con estos videos de meditación</h2>
+          <div class="contenedor-videos">
+            <div class="video" v-for="(video, index) in videos" :key="index">
+              <div class="video-overlay-btn">
+                <button class="open-video-btn" @click="openVideo(index)"></button>
+              </div>
+              <iframe width="430" height="300" :src="video.link" frameborder="0" allowfullscreen></iframe>
+            </div>
           </div>
         </div>
-  </div>
-</section>
+      </section>
+      
+      <!-- Cuadro de superposición para el video -->
+      <div class="video-overlay" v-if="showVideo">
+        <div class="video-container">
+          <iframe width="800" height="500" :src="currentVideoLink" frameborder="0" allowfullscreen></iframe>
+          <button class="close-video-btn" @click="closeVideo">
+            <img class="icono-cerrar" src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png">
+          </button>
+        </div>
+      </div>
 
-<!-- Cuadro de superposición para el video -->
-<div class="video-overlay" v-if="showVideo">
-  <div class="video-container">
-    <iframe width="800" height="500" :src="currentVideoLink" frameborder="0" allowfullscreen></iframe>
-    <button class="close-video-btn" @click="closeVideo">
-    <img class="icono-cerrar" src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png">
-    </button>
-  </div>
-</div>
-
-
-            <section class="seccion-libro">
+      <!-- Sección de Libros con Carrusel -->
+      <section class="seccion-libro">
         <div class="titulo-libro">
           <h3>Libros que te pueden ayudar</h3>
         </div>
         <div class="busqueda-libro">
-          <select v-model="filtro.opcion" class="menu-busqueda">
-            <option value="titulo">Nombre</option>
+          <select v-model="filtroLibros.opcion" class="menu-busqueda">
+            <option value="nombre">Nombre</option>
             <option value="autor">Autor</option>
             <option value="tipo">Tipo</option>
           </select>
@@ -103,7 +103,7 @@
   
       <section class="seccion-opciones">
         <div class="mensaje-importante">
-          <h1>Recueda que trabajar contigo mismo es importante</h1>
+          <h1>Recuerda que trabajar contigo mismo es importante</h1>
           <p>en BEA nos queremos apoyarte a hacerlo</p>
         </div>
         <div class="opciones">
@@ -123,8 +123,8 @@
   </plantilla>
 </template>
 
-
 <script>
+import axios from 'axios';
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 import Plantilla from './plantilla.vue';
@@ -140,122 +140,71 @@ export default {
     return {
       showVideo: false,
       currentVideoIndex: null,
-      filtro: {
+      filtroBlogs: {
+        opcion: 'nombre',
+        valor: ''
+      },
+      filtroLibros: {
         opcion: 'nombre',
         valor: ''
       },
       busquedaBlogs: '',
       busquedaLibros: '',
-
-      blog: [
-        {
-          id: '1',
-          titulo: 'Gestión del tiempo para controlar el estrés',
-          autor: 'PSIQUION',
-          imagen: 'https://i.postimg.cc/yxr2K5j0/estres-falta-tiempo-chica-liros.jpg',
-          link: 'https://www.psiquion.com/blog/gestion-del-tiempo-controlar-estres',
-          tipo: 'Estres',
-        },
-        {
-          id: '2',
-          titulo: 'Cómo superar el estrés',
-          autor: 'SARA MONTEJANO',
-          imagen: 'https://i.postimg.cc/hjY0tBF4/estres.jpg',
-          link: 'https://www.psiquion.com/blog/como-superar-estres',
-          tipo: 'Estres',
-        },
-        
-        {
-          id: '3',
-          titulo: 'la ansiedad con la ayuda de un psicólogo',
-          autor: 'Irene Garrido',
-          imagen: 'https://blogs.ucontinental.edu.pe/wp-content/uploads/2021/05/los-libros-de-autoayuda-realmente-nos-ayudan-especialista-responde-universidad-continental-2.jpg',
-          link: 'https://ailapsicologia.com/ansiedad/',
-          tipo: 'Ansiedad',
-        },
-        
-        {
-          id: '4',
-          titulo: 'Consejos para manejar el estrés diario',
-          autor: 'Mark Greyson',
-          imagen: 'https://blogs.ucontinental.edu.pe/wp-content/uploads/2021/05/los-libros-de-autoayuda-realmente-nos-ayudan-especialista-responde-universidad-continental-2.jpg',
-          link: 'https://medlineplus.gov/spanish/ency/article/001942.htm#:~:text=Pasar%20tiempo%20con%20familiares%20y,claridad%20y%20a%20tener%20m%C3%A1s%20energ%C3%ADa.',
-          tipo: '',
-        }, 
-      ],
-
-      libro: [
-        {
-          id: '1',
-          titulo: 'Lo bueno de tenr un mal día',
-          autor: 'Anabel Gonzalez',
-          imagen: 'https://i.postimg.cc/mrgtndZ3/7a97f58a-baa5-4078-b743-f2b7ea465acf.jpg',
-          link: 'https://www.planetadelibros.com.mx/libro-lo-bueno-de-tener-un-mal-dia/339451',
-          tipo: 'Estrés',
-        },
-        {
-          id: '2',
-          titulo: 'Terapia Conignitva sobre transtonos de Ansiedad',
-          autor: 'David A. Clark',
-          imagen: 'https://i.postimg.cc/MpKPpQW6/61a2ec68-882b-45a8-ac16-9ce05ddc484c.jpg',
-          link: 'https://ww3.lectulandia.com/book/terapia-cognitiva-para-trastornos-de-ansiedad/',
-          tipo: 'Ansiedad',
-        },
-        {
-          id: '3',
-          titulo: 'Eliminar el estrés',
-          autor: 'Brian Weiss',
-          imagen: 'https://i.postimg.cc/gJHMz5zn/319b2d47-6a5e-408e-b6c5-bd05128ea231.jpg',
-          link: 'https://books.google.com.mx/books/about/Eliminar_el_estrés.html?id=qPY4AwAAQBAJ&redir_esc=y',
-          tipo: 'meditacion',
-        },
-        {
-          id: '4',
-          titulo: 'Cómo superar la ansiedad',
-          autor: ' Enrique Rojas',
-          imagen: 'https://i.postimg.cc/d0xC8j54/16febb9e-6b9c-4b10-b588-cd8fb8889a3f.jpg',
-          link: 'https://www.academia.edu/52549903/COMO_SUPERAR_LA_ANSIEDAD_ENRIQUE_ROJAS_Nn_Am',
-          tipo: 'Ansiedad',
-        },
-        
-      ],
-      videos: [
-        { id:'1',
-          titulo: 'Meditación para la calma interior',
-          link: 'https://www.youtube.com/embed/SR5tBmzZoCY?si=vmANM3IEjoQlxvN8'
-        },
-        {id:'2',
-          titulo: 'Meditación guiada para reducir el estrés',
-          link: 'https://www.youtube.com/embed/aBsnQjJ2_Nk?si=hGQTbWtlZiw8TAde'
-        },
-        {id:'3',
-          titulo: 'Meditación guiada para reducir el estrés',
-          link: 'https://www.youtube.com/embed/FReFf1CLf-c?si=fx9loaMXf4z059R7'
-        },
-      ],
+      blog: [],
+      libro: [],
+      videos: [],
     };
   },
   computed: {
-    librosFiltrados() {
-  return this.libro.filter(entrada => {
-    const value = entrada[this.filtro.opcion];
-    return value && value.toLowerCase().includes(this.busquedaLibros.toLowerCase());
-  });
-},
     blogsFiltrados() {
-  return this.blog.filter(entrada => {
-    const value = entrada[this.filtro.opcion];
-    return value && value.toLowerCase().includes(this.busquedaBlogs.toLowerCase());
-  });
-},
-    currentVideoLink() {
-      if (this.currentVideoIndex !== null && this.videos[this.currentVideoIndex]) {
-        return this.videos[this.currentVideoIndex].link;
-      }
-      return '';
+      return this.blog.filter(entrada => {
+        const value = entrada[this.filtroBlogs.opcion];
+        return value && value.toLowerCase().includes(this.busquedaBlogs.toLowerCase());
+      });
     },
+    librosFiltrados() {
+      return this.libro.filter(entrada => {
+        const value = entrada[this.filtroLibros.opcion];
+        return value && value.toLowerCase().includes(this.busquedaLibros.toLowerCase());
+      });
+    }
+  },
+  mounted() {
+    this.cargarBlogs();
+    this.cargarLibros();
+    this.cargarVideos();
   },
   methods: {
+    cargarBlogs() {
+      axios.get('http://localhost/bea/back/obtener_materiales_blog.php')
+        .then(response => {
+          this.blog = response.data;
+        })
+        .catch(error => {
+          console.error('Error al cargar los blogs:', error);
+          alert('Error al cargar los blogs. Por favor, inténtalo de nuevo más tarde.');
+        });
+    },
+    cargarLibros() {
+      axios.get('http://localhost/bea/back/obtener_materiales_libro.php')
+        .then(response => {
+          this.libro = response.data;
+        })
+        .catch(error => {
+          console.error('Error al cargar los libros:', error);
+          alert('Error al cargar los libros. Por favor, inténtalo de nuevo más tarde.');
+        });
+    },
+    cargarVideos() {
+      axios.get('http://localhost/bea/back/obtener_materiales_video.php')
+        .then(response => {
+          this.videos = response.data; 
+        })
+        .catch(error => {
+          console.error('Error al cargar los videos:', error);
+          alert('Error al cargar los videos. Por favor, inténtalo de nuevo más tarde.');
+        });
+    },
     scrollDown() {
       window.scrollBy({
         top: window.innerHeight, 
@@ -263,7 +212,6 @@ export default {
       });
     },
     openVideo(index) {
-      // Muestra el cuadro de superposición y carga el enlace del video correspondiente
       this.showVideo = true;
       this.currentVideoIndex = index;
     },
@@ -271,16 +219,18 @@ export default {
       this.showVideo = false;
       this.currentVideoIndex = null;
     },
+    currentVideoLink() {
+      if (this.currentVideoIndex !== null && this.videos[this.currentVideoIndex]) {
+        return this.videos[this.currentVideoIndex].link;
+      }
+      return '';
+    },
   },
-
 };
 </script>
 
 
 <style scoped>
-
-
-
 @keyframes fadeIn {
   from {
     opacity: 0;

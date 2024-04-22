@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-04-2024 a las 00:05:29
+-- Tiempo de generación: 22-04-2024 a las 19:21:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -69,7 +69,7 @@ CREATE TABLE `citas` (
 --
 
 INSERT INTO `citas` (`ID_CITA`, `ID_ALUMNO`, `ID_ADMIN`, `CARRERA`, `SEMESTRE`, `MOTIVO`, `EXPECTATIVA`) VALUES
-(16, 446027, 567890, 'ingenieria en tecnologias de la informacion y negocios digitales', 6, 'estoy muy triste', 'que se me quite lo triste'),
+(16, 446027, 123456, 'ingenieria en tecnologias de la informacion y negocios digitales', 6, 'estoy muy triste', 'que se me quite lo triste'),
 (17, 33082835, 123456, 'licenciatura en mercadotectnia estrategica', 12, 'Motivo de la cita generado automáticamente.', 'Expectativa generada automáticamente.'),
 (18, 71780038, 123456, 'licenciatura en ingenieria para la direccion', 9, 'Motivo de la cita generado automáticamente.', 'Expectativa generada automáticamente.'),
 (19, 89017496, 567890, 'licenciatura en ingenieria mecatronica', 9, 'Motivo de la cita generado automáticamente.', 'Expectativa generada automáticamente.'),
@@ -150,19 +150,70 @@ CREATE TABLE `eventos` (
   `titulo` varchar(255) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
-  `color` varchar(7) DEFAULT NULL
+  `color` varchar(7) DEFAULT NULL,
+  `id_administrador` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `eventos`
 --
 
-INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `color`) VALUES
-(7, 446027, 'Consulta Psicológica', '0000-00-00', '13:00:00', '#FFD700'),
-(8, 446027, 'Consulta Psicológica', '2024-04-09', '10:00:00', '#FFD700'),
-(9, 446027, 'Consulta Psicológica', '2024-04-10', '10:00:00', '#FFD700'),
-(11, 446028, 'Consulta Psicológica', '2024-04-08', '13:00:00', '#FFD700'),
-(16, 33082835, 'recordatorio de prueba', '2024-04-29', '02:22:00', '#e84f4f');
+INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `color`, `id_administrador`) VALUES
+(46, 446027, 'Cita con administrador', '2024-04-25', '10:40:00', '#ff5900', 123456),
+(47, 446027, 'Cita con administrador', '2024-04-23', '12:40:00', '#ff5900', 123456),
+(48, 446027, 'Cita con administrador', '2024-04-23', '12:41:00', '#ff5900', 123456);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `eventosadmin`
+--
+
+DROP TABLE IF EXISTS `eventosadmin`;
+CREATE TABLE `eventosadmin` (
+  `id_evento` int(11) NOT NULL,
+  `id_alumno` int(11) NOT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `hora` time DEFAULT NULL,
+  `color` varchar(7) DEFAULT NULL,
+  `id_administrador` int(8) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `eventosadmin`
+--
+
+INSERT INTO `eventosadmin` (`id_evento`, `id_alumno`, `titulo`, `fecha`, `hora`, `color`, `id_administrador`) VALUES
+(8, 446027, 'Cita con Antonio', '2024-04-25', '10:40:00', '#ff5900', 123456),
+(9, 446027, 'Cita con Antonio', '2024-04-23', '12:40:00', '#ff5900', 123456),
+(10, 446027, 'Cita con Antonio', '2024-04-23', '12:41:00', '#ff5900', 123456);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `materiales`
+--
+
+DROP TABLE IF EXISTS `materiales`;
+CREATE TABLE `materiales` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `autor` varchar(255) NOT NULL,
+  `area` varchar(255) NOT NULL,
+  `tipo` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `imagen` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `materiales`
+--
+
+INSERT INTO `materiales` (`id`, `nombre`, `autor`, `area`, `tipo`, `link`, `imagen`) VALUES
+(3, 'Atlas', 'zeus', 'ansiedad', 'libro', 'https://www.pngwing.com/es/search?q=atlas', 'http://localhost/BEA/back/uploads/png-transparent-atlas-greek-mythology-labours-of-hercules-demigod-atlas-monochrome-human-head-thumbnail.png'),
+(4, 'Cómo superar el estrés', 'SARA MONTEJANO', 'estrés', 'blog', 'https://www.psiquion.com/blog/como-superar-estres', 'http://localhost/BEA/back/uploads/estres.jpg'),
+(5, '15 minutos mágicos para eliminar ANSIEDAD y EMOCIONES NEGATIVAS - Meditación Guiada', 'Anabel Otero', 'ansiedad', 'video', 'https://www.youtube.com/embed/aBsnQjJ2_Nk?si=wHwoFCtjzZrpvzO6', 'http://localhost/BEA/back/uploads/Captura de pantalla 2024-04-22 110026.png');
 
 -- --------------------------------------------------------
 
@@ -185,16 +236,10 @@ CREATE TABLE `notas` (
 --
 
 INSERT INTO `notas` (`id_nota`, `numero_sesion`, `fecha`, `contenido`, `id_administrador`, `id_alumno`) VALUES
-(2343, 1, '2024-04-17', 'erbtyrjmyehatrehtr', 123456, 33082835),
-(2344, 2, '2024-04-17', 'rbentrehtnehtraehra', 123456, 33082835),
-(2345, 3, '2024-04-17', 'rbrtn,uyitkyrjwrhgytrkmutkeehtr', 123456, 33082835),
-(2347, 4, '2024-04-17', 'hrejmyyrjhet4tyjjyt', 123456, 33082835),
-(2348, 1, '2024-04-17', 'hola mundo xd', 123456, 83737984),
-(2349, 1, '2024-04-17', 'vghgmutyrttnbt', 123456, 33082835),
-(2350, 3, '2024-04-17', 'drbtumiulouytb4', 123456, 71780038),
-(2351, 0, '2024-04-17', '', 123456, 71780038),
-(2352, 1, '2024-04-17', 'erehyj565', 123456, 33082835),
-(2353, 3, '2024-04-17', 'vefhgklñj htgbrbgrh tnntnyrnyrn5ytyr', 123456, 33082835);
+(2399, 1, '2024-04-22', '<p>fehghtererhahawrgehta</p>', 123456, 446027),
+(2400, 2, '2024-04-22', '<p>htjyrh5ee5htryrk53eu</p>', 123456, 446027),
+(2401, 3, '2024-04-22', '<p>ewtj6etwetrt424y3</p>', 123456, 446027),
+(2402, 4, '2024-04-22', '<p>hrjt5hj3j534j544554j</p>', 123456, 446027);
 
 -- --------------------------------------------------------
 
@@ -275,6 +320,7 @@ INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MAT
 (41960762, 'Jorge', 'Pérez', 'Ramírez', 'jorge.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
 (42251960, 'Carlos', 'García', 'Pérez', 'carlos.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
 (43199275, 'Luis', 'Ramírez', 'Ramírez', 'luis.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
+(45673423, 'juan', 'valido', 'perez', 'jperez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
 (46402301, 'Luis', 'Martínez', 'Cruz', 'luis.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
 (47678461, 'Patricia', 'Rodríguez', 'Ramírez', 'patricia.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
 (47876830, 'Miguel', 'Martínez', 'Pérez', 'miguel.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
@@ -429,7 +475,22 @@ ALTER TABLE `citas`
 --
 ALTER TABLE `eventos`
   ADD PRIMARY KEY (`id_evento`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `FK_ID_ADMINSITRADOR` (`id_administrador`);
+
+--
+-- Indices de la tabla `eventosadmin`
+--
+ALTER TABLE `eventosadmin`
+  ADD PRIMARY KEY (`id_evento`),
+  ADD KEY `id_alumno` (`id_alumno`),
+  ADD KEY `id_administrador` (`id_administrador`);
+
+--
+-- Indices de la tabla `materiales`
+--
+ALTER TABLE `materiales`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `notas`
@@ -467,25 +528,37 @@ ALTER TABLE `seguimiento`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `ID_CITA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `ID_CITA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT de la tabla `eventosadmin`
+--
+ALTER TABLE `eventosadmin`
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `materiales`
+--
+ALTER TABLE `materiales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2354;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2403;
 
 --
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `seguimiento`
@@ -508,7 +581,15 @@ ALTER TABLE `citas`
 -- Filtros para la tabla `eventos`
 --
 ALTER TABLE `eventos`
+  ADD CONSTRAINT `FK_ID_ADMINSITRADOR` FOREIGN KEY (`id_administrador`) REFERENCES `administradores` (`ID_ALUMNO`),
   ADD CONSTRAINT `eventos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `registro` (`ID_ALUMNO`);
+
+--
+-- Filtros para la tabla `eventosadmin`
+--
+ALTER TABLE `eventosadmin`
+  ADD CONSTRAINT `eventosadmin_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `registro` (`ID_ALUMNO`),
+  ADD CONSTRAINT `eventosadmin_ibfk_2` FOREIGN KEY (`id_administrador`) REFERENCES `administradores` (`ID_ALUMNO`);
 
 --
 -- Filtros para la tabla `notas`
@@ -516,12 +597,6 @@ ALTER TABLE `eventos`
 ALTER TABLE `notas`
   ADD CONSTRAINT `notas_ibfk_1` FOREIGN KEY (`id_administrador`) REFERENCES `administradores` (`ID_ALUMNO`),
   ADD CONSTRAINT `notas_ibfk_2` FOREIGN KEY (`id_alumno`) REFERENCES `registro` (`ID_ALUMNO`);
-
---
--- Filtros para la tabla `seguimiento`
---
-ALTER TABLE `seguimiento`
-  ADD CONSTRAINT `seguimiento_ibfk_1` FOREIGN KEY (`ID_ALUMNO`) REFERENCES `registro` (`ID_ALUMNO`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

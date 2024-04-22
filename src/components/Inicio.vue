@@ -35,6 +35,7 @@
 <script>
 import axios from 'axios';
 import Plantilla from './plantilla.vue';
+import { asRoughMinutes } from '@fullcalendar/core/internal';
 
 export default {
   components: {
@@ -61,6 +62,7 @@ export default {
   mounted() {
     this.iniciarTemporizadorBanner();
     this.cargarPsicologos();
+    this.desbloquearScroll();
   },
 
   beforeDestroy() {
@@ -68,6 +70,12 @@ export default {
   },
 
   methods: {
+
+    desbloquearScroll() {
+      document.body.style.overflow = 'auto';
+    },
+
+
     cargarPsicologos() {
       axios.get('http://localhost/bea/back/obtenerPsicologos.php')
         .then(response => {
@@ -122,7 +130,6 @@ export default {
 /*BANNER BIENVENIDA */
   .banner-bienvenida {
     text-align: center;
-    margin-top: 20px;
     margin-bottom: 50px;
   }
   .banner-bienvenida img {
@@ -236,7 +243,7 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(19, 17, 17, 0.9);
+    background-color: rgba(19, 17, 17, 0.562);
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -307,35 +314,14 @@ export default {
 
   
   .card img {
-  border-radius: 10px;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
     width: 100%;
     height: 300px; 
-    object-fit: cover; 
-    animation: slideIn 1s ease forwards;
   }
-  .descripcion-psicologo {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(19, 17, 17, 0.9);
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-    color :rgb(255, 255, 255);
-  }
+
   .mostrar-descripcion {
     opacity: 1;
   }
   
-  button {
-    background-color: #fcfcfc;
-    font-size: 18px;
-    color:black;
-  }
 
 
 

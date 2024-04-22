@@ -237,4 +237,21 @@ export default {
 .register-link:hover {
   color: grey;
 }
+
+@media (max-width: 639px) {
+
+  .login-box {
+    padding: 50px;
+    width: 200px;
+    height: 270px;
+  }
+  
+  .logo {
+    width: 80px;
+  }
+
+}
+
+
+
   </style>

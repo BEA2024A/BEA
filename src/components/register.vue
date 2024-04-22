@@ -255,6 +255,94 @@ export default {
   .text {
     font-size: 14px;
   }
+
+  @media (max-width: 639px) {
+
+  
+  .login-box {
+    padding: 20px;
+    width: 300px;
+  }
+  
+  .logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 80px;
+    height: auto;
+  }
+  
+  .title {
+    font-size: 30px;
+    margin-top: 60px;
+    margin-bottom: 10px; 
+    color: rgb(24, 23, 23);
+  }
+  
+  .input-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid blue;
+    background-color: transparent;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .input-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #0078d4;
+  }
+  
+  .input-line:hover {
+    background-color: grey;
+  }
+  
+  .submit-button {
+    background-color: #0078d4;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #005a9e;
+  }
+  
+  .back-to-home {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: grey;
+  }
+  
+  .arrow {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+  
+  .text {
+    font-size: 14px;
+  }
+
+}
+
   </style>
   
   

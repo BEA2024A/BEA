@@ -126,7 +126,7 @@ export default {
 .container {
   display: flex;
   justify-content: space-between;
-  background-color: #ff5900;
+  background-image: linear-gradient(to bottom, #ff5900, #c21c02);
   z-index: -9999;
 }
 

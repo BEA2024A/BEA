@@ -12,20 +12,18 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-
-$idUsuario = $_POST['id_usuario'];
+$idAlumno = $_POST['id_alumno'];
 $titulo = $_POST['titulo'];
 $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
 $color = $_POST['color'];
 $idAdmin = $_POST['id_administrador'];
 
-
-$sql = "INSERT INTO eventos (id_usuario, titulo, fecha, hora, color, id_administrador) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO eventosAdmin (id_alumno, titulo, fecha, hora, color, id_administrador) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 
 if ($stmt) {
-    $stmt->bind_param("issssi", $idUsuario, $titulo, $fecha, $hora, $color, $idAdmin);
+    $stmt->bind_param("issssi", $idAlumno, $titulo, $fecha, $hora, $color, $idAdmin);
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);
     } else {
