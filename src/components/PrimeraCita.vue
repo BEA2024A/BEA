@@ -5,15 +5,12 @@
       <div class="leonel">
         <img v-if="!usuarioYaRegistrado" src="http://localhost/BEA/back/uploads/Leonel%20Me%cc%81dico2.png" alt="Leonel Médico"/>
       </div>
-
-
       <div v-if="usuarioYaRegistrado" class="overlay"></div>
           <div v-if="usuarioYaRegistrado" class="modal-sesion">
             <h3>Ya has agendado tu primera cita anteriormente</h3>
             <button @click="$router.push('/seguimiento')">Administra tu seguimiento</button>
             <button @click="$router.push('/')">Volver al inicio</button>
           </div>
-      
         <div v-if="!usuarioYaRegistrado" class="burbuja">
           <div class="contenido-izquierda">
           <div :key="indiceDeTexto" v-if="!usuarioYaRegistrado" v-html="textoActual" class="texto-animado" @click="redirigirAFormulario"></div>

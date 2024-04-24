@@ -1,126 +1,127 @@
 <template>
   <plantilla>
-    <!-- Contenido de la Página -->
-    <div class="contenido-pagina">
-      <router-view></router-view>
-      
-      <!-- Sección de Autoayuda -->
-      <section class="banner-autoayuda">
-        <div class="fondo-autoayuda">
-          <img src="https://media.vogue.mx/photos/5dbc6b50b9285b0009b39d16/16:9/w_1920,h_1080,c_limit/Meditation004-vogueint-24oct19-GettyImages-.jpg" alt="Banner Autoayuda">
-        </div>
-        <div class="titulo-autoayuda">
-          <h1>AUTOAYUDA</h1>
-          <p>El cambio empieza por ti</p>
-        </div>
-        <!-- Botón de scroll-down -->
-        <button class="boton-scroll" @click="scrollDown">
-          <img class="icono-scroll" src="https://cdn-icons-png.freepik.com/512/9923/9923629.png" alt="Icono de scroll-down">
-        </button>
-      </section>
-      
-      <!-- Sección de Blog con Carrusel -->
-      <section class="seccion-blog">
-        <div class="titulo-blog">
-          <h3>Blogs de ayuda</h3>
-        </div>
-        <div class="busqueda-blog">
-          <select v-model="filtroBlogs.opcion" class="menu-busqueda">
-            <option value="nombre">Nombre</option>
-            <option value="autor">Autor</option>
-            <option value="tipo">Tipo</option>
-          </select>
-          <input type="text" v-model="busquedaBlogs" placeholder="Buscar..." class="campo-busqueda">
-        </div>
-        <div class="carrusel-blogs">
-          <carousel :itemsToShow="3" class="blogs-carousel">
-            <slide v-for="entrada in blogsFiltrados" :key="entrada.id">
-              <div class="carousel__item">
-                <p>{{ entrada.nombre }}</p> <!-- Mostramos el nombre del blog -->
-                <img :src="entrada.imagen" alt="Imagen del blog" class="imagen-blog">
-                <a :href="entrada.link" target="_blank" class="boton-leer">Leer más</a>
-              </div>
-            </slide>
-            <template #addons>
-              <navigation />
-            </template>
-          </carousel>
-        </div>
-      </section>
-      
-      <!-- Sección de Videos de Meditación -->
-      <section class="seccion-videos">
-        <div class="titulo-videos">
-          <h2>Relájate con estos videos de meditación</h2>
-          <div class="contenedor-videos">
-            <div class="video" v-for="(video, index) in videos" :key="index">
-              <div class="video-overlay-btn">
-                <button class="open-video-btn" @click="openVideo(index)"></button>
-              </div>
-              <iframe width="430" height="300" :src="video.link" frameborder="0" allowfullscreen></iframe>
+  <!-- Contenido de la Página -->
+  <div class="contenido-pagina">
+    <router-view></router-view>
+    
+    <!-- Sección de Autoayuda -->
+    <section class="banner-autoayuda">
+      <div class="fondo-autoayuda">
+        <img src="https://media.vogue.mx/photos/5dbc6b50b9285b0009b39d16/16:9/w_1920,h_1080,c_limit/Meditation004-vogueint-24oct19-GettyImages-.jpg" alt="Banner Autoayuda">
+      </div>
+      <div class="titulo-autoayuda">
+        <h1>AUTOAYUDA</h1>
+        <p>El cambio empieza por ti</p>
+      </div>
+      <!-- Botón de scroll-down -->
+      <button class="boton-scroll" @click="scrollDown">
+        <img class="icono-scroll" src="https://cdn-icons-png.freepik.com/512/9923/9923629.png" alt="Icono de scroll-down">
+      </button>
+    </section>
+    
+    <!-- Sección de Blog con Carrusel -->
+    <section class="seccion-blog">
+      <div class="titulo-blog">
+        <h3>Blogs de ayuda</h3>
+      </div>
+      <div class="busqueda-blog">
+        <select v-model="filtroBlogs.opcion" class="menu-busqueda">
+          <option value="nombre">Nombre</option>
+          <option value="autor">Autor</option>
+          <option value="tipo">Tipo</option>
+        </select>
+        <input type="text" v-model="busquedaBlogs" placeholder="Buscar..." class="campo-busqueda">
+      </div>
+      <div class="carrusel-blogs">
+        <carousel :itemsToShow="3" class="blogs-carousel">
+          <slide v-for="entrada in blogsFiltrados" :key="entrada.id">
+            <div class="carousel__item">
+              <p>{{ entrada.nombre }}</p> <!-- Mostramos el nombre del blog -->
+              <img :src="entrada.imagen" alt="Imagen del blog" class="imagen-blog">
+              <a :href="entrada.link" target="_blank" class="boton-leer">Leer más</a>
             </div>
-          </div>
+          </slide>
+          <template #addons>
+            <navigation />
+          </template>
+        </carousel>
+      </div>
+    </section>
+    
+<!-- Sección de Videos de Meditación -->
+<section class="seccion-videos">
+  <div class="titulo-videos">
+    <h2>Relájate con estos videos de meditación</h2>
+    <div class="contenedor-videos">
+      <div class="video" v-for="(video, index) in videos" :key="index">
+        <div class="video-overlay-btn">
+          <button class="open-video-btn" @click="openVideo(video.link)"></button>
         </div>
-      </section>
-      
-      <!-- Cuadro de superposición para el video -->
-      <div class="video-overlay" v-if="showVideo">
-        <div class="video-container">
-          <iframe width="800" height="500" :src="currentVideoLink" frameborder="0" allowfullscreen></iframe>
-          <button class="close-video-btn" @click="closeVideo">
-            <img class="icono-cerrar" src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png">
-          </button>
+        <iframe width="430" height="300" :src="video.link" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cuadro de superposición para el video -->
+<div class="video-overlay" v-if="showVideo">
+  <div class="video-container">
+    <iframe width="800" height="500" :src="videoToPlay" frameborder="0" allowfullscreen></iframe>
+    <button class="close-video-btn" @click="closeVideo">
+      <img class="icono-cerrar" src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png">
+    </button>
+  </div>
+</div>
+
+
+    <!-- Sección de Libros con Carrusel -->
+    <section class="seccion-libro">
+      <div class="titulo-libro">
+        <h3>Libros que te pueden ayudar</h3>
+      </div>
+      <div class="busqueda-libro">
+        <select v-model="filtroLibros.opcion" class="menu-busqueda">
+          <option value="nombre">Nombre</option>
+          <option value="autor">Autor</option>
+          <option value="tipo">Tipo</option>
+        </select>
+        <input type="text" v-model="busquedaLibros" placeholder="Buscar..." class="campo-busqueda">
+      </div>
+      <div class="carrusel-libro">
+        <carousel :itemsToShow="3" class="libro-carousel">
+          <slide v-for="entrada in librosFiltrados" :key="entrada.id">
+            <div class="carousel__item">
+              <img :src="entrada.imagen" alt="Imagen del libro" class="imagen-libro">
+              <a :href="entrada.link" target="_blank" class="boton-leer">Leer libro</a>
+            </div>
+          </slide>
+          <template #addons>
+            <navigation />
+          </template>
+        </carousel>
+      </div>
+    </section>
+
+    <section class="seccion-opciones">
+      <div class="mensaje-importante">
+        <h1>Recuerda que trabajar contigo mismo es importante</h1>
+        <p>en BEA nos queremos apoyarte a hacerlo</p>
+      </div>
+      <div class="opciones">
+        <div class="opcion">
+          <router-link to="/PrimeraCita">
+            <button class="boton-opcion">Agenda tu primera cita</button>
+          </router-link>
+        </div>
+        <div class="opcion">
+          <router-link to="/Seguimiento">
+            <button class="boton-opcion">Administra tu seguimiento</button>
+          </router-link>
         </div>
       </div>
-
-      <!-- Sección de Libros con Carrusel -->
-      <section class="seccion-libro">
-        <div class="titulo-libro">
-          <h3>Libros que te pueden ayudar</h3>
-        </div>
-        <div class="busqueda-libro">
-          <select v-model="filtroLibros.opcion" class="menu-busqueda">
-            <option value="nombre">Nombre</option>
-            <option value="autor">Autor</option>
-            <option value="tipo">Tipo</option>
-          </select>
-          <input type="text" v-model="busquedaLibros" placeholder="Buscar..." class="campo-busqueda">
-        </div>
-        <div class="carrusel-libro">
-          <carousel :itemsToShow="3" class="libro-carousel">
-            <slide v-for="entrada in librosFiltrados" :key="entrada.id">
-              <div class="carousel__item">
-                <img :src="entrada.imagen" alt="Imagen del libro" class="imagen-libro">
-                <a :href="entrada.link" target="_blank" class="boton-leer">Leer libro</a>
-              </div>
-            </slide>
-            <template #addons>
-              <navigation />
-            </template>
-          </carousel>
-        </div>
-      </section>
-  
-      <section class="seccion-opciones">
-        <div class="mensaje-importante">
-          <h1>Recuerda que trabajar contigo mismo es importante</h1>
-          <p>en BEA nos queremos apoyarte a hacerlo</p>
-        </div>
-        <div class="opciones">
-          <div class="opcion">
-            <router-link to="/PrimeraCita">
-              <button class="boton-opcion">Agenda tu primera cita</button>
-            </router-link>
-          </div>
-          <div class="opcion">
-            <router-link to="/Seguimiento">
-              <button class="boton-opcion">Administra tu seguimiento</button>
-            </router-link>
-          </div>
-        </div>
-      </section>
-    </div>
-  </plantilla>
+    </section>
+  </div>
+</plantilla>
 </template>
 
 <script>
@@ -128,6 +129,7 @@ import axios from 'axios';
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 import Plantilla from './plantilla.vue';
+import Swal from 'sweetalert2';
 
 export default {
   components: {
@@ -139,7 +141,7 @@ export default {
   data() {
     return {
       showVideo: false,
-      currentVideoIndex: null,
+      videoToPlay: '',
       filtroBlogs: {
         opcion: 'nombre',
         valor: ''
@@ -173,6 +175,7 @@ export default {
     this.cargarBlogs();
     this.cargarLibros();
     this.cargarVideos();
+    this.desbloquearScroll();
   },
   methods: {
     cargarBlogs() {
@@ -182,7 +185,7 @@ export default {
         })
         .catch(error => {
           console.error('Error al cargar los blogs:', error);
-          alert('Error al cargar los blogs. Por favor, inténtalo de nuevo más tarde.');
+          this.showErrorAlert('Error al cargar los blogs. Por favor, inténtalo de nuevo más tarde.');
         });
     },
     cargarLibros() {
@@ -192,7 +195,7 @@ export default {
         })
         .catch(error => {
           console.error('Error al cargar los libros:', error);
-          alert('Error al cargar los libros. Por favor, inténtalo de nuevo más tarde.');
+          this.showErrorAlert('Error al cargar los libros. Por favor, inténtalo de nuevo más tarde.');
         });
     },
     cargarVideos() {
@@ -202,8 +205,11 @@ export default {
         })
         .catch(error => {
           console.error('Error al cargar los videos:', error);
-          alert('Error al cargar los videos. Por favor, inténtalo de nuevo más tarde.');
+          this.showErrorAlert('Error al cargar los videos. Por favor, inténtalo de nuevo más tarde.');
         });
+    },
+    desbloquearScroll() {
+      document.body.style.overflow = 'auto';
     },
     scrollDown() {
       window.scrollBy({
@@ -211,24 +217,25 @@ export default {
         behavior: 'smooth' 
       });
     },
-    openVideo(index) {
+    openVideo(videoLink) {
       this.showVideo = true;
-      this.currentVideoIndex = index;
+      this.videoToPlay = videoLink;
     },
     closeVideo() {
       this.showVideo = false;
-      this.currentVideoIndex = null;
+      this.videoToPlay = '';
     },
-    currentVideoLink() {
-      if (this.currentVideoIndex !== null && this.videos[this.currentVideoIndex]) {
-        return this.videos[this.currentVideoIndex].link;
-      }
-      return '';
+    showErrorAlert(message) {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: message,
+        confirmButtonText: 'Aceptar'
+      });
     },
   },
 };
 </script>
-
 
 <style scoped>
 @keyframes fadeIn {

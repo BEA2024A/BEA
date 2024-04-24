@@ -91,6 +91,7 @@
 <script>
 import axios from 'axios';
 import PlantillaPsico from './plantillaPsico.vue';
+import Swal from 'sweetalert2';
 
 export default {
   components: {
@@ -135,41 +136,65 @@ export default {
         }
       })
       .then(response => {
-        alert('Psicólogo registrado con éxito');
-        console.log(response.data);
-        window.location.reload();
-        
+        Swal.fire(
+          'Éxito',
+          'Psicólogo registrado con éxito',
+          'success'
+        ).then(() => {
+          window.location.reload();
+        });
       })
       .catch(error => {
         console.error('Ocurrió un error al registrar el psicólogo:', error);
-        alert('Error al registrar el psicólogo.');
+        Swal.fire(
+          'Error',
+          'Error al registrar el psicólogo.',
+          'error'
+        );
       });
     },
 
-    cargarPsicologos() {
-      axios.get('http://localhost/bea/back/obtenerPsicologos.php')
-        .then(response => {
-          this.psicologos = response.data;
-        })
-        .catch(error => {
-          console.error('Error al cargar los psicólogos:', error);
-        });
-    },
     eliminarPsicologo() {
       if (!this.psicologoEliminar) {
-        alert('Seleccione un psicólogo para eliminar');
+        Swal.fire(
+          'Advertencia',
+          'Seleccione un psicólogo para eliminar',
+          'warning'
+        );
         return;
       }
-      axios.post('http://localhost/bea/back/eliminarPsicologo.php', {
-        id: this.psicologoEliminar
-      })
-      .then(response => {
-        alert('Psicólogo eliminado con éxito');
-        this.cargarPsicologos(); 
-      })
-      .catch(error => {
-        console.error('Error al eliminar el psicólogo:', error);
-        alert('Error al eliminar el psicólogo.');
+      Swal.fire({
+        title: '¿Está seguro?',
+        text: 'Esta acción no se puede revertir',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.post('http://localhost/bea/back/eliminarPsicologo.php', {
+            id: this.psicologoEliminar
+          })
+          .then(response => {
+            Swal.fire(
+              'Éxito',
+              'Psicólogo eliminado con éxito',
+              'success'
+            ).then(() => {
+              this.cargarPsicologos(); 
+            });
+          })
+          .catch(error => {
+            console.error('Error al eliminar el psicólogo:', error);
+            Swal.fire(
+              'Error',
+              'Error al eliminar el psicólogo.',
+              'error'
+            );
+          });
+        }
       });
     },
     cargarPsicologos() {
@@ -190,17 +215,13 @@ export default {
     redirigirPerfil(perfil) {
       this.$router.push(perfil);
     },
-
-
   },
 
   mounted() {
     this.cargarPsicologos();
   }
-
 };
 </script>
-
 
 
 <style scoped>

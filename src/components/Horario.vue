@@ -38,8 +38,6 @@
   </plantilla>
 </template>
 
-
-
 <script>
 import axios from 'axios';
 import Plantilla from './plantilla.vue';
@@ -47,7 +45,7 @@ import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { mapGetters } from 'vuex';
 import esLocale from '@fullcalendar/core/locales/es';
-
+import Swal from 'sweetalert2';
 
 export default {
   components: {
@@ -64,10 +62,7 @@ export default {
           center: 'title',
           right: 'dayGridMonth,dayGridWeek,dayGridDay'
         },
-        events: [
-
-
-        ],
+        events: [],
         locale: esLocale,
       }
     };
@@ -85,10 +80,7 @@ export default {
     }
   },
 
-  
   methods: {
-
-
     obtenerEventosUsuario() {
       const idUsuario = this.usuario.id;
       axios.get(`http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idUsuario}`)
@@ -98,10 +90,13 @@ export default {
         .catch(error => console.error("Hubo un error al obtener los eventos:", error));
     },
 
-
     activarNotificaciones() {
       if (!("Notification" in window)) {
-        alert("Este navegador no soporta notificaciones del sistema");
+        Swal.fire(
+          'Error',
+          'Este navegador no soporta notificaciones del sistema',
+          'error'
+        );
       } else if (Notification.permission === "granted") {
         this.verificarEventosHoy();
       } else if (Notification.permission !== "denied") {
@@ -144,9 +139,11 @@ export default {
       });
     },
     enviarNotificacion(titulo, cuerpo) {
-      new Notification(titulo, {
-        body: cuerpo,
-      });
+      Swal.fire(
+        titulo,
+        cuerpo,
+        'info'
+      );
     },
 
     enviarCorreoRecordatorio() {
@@ -188,20 +185,32 @@ export default {
       })
         .then(response => {
           console.log(response.data);
-          alert('Correo enviado');
+          Swal.fire(
+            'Éxito',
+            'Correo enviado',
+            'success'
+          );
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error(error);
+          Swal.fire(
+            'Error',
+            'Hubo un error al enviar el correo',
+            'error'
+          );
+        });
     },
 
-
-
-
-
+    mostrarMensajeSesion() {
+      Swal.fire(
+        'Sesión no iniciada',
+        'Por favor inicia sesión para ver tus eventos',
+        'warning'
+      );
+    },
   }
 };
 </script>
-
-
 
 
 <style scoped>

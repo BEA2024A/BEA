@@ -21,11 +21,11 @@
               </div>
               <div class="form-group">
                 <label for="tipo">Tipo de media:</label>
-                <input type="text" id="tipo" v-model="material.tipo" placeholder="Tipo de material (video, libro, etc.)" required>
+                <input type="text" id="tipo" v-model="material.tipo" placeholder="Tipo de material (video, libro o blog)" required>
               </div>
               <div class="form-group">
                 <label for="link">Link del material:</label>
-                <input type="text" id="link" v-model="material.link" placeholder="Enlace al material (opcional)" required>
+                <input type="text" id="link" v-model="material.link" placeholder="Enlace al material" required>
               </div>
               <div class="form-group">
                 <label for="imagen">Imagen del Material:</label>
@@ -34,7 +34,7 @@
               <button type="submit" class="titulo">Registrar Material</button>
             </form>
           </div>
-
+          
           <div class="form-container">
             <h1 class="titulo">Eliminar material</h1>
             <form @submit.prevent="eliminarMaterial">
@@ -76,6 +76,8 @@
 <script>
 import axios from 'axios';
 import PlantillaPsico from './plantillaPsico.vue';
+import Swal from 'sweetalert2';
+import VueSweetalert2 from 'vue-sweetalert2';
 
 export default {
   components: {
@@ -100,6 +102,11 @@ export default {
       this.material.imagen = event.target.files[0];
     },
     submitForm() {
+      if (!["blog", "libro", "video"].includes(this.material.tipo.toLowerCase())) {
+        Swal.fire('¡Error!', 'El tipo de media debe ser "blog", "libro" o "video"', 'error');
+        return;
+      }
+
       const formData = new FormData();
       formData.append('nombre', this.material.nombre);
       formData.append('autor', this.material.autor);
@@ -114,30 +121,29 @@ export default {
         }
       })
       .then(response => {
-        alert('Material registrado con éxito');
-        console.log(response.data);
+        Swal.fire('¡Éxito!', 'Material registrado con éxito', 'success');
         window.location.reload();
       })
       .catch(error => {
         console.error('Ocurrió un error al registrar el material:', error);
-        alert('Error al registrar el material.');
+        Swal.fire('¡Error!', 'Error al registrar el material', 'error');
       });
     },
     eliminarMaterial() {
       if (!this.materialEliminar) {
-        alert('Seleccione un material para eliminar');
+        Swal.fire('¡Advertencia!', 'Seleccione un material para eliminar', 'warning');
         return;
       }
       axios.post('http://localhost/bea/back/eliminarMaterial.php', {
         id: this.materialEliminar
       })
       .then(response => {
-        alert('Material eliminado con éxito');
+        Swal.fire('¡Éxito!', 'Material eliminado con éxito', 'success');
         this.cargarMateriales(); 
       })
       .catch(error => {
         console.error('Error al eliminar el material:', error);
-        alert('Error al eliminar el material.');
+        Swal.fire('¡Error!', 'Error al eliminar el material', 'error');
       });
     },
     cargarMateriales() {
@@ -158,7 +164,6 @@ export default {
   }
 };
 </script>
-  
 
 <style scoped>
 .form-container {
@@ -169,7 +174,6 @@ export default {
   background-color: aliceblue; 
   border-radius: 10px; 
 }
-
 
 .form-group {
   margin-bottom: 10px; 
@@ -234,6 +238,7 @@ export default {
 
   .eliminar-opciones{
     margin-bottom: 20px;
+    display: flexbox;
   }
 
   .contenido {
@@ -258,7 +263,7 @@ export default {
   margin: 30px;
   background-color: #ffffff;
   border-radius: 10px;
-  padding: 30px;
+  padding: 20px;
 }
 
 .contenido-izquierda .fondo-materiales .seccion-materiales h1 {

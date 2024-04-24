@@ -42,97 +42,139 @@
   </template>
   
   <script>
-  import axios from 'axios';
-  import PlantillaPsico from './plantillaPsico.vue';
+import axios from 'axios';
+import PlantillaPsico from './plantillaPsico.vue';
+import Swal from 'sweetalert2';
 
-  
-  export default {
-    components: {
+export default {
+  components: {
     PlantillaPsico,
   },
-    data() {
-      return {
-        id: '',
-        nombre: '',
-        apellidoPaterno: '',
-        apellidoMaterno: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      }
-    },
-    methods: {
-      submit() {
-        if (!/^\d{8}$/.test(this.id)) {
-          alert('ID debe contener 8 dígitos numéricos');
-          return;
-        }
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
-          alert('Nombre solo puede contener letras y espacios');
-          return;
-        }
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoPaterno)) {
-          alert('Apellido Paterno solo puede contener letras y espacios');
-          return;
-        }
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoMaterno)) {
-          alert('Apellido Materno solo puede contener letras y espacios');
-          return;
-        }
-        if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
-          alert('Contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número');
-          return;
-        }
-        if (this.password !== this.confirmPassword) {
-          alert('Las contraseñas no coinciden');
-          return;
-        }
-        // Preparar los datos para enviar al servidor
-        const formData = new FormData();
-        formData.append('ID_ALUMNO', this.id);
-        formData.append('NOMBRE', this.nombre);
-        formData.append('APELLIDO_PATERNO', this.apellidoPaterno);
-        formData.append('APELLIDO_MATERNO', this.apellidoMaterno);
-        formData.append('CORREO', this.email);
-        formData.append('CONTRASEÑA', this.password);
-  
-        // Enviar la petición al servidor
-        axios.post('http://localhost/BEA/back/agregarAdministrador.php', formData)
-          .then(response => {
-            // Manejar la respuesta del servidor
-            if (response.data === "El ID ya está registrado. Por favor, inicia sesión con tu cuenta." ||
-                response.data === "El correo ya está en uso con otra cuenta.") {
-              alert(response.data);
-            } else if (response.data === "Registro exitoso") {
-              // Registro exitoso
-              alert('registro exitoso');
-              this.$router.push('/inicioPsico');
-            } else {
-              // Otros mensajes del servidor
-              alert("Error desconocido: " + response.data);
-            }
-          })
-          .catch(error => {
-            // Error en la petición
-            console.error('Error en la petición:', error);
-            alert('Ocurrió un error al realizar el registro.');
-          });
-      },
-      hideBottomBorder() {
-        this.$refs.emailInput.style.borderBottom = 'none';
-      },
-      showBottomBorder() {
-        this.$refs.emailInput.style.borderBottom = '2px solid blue';
-      },
-      changeCursor() {
-        this.$refs.emailInput.style.cursor = 'text';
-      },
-      goToHome() {
-        this.$router.push('/');
-      }
+  data() {
+    return {
+      id: '',
+      nombre: '',
+      apellidoPaterno: '',
+      apellidoMaterno: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
     }
-  };
-  </script>
+  },
+  methods: {
+    submit() {
+      if (!/^\d{8}$/.test(this.id)) {
+        Swal.fire(
+          'Error',
+          'El ID debe contener 8 dígitos numéricos',
+          'error'
+        );
+        return;
+      }
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
+        Swal.fire(
+          'Error',
+          'El nombre solo puede contener letras y espacios',
+          'error'
+        );
+        return;
+      }
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoPaterno)) {
+        Swal.fire(
+          'Error',
+          'El Apellido Paterno solo puede contener letras y espacios',
+          'error'
+        );
+        return;
+      }
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoMaterno)) {
+        Swal.fire(
+          'Error',
+          'El Apellido Materno solo puede contener letras y espacios',
+          'error'
+        );
+        return;
+      }
+      if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
+        Swal.fire(
+          'Error',
+          'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número',
+          'error'
+        );
+        return;
+      }
+      if (this.password !== this.confirmPassword) {
+        Swal.fire(
+          'Error',
+          'Las contraseñas no coinciden',
+          'error'
+        );
+        return;
+      }
+
+      // Preparar los datos para enviar al servidor
+      const formData = new FormData();
+      formData.append('ID_ALUMNO', this.id);
+      formData.append('NOMBRE', this.nombre);
+      formData.append('APELLIDO_PATERNO', this.apellidoPaterno);
+      formData.append('APELLIDO_MATERNO', this.apellidoMaterno);
+      formData.append('CORREO', this.email);
+      formData.append('CONTRASEÑA', this.password);
+
+      // Enviar la petición al servidor
+      axios.post('http://localhost/BEA/back/agregarAdministrador.php', formData)
+        .then(response => {
+          // Manejar la respuesta del servidor
+          if (response.data === "El ID ya está registrado. Por favor, inicia sesión con tu cuenta." ||
+              response.data === "El correo ya está en uso con otra cuenta.") {
+            Swal.fire(
+              'Error',
+              response.data,
+              'error'
+            );
+          } else if (response.data === "Registro exitoso") {
+            // Registro exitoso
+            Swal.fire(
+              'Éxito',
+              'Registro exitoso',
+              'success'
+            ).then(() => {
+              this.$router.push('/inicioPsico');
+            });
+          } else {
+            // Otros mensajes del servidor
+            Swal.fire(
+              'Error',
+              'Error desconocido: ' + response.data,
+              'error'
+            );
+          }
+        })
+        .catch(error => {
+          // Error en la petición
+          console.error('Error en la petición:', error);
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al realizar el registro.',
+            'error'
+          );
+        });
+    },
+    hideBottomBorder() {
+      this.$refs.emailInput.style.borderBottom = 'none';
+    },
+    showBottomBorder() {
+      this.$refs.emailInput.style.borderBottom = '2px solid blue';
+    },
+    changeCursor() {
+      this.$refs.emailInput.style.cursor = 'text';
+    },
+    goToHome() {
+      this.$router.push('/');
+    }
+  }
+};
+</script>
   
     <style scoped>
   

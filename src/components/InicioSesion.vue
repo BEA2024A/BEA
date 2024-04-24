@@ -36,6 +36,7 @@
 <script>
 import axios from 'axios';
 import { mapActions } from 'vuex';
+import Swal from 'sweetalert2';
 
 export default {
   data() {
@@ -60,41 +61,47 @@ export default {
       }
     },
     postearLogin() {
-  const formData = new FormData();
-  formData.append('CORREO', this.email);
-  formData.append('CONTRASEÑA', this.password);
+      const formData = new FormData();
+      formData.append('CORREO', this.email);
+      formData.append('CONTRASEÑA', this.password);
 
-  axios.post('http://localhost/BEA/back/verificar_credenciales.php', formData)
-    .then(response => {
-      if (response.data.exito) {
-        this.$store.dispatch('iniciarSesion', {
-          nombre: response.data.nombreUsuario,
-          correo: response.data.correoUsuario,
-          a_paterno: response.data.a_paternoUsuario,
-          a_materno: response.data.a_maternoUsuario,
-          id: response.data.idUsuario,
-          tipo: response.data.tipoUsuario, // Agregamos el tipo de usuario
+      axios.post('http://localhost/BEA/back/verificar_credenciales.php', formData)
+        .then(response => {
+          if (response.data.exito) {
+            this.$store.dispatch('iniciarSesion', {
+              nombre: response.data.nombreUsuario,
+              correo: response.data.correoUsuario,
+              a_paterno: response.data.a_paternoUsuario,
+              a_materno: response.data.a_maternoUsuario,
+              id: response.data.idUsuario,
+              tipo: response.data.tipoUsuario, // Agregamos el tipo de usuario
+            });
+
+            // Redirige según el tipo de usuario
+            if (response.data.tipoUsuario === 'administrador') {
+              this.$router.push('/inicioPsico');
+            } else {
+              this.$router.push('/');
+            }
+          } else {
+            this.showErrorAlert('Correo electrónico o contraseña incorrectos.');
+            this.paso = 1;
+          }
+        })
+        .catch(error => {
+          console.error('Error en la petición:', error);
+          this.showErrorAlert('Ocurrió un error al intentar iniciar sesión.');
+          this.paso = 1;
         });
-
-        // Redirige según el tipo de usuario
-        if (response.data.tipoUsuario === 'administrador') {
-          this.$router.push('/inicioPsico');
-        } else {
-          this.$router.push('/');
-        }
-      } else {
-        alert('Correo electrónico o contraseña incorrectos.');
-        this.paso = 1;
-      }
-    })
-    .catch(error => {
-      console.error('Error en la petición:', error);
-      alert('Ocurrió un error al intentar iniciar sesión.');
-      this.paso = 1;
-    });
-},
-
-
+    },
+    showErrorAlert(message) {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: message,
+        confirmButtonText: 'Aceptar'
+      });
+    },
     hideBottomBorder() {
       this.$refs.emailInput.style.borderBottom = 'none';
     },
@@ -115,9 +122,6 @@ export default {
 </script>
 
 
-
-
-  
   <style scoped>
 
 @keyframes fadeIn {

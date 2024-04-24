@@ -45,6 +45,7 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
   data() {
@@ -61,31 +62,31 @@ export default {
   methods: {
     submit() {
       if (!/^\d{8}$/.test(this.id)) {
-        alert('ID debe contener 8 dígitos numéricos');
+        this.showAlert('Error', 'El ID debe contener 8 dígitos numéricos');
         return;
       }
       if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
-        alert('Nombre solo puede contener letras y espacios');
+        this.showAlert('Error', 'El nombre solo puede contener letras y espacios');
         return;
       }
       if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoPaterno)) {
-        alert('Apellido Paterno solo puede contener letras y espacios');
+        this.showAlert('Error', 'El Apellido Paterno solo puede contener letras y espacios');
         return;
       }
       if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoMaterno)) {
-        alert('Apellido Materno solo puede contener letras y espacios');
+        this.showAlert('Error', 'El Apellido Materno solo puede contener letras y espacios');
         return;
       }
       if (!this.email.endsWith('@anahuac.mx')) {
-        alert('El correo electrónico debe ser @anahuac.mx');
+        this.showAlert('Error', 'El correo electrónico debe ser @anahuac.mx');
         return;
       }
       if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
-        alert('Contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número');
+        this.showAlert('Error', 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número');
         return;
       }
       if (this.password !== this.confirmPassword) {
-        alert('Las contraseñas no coinciden');
+        this.showAlert('Error', 'Las contraseñas no coinciden');
         return;
       }
       // Preparar los datos para enviar al servidor
@@ -103,20 +104,30 @@ export default {
           // Manejar la respuesta del servidor
           if (response.data === "El ID ya está registrado. Por favor, inicia sesión con tu cuenta." ||
               response.data === "El correo ya está en uso con otra cuenta.") {
-            alert(response.data);
+            this.showAlert('Error', response.data);
           } else if (response.data === "Registro exitoso") {
             // Registro exitoso
-            this.$router.push('/iniciosesion');
+            this.showAlert('Éxito', 'Registro exitoso', 'success').then(() => {
+              this.$router.push('/iniciosesion');
+            });
           } else {
             // Otros mensajes del servidor
-            alert("Error desconocido: " + response.data);
+            this.showAlert('Error', 'Error desconocido: ' + response.data);
           }
         })
         .catch(error => {
           // Error en la petición
           console.error('Error en la petición:', error);
-          alert('Ocurrió un error al realizar el registro.');
+          this.showAlert('Error', 'Ocurrió un error al realizar el registro.');
         });
+    },
+    showAlert(title, text, icon = 'error') {
+      return Swal.fire({
+        title: title,
+        text: text,
+        icon: icon,
+        confirmButtonText: 'Aceptar'
+      });
     },
     hideBottomBorder() {
       this.$refs.emailInput.style.borderBottom = 'none';
@@ -133,6 +144,7 @@ export default {
   }
 };
 </script>
+
 
   <style scoped>
 
