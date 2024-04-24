@@ -185,13 +185,16 @@ export default {
   },
 
   mounted() {
+    if (this.usuario) {
     this.verificarEventosYNotificar();
     this.obtenerEventosUsuario();
+  }
   },
   methods: {
 
     eliminarNotificacion(index) {
   this.notificaciones.splice(index, 1);
+  this.$router.push('/horarioPsico');
 },
 
     obtenerEventosUsuario() {
@@ -449,23 +452,23 @@ export default {
   position: relative; /* Necesario para el pseudo-elemento */
 }
 
-/* Agregamos un pseudo-elemento para simular el efecto de pintado */
 .notificacion-menu::before {
-  content: "Eliminar"; /* Texto del pseudo-elemento */
+  content: "ver";
   position: absolute;
   top: 0;
   left: 0;
   width: 0;
   height: 100%;
-  background-color: #ff0000; /* Color de fondo inicial */
-  color: white; /* Color del texto */
+  background-color: #ff5900; 
+  color: white; 
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px; /* Tamaño de la fuente */
-  transition: width 0.3s ease; /* Transición para el ancho */
-  overflow: hidden; /* Oculta el texto cuando no se muestra completamente */
+  font-size: 14px; 
+  transition: width 0.3s ease; 
+  overflow: hidden; 
 }
+
 
 /* Al hacer hover, aumentamos el ancho del pseudo-elemento */
 .notificacion-menu:hover::before {

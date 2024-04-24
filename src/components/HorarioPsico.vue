@@ -1,5 +1,5 @@
 <template>
-  <plantilla>
+  <plantilla-psico>
     <div v-if="!usuario" class="overlay"></div>
     <div v-if="!usuario" class="modal-sesion">
       <h3>Necesitas iniciar sesión para ver tu calendario</h3>
@@ -33,12 +33,12 @@
         <FullCalendar :options="calendarOptions" />
       </div>
     </div>
-  </plantilla>
+  </plantilla-psico>
 </template>
 
 <script>
 import axios from "axios";
-import Plantilla from "./plantilla.vue";
+import PlantillaPsico from './plantillaPsico.vue';
 import FullCalendar from "@fullcalendar/vue3";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { mapGetters } from "vuex";
@@ -47,7 +47,7 @@ import esLocale from "@fullcalendar/core/locales/es";
 export default {
   components: {
     FullCalendar,
-    Plantilla,
+    PlantillaPsico,
   },
   data() {
     return {

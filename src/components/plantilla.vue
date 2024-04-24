@@ -196,13 +196,17 @@ export default {
   },
 
   mounted() {
+    if (this.usuario) {
     this.verificarEventosYNotificar();
     this.obtenerEventosUsuario();
+  }
   },
   methods: {
 
     eliminarNotificacion(index) {
   this.notificaciones.splice(index, 1);
+  this.$router.push('/horario');
+
 },
 
     obtenerEventosUsuario() {
@@ -212,8 +216,8 @@ export default {
           `http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idUsuario}`
         )
         .then((response) => {
-          this.eventosUsuario = response.data; // Modificado para asignar a eventosUsuario en lugar de calendarOptions.events
-          this.verificarEventosYNotificar(); // Llamamos a verificarEventosYNotificar para actualizar las notificaciones
+          this.eventosUsuario = response.data; 
+          this.verificarEventosYNotificar(); 
         })
         .catch((error) =>
           console.error("Hubo un error al obtener los eventos:", error)
@@ -268,12 +272,12 @@ export default {
 
         const hoy = this.obtenerFechaActual();
 
-        // Notificación un día antes del evento
+       
         if (unDiaAntes.toISOString().slice(0, 10) === hoy) {
           this.enviarNotificacion(evento.title, "Mañana");
         }
 
-        // Notificación el día del evento
+        
         if (evento.date === hoy) {
           this.enviarNotificacion(evento.title, "Hoy");
         }
@@ -286,7 +290,7 @@ export default {
     obtenerFechaActual() {
       const fechaActual = new Date();
       const dia = fechaActual.getDate();
-      const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+      const mes = fechaActual.getMonth() + 1; 
       const año = fechaActual.getFullYear();
       return `${año}-${mes < 10 ? "0" + mes : mes}-${
         dia < 10 ? "0" + dia : dia
@@ -295,6 +299,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 @keyframes slideIn {
@@ -456,29 +461,29 @@ export default {
 .notificacion-menu {
   padding: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, width 0.3s ease; /* Agregamos la transición para el color de fondo y el ancho */
-  position: relative; /* Necesario para el pseudo-elemento */
+  transition: background-color 0.3s ease, width 0.3s ease; 
+  position: relative; 
 }
 
-/* Agregamos un pseudo-elemento para simular el efecto de pintado */
+
 .notificacion-menu::before {
-  content: "Eliminar"; /* Texto del pseudo-elemento */
+  content: "ver";
   position: absolute;
   top: 0;
   left: 0;
   width: 0;
   height: 100%;
-  background-color: #ff0000; /* Color de fondo inicial */
-  color: white; /* Color del texto */
+  background-color: #ff5900; 
+  color: white; 
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px; /* Tamaño de la fuente */
-  transition: width 0.3s ease; /* Transición para el ancho */
-  overflow: hidden; /* Oculta el texto cuando no se muestra completamente */
+  font-size: 14px; 
+  transition: width 0.3s ease; 
+  overflow: hidden; 
 }
 
-/* Al hacer hover, aumentamos el ancho del pseudo-elemento */
+
 .notificacion-menu:hover::before {
   width: 100%;
 }
