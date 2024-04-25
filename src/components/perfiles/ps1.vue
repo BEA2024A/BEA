@@ -2,7 +2,8 @@
   <plantilla>
     <div class="contenido-pagina">
       <!-- Cabecera con animación de aparición -->
-      <div class="cabecera"  v-if="loaded" >
+      <div class="cabecerapsico" v-if="loaded" :style="{ backgroundImage: 'url(' + informacion.imagen_fondo + ')' }">
+        
         <!-- Lado izquierdo: Nombre y especialidad -->
         <div class="info-izquierda" ref="infoIzquierda">
           <h1>{{ informacion.nombre }}</h1>
@@ -71,7 +72,8 @@ export default {
         "poblacion": "",
         "formacion": "",
         "modalidad": "",
-        "imagen": ""
+        "imagen": "",
+        "imagen_fondo": "",
       }, 
 
       loaded:false,
@@ -140,27 +142,16 @@ export default {
 }
 
 
-.cabecera {
+.cabecerapsico {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100vh; /* Ajusta la altura al 100% del viewport */
-  
-}
-
-.cabecera::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('https://subjetivamente.cl/wp-content/uploads/2022/11/woman-g47b5f01f3_1920.jpg');
+  height: 100vh; /* Ajusta la altura al 100% del viewport */ 
   background-size: cover;
   background-position: center;
-  filter: brightness(0.5); /* Se aplica el filtro de oscuridad solo a la imagen de fondo */
 }
+
 
 /* Estilos para el contenido dentro de la cabecera */
 .info-izquierda{

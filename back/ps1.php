@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 $id = isset($_GET['id']) ? $_GET['id'] : die('ID not provided');
 
-$sql = "SELECT nombre, tipo, telefono, especialidad, direccion, poblacion, formacion, modalidad, imagen
+$sql = "SELECT nombre, tipo, telefono, especialidad, direccion, poblacion, formacion, modalidad, imagen, imagen_fondo
  FROM psicologos WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);

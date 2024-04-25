@@ -8,12 +8,7 @@
 
       
         <div class="burbuja">
-          <div v-if="usuarioYaRegistrado" class="overlay"></div>
-          <div v-if="usuarioYaRegistrado" class="modal-sesion">
-            <h3>Ya has agendado tu primera cita anteriormente</h3>
-            <button @click="$router.push('/seguimiento')">Administra tu seguimiento</button>
-            <button @click="$router.push('/')">Volver al inicio</button>
-          </div>
+          
 
           <div class="contenido-izquierda">
           <div :key="indiceDeTexto" v-if="!usuarioYaRegistrado" v-html="textoActual" class="texto-animado" @click="redirigirAFormulario"></div>
@@ -65,17 +60,7 @@ export default {
         this.$router.push('/autoayuda');
       }
     },
-    verificarCita() {
-      // Suposición: El ID del usuario está disponible y es el correcto
-      axios.get(`http://localhost/BEA/back/verificarCita.php?idUsuario=${this.usuario.id}`)
-        .then(response => {
-          if (response.data.hasCita) {
-            this.usuarioYaRegistrado = true; // Cambia el estado basado en la respuesta del backend
-          }
-        })
-        .catch(error => console.error("Error al verificar la cita:", error));
-    },
-
+   
 
     bloquearScroll() {
         document.body.style.overflow = 'hidden';
@@ -84,9 +69,7 @@ export default {
   mounted() {
     this.bloquearScroll();
     this.cambiarTexto();
-    if (this.usuario) {
-      this.verificarCita();
-    }
+   
   },
 };
 </script>

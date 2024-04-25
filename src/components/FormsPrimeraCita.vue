@@ -5,13 +5,7 @@
         <div class="leonel">
           <img src="http://localhost/BEA/back/uploads/Leonel%20Me%cc%81dico2.png" alt="Leonel Médico"/>
           <form @submit.prevent="enviarFormulario">
-            
-            
-           
-           
-          
-          
-          
+
             <div class="contenedor">
             <div class="burbuja">
               <!-- Contenido de burbuja para pregunta y botón -->
@@ -140,13 +134,27 @@ export default {
 
       axios.post('http://localhost/BEA/back/citas.php', formData)
         .then(response => {
+          this.enviarCorreoCita();
           this.$router.push('/agradecimiento');
         })
         .catch(error => {
           console.error('Error al enviar los datos:', error);
           alert('Ocurrió un error al enviar los datos.');
         });
-    }
+    },
+
+    enviarCorreoCita() {
+
+  axios.get(`http://localhost/BEA/back/enviar_correo_cita.php?idUsuario=${this.usuario.id}`)
+    .then(response => {
+      console.log('Correo de cita enviado exitosamente');
+    })
+    .catch(error => {
+      console.error('Error al enviar el correo de cita:', error);
+      alert('Ocurrió un error al enviar el correo de cita.');
+    });
+}
+
   },
 };
 </script>

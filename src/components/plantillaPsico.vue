@@ -204,8 +204,8 @@ export default {
           `http://localhost/BEA/back/obtenerEventosAdmin.php?idUsuario=${idUsuario}`
         )
         .then((response) => {
-          this.eventosUsuario = response.data; // Modificado para asignar a eventosUsuario en lugar de calendarOptions.events
-          this.verificarEventosYNotificar(); // Llamamos a verificarEventosYNotificar para actualizar las notificaciones
+          this.eventosUsuario = response.data; 
+          this.verificarEventosYNotificar(); 
         })
         .catch((error) =>
           console.error("Hubo un error al obtener los eventos:", error)
@@ -251,6 +251,8 @@ export default {
     cerrarSesionYCerrarMenu() {
       this.cerrarSesion();
       this.mostrarMenuUsuario = false;
+      this.$router.push('/iniciosesion');
+      
     },
     verificarEventosYNotificar() {
       this.eventosUsuario.forEach((evento) => {

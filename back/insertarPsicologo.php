@@ -20,8 +20,10 @@ $target_file = $target_dir . basename($imageFile);
 
 if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file)) {
     $imageUrl = 'http://localhost/BEA/back/uploads/' . basename($imageFile);
-
     
+    // Obtener el valor de la imagen de fondo seleccionada
+    $imagenFondo = $_POST['imagen_fondo'];
+
     $nombre = strtoupper($_POST['nombre']);
     $tipo = strtoupper($_POST['tipo']);
     $telefono = $_POST['telefono'];
@@ -31,11 +33,11 @@ if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file)) {
     $formacion = $_POST['formacion'];
     $modalidad = $_POST['modalidad'];
 
-    $sql = "INSERT INTO psicologos (nombre, tipo, telefono, especialidad, direccion, poblacion, formacion, modalidad, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO psicologos (nombre, tipo, telefono, especialidad, direccion, poblacion, formacion, modalidad, imagen, imagen_fondo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
     if ($stmt) {
-        $stmt->bind_param("sssssssss", $nombre, $tipo, $telefono, $especialidad, $direccion, $poblacion, $formacion, $modalidad, $imageUrl);
+        $stmt->bind_param("ssssssssss", $nombre, $tipo, $telefono, $especialidad, $direccion, $poblacion, $formacion, $modalidad, $imageUrl, $imagenFondo);
         $executed = $stmt->execute();
         if ($executed) {
             echo json_encode(["success" => true, "message" => "Psicólogo registrado con éxito", "imageUrl" => $imageUrl]);

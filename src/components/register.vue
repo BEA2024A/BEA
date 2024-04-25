@@ -105,6 +105,7 @@ export default {
           if (response.data === "El ID ya está registrado. Por favor, inicia sesión con tu cuenta." ||
               response.data === "El correo ya está en uso con otra cuenta.") {
             this.showAlert('Error', response.data);
+            this.$router.push('/iniciosesion');
           } else if (response.data === "Registro exitoso") {
             // Registro exitoso
             this.showAlert('Éxito', 'Registro exitoso', 'success').then(() => {

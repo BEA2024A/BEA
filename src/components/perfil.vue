@@ -43,13 +43,13 @@ export default {
   data() {
     return {
       perfil: {
-        NOMBRE: "",
-  APELLIDO_PATERNO: "",
-    APELLIDO_MATERNO: "",
-    CARRERA: "",
-    ID_ALUMNO: null,
-    MOTIVO: "",
-  EXPECTATIVA: ""
+      NOMBRE: "",
+      APELLIDO_PATERNO: "",
+      APELLIDO_MATERNO: "",
+      CARRERA: "",
+      ID_ALUMNO: null,
+      MOTIVO: "",
+      EXPECTATIVA: ""
       },
 
       comentarios:{

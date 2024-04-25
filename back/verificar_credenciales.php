@@ -18,7 +18,6 @@ if ($conn->connect_error) {
 $CORREO = $_POST['CORREO'];
 $CONTRASEÑA = hash('sha256', $_POST['CONTRASEÑA']);
 
-
 $CORREO = mysqli_real_escape_string($conn, $CORREO);
 $CONTRASEÑA = mysqli_real_escape_string($conn, $CONTRASEÑA);
 

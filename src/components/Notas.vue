@@ -1,253 +1,521 @@
 <template>
-  <div class="contenido-pagina">
-    <router-view></router-view>
-    
-    <!-- Sección de Autoayuda -->
-    <section class="banner-autoayuda">
-      <div class="fondo-autoayuda">
-        <img src="https://media.vogue.mx/photos/5dbc6b50b9285b0009b39d16/16:9/w_1920,h_1080,c_limit/Meditation004-vogueint-24oct19-GettyImages-.jpg" alt="Banner Autoayuda">
-      </div>
-      <div class="titulo-autoayuda">
-        <h1>AUTOAYUDA</h1>
-        <p>El cambio empieza por ti</p>
-      </div>
-      <!-- Botón de scroll-down -->
-      <button class="boton-scroll" @click="scrollDown">
-        <img class="icono-scroll" src="https://cdn-icons-png.freepik.com/512/9923/9923629.png" alt="Icono de scroll-down">
-      </button>
-    </section>
-    
-    <!-- Sección de Blog con Carrusel -->
-    <section class="seccion-blog">
-      <div class="titulo-blog">
-        <h3>Blogs de ayuda</h3>
-      </div>
-      <div class="busqueda-blog">
-        <select v-model="filtroBlogs.opcion" class="menu-busqueda">
-          <option value="nombre">Nombre</option>
-          <option value="autor">Autor</option>
-          <option value="tipo">Tipo</option>
-        </select>
-        <input type="text" v-model="busquedaBlogs" placeholder="Buscar..." class="campo-busqueda">
-      </div>
-      <div class="carrusel-blogs">
-        <carousel :itemsToShow="3" class="blogs-carousel">
-          <slide v-for="entrada in blogsFiltrados" :key="entrada.id">
-            <div class="carousel__item">
-              <p>{{ entrada.nombre }}</p> <!-- Mostramos el nombre del blog -->
-              <img :src="entrada.imagen" alt="Imagen del blog" class="imagen-blog">
-              <a :href="entrada.link" target="_blank" class="boton-leer">Leer más</a>
-            </div>
-          </slide>
-          <template #addons>
-            <navigation />
-          </template>
-        </carousel>
-      </div>
-    </section>
-    
-    <!-- Sección de Videos de Meditación -->
-    <section class="seccion-videos">
-      <div class="titulo-videos">
-        <h2>Relájate con estos videos de meditación</h2>
-      </div>
-      <div class="contenedor-videos">
-        <div class="video" v-for="(video, index) in videosToShow" :key="index">
-          <!-- Contenido del video -->
-          <div class="video-overlay-btn">
-            <button class="open-video-btn" @click="openVideo(video.link)"></button>
+  <plantillaPsico>
+    <div class="container">
+      <div class="contenido">
+        <div class="contenido-derecha">
+          <div class="perfil">
+            <img
+              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              alt="Foto de perfil"
+              class="imagen-perfil"
+            />
+            <h1>
+              {{ perfil.NOMBRE }} {{ perfil.APELLIDO_PATERNO }}
+              {{ perfil.APELLIDO_MATERNO }}
+            </h1>
+            <p>ID: 00{{ perfil.ID_ALUMNO }}</p>
+            <p>Carrera: {{ perfil.CARRERA }}</p>
+            <p>motivos de la cita: {{ perfil.MOTIVO }}</p>
+            <p>Expectativas para la terapia: {{ perfil.EXPECTATIVA }}</p>
           </div>
-          <iframe width="430" height="300" :src="video.link" frameborder="0" allowfullscreen></iframe>
         </div>
-      </div>
-      <!-- Botón "Ver más" -->
-      <button v-if="mostrarBotonVerMas" @click="cargarMasVideos">Ver más</button>
-    </section>
-    
-    <!-- Cuadro de superposición para el video -->
-    <div class="video-overlay" v-if="showVideo">
-      <div class="video-container">
-        <iframe width="800" height="500" :src="videoToPlay" frameborder="0" allowfullscreen></iframe>
-        <button class="close-video-btn" @click="closeVideo">
-          <img class="icono-cerrar" src="https://cdn-icons-png.flaticon.com/512/1828/1828774.png">
-        </button>
+
+        <div class="contenido-izquierda">
+          <!-- Contenido de hacer notas -->
+          <div v-if="mostrarHacer">
+            <div class="notas form-group">
+              <label for="numero-sesion">Número de sesión:</label>
+              <input
+                type="text"
+                id="numero-sesion"
+                v-model="ultimoNumeroSesion"
+                disabled
+              />
+            </div>
+            <div class="notas form-group">
+              <label for="fecha">Fecha:</label>
+              <input type="date" id="fecha" v-model="fecha" disabled />
+            </div>
+            <div class="form-group2" v-if="mostrarHacer">
+              <label for="editor">Notas:</label>
+              <div id="editor" class="quill-editor"></div>
+            </div>
+            <button @click="enviarNotas" class="boton">Enviar</button>
+            <button @click="showContent('leer')" class="boton">
+              leer notas
+            </button>
+            <button @click="showContent('agendar')" class="boton">
+              Agendar una cita
+            </button>
+          </div>
+
+          <!-- Contenido de agendar citas -->
+          <div v-if="mostrarAgendar">
+            <h2>Agendar Nuevo Evento</h2>
+            <div class="notas form-group">
+              <label for="fecha">Fecha:</label>
+              <input
+                type="date"
+                id="fecha"
+                v-model="nuevoEvento.fecha"
+                class="input"
+              />
+            </div>
+            <div class="notas form-group">
+              <label for="hora">Hora:</label>
+              <input
+                type="time"
+                id="hora"
+                v-model="nuevoEvento.hora"
+                class="input"
+              />
+            </div>
+            <button @click="agendarEventoAlumno" class="boton">Agendar</button>
+            <!--calendario-->
+            <div class="calendar-container">
+              <FullCalendar :options="calendarOptions" />
+            </div>
+            <button @click="showContent('hacer')" class="boton">
+              regresar
+            </button>
+          </div>
+
+          <!-- Contenido de leer notas -->
+
+          <div v-else-if="mostrarLeer">
+            <div class="notas form-group">
+              <label for="numero-sesion">Número de sesión:</label>
+              <input type="text" id="numero-sesion" v-model="numeroSesion" />
+            </div>
+            <div class="notas form-group">
+              <label for="fecha">Fecha:</label>
+              <input type="date" id="fecha" v-model="fecha" />
+            </div>
+
+            <div class="form-group">
+              <p>Notas anteriores</p>
+              <label for="editor"></label>
+              <div class="notas-container">
+                <div class="notas-content" v-html="notas"></div>
+              </div>
+            </div>
+
+            <button @click="solicitarNotas" class="boton">Solicitar</button>
+            <button @click="showContent('hacer')" class="boton">
+              regresar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Sección de Libros con Carrusel -->
-    <section class="seccion-libro">
-      <div class="titulo-libro">
-        <h3>Libros que te pueden ayudar</h3>
-      </div>
-      <div class="busqueda-libro">
-        <select v-model="filtroLibros.opcion" class="menu-busqueda">
-          <option value="nombre">Nombre</option>
-          <option value="autor">Autor</option>
-          <option value="tipo">Tipo</option>
-        </select>
-        <input type="text" v-model="busquedaLibros" placeholder="Buscar..." class="campo-busqueda">
-      </div>
-      <div class="carrusel-libro">
-        <carousel :itemsToShow="3" class="libro-carousel">
-          <slide v-for="entrada in librosFiltrados" :key="entrada.id">
-            <div class="carousel__item">
-              <img :src="entrada.imagen" alt="Imagen del libro" class="imagen-libro">
-              <a :href="entrada.link" target="_blank" class="boton-leer">Leer libro</a>
-            </div>
-          </slide>
-          <template #addons>
-            <navigation />
-          </template>
-        </carousel>
-      </div>
-    </section>
-
-    <section class="seccion-opciones">
-      <div class="mensaje-importante">
-        <h1>Recuerda que trabajar contigo mismo es importante</h1>
-        <p>en BEA nos queremos apoyarte a hacerlo</p>
-      </div>
-      <div class="opciones">
-        <div class="opcion">
-          <router-link to="/PrimeraCita">
-            <button class="boton-opcion">Agenda tu primera cita</button>
-          </router-link>
-        </div>
-        <div class="opcion">
-          <router-link to="/Seguimiento">
-            <button class="boton-opcion">Administra tu seguimiento</button>
-          </router-link>
-        </div>
-      </div>
-    </section>
-  </div>
+  </plantillaPsico>
 </template>
 
 <script>
-import axios from 'axios';
-import { Carousel, Slide, Navigation } from 'vue3-carousel';
+import plantillaPsico from "./plantillaPsico.vue";
+import axios from "axios";
+import { mapGetters } from "vuex";
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import esLocale from "@fullcalendar/core/locales/es";
+import Quill from "quill";
+import "quill/dist/quill.snow.css";
+import Swal from 'sweetalert2';
 
 export default {
   components: {
-    Carousel,
-    Slide,
-    Navigation,
+    FullCalendar,
+    plantillaPsico,
   },
   data() {
+    const fechaActual = new Date();
+    const dia = fechaActual.getDate();
+    const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+    const año = fechaActual.getFullYear();
+    const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${
+      dia < 10 ? "0" + dia : dia
+    }`;
+
     return {
-      showVideo: false,
-      videoToPlay: '',
-      filtroBlogs: {
-        opcion: 'nombre',
-        valor: ''
+      filtroNumeroSesion: "",
+    filtroFecha: "",
+      ultimoNumeroSesion: [],
+      calendarOptions: {
+        plugins: [dayGridPlugin],
+        initialView: "dayGridMonth",
+        headerToolbar: {
+          left: "prev,next",
+          center: "title",
+          right: "dayGridMonth,dayGridWeek,dayGridDay",
+        },
+        events: [],
+        locale: esLocale,
       },
-      filtroLibros: {
-        opcion: 'nombre',
-        valor: ''
+
+      perfil: {
+        NOMBRE: "",
+        APELLIDO_PATERNO: "",
+        APELLIDO_MATERNO: "",
+        CARRERA: "",
+        ID_ALUMNO: null,
+        MOTIVO: "",
+        EXPECTATIVA: "",
       },
-      busquedaBlogs: '',
-      busquedaLibros: '',
-      blog: [],
-      libro: [],
-      videos: [],
-      videosToShow: [],
-      startIndex: 0,
-      increment: 6
+
+      mostrarHacer: true,
+      mostrarLeer: false,
+      mostrarAgendar: false,
+      numeroSesion: "",
+      fecha: sysdate,
+      notas: "",
+      notasExistentes: [],
+      nuevoEvento: { titulo: "", fecha: "", hora: "", color: "#ff5900" },
+
+      quill: null,
+      quillOptions: {
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link"],
+            ["clean"],
+          ],
+        },
+        theme: "snow",
+      },
     };
   },
-  computed: {
-    blogsFiltrados() {
-      return this.blog.filter(entrada => {
-        const value = entrada[this.filtroBlogs.opcion];
-        return value && value.toLowerCase().includes(this.busquedaBlogs.toLowerCase());
-      });
-    },
-    librosFiltrados() {
-      return this.libro.filter(entrada => {
-        const value = entrada[this.filtroLibros.opcion];
-        return value && value.toLowerCase().includes(this.busquedaLibros.toLowerCase());
-      });
-    },
-    mostrarBotonVerMas() {
-      return this.videosToShow.length < this.videos.length;
-    }
-  },
+
   mounted() {
-    this.cargarBlogs();
-    this.cargarLibros();
-    this.cargarVideos();
+
+    this.cargarDatosAlumno();
+    this.cargarNotas();
+    this.obtenerEventosUsuario();
+    this.obtenerUltimoNumeroSesion();
+    
+
+    const mostrarAgendar = localStorage.getItem("mostrarAgendar");
+
+    if (mostrarAgendar === "true") {
+      this.mostrarAgendar = true;
+      this.mostrarHacer = false;
+
+      localStorage.removeItem("mostrarAgendar");
+    }
+
+    this.quill = new Quill("#editor", this.quillOptions);
+    this.quill.root.style.width = "100%";
+  this.quill.root.style.overflowWrap = "break-word";
   },
+
+  computed: {
+    ...mapGetters(["usuario"]),
+  },
+
   methods: {
-    cargarBlogs() {
-      axios.get('http://localhost/bea/back/obtener_materiales_blog.php')
-        .then(response => {
-          this.blog = response.data;
+
+    obtenerUltimoNumeroSesion() {
+      const idAlumno = this.$route.params.id;
+      axios
+        .get(`http://localhost/bea/back/cargarNotas.php?idAlumno=${idAlumno}`)
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            const ultimoNumeroSesion = Math.max(
+              ...response.data.map((nota) => nota.numeroSesion)
+            );
+            this.ultimoNumeroSesion = ultimoNumeroSesion + 1;
+          } else {
+            this.ultimoNumeroSesion = 1;
+          }
+          if (this.ultimoNumeroSesion > 4) {
+  // Si el último número de sesión es mayor a 4, mostrar la notificación
+  Swal.fire({
+    title: '¡Atención!',
+    text: 'El número de citas con este alumno ha sido completado.',
+    icon: 'info',
+    showCancelButton: false,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Regresar al inicio'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Si el usuario confirma, redirigir a la sección de leer notas anteriores
+      this.$router.push('/iniciopsico');
+    }
+
+  });
+}
         })
-        .catch(error => {
-          console.error('Error al cargar los blogs:', error);
-          alert('Error al cargar los blogs. Por favor, inténtalo de nuevo más tarde.');
+        .catch((error) => {
+          console.error("Error al cargar las notas del alumno:", error);
         });
     },
-    cargarLibros() {
-      axios.get('http://localhost/bea/back/obtener_materiales_libro.php')
-        .then(response => {
-          this.libro = response.data;
+
+    obtenerEventosUsuario() {
+      const idUsuario = this.usuario.id;
+      axios
+        .get(
+          `http://localhost/BEA/back/obtenerEventosAdmin.php?idUsuario=${idUsuario}`
+        )
+        .then((response) => {
+          this.calendarOptions.events = response.data;
         })
-        .catch(error => {
-          console.error('Error al cargar los libros:', error);
-          alert('Error al cargar los libros. Por favor, inténtalo de nuevo más tarde.');
+        .catch((error) =>
+          console.error("Hubo un error al obtener los eventos:", error)
+        );
+    },
+
+    cargarDatosAlumno() {
+      const idAlumno = this.$route.params.id;
+      axios
+        .get(`http://localhost/bea/back/notas-perfil.php?idAlumno=${idAlumno}`)
+        .then((response) => {
+          this.perfil = response.data;
+        })
+        .catch((error) => {
+          console.error("Error al cargar los datos del alumno:", error);
         });
     },
-    cargarVideos() {
-      axios.get('http://localhost/bea/back/obtener_materiales_video.php')
-        .then(response => {
-          this.videos = response.data;
-          this.cargarMasVideos();
+
+    cargarNotas() {
+      const idAlumno = this.$route.params.id;
+      axios
+        .get(`http://localhost/bea/back/cargarNotas.php?idAlumno=${idAlumno}`)
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            this.notasExistentes = response.data.map((nota) => ({
+              numeroSesion: nota.numeroSesion.toString(),
+              fecha: nota.fecha,
+              contenido: nota.contenido,
+            }));
+          } else {
+            console.error("La respuesta del servidor está vacía.");
+          }
         })
-        .catch(error => {
-          console.error('Error al cargar los videos:', error);
-          alert('Error al cargar los videos. Por favor, inténtalo de nuevo más tarde.');
+        .catch((error) => {
+          console.error("Error al cargar las notas del alumno:", error);
         });
     },
-    cargarMasVideos() {
-      const end = Math.min(this.startIndex + this.increment, this.videos.length);
-      this.videosToShow = this.videos.slice(this.startIndex, end);
-      this.startIndex = end;
+
+    showContent(option) {
+      if (option === "hacer") {
+        window.location.reload();
+      } else if (option === "leer") {
+        this.mostrarHacer = false;
+        this.mostrarLeer = true;
+        this.fecha = null;
+        this.numeroSesion = "";
+        this.solicitarNotas();
+      } else if (option === "agendar") {
+        this.mostrarHacer = false;
+        this.mostrarLeer = false;
+        this.mostrarAgendar = true;
+      }
     },
-    scrollDown() {
-      window.scrollBy({
-        top: window.innerHeight, 
-        behavior: 'smooth' 
-      });
+    enviarNotas() {
+  const contenidoQuill = this.quill.root.innerHTML;
+
+  if (!contenidoQuill || contenidoQuill.trim() === "") {
+    Swal.fire(
+      'Error',
+      'No se puede enviar una nota vacía.',
+      'error'
+    );
+    return;
+  }
+
+  // Obtener el último número de sesión
+  const ultimoNumeroSesion = this.ultimoNumeroSesion;
+  const fechaActual = new Date();
+    const dia = fechaActual.getDate();
+    const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+    const año = fechaActual.getFullYear();
+    const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${
+      dia < 10 ? "0" + dia : dia
+    }`;
+  // Agregar el título al inicio del contenido de la nota
+  const titulo = `<h3>Notas Sesión ${ultimoNumeroSesion} fecha: ${sysdate}  </h3>`;
+  const contenidoConTitulo = titulo + contenidoQuill;
+
+  const formData = new FormData();
+  formData.append("numero_sesion", ultimoNumeroSesion);
+  formData.append("fecha", this.fecha);
+  formData.append("contenido", contenidoConTitulo);
+  formData.append("id_administrador", this.$store.state.usuario.id);
+  formData.append("id_alumno", this.$route.params.id);
+
+  axios
+    .post("http://localhost/bea/back/guardar-nota.php", formData)
+    .then((response) => {
+      Swal.fire(
+        'Éxito',
+        'Nota enviada exitosamente.',
+        'success'
+      );
+
+      this.mostrarAgendar = true;
+      this.mostrarHacer = false;
+      this.numeroSesion = "";
+      this.fecha = "";
+
+      this.quill.setText("");
+    })
+    .catch((error) => {
+      
+      console.error("Error en la petición:", error);
+    });
+},
+
+solicitarNotas() {
+ 
+  let notasFiltradas = this.notasExistentes;
+
+
+  if (this.numeroSesion) {
+    notasFiltradas = notasFiltradas.filter(
+      (nota) => nota.numeroSesion === this.numeroSesion
+    );
+  }
+
+  if (this.fecha) {
+    notasFiltradas = notasFiltradas.filter(
+      (nota) => nota.fecha === this.fecha
+    );
+  }
+
+  if (notasFiltradas.length > 0) {
+    
+    this.notas = notasFiltradas.map((nota) => nota.contenido).join("");
+  } else {
+    
+    this.notas =
+      "<p>No se encontraron notas para los criterios de búsqueda proporcionados.</p>";
+  }
+},
+
+
+    agendarEventoAlumno() {
+      if (!this.nuevoEvento.fecha || !this.nuevoEvento.hora) {
+        Swal.fire(
+          'Error',
+          'Por favor completa todos los campos.',
+          'error'
+        );
+        return;
+      } else if (
+        this.nuevoEvento.fecha < new Date().toISOString().slice(0, 10)
+      ) {
+        Swal.fire(
+          'Error',
+          'La fecha del evento no puede ser menor a la fecha actual.',
+          'error'
+        );
+        return;
+      }
+
+      const horaSeleccionada = new Date(`01/01/2000 ${this.nuevoEvento.hora}`);
+      const horaInicio = new Date(`01/01/2000 09:00`);
+      const horaFin = new Date(`01/01/2000 18:00`);
+
+      if (horaSeleccionada < horaInicio || horaSeleccionada > horaFin) {
+        Swal.fire(
+          'Error',
+          'Por favor selecciona un horario entre las 9:00 a.m. y las 6:00 p.m.',
+          'error'
+        );
+        return;
+      }
+
+      const tituloAlumno = "Cita con " + this.usuario.nombre;
+
+      const formDataAlumno = new FormData();
+      formDataAlumno.append("id_usuario", this.$route.params.id);
+      formDataAlumno.append("titulo", tituloAlumno);
+      formDataAlumno.append("fecha", this.nuevoEvento.fecha);
+      formDataAlumno.append("hora", this.nuevoEvento.hora);
+      formDataAlumno.append("color", this.nuevoEvento.color);
+      formDataAlumno.append("id_administrador", this.$store.state.usuario.id);
+
+      axios
+        .post("http://localhost/bea/back/guardar-evento.php", formDataAlumno)
+        .then((response) => {
+          // Una vez que se agrega el evento para el alumno, se activa el método para agregarlo para el administrador
+          this.agendarEventoAdmin(tituloAlumno);
+        })
+        .catch((error) => {
+          console.error("Error al agendar el evento para el alumno:", error);
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al agendar el evento para el alumno.',
+            'error'
+          );
+        });
     },
-    openVideo(videoLink) {
-      this.showVideo = true;
-      this.videoToPlay = videoLink;
-    },
-    closeVideo() {
-      this.showVideo = false;
-      this.videoToPlay = '';
+
+    agendarEventoAdmin(tituloAlumno) {
+      if (!this.perfil || !this.perfil.NOMBRE) {
+        console.error("No se ha cargado correctamente el perfil del alumno.");
+        Swal.fire(
+          'Error',
+          'Ocurrió un error al cargar el perfil del alumno.',
+          'error'
+        );
+        return;
+      }
+
+      const tituloAdmin = "Cita con " + this.perfil.NOMBRE;
+
+      const formDataAdmin = new FormData();
+      formDataAdmin.append("id_alumno", this.$route.params.id);
+      formDataAdmin.append("titulo", tituloAdmin);
+      formDataAdmin.append("fecha", this.nuevoEvento.fecha);
+      formDataAdmin.append("hora", this.nuevoEvento.hora);
+      formDataAdmin.append("color", this.nuevoEvento.color);
+      formDataAdmin.append("id_administrador", this.$store.state.usuario.id);
+
+      axios
+        .post(
+          "http://localhost/bea/back/guardar-evento-admin.php",
+          formDataAdmin
+        )
+        .then((response) => {
+          Swal.fire(
+            'Éxito',
+            'Eventos agendados exitosamente.',
+            'success'
+          );
+          // Reiniciar el objeto nuevoEvento
+          this.nuevoEvento = {
+            titulo: "",
+            fecha: "",
+            hora: "",
+            color: "",
+          };
+          // Recargar la página con mostrarAgendar establecido en true
+          localStorage.setItem("mostrarAgendar", "true");
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error(
+            "Error al agendar el evento para el administrador:",
+            error
+          );
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al agendar el evento para el administrador.',
+            'error'
+          );
+        });
     },
   },
 };
 </script>
 
-
-
 <style scoped>
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-50px); 
+    transform: translateY(-50px);
   }
   to {
     opacity: 1;
@@ -255,551 +523,210 @@ export default {
   }
 }
 
-@keyframes bounce{
-  0% {transform: translateY(0);}
-  40%{transform: translateY(-20px);}
-  60%{transform: translateY(-10px);}
-  80%{transform: translateY(-20px);}
-  100%{transform: translateY(0);}
-}
-/*BANNER*/
-.banner-autoayuda {
-  position: relative;
-  height: 100vh; 
-  margin-top: 0px;
-}
 
-.fondo-autoayuda {
-  overflow: hidden;
-}
 
-.fondo-autoayuda img {
+.perfil {
+  font-family: Arial, sans-serif;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(50%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.titulo-autoayuda {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-align: center;
-  z-index: 1; 
-}
-
-.titulo-autoayuda h1 {
-  font-size: 50px;
-  margin: 0;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-}
-.titulo-autoayuda p {
-  font-size: 18px;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards 0.5s;
-}
-
-.boton-scroll {
-  position: absolute;
-  bottom: 120px; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  right: 50%; 
-  transform: translateY(-50%); 
-  background-color: rgba(240, 248, 255, 0.603); 
-  border: none;
-  border-radius: 50%; 
-  width: 60px;
-  height: 60px; 
-  font-size: 24px; 
-  color: #000; 
-  cursor: pointer; 
-  transition: background-color 0.3s; 
-  transition: transform 0.3s;
-  animation: bounce 2s infinite;
-}
-.icono-scroll {
-  margin-top: 3px;
-  width: 40px; 
-  height: 40px; 
-  transition: transform 0.3s;
-}
-
-.icono-scroll:hover{
-  transform: scale(1.2);
-}
-
-.boton-scroll:hover {
-  background-color: rgba(200, 220, 255, 0.8); 
-  transform: scale(1.2);
-}
-
-
-/* BLOG */
-.seccion-blog {
-  text-align: center;
-  margin: 40px 0;
-  margin-top: 120px;
   padding: 20px;
-  background-image: url('https://somospsicoterapia.es/images/blog/inconsciente.jpg');
-  background-size: cover;
-  background-position: center;
-  color: white; 
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  top: 0;
+  text-align: justify;
+  background-color: #fdfdfd;
 }
 
-.seccion-blog p{
-  color:#000;
-  font-size: 20px;
-}
-
-
-.titulo-blog {
-  font-size: 24px;
+.perfil p {
   margin-bottom: 30px;
-  background-color: rgba(0, 0, 0, 0.5); 
-  display: inline-block;
-  padding: 10px;
-  border-radius: 5px;
+  font-size: 1.2rem;
+  color: #666;
+  text-align: justify;
 }
 
-/* Estilos para el carrusel */
-
-
-.blogs-carousel .carousel__item {
-  background-color: rgba(255, 255, 255, 0.8); 
-  color: var(--vc-clr-white); 
-  font-size: 20px; 
-  border-radius: 20px; 
-  justify-content: center; 
-  align-items: center; 
-  padding: 16px 24px; 
-  margin: 0 10px 20px; 
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+.imagen-perfil {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.imagen-blog {
-  width: 100%; 
-  height: 200px; 
-  object-fit: cover; 
-  border-radius: 5px;
-  margin-bottom: 15px;
-  
+.perfil h1 {
+  font-size: 2rem;
+  margin-top: 0;
+  color: #444;
+  text-align: center;
 }
 
-.boton-leer {
-  background-color: #3f271b;
-  color: #ffffff;
-  padding: 10px 15px;
-  border-radius: 5px;
+.contenido {
+  flex: 1;
+  display: flex;
+}
+
+.contenido-derecha {
+  flex: 30%;
+}
+
+.contenido-izquierda {
+  flex: 82%;
+  padding-right: 60px;
+  padding-left: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  animation: slideIn 0.5s ease forwards;
+  color: #fdfdfd;
+}
+
+.boton {
+  top: 10px;
+  bottom: 20px;
+  border: none;
+  background-color: #423a38;
+  color: white;
+  padding: 10px 20px; /* Ajustar el padding para hacer los botones más pequeños */
+  text-align: center;
   text-decoration: none;
-  align-self: center;
+  display: inline-block;
+  font-size: 14px; /* Reducir el tamaño del texto */
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
   margin-top: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  max-width: 150px; /* Ajustar el ancho máximo del botón */
+  transition: background-color 0.3s ease;
 }
 
-.vue3-carousel-navigation-wrapper {
+/* Estilo base */
+
+.container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  background-image: linear-gradient(to bottom, #ff5900, #c21c02); 
+  z-index: -9999;
 }
 
-.vue3-carousel-navigation-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* LIBRO */
-.seccion-libro {
-  text-align: center;
-  margin: 40px 0;
-  margin-top: 120px;
-  padding: 20px;
-  background-image: url('https://somospsicoterapia.es/images/blog/inconsciente.jpg');
-  background-size: cover;
-  background-position: center;
-  color: white; 
-}
-
-.seccion-libro p{
-  color:#000;
-  font-size: 20px;
-}
-
-
-.titulo-libro {
-  font-size: 24px;
-  margin-bottom: 30px;
-  background-color: rgba(0, 0, 0, 0.5); 
-  display: inline-block;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* Estilos para el carrusel */
-
-
-.carrusel-libro .carousel__item {
-  min-height: 300px; 
-  width: 200px; 
-  background-color: rgba(255, 255, 255, 0.8); 
-  color: var(--vc-clr-white); 
-  font-size: 20px; 
-  border-radius: 20px; 
-  justify-content: center; 
-  align-items: center; 
-  padding: 16px 24px; 
-  margin: 0 10px 20px; 
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.imagen-libro {
-  width: 100%; 
-  height: 200px; 
-  object-fit: cover; 
-  border-radius: 5px;
-  margin-bottom: 15px;
-  
-}
-
-.boton-leer {
-  background-color: #3f271b;
-  color: #ffffff;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  align-self: center;
-  margin-top: 15px;
-}
-
-.vue3-carousel-navigation-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.vue3-carousel-navigation-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.campo-busqueda {
-  margin: 20px auto;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 50px;
-  width: calc(100% - 20px);
-  box-sizing: border-box;
-  font-size: 16px;
-  margin-left: 24px;
-  margin-right: 100px;
-}
-
-.campo-busqueda:focus {
-  outline: none;
-  box-shadow: 0 0 3px 0 #fc5e25;
-}
-
-
-/* VIDEOS */
-.seccion-videos {
-  text-align: center;
-  margin-top: 50px;
-  padding-top: 20px;
-}
-
-.titulo-videos h2 {
-  border: 1px ; 
-  border-radius: 10px; 
-  padding: 30px; 
-  margin-left: 60px; 
-  margin-right: 60px; 
-  background-color: #ff5900;
-  transition: transform 0.3s ease;
-  color:aliceblue;
-}
-
-.titulo-videos h2:hover{
-  transform: translateY(-5px);
-}
-
-.contenedor-videos {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
-}
-
-.video {
-  margin: 20px;
+.notas-container {
+  width: 900px; /* Tamaño fijo del contenedor */
+  height: 420px; /* Tamaño fijo del contenedor */
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+  border: 1px solid #ccc; /* Agrega un borde para mayor claridad */
+  padding: 5px; /* Espacio interno para separar el contenido del borde */
   border-radius: 10px;
-  position: relative; 
-  transition: transform 0.6s ease;
-  padding-bottom: 20px;
-}
-
-.video:hover {
-  transform: scale(1.1);
-}
-
-.video-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; 
-}
-
-.video-overlay-btn {
-  position: absolute; 
-  top: 0;
-  left: 0;
-  width: 100%; 
-  height: 100%; 
-}
-
-.video-container {
-  position: relative;
-  width: 80%; 
-  max-width: 1080px; 
-}
-
-.close-video-btn {
-  position: absolute;
-  bottom: 0%;
-  left: 50%; 
-  transform: translateX(-50%); 
-  z-index: 10000; 
-  margin-bottom: -100px;
-  position: absolute;
-  background-color: rgba(240, 248, 255, 0.603); 
-  border-radius: 50%; 
-  width: 60px; 
-  height: 60px; 
-  font-size: 24px; 
-  color: #000; 
-  cursor: pointer; 
-  transition: background-color 0.3s; 
-  transition: transform 0.3s; 
-}
-
-
-.icono-cerrar{
-  margin-top: 7px;
-  width: 30px; 
-  height: 30px; 
-  transition: transform 0.3s;
-}
-
-.icono-cerrar:hover{
-  transform: scale(1.2);
-}
-
-.open-video-btn {
-  width: 100%; 
-  height: 100%;
-  padding: 0;
-  font-size: 16px;
-  background-color: transparent; 
-  border: none;
-  color: white;
-  cursor: pointer;
-  z-index: 1; 
-  opacity: 0.7; 
-  transition: opacity 0.3s; 
-}
-
-.open-video-btn:hover {
-  opacity: 1; 
-}
-
-/* MENSAJE */
-.seccion-opciones {
-  text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
- padding: 20px;
-  animation: slideIn 4s ease forwards;
-  background-color:#ff5900;
-  color:#ffffff;
-}
-
-.mensaje-importante p {
-  text-align: center;
-  font-size:22px;
-}
-
-.opciones {
-  display: flex;
-  justify-content: center;
-}
-.opcion {
-  margin:30px;
-}
-.boton-opcion {
-  padding: 20px 20px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  background-color: white;
+  margin: 0 auto; /* Centra horizontalmente */
   font-size: 18px;
-  background-color: #3f271b;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-@media (max-width: 639px) {
-
-/*BANNER*/
-.banner-autoayuda {
-  position: relative;
-  height: 30vh; 
-  margin-top: 0px;
-}
-.titulo-autoayuda h1 {
-  font-size: 30px;
-}
-.titulo-autoayuda p {
-  font-size: 14px;
-}
-.boton-scroll {
-  display:none;
 }
 
-/*BLOGS */
-.seccion-blog {
-  margin-top: 15px;
+.notas-content {
+  text-align: justify; /* Aplica la alineación justificada */
+  padding: 10px; /* Agrega espacio alrededor del texto */
+  color: black;
 }
 
-.titulo-blog {
-  text-align: center;
-  font-size:20px;
+/* Espaciado para los elementos internos */
+
+.notas.form-group {
+  display: inline-block;
+  width: calc(50% - 100px);
 }
 
-.entrada-blog img {
-  width: 100%;
-  height: 250px; 
-  object-fit: cover; 
+
+
+.form-group2 {
+  background-color: white;
+  padding: 10px;
   border-radius: 10px;
+  color: black;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+}
+
+.notas label {
+  display: block;
   margin-bottom: 10px;
-  
 }
 
-/* VIDEOS */
-.seccion-videos {
-  margin-top: 30px;
-  padding-top: 20px;
-}
-
-.titulo-videos h2 {
-  padding: 10px; 
-  margin-left: 30px; 
-  margin-right: 30px; 
-}
-
-.video {
-  margin: 10px;
-  border-radius: 10px;
-  position: relative; 
-  transition: transform 0.6s ease;
-  padding-bottom: 20px;
-}
-
-.video-overlay-btn {
-  display:none;
-}
-
-iframe{
-  width: 350px;
-  height: 200px;
-}
-
-/* MENSAJE */
-.seccion-opciones {
-  text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
- padding: 20px;
-  animation: slideIn 4s ease forwards;
-  background-image: url("https://somospsicoterapia.es/images/blog/inconsciente.jpg");
-  color: rgb(0, 0, 0);
-}
-
-.mensaje-importante p {
-  text-align: center;
-  font-size:22px;
-}
-
-.opciones {
-  display: flex;
-  justify-content: center;
-}
-
-.opcion {
-  margin:30px;
-}
-
-.boton-opcion {
-  padding: 20px 20px;
+.notas input[type="text"] {
+  max-width: 20%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
   font-size: 18px;
-  background-color: #3f271b;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+  text-align: center;
+}
+
+.notas input[type="date"] {
+  max-width: 40%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+  text-align: center;
+}
+
+.notas input[type="time"] {
+  max-width: 45%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+}
+
+.quill-editor {
+
+  height: 400px; 
+
+}
+
+.notas > :last-child {
+  margin-bottom: 10px;
+  color: black;
+}
+
+.calendar-container {
+  max-width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   transition: 0.3s ease;
-}
-}
-
-/* Estilos para la sección de búsqueda de blogs */
-.busqueda-blog {
-  margin-bottom: 20px;
-  border-radius: 50px;
+  animation: slideIn 0.5s ease forwards;
+  padding: 10px;
+  color: black;
+  margin-top: 20px;
 }
 
-.menu-busqueda {
-  margin-right: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  border-radius: 50px;
+.fc .fc-button-group > .fc-button {
+  margin-right: 50px;
 }
 
-.campo-busqueda {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-  border-radius: 50px;
+.fc .fc-button-group > .fc-button:last-child {
+  margin-right: 0;
 }
 
-/* Estilos para la sección de búsqueda de libros */
-.busqueda-libro {
-  margin-bottom: 20px;
-  border-radius: 50px;
+.fc .fc-button {
+  padding: 8px 120px;
 }
 
-.menu-busqueda {
-  margin-right: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  border-radius: 50px;
+.fc-header-toolbar {
+  margin-bottom: 30px;
 }
-
-.campo-busqueda {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-  border-radius: 50px;
-}
-
 </style>

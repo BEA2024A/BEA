@@ -20,8 +20,8 @@ export default createStore({
     },
   },
   actions: {
-    iniciarSesion({ commit }, usuario, correo, id, a_paterno, a_materno) {
-      commit('setUsuario', usuario, correo, id, a_paterno, a_materno);
+    iniciarSesion({ commit }, usuario, correo, id, a_paterno, a_materno, tipo) {
+      commit('setUsuario', usuario, correo, id, a_paterno, a_materno, tipo);
     },
     cerrarSesion({ commit }) {
       commit('clearUsuario');
