@@ -52,14 +52,26 @@
 <section class="seccion-videos">
   <div class="titulo-videos">
     <h2>Relájate con estos videos de meditación</h2>
-    <div class="contenedor-videos">
-      <div class="video" v-for="(video, index) in videos" :key="index">
-        <div class="video-overlay-btn">
-          <button class="open-video-btn" @click="openVideo(video.link)"></button>
-        </div>
-        <iframe width="430" height="300" :src="video.link" frameborder="0" allowfullscreen></iframe>
+    <div class="busqueda-videos">
+        <select v-model="filtroVideos.opcion" class="menu-busqueda">
+          <option value="nombre">Nombre</option>
+          <option value="autor">Autor</option>
+          <option value="tipo">Tipo</option>
+        </select>
+        <input type="text" v-model="busquedaVideos" placeholder="Buscar..." class="campo-busqueda">
       </div>
+      <div class="contenedor-videos">
+    <div class="video" v-for="(video, index) in videosFiltrados.slice(0, videosPorPagina)" :key="index">
+    <div class="video-overlay-btn">
+      <button class="open-video-btn" @click="openVideo(video.link)"></button>
     </div>
+    <iframe width="430" height="300" :src="video.link" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <div class="botones-container">
+  <button @click="cargarMasVideos" class="ver-mas-btn">Ver más</button>
+  <button @click="cargarMenosVideos" class="ver-menos-btn">Ver menos</button>
+  </div>
+  </div>
   </div>
 </section>
 
@@ -140,6 +152,7 @@ export default {
   },
   data() {
     return {
+      videosPorPagina: 6,
       showVideo: false,
       videoToPlay: '',
       filtroBlogs: {
@@ -150,8 +163,13 @@ export default {
         opcion: 'nombre',
         valor: ''
       },
+      filtroVideos: {
+        opcion: 'nombre',
+        valor: ''
+      },
       busquedaBlogs: '',
       busquedaLibros: '',
+      busquedaVideos: '',
       blog: [],
       libro: [],
       videos: [],
@@ -164,6 +182,14 @@ export default {
         return value && value.toLowerCase().includes(this.busquedaBlogs.toLowerCase());
       });
     },
+    videosFiltrados() {
+  return this.videos.filter(video => {
+    const value = video[this.filtroVideos.opcion];
+    console.log('Value:', value);
+    console.log('Busqueda:', this.busquedaVideos);
+    return value && value.toLowerCase().includes(this.busquedaVideos.toLowerCase());
+  });
+},
     librosFiltrados() {
       return this.libro.filter(entrada => {
         const value = entrada[this.filtroLibros.opcion];
@@ -178,6 +204,12 @@ export default {
     this.desbloquearScroll();
   },
   methods: {
+    cargarMasVideos() {
+    this.videosPorPagina += 3;
+  },
+  cargarMenosVideos() {
+    this.videosPorPagina -= 3;
+  },
     cargarBlogs() {
       axios.get('http://localhost/bea/back/obtener_materiales_blog.php')
         .then(response => {
@@ -199,15 +231,16 @@ export default {
         });
     },
     cargarVideos() {
-      axios.get('http://localhost/bea/back/obtener_materiales_video.php')
-        .then(response => {
-          this.videos = response.data; 
-        })
-        .catch(error => {
-          console.error('Error al cargar los videos:', error);
-          this.showErrorAlert('Error al cargar los videos. Por favor, inténtalo de nuevo más tarde.');
-        });
-    },
+  axios.get('http://localhost/bea/back/obtener_materiales_video.php')
+    .then(response => {
+      this.videos = response.data;
+      console.log(this.videos); // Verifica la estructura de los datos recibidos
+    })
+    .catch(error => {
+      console.error('Error al cargar los videos:', error);
+      this.showErrorAlert('Error al cargar los videos. Por favor, inténtalo de nuevo más tarde.');
+    });
+},
     desbloquearScroll() {
       document.body.style.overflow = 'auto';
     },
@@ -805,4 +838,28 @@ iframe{
   border-radius: 50px;
 }
 
+.botones-container {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.ver-mas-btn,
+.ver-menos-btn {
+  background-color: #ff7d37; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 10px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.ver-mas-btn:hover,
+.ver-menos-btn:hover {
+  background-color: #ff5900; 
+}
 </style>

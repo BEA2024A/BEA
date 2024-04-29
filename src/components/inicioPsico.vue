@@ -35,7 +35,7 @@
         <input type="text" v-model="filtro.valor" placeholder="Buscar...">
         </section>
         <div class="profile-cards">
-          <div v-for="(alumno, index) in alumnosFiltrados" :key="index" class="card" v-on:mouseenter="mostrarDescripcion(alumno, true)" v-on:mouseleave="mostrarDescripcion(alumno, false)">
+          <div v-for="(alumno, index) in alumnosFiltrados.slice(0, cantidadMostrada)" :key="index" class="card" v-on:mouseenter="mostrarDescripcion(alumno, true)" v-on:mouseleave="mostrarDescripcion(alumno, false)">
             <img v-bind:src="alumno.imagen" alt="Foto de perfil">
             <div class="descripcion-alumno" v-bind:class="{ 'mostrar-descripcion': alumno.mostrarDescripcion }">
               <h3>{{ alumno.nombre }}</h3>
@@ -45,16 +45,19 @@
               <p><button v-on:click="redirigirPerfil(alumno.notas)">Notas</button></p>
             </div>
           </div>
+          <div class="botones-container">
+          <button v-if="alumnosFiltrados.length> cantidadMostrada" @click="cargarMas" class="ver-mas-btn"> Ver más </button>
+          <button v-if="alumnosFiltrados.length> cantidadMostrada" @click="cargarMenos" class="ver-menos-btn"> Ver menos </button>
+          </div>
         </div>
       </section>
 
   </plantilla-psico>
 </template>
-
 <script>
 import PlantillaPsico from './plantillaPsico.vue';
 import axios from 'axios';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -71,14 +74,10 @@ export default {
         valor: ''
       },
       loaded: false,
+      cantidadInicial: 8, 
+      incrementoCarga: 4, 
+      cantidadMostrada: 8, 
     };
-  },
-
-  mounted() {
-    setTimeout(() => {
-      this.loaded = true;
-    }, 5);
-    this.cargarAlumnos();
   },
 
   computed: {
@@ -96,43 +95,56 @@ export default {
     },
     ...mapGetters(['usuario']),
   },
+
+  mounted() {
+    setTimeout(() => {
+      this.loaded = true;
+    }, 5);
+    this.cargarAlumnos();
+  },
+
   methods: {
-   cargarAlumnos() {
-      if (this.usuario && this.usuario.id) {
-        axios.get(`http://localhost/BEA/back/perfilesAlumnos.php?idPsicologo=${this.usuario.id}`)
-          .then(response => {
-            this.alumnos = response.data.map(alumno => ({
-              ...alumno,
-              perfil: `/perfil/${alumno.ide}`, 
-              notas: `/Notas/${alumno.ide}` 
-            }));
-          })
-          .catch(error => {
-            console.error("Error al cargar datos de los alumnos:", error);
-          });
-      }
-    },
+    cargarAlumnos() {
+  if (this.usuario && this.usuario.id) {
+    axios.get(`http://localhost/BEA/back/perfilesAlumnos.php?idPsicologo=${this.usuario.id}`)
+      .then(response => {
+        this.alumnos = response.data.map(alumno => ({
+          ...alumno,
+          perfil: `/perfil/${alumno.ide}`,
+          notas: `/Notas/${alumno.ide}`,
+          mostrarDescripcion: false,
+        }));
+        this.cantidadMostrada = this.cantidadInicial;
+      })
+      .catch(error => {
+        console.error('Error al cargar los alumnos:', error);
+      });
+  }
+},
+
     redirigirPerfil(perfil) {
       this.$router.push(perfil);
     },
+
     mostrarDescripcion(alumno, mostrar) {
       alumno.mostrarDescripcion = mostrar;
     },
-    filtrarAlumnos() {
+
+    cargarMas() {
+      this.cantidadMostrada += this.incrementoCarga;
     },
-    scrollDown() {
-      window.scrollBy({
-        top: window.innerHeight,
-        behavior: 'smooth'
-      });
+    cargarMenos() {
+    this.cantidadMostrada -= this.incrementoCarga;
+    if (this.cantidadMostrada < this.cantidadInicial) {
+      this.cantidadMostrada = this.cantidadInicial;
     }
+  },
+    
   }
 };
 </script>
 
-
-  <style>
-
+<style scoped>
 @keyframes fadeIn {
   from {
     opacity: 0; /* Opacidad inicial */
@@ -450,4 +462,30 @@ export default {
   .menu:focus {
     outline: none;
   }
-  </style>
+
+  .botones-container {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.ver-mas-btn,
+.ver-menos-btn {
+  background-color: #ff7d37; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 10px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.ver-mas-btn:hover,
+.ver-menos-btn:hover {
+  background-color: #ff5900; 
+}
+
+</style>
