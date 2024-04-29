@@ -91,6 +91,8 @@ if (to.path === '/primeracita' && tipoUsuario && tipoUsuario === 'administrador'
   next('/inicioPsico');
 }else if (to.path === '/agradecimiento' && tipoUsuario && tipoUsuario === 'administrador') {
   next('/inicioPsico');
+}else if (to.path === '/' && tipoUsuario && tipoUsuario === 'administrador') {
+  next('/inicioPsico');
 }
 
 

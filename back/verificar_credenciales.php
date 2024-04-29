@@ -15,6 +15,7 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
+
 $CORREO = $_POST['CORREO'];
 $CONTRASEÑA = hash('sha256', $_POST['CONTRASEÑA']);
 
@@ -34,6 +35,7 @@ if ($result->num_rows > 0) {
         'idUsuario' => $fila['ID_ALUMNO'],
         'a_paternoUsuario' => $fila['APELLIDO_PATERNO'],
         'a_maternoUsuario' => $fila['APELLIDO_MATERNO'],
+        'foto_perfilUsuario' => $fila['foto_perfil'],
         'tipoUsuario' => 'usuario',
     ]);
 } else {
@@ -50,6 +52,7 @@ if ($result->num_rows > 0) {
             'idUsuario' => $filaAdmin['ID_ALUMNO'],
             'a_paternoUsuario' => $filaAdmin['APELLIDO_PATERNO'],
             'a_maternoUsuario' => $filaAdmin['APELLIDO_MATERNO'],
+            'foto_perfilUsuario' => $filaAdmin['foto_perfil'],
             'tipoUsuario' => 'administrador',
         ]);
     } else {

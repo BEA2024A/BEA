@@ -43,10 +43,10 @@ $NOMBRE = $_POST['NOMBRE'];
 $APELLIDO_PATERNO = $_POST['APELLIDO_PATERNO'];
 $APELLIDO_MATERNO = $_POST['APELLIDO_MATERNO'];
 $CONTRASEÑA = hash('sha256', $_POST['CONTRASEÑA']);
+$FOTO_PERFIL = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'; // URL de la imagen de perfil predeterminada
 
-
-$sql = "INSERT INTO registro (ID_ALUMNO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, CORREO, CONTRASEÑA) 
-VALUES ('$ID_ALUMNO', '$NOMBRE', '$APELLIDO_PATERNO', '$APELLIDO_MATERNO', '$CORREO', '$CONTRASEÑA')";
+$sql = "INSERT INTO registro (ID_ALUMNO, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, CORREO, CONTRASEÑA, foto_perfil) 
+VALUES ('$ID_ALUMNO', '$NOMBRE', '$APELLIDO_PATERNO', '$APELLIDO_MATERNO', '$CORREO', '$CONTRASEÑA', '$FOTO_PERFIL')";
 
 if ($conn->query($sql) === TRUE) {
     echo "Registro exitoso";

@@ -5,10 +5,7 @@
       <!-- Logo -->
       <div class="logo">
         <router-link to="/inicioPsico" class="enlace-navegacion">
-          <img
-            src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png"
-            alt="Logo Anáhuac"
-          />
+          <img src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png" alt="Logo Anáhuac" />
         </router-link>
       </div>
 
@@ -19,48 +16,38 @@
         <div class="linea"></div>
       </div>
 
-  <!-- Secciones -->
-  <div class="secciones-navegacion" :class="{ 'mostrar-menu': mostrarMenu }">
+      <!-- Secciones -->
+      <div class="secciones-navegacion" :class="{ 'mostrar-menu': mostrarMenu }">
         <router-link to="/HorarioPsico" class="enlace-navegacion">Horarios</router-link>
         <router-link to="/insertar_psicologos" class="enlace-navegacion">agregar nuevo psicologo</router-link>
-        <router-link to="/agregarAdministrador" class="enlace-navegacion">agregar nuevo administrador</router-link> 
+        <router-link to="/agregarAdministrador" class="enlace-navegacion">agregar nuevo administrador</router-link>
         <router-link to="/Materiales" class="enlace-navegacion">Admistrar Materiales</router-link>
       </div>
 
       <!-- Botón de Inicio de Sesión, solo visible si no hay usuario logueado -->
       <div class="boton-inicio-sesion" v-if="!usuario">
         <button @click="abrirEnlace('/iniciosesion')">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/58/58950.png"
-            class="inicio-sesion-icono"
-          />
+          <img src="https://cdn-icons-png.flaticon.com/512/58/58950.png" class="inicio-sesion-icono" />
         </button>
       </div>
 
       <!-- Botón de Usuario Logueado y Menú Desplegable -->
-      <div
-        v-if="usuario"
-        class="usuario-menu-contenedor"
-        @click="toggleUsuarioMenu"
-        ref="menuUsuario"
-      >
+      <div v-if="usuario" class="usuario-menu-contenedor" @click="toggleUsuarioMenu" ref="menuUsuario">
         <div class="usuario-menu">
           <!-- Texto "Tu Perfil" al lado izquierdo de la imagen -->
           <div class="texto-usuario">{{ usuario.nombre }}</div>
-         
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1361/1361728.png"
-            alt="Usuario"
-            class="icono-usuario"
-          />
-           <!-- Mostrar notificaciones aquí -->
-           <div class="notificaciones-contenedor">
-            <div class="notificaciones" :style="{ backgroundColor: numNotificaciones === 0 ? 'grey' : 'red' }">{{ numNotificaciones }} </div>
+
+          <img :src="usuario.foto_perfil" alt="Usuario" class="icono-usuario" />
+          <!-- Mostrar notificaciones aquí -->
+          <div class="notificaciones-contenedor">
+            <div class="notificaciones" :style="{ backgroundColor: numNotificaciones === 0 ? 'grey' : 'red' }">{{
+        numNotificaciones }} </div>
           </div>
         </div>
         <div class="menu-perfil">
           <div v-if="mostrarMenuUsuario" class="menu-usuario">
-            <div class="notificacion-menu" v-if="notificaciones.length > 0" v-for="(notificacion, index) in notificaciones":key="index" @click="eliminarNotificacion(index)">
+            <div class="notificacion-menu" v-if="notificaciones.length > 0"
+              v-for="(notificacion, index) in notificaciones" :key="index" @click="eliminarNotificacion(index)">
               {{ notificacion }}
             </div>
             <div v-else class="texto-menu">No hay nuevas notificaciones.</div>
@@ -80,10 +67,7 @@
       <div class="contenido-pie">
         <!-- Imagen a la derecha -->
         <div class="derecha-pie">
-          <img
-            src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png"
-            alt="Logo Anáhuac"
-          />
+          <img src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png" alt="Logo Anáhuac" />
         </div>
 
         <!-- Información de contacto -->
@@ -100,25 +84,15 @@
 
         <!-- Enlaces a Aviso de Privacidad y Compendio Reglamentario como botones -->
         <div class="botones-pie">
-          <button
-            v-for="(enlace, texto) in enlacesPie"
-            :key="texto"
-            class="boton-pie"
-            @click="abrirEnlace(enlace)"
-          >
+          <button v-for="(enlace, texto) in enlacesPie" :key="texto" class="boton-pie" @click="abrirEnlace(enlace)">
             {{ texto }}
           </button>
         </div>
 
         <!-- Botones de redes sociales como botones -->
         <div class="botones-sociales-pie">
-          <button
-            v-for="(botonSocial, index) in botonesSociales"
-            :key="index"
-            class="boton-pie"
-            @click="abrirEnlace(botonSocial.enlace)"
-            target="_blank"
-          >
+          <button v-for="(botonSocial, index) in botonesSociales" :key="index" class="boton-pie"
+            @click="abrirEnlace(botonSocial.enlace)" target="_blank">
             <img :src="botonSocial.icono" alt="Icono de red social" />
           </button>
         </div>
@@ -177,7 +151,7 @@ export default {
       return this.notificaciones;
     },
 
-    
+
 
     urlRedireccion() {
       return this.usuario ? "/perfil_alumno" : "/iniciosesion";
@@ -186,16 +160,16 @@ export default {
 
   mounted() {
     if (this.usuario) {
-    this.verificarEventosYNotificar();
-    this.obtenerEventosUsuario();
-  }
+      this.verificarEventosYNotificar();
+      this.obtenerEventosUsuario();
+    }
   },
   methods: {
 
     eliminarNotificacion(index) {
-  this.notificaciones.splice(index, 1);
-  this.$router.push('/horarioPsico');
-},
+      this.notificaciones.splice(index, 1);
+      this.$router.push('/horarioPsico');
+    },
 
     obtenerEventosUsuario() {
       const idUsuario = this.usuario.id;
@@ -204,8 +178,8 @@ export default {
           `http://localhost/BEA/back/obtenerEventosAdmin.php?idUsuario=${idUsuario}`
         )
         .then((response) => {
-          this.eventosUsuario = response.data; 
-          this.verificarEventosYNotificar(); 
+          this.eventosUsuario = response.data;
+          this.verificarEventosYNotificar();
         })
         .catch((error) =>
           console.error("Hubo un error al obtener los eventos:", error)
@@ -252,7 +226,7 @@ export default {
       this.cerrarSesion();
       this.mostrarMenuUsuario = false;
       this.$router.push('/iniciosesion');
-      
+
     },
     verificarEventosYNotificar() {
       this.eventosUsuario.forEach((evento) => {
@@ -282,9 +256,8 @@ export default {
       const dia = fechaActual.getDate();
       const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
       const año = fechaActual.getFullYear();
-      return `${año}-${mes < 10 ? "0" + mes : mes}-${
-        dia < 10 ? "0" + dia : dia
-      }`;
+      return `${año}-${mes < 10 ? "0" + mes : mes}-${dia < 10 ? "0" + dia : dia
+        }`;
     },
   },
 };
@@ -296,6 +269,7 @@ export default {
     opacity: 1;
     transform: translateY(-5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -393,7 +367,6 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  filter: invert(1);
   transition: filter 0.3s ease;
 }
 
@@ -410,8 +383,9 @@ export default {
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: -20px; 
-  left: calc(50% - 10px); /* Mitad del ancho del círculo */
+  bottom: -20px;
+  left: calc(50% - 10px);
+  /* Mitad del ancho del círculo */
   font-size: 12px;
   z-index: 1;
 }
@@ -430,6 +404,7 @@ export default {
   animation: slideIn 0.3s ease forwards;
   margin-top: 17px;
 }
+
 .texto-menu {
   padding: 10px;
   cursor: pointer;
@@ -450,8 +425,10 @@ export default {
 .notificacion-menu {
   padding: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, width 0.3s ease; /* Agregamos la transición para el color de fondo y el ancho */
-  position: relative; /* Necesario para el pseudo-elemento */
+  transition: background-color 0.3s ease, width 0.3s ease;
+  /* Agregamos la transición para el color de fondo y el ancho */
+  position: relative;
+  /* Necesario para el pseudo-elemento */
 }
 
 .notificacion-menu::before {
@@ -461,14 +438,14 @@ export default {
   left: 0;
   width: 0;
   height: 100%;
-  background-color: #ff5900; 
-  color: white; 
+  background-color: #ff5900;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px; 
-  transition: width 0.3s ease; 
-  overflow: hidden; 
+  font-size: 14px;
+  transition: width 0.3s ease;
+  overflow: hidden;
 }
 
 
@@ -484,6 +461,7 @@ export default {
   color: white;
   padding: 30px;
 }
+
 .contenido-pie {
   display: flex;
   flex-wrap: wrap;
@@ -493,13 +471,16 @@ export default {
 .derecha-pie img {
   max-height: 80px;
 }
+
 .contacto-pie p {
   margin: 10px;
 }
+
 .botones-pie {
   display: flex;
   flex-direction: column;
 }
+
 .boton-pie {
   background-color: #000000;
   color: white;
@@ -509,10 +490,12 @@ export default {
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
 .botones-sociales-pie img {
   max-height: 35px;
   margin-right: 5px;
 }
+
 .botones-sociales-pie button {
   background: none;
   border: none;
@@ -571,6 +554,7 @@ export default {
     position: relative;
     cursor: pointer;
   }
+
   /*******/
 
   .boton-inicio-sesion {
@@ -637,7 +621,8 @@ export default {
     width: 15px;
     height: 15px;
     bottom: -3px;
-    left: calc(50% - 8px); /* Mitad del ancho del círculo */
+    left: calc(50% - 8px);
+    /* Mitad del ancho del círculo */
   }
 
   .usuario-menu-contenedor {
@@ -678,7 +663,8 @@ export default {
     width: 15px;
     height: 15px;
     bottom: -3px;
-    left: calc(50% - 8px); /* Mitad del ancho del círculo */
+    left: calc(50% - 8px);
+    /* Mitad del ancho del círculo */
   }
 
   .botones-pie {

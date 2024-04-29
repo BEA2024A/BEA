@@ -74,7 +74,8 @@ export default {
               a_paterno: response.data.a_paternoUsuario,
               a_materno: response.data.a_maternoUsuario,
               id: response.data.idUsuario,
-              tipo: response.data.tipoUsuario, // Agregamos el tipo de usuario
+              tipo: response.data.tipoUsuario, 
+              foto_perfil: response.data.foto_perfilUsuario,
             });
 
             // Redirige según el tipo de usuario

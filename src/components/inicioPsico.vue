@@ -13,7 +13,7 @@
      
         <div class="imagen-derecha" ref="imagenDerecha">
           <div class="circulo-con-sombra">
-            <img :src="imagenPsicologo[0]" alt="Imagen del psicoterapeuta">
+            <img :src="usuario.foto_perfil" alt="Imagen del psicoterapeuta">
           </div>
         </div>
 
@@ -66,9 +66,7 @@ export default {
   data() {
     return {
       alumnos: [],
-      imagenPsicologo: [
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-      ],
+      
       filtro: {
         opcion: 'nombre',
         valor: ''
@@ -144,7 +142,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @keyframes fadeIn {
   from {
     opacity: 0; /* Opacidad inicial */

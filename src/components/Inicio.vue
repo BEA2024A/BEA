@@ -14,19 +14,18 @@
         </div>
       </section>
       <div class="fondo-psicologos">
-      <section class="seccion-psicologos">
-        <h1>Psicólogos Asociados</h1>
-        <div class="profile-cards">
-          <div v-for="(psicologo, index) in psicologos" :key="index" class="card" @mouseenter="psicologo.mostrarDescripcion = true" @mouseleave="psicologo.mostrarDescripcion = false">
-            <img :src="psicologo.imagen" alt="Foto de perfil">
-            <div class="descripcion-psicologo" :class="{ 'mostrar-descripcion': psicologo.mostrarDescripcion }">
-              <h3>{{ psicologo.nombre }}</h3>
-              <p class="title">{{ psicologo.puesto }}</p>
-              <button @click="redirigirPerfil(psicologo.perfil)">Perfil</button>
+        <section class="seccion-psicologos">
+          <h1>Psicólogos Asociados</h1>
+          <div class="profile-cards">
+            <div v-for="(psicologo, index) in psicologos" :key="index" class="card" @mouseenter="psicologo.mostrarDescripcion = true" @mouseleave="psicologo.mostrarDescripcion = false" @click="redirigirPerfil(psicologo.perfil)">
+              <img :src="psicologo.imagen" alt="Foto de perfil">
+              <div class="descripcion-psicologo" :class="{ 'mostrar-descripcion': psicologo.mostrarDescripcion }">
+                <h3>{{ psicologo.nombre }}</h3>
+                <p class="title">{{ psicologo.puesto }}</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
     </div>
     </div>
   </plantilla>
@@ -222,44 +221,47 @@ export default {
   flex-wrap: wrap;
 }
 
-  .card {
-    text-align: center;
-    transition: transform 0.3s ease;
-    position: relative;
-  }
-  .card:hover {
-    transform: scale(1.02);
-  }
-  .card img {
+.card {
+  text-align: center;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+.card:hover {
+  transform: scale(1.02);
+}
+.card img {
   border-radius: 10px;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
-    width: 100%;
-    height: 250px; 
-    object-fit: cover; 
-    animation: slideIn 1s ease forwards;
-  }
-  .descripcion-psicologo {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(19, 17, 17, 0.562);
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-    color :rgb(255, 255, 255);
-  }
-  .mostrar-descripcion {
-    opacity: 1;
-  }
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  animation: slideIn 1s ease forwards;
+  cursor: pointer;
+}
+.descripcion-psicologo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(19, 17, 17, 0.562);
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.descripcion-psicologo p {
+  color:#ffffff;
+}
+
+
+.mostrar-descripcion {
+  opacity: 1;
+}
   
-  button {
-    background-color: #fcfcfc;
-    font-size: 18px;
-    color:black;
-  }
 
 
 /* RESPONSIVIDAD*/

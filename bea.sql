@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-04-2024 a las 19:21:07
+-- Tiempo de generación: 29-04-2024 a las 11:03:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -36,16 +36,17 @@ CREATE TABLE `administradores` (
   `APELLIDO_PATERNO` varchar(60) NOT NULL,
   `APELLIDO_MATERNO` varchar(60) NOT NULL,
   `CORREO` varchar(60) NOT NULL,
-  `CONTRASEÑA` varchar(255) DEFAULT NULL
+  `CONTRASEÑA` varchar(255) DEFAULT NULL,
+  `foto_perfil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `administradores`
 --
 
-INSERT INTO `administradores` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`) VALUES
-(123456, 'administrador', 'de', 'psicologia', 'antoniogc984@gmail.com', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(567890, 'psicologo', 'numero', 'uno', 'tadeo_martinez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da');
+INSERT INTO `administradores` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`, `foto_perfil`) VALUES
+(123456, 'administrador', 'de', 'psicologia', 'antoniogc984@gmail.com', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(567890, 'psicologo', 'numero', 'uno', 'tadeo_martinez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
 
 -- --------------------------------------------------------
 
@@ -236,10 +237,8 @@ CREATE TABLE `notas` (
 --
 
 INSERT INTO `notas` (`id_nota`, `numero_sesion`, `fecha`, `contenido`, `id_administrador`, `id_alumno`) VALUES
-(2399, 1, '2024-04-22', '<p>fehghtererhahawrgehta</p>', 123456, 446027),
-(2400, 2, '2024-04-22', '<p>htjyrh5ee5htryrk53eu</p>', 123456, 446027),
-(2401, 3, '2024-04-22', '<p>ewtj6etwetrt424y3</p>', 123456, 446027),
-(2402, 4, '2024-04-22', '<p>hrjt5hj3j534j544554j</p>', 123456, 446027);
+(2403, 1, '2024-04-29', '<h3>Notas Sesión 1 fecha: 2024-04-29  </h3><p><strong style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Lorem Ipsum</strong><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">&nbsp;es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</span></p><h2><br></h2><p class=\"ql-align-justify\"><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, \"consecteur\", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de \"de Finnibus Bonorum et Malorum\" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45</span></p><p><br></p>', 123456, 446027),
+(2404, 2, '2024-04-29', '<h3>Notas Sesión 2 fecha: 2024-04-29  </h3><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce et augue molestie neque pulvinar feugiat.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Vestibulum elementum metus ac est mollis feugiat.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Donec tincidunt tellus eget mauris congue, quis congue lacus faucibus.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Donec eget augue ac ante ullamcorper auctor eu ac sapien.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Integer a elit sit amet tellus accumsan consequat.</span></li></ol><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\"><br></p><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Integer semper nisl id luctus consectetur.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Aliquam in ipsum convallis, sagittis lorem quis, pulvinar nulla.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Sed cursus arcu sed lectus tincidunt, sit amet vulputate ipsum elementum.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce id nulla nec orci fringilla facilisis.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Suspendisse sed nibh sed nulla placerat fermentum quis sit amet orci.</span></li></ol><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\"><br></p><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce sollicitudin lorem pulvinar tincidunt condimentum.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Quisque in sapien sed nibh fermentum dictum ut a dolor.</span></li></ol><p><br></p>', 123456, 446027);
 
 -- --------------------------------------------------------
 
@@ -258,22 +257,23 @@ CREATE TABLE `psicologos` (
   `poblacion` varchar(255) NOT NULL,
   `formacion` text NOT NULL,
   `modalidad` varchar(50) NOT NULL,
-  `imagen` varchar(255) NOT NULL
+  `imagen` varchar(255) NOT NULL,
+  `imagen_fondo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `psicologos`
 --
 
-INSERT INTO `psicologos` (`id`, `nombre`, `tipo`, `telefono`, `especialidad`, `direccion`, `poblacion`, `formacion`, `modalidad`, `imagen`) VALUES
-(1, 'DRA. ELVIRA GOPAR CANSECO', 'TERAPIA HUMANISTA', '9511096372', 'Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica, tallerista y conferencista.', 'Independencia 305, interior 105', 'Niños, adolescentes, adultos y pareja.', 'Licenciada en Psicología. Cédula Profesional: 6092318 Maestría en Psicoterapia Humanista. Cédula Profesional: 9475952 Maestría en Sexualidad Humana. Cédula Profesional: 12274318 Doctorado en Psicología, por el Instituto Universitario Carl Rogers, Puebla.', 'Presencial / Virtual', 'https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png'),
-(2, 'MTRA. KENIA GARCÍA GUTIÉRREZ', 'TERAPIA GESTALT', '9515792158', 'Atención psicoterapéutica y seguimiento psicológico a pacientes psiquiátricos, evaluación neuropsicológica, evaluaciones psicológicas y de la personalidad, talleres y pláticas de neuroeducación emocional.', 'Prolongación Eucaliptos 102, San Felipe del Agua', 'Adolescentes y adultos', 'Licenciada en Psicología por la Universidad Regional del Sureste. Cédula profesional: 4594859 Maestría en Educación Emocional por la Universidad Anáhuac Mx Sur. Cédula profesional: En trámite Especialidad en Psicoterapia Gestalt, Centro Gestalt Oaxaca. Cédula Profesional: 7730994', 'Presencial / Virtual', 'https://i.postimg.cc/BZNJVVw2/MTRA-KENIA-GARC-A-GUTI-RREZ.png'),
-(3, 'MTRA. SYLVIA GUTIÉRREZ CANDIANI', 'TERAPIA COGNITIVO CONDUCTUAL', '9512165928', 'Evaluación y diagnóstico en adolescentes y psicoterapia', 'Privada de Rafael Osuna 448, Colonia Olímpica', 'Adolescentes y adultos', 'Licenciada en Psicología por la Universidad Anáhuac de Oaxaca Cédula Profesional: 10503063 Maestría en psicología adolescente por el Instituto Miguel de Cervantes Cédula Profesional: 12948167', 'Presencial / Virtual', 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png'),
-(4, 'LIC. MARÍA GODARD ZAPATA', 'TERAPIA HUMANISTA', '9511885535 (pre', 'Especialidad en Psicoterapia Gestalt, en Tanatología y en Constelaciones Familiares de la Terapia Sistémica, problemas personales y familiares así como laborales, alcoholismo y drogadicción, pérdidas de diferente tipo, orientación sexual, aborto, divorcio, entre otros.', 'Calzada del Panteón 511 San Felipe del Agua C.P. 68020', 'Adolescentes, adultos, adultos mayores, personas en cualquier tipo de duelo y parejas', 'Lic. en Pedagogía por el Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 3172500 Especialidad en Psicoterapia Gestalt y tanatología por el Centro de Desarrollo Humano y Psicoterapia Gestalt. Cédula Profesional: 4110728', 'Presencial / Virtual', 'https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png'),
-(5, 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', 'PSIQUIATRA DE ENLACE', '9515144801', 'Médico Psiquiatra', 'Calle Jazmines 509, Oaxaca de Juarez, Oaxaca', 'Niños, adolescentes y adultos', 'Psiquiatra por la Universidad Lasalle de México. Cédula profesional: 1733398', 'Presencial / Virtual', 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png'),
-(6, 'DR. JORGE LUIS CORTÉS LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9512257283', 'Médico Psiquiatra, posgraduado en el Instituto Nacional de Psiquiatría \'Ramón de la Fuente\'', 'Colón 421, Centro Oaxaca', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 4968848 Especialidad en Psiquiatría por la Universidad Nacional Autónoma de México Cédula Profesional: 6982040.', 'Presencial / Virtual', 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png'),
-(7, 'DR. VIRGILIO SANTIAGO LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9515178666', 'Médico Cirujano especialista en Psiquiatría', 'Emilio Carranza No. 1112 Clínica Neurociencias del Sureste, Col. Reforma', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 2809422 Especialidad en Psiquiatría, Universidad Nacional Autónoma de Mexico. Cédula Profesional: 5777340', 'Presencial / Virtual', 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png'),
-(9, 'MTRA. LAURA LORENA HERNÁNDEZ VELASCO', 'TERAPIA HUMANISTA', '9515701076', 'Práctica privada en atención a niños, adolescentes y adultos en psicodiagnóstico y psicoterapia, psicoterapia individual y de pareja, cursos y talleres.', 'Manuel Sabino Crespo No.524 Interior E.', 'Niños, adolescentes y adultos', 'Lic. en Psicología. Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 2910361 Maestra en Educación y desarrollo cognitivo. Instituto Tecnológico de Estudios Superiores de Monterrey. Cédula Profesional: 10444914 Posgrado en Psicopatología Clínica. Universidad de Barcelona. Diplomado en Neuropsicología. Universidad Complutense de Madrid.', 'Presencial / Virtual', 'https://i.postimg.cc/653BJfDg/MTRA-LAURA-LORENA-HERN-NDEZ-VELASCO.png');
+INSERT INTO `psicologos` (`id`, `nombre`, `tipo`, `telefono`, `especialidad`, `direccion`, `poblacion`, `formacion`, `modalidad`, `imagen`, `imagen_fondo`) VALUES
+(1, 'DRA. ELVIRA GOPAR CANSECO', 'TERAPIA HUMANISTA', '9511096372', 'Orientación Psicopedagógica, psicoterapia, docente, intervención tanatológica, tallerista y conferencista.', 'Independencia 305, interior 105', 'Niños, adolescentes, adultos y pareja.', 'Licenciada en Psicología. Cédula Profesional: 6092318 Maestría en Psicoterapia Humanista. Cédula Profesional: 9475952 Maestría en Sexualidad Humana. Cédula Profesional: 12274318 Doctorado en Psicología, por el Instituto Universitario Carl Rogers, Puebla.', 'Presencial / Virtual', 'https://i.postimg.cc/NFNY2Krd/DRA-ELVIRA-GOPAR-CANSECO.png', 'http://localhost/BEA/back/uploads/uno.png'),
+(2, 'MTRA. KENIA GARCÍA GUTIÉRREZ', 'TERAPIA GESTALT', '9515792158', 'Atención psicoterapéutica y seguimiento psicológico a pacientes psiquiátricos, evaluación neuropsicológica, evaluaciones psicológicas y de la personalidad, talleres y pláticas de neuroeducación emocional.', 'Prolongación Eucaliptos 102, San Felipe del Agua', 'Adolescentes y adultos', 'Licenciada en Psicología por la Universidad Regional del Sureste. Cédula profesional: 4594859 Maestría en Educación Emocional por la Universidad Anáhuac Mx Sur. Cédula profesional: En trámite Especialidad en Psicoterapia Gestalt, Centro Gestalt Oaxaca. Cédula Profesional: 7730994', 'Presencial / Virtual', 'https://i.postimg.cc/BZNJVVw2/MTRA-KENIA-GARC-A-GUTI-RREZ.png', 'http://localhost/BEA/back/uploads/dos.jpg'),
+(3, 'MTRA. SYLVIA GUTIÉRREZ CANDIANI', 'TERAPIA COGNITIVO CONDUCTUAL', '9512165928', 'Evaluación y diagnóstico en adolescentes y psicoterapia', 'Privada de Rafael Osuna 448, Colonia Olímpica', 'Adolescentes y adultos', 'Licenciada en Psicología por la Universidad Anáhuac de Oaxaca Cédula Profesional: 10503063 Maestría en psicología adolescente por el Instituto Miguel de Cervantes Cédula Profesional: 12948167', 'Presencial / Virtual', 'https://i.postimg.cc/SRQkK6jX/MTRA-SYLVIA-GUTI-RREZ-CANDIANI.png', 'http://localhost/BEA/back/uploads/tres.png'),
+(4, 'LIC. MARÍA GODARD ZAPATA', 'TERAPIA HUMANISTA', '9511885535 (pre', 'Especialidad en Psicoterapia Gestalt, en Tanatología y en Constelaciones Familiares de la Terapia Sistémica, problemas personales y familiares así como laborales, alcoholismo y drogadicción, pérdidas de diferente tipo, orientación sexual, aborto, divorcio, entre otros.', 'Calzada del Panteón 511 San Felipe del Agua C.P. 68020', 'Adolescentes, adultos, adultos mayores, personas en cualquier tipo de duelo y parejas', 'Lic. en Pedagogía por el Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 3172500 Especialidad en Psicoterapia Gestalt y tanatología por el Centro de Desarrollo Humano y Psicoterapia Gestalt. Cédula Profesional: 4110728', 'Presencial / Virtual', 'https://i.postimg.cc/Hx9THZWD/LIC-MAR-A-GODARD-ZAPATA.png', 'http://localhost/BEA/back/uploads/uno.png'),
+(5, 'DR. JORGE G. JIMÉNEZ SÁNCHEZ', 'PSIQUIATRA DE ENLACE', '9515144801', 'Médico Psiquiatra', 'Calle Jazmines 509, Oaxaca de Juarez, Oaxaca', 'Niños, adolescentes y adultos', 'Psiquiatra por la Universidad Lasalle de México. Cédula profesional: 1733398', 'Presencial / Virtual', 'https://i.postimg.cc/YCTrxLDV/DR-JORGE-G-JIM-NEZ-S-NCHEZ.png', 'http://localhost/BEA/back/uploads/dos.jpg'),
+(6, 'DR. JORGE LUIS CORTÉS LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9512257283', 'Médico Psiquiatra, posgraduado en el Instituto Nacional de Psiquiatría \'Ramón de la Fuente\'', 'Colón 421, Centro Oaxaca', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 4968848 Especialidad en Psiquiatría por la Universidad Nacional Autónoma de México Cédula Profesional: 6982040.', 'Presencial / Virtual', 'https://i.postimg.cc/Kz2m6S2D/DR-JORGE-LUIS-CORT-S-L-PEZ.png', 'http://localhost/BEA/back/uploads/tres.png'),
+(7, 'DR. VIRGILIO SANTIAGO LÓPEZ', 'TERAPIA COGNITIVO CONDUCTUAL', '9515178666', 'Médico Cirujano especialista en Psiquiatría', 'Emilio Carranza No. 1112 Clínica Neurociencias del Sureste, Col. Reforma', 'Adolescentes y adultos', 'Médico Cirujano egresado de la Universidad Autónoma Benito Juárez de Oaxaca. Cédula Profesional: 2809422 Especialidad en Psiquiatría, Universidad Nacional Autónoma de Mexico. Cédula Profesional: 5777340', 'Presencial / Virtual', 'https://i.postimg.cc/k58nYMk5/DR-VIRGILIO-SANTIAGO-L-PEZ.png', 'http://localhost/BEA/back/uploads/uno.png'),
+(9, 'MTRA. LAURA LORENA HERNÁNDEZ VELASCO', 'TERAPIA HUMANISTA', '9515701076', 'Práctica privada en atención a niños, adolescentes y adultos en psicodiagnóstico y psicoterapia, psicoterapia individual y de pareja, cursos y talleres.', 'Manuel Sabino Crespo No.524 Interior E.', 'Niños, adolescentes y adultos', 'Lic. en Psicología. Instituto de Estudios Superiores de Oaxaca. Cédula Profesional: 2910361 Maestra en Educación y desarrollo cognitivo. Instituto Tecnológico de Estudios Superiores de Monterrey. Cédula Profesional: 10444914 Posgrado en Psicopatología Clínica. Universidad de Barcelona. Diplomado en Neuropsicología. Universidad Complutense de Madrid.', 'Presencial / Virtual', 'https://i.postimg.cc/653BJfDg/MTRA-LAURA-LORENA-HERN-NDEZ-VELASCO.png', 'http://localhost/BEA/back/uploads/dos.jpg');
 
 -- --------------------------------------------------------
 
@@ -288,82 +288,83 @@ CREATE TABLE `registro` (
   `APELLIDO_PATERNO` varchar(60) NOT NULL,
   `APELLIDO_MATERNO` varchar(60) NOT NULL,
   `CORREO` varchar(60) NOT NULL,
-  `CONTRASEÑA` varchar(255) DEFAULT NULL
+  `CONTRASEÑA` varchar(255) DEFAULT NULL,
+  `foto_perfil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `registro`
 --
 
-INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`) VALUES
-(446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_garcia@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(446028, 'juan', 'perez', 'mendez', 'evasconcelos@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(13816710, 'María', 'Cruz', 'Ramírez', 'maría.cruz@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(15583911, 'Patricia', 'Martínez', 'Ramírez', 'patricia.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(15881471, 'Ana', 'Rodríguez', 'López', 'ana.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(17198290, 'Elena', 'Rodríguez', 'López', 'elena.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(18908128, 'Ana', 'Ramírez', 'González', 'ana.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(19265822, 'Sergio', 'Rodríguez', 'García', 'sergio.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(19904891, 'Luis', 'Hernández', 'Martínez', 'luis.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(20756263, 'Luis', 'Cruz', 'López', 'luis.cruz@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(22010798, 'Miguel', 'Pérez', 'González', 'miguel.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(22390874, 'Miguel', 'González', 'Sánchez', 'miguel.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(24241445, 'Sergio', 'Martínez', 'García', 'sergio.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(25053298, 'Laura', 'González', 'García', 'laura.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(25211906, 'Laura', 'Pérez', 'González', 'laura.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(30594108, 'Elena', 'López', 'González', 'elena.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(30659032, 'Sergio', 'Hernández', 'Ramírez', 'sergio.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(31261162, 'Elena', 'García', 'Rodríguez', 'elena.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(33082835, 'Ana', 'García', 'Ramírez', 'ana.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(35265829, 'Patricia', 'López', 'González', 'patricia.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(37726103, 'Miguel', 'López', 'Cruz', 'miguel.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(41960762, 'Jorge', 'Pérez', 'Ramírez', 'jorge.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(42251960, 'Carlos', 'García', 'Pérez', 'carlos.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(43199275, 'Luis', 'Ramírez', 'Ramírez', 'luis.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(45673423, 'juan', 'valido', 'perez', 'jperez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(46402301, 'Luis', 'Martínez', 'Cruz', 'luis.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(47678461, 'Patricia', 'Rodríguez', 'Ramírez', 'patricia.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(47876830, 'Miguel', 'Martínez', 'Pérez', 'miguel.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(48441550, 'María', 'González', 'Pérez', 'maría.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(48770299, 'Laura', 'García', 'Cruz', 'laura.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(54968941, 'Sergio', 'García', 'Cruz', 'sergio.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(57393766, 'Laura', 'Sánchez', 'Hernández', 'laura.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(58010092, 'Miguel', 'Rodríguez', 'Cruz', 'miguel.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(59821764, 'Luis', 'González', 'Martínez', 'luis.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(60147348, 'Patricia', 'Pérez', 'Sánchez', 'patricia.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(60841510, 'Patricia', 'González', 'López', 'patricia.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(62188186, 'Elena', 'Hernández', 'Ramírez', 'elena.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(63645330, 'Laura', 'Rodríguez', 'López', 'laura.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(64064070, 'María', 'Pérez', 'Pérez', 'maría.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(66141036, 'Sergio', 'López', 'García', 'sergio.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(68900242, 'Luis', 'García', 'Ramírez', 'luis.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(69472034, 'Luis', 'Rodríguez', 'Hernández', 'luis.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(71010124, 'Ana', 'Martínez', 'Sánchez', 'ana.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(71780038, 'Ana', 'González', 'Hernández', 'ana.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(73521944, 'Jorge', 'González', 'Hernández', 'jorge.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(73532307, 'Jorge', 'Martínez', 'Sánchez', 'jorge.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(74078864, 'Miguel', 'Sánchez', 'López', 'miguel.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(74925253, 'María', 'Ramírez', 'García', 'maría.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(75492812, 'Laura', 'Martínez', 'Hernández', 'laura.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(75609963, 'Elena', 'Pérez', 'García', 'elena.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(76288219, 'Sergio', 'González', 'Ramírez', 'sergio.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(80737865, 'María', 'Sánchez', 'Pérez', 'maría.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(81158743, 'Carlos', 'Rodríguez', 'Ramírez', 'carlos.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(81980172, 'Jorge', 'García', 'Cruz', 'jorge.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(83197251, 'Laura', 'Ramírez', 'Martínez', 'laura.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(83737984, 'Carlos', 'González', 'Pérez', 'carlos.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(83779604, 'Jorge', 'Sánchez', 'Cruz', 'jorge.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(85004659, 'Luis', 'López', 'Rodríguez', 'luis.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(85336854, 'Sergio', 'Sánchez', 'Cruz', 'sergio.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(87575091, 'Laura', 'Hernández', 'Hernández', 'laura.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(89017496, 'Ana', 'López', 'García', 'ana.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(91135195, 'Miguel', 'García', 'García', 'miguel.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(91420765, 'Ana', 'Sánchez', 'Sánchez', 'ana.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(93327111, 'Sergio', 'Cruz', 'Hernández', 'sergio.cruz@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(95699582, 'María', 'García', 'Ramírez', 'maría.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(97040397, 'Luis', 'Sánchez', 'Cruz', 'luis.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(98942800, 'Patricia', 'Sánchez', 'González', 'patricia.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da'),
-(98963139, 'Elena', 'González', 'Cruz', 'elena.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da');
+INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`, `foto_perfil`) VALUES
+(446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_garcia@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(446028, 'juan', 'perez', 'mendez', 'evasconcelos@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(13816710, 'María', 'Cruz', 'Ramírez', 'maría.cruz@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(15583911, 'Patricia', 'Martínez', 'Ramírez', 'patricia.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(15881471, 'Ana', 'Rodríguez', 'López', 'ana.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(17198290, 'Elena', 'Rodríguez', 'López', 'elena.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(18908128, 'Ana', 'Ramírez', 'González', 'ana.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(19265822, 'Sergio', 'Rodríguez', 'García', 'sergio.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(19904891, 'Luis', 'Hernández', 'Martínez', 'luis.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(20756263, 'Luis', 'Cruz', 'López', 'luis.cruz@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(22010798, 'Miguel', 'Pérez', 'González', 'miguel.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(22390874, 'Miguel', 'González', 'Sánchez', 'miguel.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(24241445, 'Sergio', 'Martínez', 'García', 'sergio.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(25053298, 'Laura', 'González', 'García', 'laura.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(25211906, 'Laura', 'Pérez', 'González', 'laura.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(30594108, 'Elena', 'López', 'González', 'elena.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(30659032, 'Sergio', 'Hernández', 'Ramírez', 'sergio.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(31261162, 'Elena', 'García', 'Rodríguez', 'elena.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(33082835, 'Ana', 'García', 'Ramírez', 'ana.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(35265829, 'Patricia', 'López', 'González', 'patricia.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(37726103, 'Miguel', 'López', 'Cruz', 'miguel.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(41960762, 'Jorge', 'Pérez', 'Ramírez', 'jorge.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(42251960, 'Carlos', 'García', 'Pérez', 'carlos.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(43199275, 'Luis', 'Ramírez', 'Ramírez', 'luis.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(45673423, 'juan', 'valido', 'perez', 'jperez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(46402301, 'Luis', 'Martínez', 'Cruz', 'luis.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(47678461, 'Patricia', 'Rodríguez', 'Ramírez', 'patricia.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(47876830, 'Miguel', 'Martínez', 'Pérez', 'miguel.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(48441550, 'María', 'González', 'Pérez', 'maría.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(48770299, 'Laura', 'García', 'Cruz', 'laura.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(54968941, 'Sergio', 'García', 'Cruz', 'sergio.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(57393766, 'Laura', 'Sánchez', 'Hernández', 'laura.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(58010092, 'Miguel', 'Rodríguez', 'Cruz', 'miguel.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(59821764, 'Luis', 'González', 'Martínez', 'luis.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(60147348, 'Patricia', 'Pérez', 'Sánchez', 'patricia.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(60841510, 'Patricia', 'González', 'López', 'patricia.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(62188186, 'Elena', 'Hernández', 'Ramírez', 'elena.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(63645330, 'Laura', 'Rodríguez', 'López', 'laura.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(64064070, 'María', 'Pérez', 'Pérez', 'maría.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(66141036, 'Sergio', 'López', 'García', 'sergio.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(68900242, 'Luis', 'García', 'Ramírez', 'luis.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(69472034, 'Luis', 'Rodríguez', 'Hernández', 'luis.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(71010124, 'Ana', 'Martínez', 'Sánchez', 'ana.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(71780038, 'Ana', 'González', 'Hernández', 'ana.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(73521944, 'Jorge', 'González', 'Hernández', 'jorge.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(73532307, 'Jorge', 'Martínez', 'Sánchez', 'jorge.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(74078864, 'Miguel', 'Sánchez', 'López', 'miguel.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(74925253, 'María', 'Ramírez', 'García', 'maría.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(75492812, 'Laura', 'Martínez', 'Hernández', 'laura.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(75609963, 'Elena', 'Pérez', 'García', 'elena.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(76288219, 'Sergio', 'González', 'Ramírez', 'sergio.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(80737865, 'María', 'Sánchez', 'Pérez', 'maría.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(81158743, 'Carlos', 'Rodríguez', 'Ramírez', 'carlos.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(81980172, 'Jorge', 'García', 'Cruz', 'jorge.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(83197251, 'Laura', 'Ramírez', 'Martínez', 'laura.ramírez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(83737984, 'Carlos', 'González', 'Pérez', 'carlos.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(83779604, 'Jorge', 'Sánchez', 'Cruz', 'jorge.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(85004659, 'Luis', 'López', 'Rodríguez', 'luis.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(85336854, 'Sergio', 'Sánchez', 'Cruz', 'sergio.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(87575091, 'Laura', 'Hernández', 'Hernández', 'laura.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(89017496, 'Ana', 'López', 'García', 'ana.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(91135195, 'Miguel', 'García', 'García', 'miguel.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(91420765, 'Ana', 'Sánchez', 'Sánchez', 'ana.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(93327111, 'Sergio', 'Cruz', 'Hernández', 'sergio.cruz@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(95699582, 'María', 'García', 'Ramírez', 'maría.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(97040397, 'Luis', 'Sánchez', 'Cruz', 'luis.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(98942800, 'Patricia', 'Sánchez', 'González', 'patricia.sánchez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(98963139, 'Elena', 'González', 'Cruz', 'elena.gonzález@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
 
 -- --------------------------------------------------------
 
@@ -552,13 +553,13 @@ ALTER TABLE `materiales`
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2403;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2405;
 
 --
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `seguimiento`

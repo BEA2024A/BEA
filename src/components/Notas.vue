@@ -36,8 +36,9 @@
               <label for="fecha">Fecha:</label>
               <input type="date" id="fecha" v-model="fecha" disabled />
             </div>
+            <p v-if="mostrarHacer">Notas</p>
             <div class="form-group2" v-if="mostrarHacer">
-              <label for="editor">Notas:</label>
+              <label for="editor"></label>
               <div id="editor" class="quill-editor"></div>
             </div>
             <button @click="enviarNotas" class="boton">Enviar</button>
@@ -177,11 +178,9 @@ export default {
           toolbar: [
             ["bold", "italic", "underline", "strike"],
             [{ list: "ordered" }, { list: "bullet" }],
-            ["link"],
-            ["clean"],
           ],
         },
-        theme: "snow",
+        theme: 'snow',
       },
     };
   },
@@ -644,10 +643,15 @@ solicitarNotas() {
 .form-group2 {
   background-color: white;
   padding: 10px;
-  border-radius: 10px;
   color: black;
-  font-size: 18px;
+  width: 900px; /* Tamaño fijo del contenedor */
+  padding: 5px; /* Espacio interno para separar el contenido del borde */
+  border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  background-color: white;
+  margin: 0 auto; /* Centra horizontalmente */
+  font-size: 18px;
+  
 }
 
 .notas label {
@@ -691,8 +695,13 @@ solicitarNotas() {
 }
 
 .quill-editor {
-
-  height: 400px; 
+  width: 900px; /* Tamaño fijo del contenedor */
+  height: 420px; /* Tamaño fijo del contenedor */ 
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px; /* Ajusta el padding según tus preferencias */
+  background-color: #fff; /* Ajusta el color de fondo según tu diseño */
+  overflow-wrap: break-word; /* Esto hace que el texto haga saltos de línea automáticamente */
 
 }
 

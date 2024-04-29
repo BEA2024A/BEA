@@ -1,14 +1,27 @@
 <template>
   <div>
+
+<!-- Modal para subir la imagen -->
+<div v-if="mostrarModal" class="modal">
+      <div class="modal-contenido">
+        <!-- Input para seleccionar la imagen -->
+        <input type="file" @change="handleFileChange" accept="image/*">
+
+        <!-- Vista previa de la imagen -->
+        <img v-if="imagenSeleccionada" :src="imagenSeleccionada" alt="Vista previa de la imagen">
+
+        <!-- Botón para confirmar y enviar la imagen -->
+        <button @click="enviarImagen">Guardar</button>
+      </div>
+    </div>
+
+
     <!-- Barra de Navegación -->
     <nav class="barra-navegacion">
       <!-- Logo -->
       <div class="logo">
         <router-link to="/" class="enlace-navegacion">
-          <img
-            src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png"
-            alt="Logo Anáhuac"
-          />
+          <img src="https://i.ibb.co/TkHLsmX/anahuac-oaxaca.png" alt="Logo Anáhuac" />
         </router-link>
       </div>
 
@@ -20,61 +33,41 @@
       </div>
 
       <!-- Secciones -->
-      <div
-        class="secciones-navegacion"
-        :class="{ 'mostrar-menu': mostrarMenu }"
-      >
-        <router-link to="/primeracita" class="enlace-navegacion"
-          >Primera Cita</router-link
-        >
-        <router-link to="/seguimiento" class="enlace-navegacion"
-          >Seguimiento</router-link
-        >
-        <router-link to="/horario" class="enlace-navegacion"
-          >Calendario</router-link
-        >
-        <router-link to="/autoayuda" class="enlace-navegacion"
-          >Autoayuda</router-link
-        >
+      <div class="secciones-navegacion" :class="{ 'mostrar-menu': mostrarMenu }">
+        <router-link to="/primeracita" class="enlace-navegacion">Primera Cita</router-link>
+        <router-link to="/seguimiento" class="enlace-navegacion">Seguimiento</router-link>
+        <router-link to="/horario" class="enlace-navegacion">Calendario</router-link>
+        <router-link to="/autoayuda" class="enlace-navegacion">Autoayuda</router-link>
       </div>
 
       <!-- Botón de Inicio de Sesión, solo visible si no hay usuario logueado -->
       <div class="boton-inicio-sesion" v-if="!usuario">
         <button @click="abrirEnlace('/iniciosesion')">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/58/58950.png"
-            class="inicio-sesion-icono"
-          />
+          <img src="https://cdn-icons-png.flaticon.com/512/58/58950.png" class="inicio-sesion-icono" />
         </button>
       </div>
 
       <!-- Botón de Usuario Logueado y Menú Desplegable -->
-      <div
-        v-if="usuario"
-        class="usuario-menu-contenedor"
-        @click="toggleUsuarioMenu"
-        ref="menuUsuario"
-      >
+      <div v-if="usuario" class="usuario-menu-contenedor" @click="toggleUsuarioMenu" ref="menuUsuario">
         <div class="usuario-menu">
           <!-- Texto "Tu Perfil" al lado izquierdo de la imagen -->
           <div class="texto-usuario">{{ usuario.nombre }}</div>
-         
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1361/1361728.png"
-            alt="Usuario"
-            class="icono-usuario"
-          />
-           <!-- Mostrar notificaciones aquí -->
-           <div class="notificaciones-contenedor">
-            <div class="notificaciones" :style="{ backgroundColor: numNotificaciones === 0 ? 'grey' : 'red' }">{{ numNotificaciones }} </div>
+
+          <img :src="usuario.foto_perfil" alt="Usuario" class="icono-usuario" />
+          <!-- Mostrar notificaciones aquí -->
+          <div class="notificaciones-contenedor">
+            <div class="notificaciones" :style="{ backgroundColor: numNotificaciones === 0 ? 'grey' : 'red' }">{{
+        numNotificaciones }} </div>
           </div>
         </div>
         <div class="menu-perfil">
           <div v-if="mostrarMenuUsuario" class="menu-usuario">
-            <div class="notificacion-menu" v-if="notificaciones.length > 0" v-for="(notificacion, index) in notificaciones":key="index" @click="eliminarNotificacion(index)">
+            <div class="notificacion-menu" v-if="notificaciones.length > 0"
+              v-for="(notificacion, index) in notificaciones" :key="index" @click="eliminarNotificacion(index)">
               {{ notificacion }}
             </div>
             <div v-else class="texto-menu">No hay nuevas notificaciones.</div>
+            <button @click="abrirModal">Subir imagen de perfil</button>
             <div class="opcion-menu" @click.stop="cerrarSesionYCerrarMenu">
               Cerrar sesión
             </div>
@@ -91,10 +84,7 @@
       <div class="contenido-pie">
         <!-- Imagen a la derecha -->
         <div class="derecha-pie">
-          <img
-            src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png"
-            alt="Logo Anáhuac"
-          />
+          <img src="https://www.anahuac.mx/oaxaca/sites/default/files/img/Inicial.png" alt="Logo Anáhuac" />
         </div>
 
         <!-- Información de contacto -->
@@ -111,25 +101,15 @@
 
         <!-- Enlaces a Aviso de Privacidad y Compendio Reglamentario como botones -->
         <div class="botones-pie">
-          <button
-            v-for="(enlace, texto) in enlacesPie"
-            :key="texto"
-            class="boton-pie"
-            @click="abrirEnlace(enlace)"
-          >
+          <button v-for="(enlace, texto) in enlacesPie" :key="texto" class="boton-pie" @click="abrirEnlace(enlace)">
             {{ texto }}
           </button>
         </div>
 
         <!-- Botones de redes sociales como botones -->
         <div class="botones-sociales-pie">
-          <button
-            v-for="(botonSocial, index) in botonesSociales"
-            :key="index"
-            class="boton-pie"
-            @click="abrirEnlace(botonSocial.enlace)"
-            target="_blank"
-          >
+          <button v-for="(botonSocial, index) in botonesSociales" :key="index" class="boton-pie"
+            @click="abrirEnlace(botonSocial.enlace)" target="_blank">
             <img :src="botonSocial.icono" alt="Icono de red social" />
           </button>
         </div>
@@ -145,6 +125,9 @@ import axios from "axios";
 export default {
   data() {
     return {
+      mostrarModal: false,
+      imagenSeleccionada: null,
+      imagenParaEnviar: null,
       mostrarMenu: false,
       mostrarMenuUsuario: false,
       notificaciones: [],
@@ -188,7 +171,7 @@ export default {
       return this.notificaciones;
     },
 
-    
+
 
     urlRedireccion() {
       return this.usuario ? "/perfil_alumno" : "/iniciosesion";
@@ -197,17 +180,49 @@ export default {
 
   mounted() {
     if (this.usuario) {
-    this.verificarEventosYNotificar();
-    this.obtenerEventosUsuario();
-  }
+      this.verificarEventosYNotificar();
+      this.obtenerEventosUsuario();
+    }
   },
   methods: {
+    abrirModal() {
+      this.mostrarModal = true;
+    },
+
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      this.imagenSeleccionada = URL.createObjectURL(file);
+      this.imagenParaEnviar = file;
+    },
+    enviarImagen() {
+      // Crear un FormData para enviar la imagen al servidor
+      const formData = new FormData();
+      formData.append("imagen", this.imagenParaEnviar);
+      formData.append("id_usuario", this.usuario.id);
+
+      // Enviar la imagen al servidor utilizando Axios
+      axios.post("http://localhost/bea/back/foto_perfil.php", formData)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+          // Manejar el error
+        })
+        .finally(() => {
+          // Cerrar el modal después de enviar la imagen
+          this.mostrarModal = false;
+        });
+    },
+
+
+   
 
     eliminarNotificacion(index) {
-  this.notificaciones.splice(index, 1);
-  this.$router.push('/horario');
+      this.notificaciones.splice(index, 1);
+      this.$router.push('/horario');
 
-},
+    },
 
     obtenerEventosUsuario() {
       const idUsuario = this.usuario.id;
@@ -216,8 +231,8 @@ export default {
           `http://localhost/BEA/back/obtenerEventos.php?idUsuario=${idUsuario}`
         )
         .then((response) => {
-          this.eventosUsuario = response.data; 
-          this.verificarEventosYNotificar(); 
+          this.eventosUsuario = response.data;
+          this.verificarEventosYNotificar();
         })
         .catch((error) =>
           console.error("Hubo un error al obtener los eventos:", error)
@@ -272,12 +287,12 @@ export default {
 
         const hoy = this.obtenerFechaActual();
 
-       
+
         if (unDiaAntes.toISOString().slice(0, 10) === hoy) {
           this.enviarNotificacion(evento.title, "Mañana");
         }
 
-        
+
         if (evento.date === hoy) {
           this.enviarNotificacion(evento.title, "Hoy");
         }
@@ -290,11 +305,10 @@ export default {
     obtenerFechaActual() {
       const fechaActual = new Date();
       const dia = fechaActual.getDate();
-      const mes = fechaActual.getMonth() + 1; 
+      const mes = fechaActual.getMonth() + 1;
       const año = fechaActual.getFullYear();
-      return `${año}-${mes < 10 ? "0" + mes : mes}-${
-        dia < 10 ? "0" + dia : dia
-      }`;
+      return `${año}-${mes < 10 ? "0" + mes : mes}-${dia < 10 ? "0" + dia : dia
+        }`;
     },
   },
 };
@@ -307,11 +321,33 @@ export default {
     opacity: 1;
     transform: translateY(-5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-contenido {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
 
 /*BARRA */
 
@@ -404,7 +440,6 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  filter: invert(1);
   transition: filter 0.3s ease;
 }
 
@@ -421,8 +456,9 @@ export default {
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: -20px; 
-  left: calc(50% - 10px); /* Mitad del ancho del círculo */
+  bottom: -20px;
+  left: calc(50% - 10px);
+  /* Mitad del ancho del círculo */
   font-size: 12px;
   z-index: 1;
 }
@@ -441,6 +477,7 @@ export default {
   animation: slideIn 0.3s ease forwards;
   margin-top: 17px;
 }
+
 .texto-menu {
   padding: 10px;
   cursor: pointer;
@@ -461,8 +498,8 @@ export default {
 .notificacion-menu {
   padding: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, width 0.3s ease; 
-  position: relative; 
+  transition: background-color 0.3s ease, width 0.3s ease;
+  position: relative;
 }
 
 
@@ -473,14 +510,14 @@ export default {
   left: 0;
   width: 0;
   height: 100%;
-  background-color: #ff5900; 
-  color: white; 
+  background-color: #ff5900;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px; 
-  transition: width 0.3s ease; 
-  overflow: hidden; 
+  font-size: 14px;
+  transition: width 0.3s ease;
+  overflow: hidden;
 }
 
 
@@ -495,6 +532,7 @@ export default {
   color: white;
   padding: 30px;
 }
+
 .contenido-pie {
   display: flex;
   flex-wrap: wrap;
@@ -504,13 +542,16 @@ export default {
 .derecha-pie img {
   max-height: 80px;
 }
+
 .contacto-pie p {
   margin: 10px;
 }
+
 .botones-pie {
   display: flex;
   flex-direction: column;
 }
+
 .boton-pie {
   background-color: #000000;
   color: white;
@@ -520,10 +561,12 @@ export default {
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
 .botones-sociales-pie img {
   max-height: 35px;
   margin-right: 5px;
 }
+
 .botones-sociales-pie button {
   background: none;
   border: none;
@@ -582,6 +625,7 @@ export default {
     position: relative;
     cursor: pointer;
   }
+
   /*******/
 
   .boton-inicio-sesion {
@@ -648,7 +692,8 @@ export default {
     width: 15px;
     height: 15px;
     bottom: -3px;
-    left: calc(50% - 8px); /* Mitad del ancho del círculo */
+    left: calc(50% - 8px);
+    /* Mitad del ancho del círculo */
   }
 
   .usuario-menu-contenedor {
@@ -689,7 +734,8 @@ export default {
     width: 15px;
     height: 15px;
     bottom: -3px;
-    left: calc(50% - 8px); /* Mitad del ancho del círculo */
+    left: calc(50% - 8px);
+    /* Mitad del ancho del círculo */
   }
 
   .botones-pie {
