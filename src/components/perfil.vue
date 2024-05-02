@@ -5,7 +5,7 @@
       <div class="contenido">
         <div class="contenido-derecha">
           <div class="perfil">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Foto de perfil" class="imagen-perfil">
+            <img :src="perfil.foto_perfil" alt="Foto de perfil" class="imagen-perfil">
             <h1>{{ perfil.NOMBRE }} {{ perfil.APELLIDO_PATERNO }} {{ perfil.APELLIDO_MATERNO }}</h1>
             <p>ID: 00{{ perfil.ID_ALUMNO }} </p>
             <p>Carrera: {{ perfil.CARRERA}}</p>
@@ -158,9 +158,10 @@ export default {
 .imagen-perfil {
   display: block;
   margin: 0 auto 20px auto;
-  width: 100%;
-  max-width: 200px;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
+  object-fit: cover;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

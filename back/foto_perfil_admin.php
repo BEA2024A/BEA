@@ -30,7 +30,7 @@ if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file)) {
     $idUsuario = $_POST['id_usuario'];
 
     // Consulta SQL para actualizar el campo foto_perfil del usuario
-    $sql = "UPDATE registro SET foto_perfil = '$imageUrl' WHERE id_alumno = '$idUsuario'";
+    $sql = "UPDATE administradores SET foto_perfil = '$imageUrl' WHERE id_alumno = '$idUsuario'";
 
     if ($conn->query($sql) === TRUE) {
         echo json_encode(["success" => true, "message" => "Foto de perfil actualizada correctamente", "imageUrl" => $imageUrl]);

@@ -4,11 +4,8 @@
       <div class="contenido">
         <div class="contenido-derecha">
           <div class="perfil">
-            <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              alt="Foto de perfil"
-              class="imagen-perfil"
-            />
+            <img :src="perfil.foto_perfil"
+              alt="Foto de perfil" class="imagen-perfil" />
             <h1>
               {{ perfil.NOMBRE }} {{ perfil.APELLIDO_PATERNO }}
               {{ perfil.APELLIDO_MATERNO }}
@@ -25,12 +22,7 @@
           <div v-if="mostrarHacer">
             <div class="notas form-group">
               <label for="numero-sesion">Número de sesión:</label>
-              <input
-                type="text"
-                id="numero-sesion"
-                v-model="ultimoNumeroSesion"
-                disabled
-              />
+              <input type="text" id="numero-sesion" v-model="ultimoNumeroSesion" disabled />
             </div>
             <div class="notas form-group">
               <label for="fecha">Fecha:</label>
@@ -52,24 +44,13 @@
 
           <!-- Contenido de agendar citas -->
           <div v-if="mostrarAgendar">
-            <h2>Agendar Nuevo Evento</h2>
             <div class="notas form-group">
               <label for="fecha">Fecha:</label>
-              <input
-                type="date"
-                id="fecha"
-                v-model="nuevoEvento.fecha"
-                class="input"
-              />
+              <input type="date" id="fecha" v-model="nuevoEvento.fecha" class="input" />
             </div>
             <div class="notas form-group">
               <label for="hora">Hora:</label>
-              <input
-                type="time"
-                id="hora"
-                v-model="nuevoEvento.hora"
-                class="input"
-              />
+              <input type="time" id="hora" v-model="nuevoEvento.hora" class="input" />
             </div>
             <button @click="agendarEventoAlumno" class="boton">Agendar</button>
             <!--calendario-->
@@ -133,13 +114,12 @@ export default {
     const dia = fechaActual.getDate();
     const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
     const año = fechaActual.getFullYear();
-    const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${
-      dia < 10 ? "0" + dia : dia
-    }`;
+    const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${dia < 10 ? "0" + dia : dia
+      }`;
 
     return {
       filtroNumeroSesion: "",
-    filtroFecha: "",
+      filtroFecha: "",
       ultimoNumeroSesion: [],
       calendarOptions: {
         plugins: [dayGridPlugin],
@@ -191,7 +171,7 @@ export default {
     this.cargarNotas();
     this.obtenerEventosUsuario();
     this.obtenerUltimoNumeroSesion();
-    
+
 
     const mostrarAgendar = localStorage.getItem("mostrarAgendar");
 
@@ -204,7 +184,7 @@ export default {
 
     this.quill = new Quill("#editor", this.quillOptions);
     this.quill.root.style.width = "100%";
-  this.quill.root.style.overflowWrap = "break-word";
+    this.quill.root.style.overflowWrap = "break-word";
   },
 
   computed: {
@@ -227,23 +207,23 @@ export default {
             this.ultimoNumeroSesion = 1;
           }
           if (this.ultimoNumeroSesion > 4) {
-  // Si el último número de sesión es mayor a 4, mostrar la notificación
-  Swal.fire({
-    title: '¡Atención!',
-    text: 'El número de citas con este alumno ha sido completado.',
-    icon: 'info',
-    showCancelButton: false,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Regresar al inicio'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Si el usuario confirma, redirigir a la sección de leer notas anteriores
-      this.$router.push('/iniciopsico');
-    }
+            // Si el último número de sesión es mayor a 4, mostrar la notificación
+            Swal.fire({
+              title: '¡Atención!',
+              text: 'El número de citas con este alumno ha sido completado.',
+              icon: 'info',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Regresar al inicio'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Si el usuario confirma, redirigir a la sección de leer notas anteriores
+                this.$router.push('/iniciopsico');
+              }
 
-  });
-}
+            });
+          }
         })
         .catch((error) => {
           console.error("Error al cargar las notas del alumno:", error);
@@ -312,85 +292,84 @@ export default {
       }
     },
     enviarNotas() {
-  const contenidoQuill = this.quill.root.innerHTML;
+      const contenidoQuill = this.quill.root.innerHTML;
 
-  if (!contenidoQuill || contenidoQuill.trim() === "") {
-    Swal.fire(
-      'Error',
-      'No se puede enviar una nota vacía.',
-      'error'
-    );
-    return;
-  }
+      if (!contenidoQuill || contenidoQuill.trim() === "") {
+        Swal.fire(
+          'Error',
+          'No se puede enviar una nota vacía.',
+          'error'
+        );
+        return;
+      }
 
-  // Obtener el último número de sesión
-  const ultimoNumeroSesion = this.ultimoNumeroSesion;
-  const fechaActual = new Date();
-    const dia = fechaActual.getDate();
-    const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
-    const año = fechaActual.getFullYear();
-    const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${
-      dia < 10 ? "0" + dia : dia
-    }`;
-  // Agregar el título al inicio del contenido de la nota
-  const titulo = `<h3>Notas Sesión ${ultimoNumeroSesion} fecha: ${sysdate}  </h3>`;
-  const contenidoConTitulo = titulo + contenidoQuill;
+      // Obtener el último número de sesión
+      const ultimoNumeroSesion = this.ultimoNumeroSesion;
+      const fechaActual = new Date();
+      const dia = fechaActual.getDate();
+      const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+      const año = fechaActual.getFullYear();
+      const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${dia < 10 ? "0" + dia : dia
+        }`;
+      // Agregar el título al inicio del contenido de la nota
+      const titulo = `<h3>Notas Sesión ${ultimoNumeroSesion} fecha: ${sysdate}  </h3>`;
+      const contenidoConTitulo = titulo + contenidoQuill;
 
-  const formData = new FormData();
-  formData.append("numero_sesion", ultimoNumeroSesion);
-  formData.append("fecha", this.fecha);
-  formData.append("contenido", contenidoConTitulo);
-  formData.append("id_administrador", this.$store.state.usuario.id);
-  formData.append("id_alumno", this.$route.params.id);
+      const formData = new FormData();
+      formData.append("numero_sesion", ultimoNumeroSesion);
+      formData.append("fecha", this.fecha);
+      formData.append("contenido", contenidoConTitulo);
+      formData.append("id_administrador", this.$store.state.usuario.id);
+      formData.append("id_alumno", this.$route.params.id);
 
-  axios
-    .post("http://localhost/bea/back/guardar-nota.php", formData)
-    .then((response) => {
-      Swal.fire(
-        'Éxito',
-        'Nota enviada exitosamente.',
-        'success'
-      );
+      axios
+        .post("http://localhost/bea/back/guardar-nota.php", formData)
+        .then((response) => {
+          Swal.fire(
+            'Éxito',
+            'Nota enviada exitosamente.',
+            'success'
+          );
 
-      this.mostrarAgendar = true;
-      this.mostrarHacer = false;
-      this.numeroSesion = "";
-      this.fecha = "";
+          this.mostrarAgendar = true;
+          this.mostrarHacer = false;
+          this.numeroSesion = "";
+          this.fecha = "";
 
-      this.quill.setText("");
-    })
-    .catch((error) => {
-      
-      console.error("Error en la petición:", error);
-    });
-},
+          this.quill.setText("");
+        })
+        .catch((error) => {
 
-solicitarNotas() {
- 
-  let notasFiltradas = this.notasExistentes;
+          console.error("Error en la petición:", error);
+        });
+    },
+
+    solicitarNotas() {
+
+      let notasFiltradas = this.notasExistentes;
 
 
-  if (this.numeroSesion) {
-    notasFiltradas = notasFiltradas.filter(
-      (nota) => nota.numeroSesion === this.numeroSesion
-    );
-  }
+      if (this.numeroSesion) {
+        notasFiltradas = notasFiltradas.filter(
+          (nota) => nota.numeroSesion === this.numeroSesion
+        );
+      }
 
-  if (this.fecha) {
-    notasFiltradas = notasFiltradas.filter(
-      (nota) => nota.fecha === this.fecha
-    );
-  }
+      if (this.fecha) {
+        notasFiltradas = notasFiltradas.filter(
+          (nota) => nota.fecha === this.fecha
+        );
+      }
 
-  if (notasFiltradas.length > 0) {
-    
-    this.notas = notasFiltradas.map((nota) => nota.contenido).join("");
-  } else {
-    
-    this.notas =
-      "<p>No se encontraron notas para los criterios de búsqueda proporcionados.</p>";
-  }
-},
+      if (notasFiltradas.length > 0) {
+
+        this.notas = notasFiltradas.map((nota) => nota.contenido).join("");
+      } else {
+
+        this.notas =
+          "<p>No se encontraron notas para los criterios de búsqueda proporcionados.</p>";
+      }
+    },
 
 
     agendarEventoAlumno() {
@@ -516,6 +495,7 @@ solicitarNotas() {
     opacity: 0;
     transform: translateY(-50px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -526,20 +506,20 @@ solicitarNotas() {
 
 .perfil {
   font-family: Arial, sans-serif;
-  margin-right: 20px;
-  margin-left: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
-  top: 0;
-  text-align: justify;
-  background-color: #fdfdfd;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top:20px;
+    margin-bottom: 80px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+    position: sticky;
+    top: 0;
+    text-align: justify;
+    background-color: #fdfdfd;
 }
-
 .perfil p {
   margin-bottom: 30px;
   font-size: 1.2rem;
@@ -550,9 +530,10 @@ solicitarNotas() {
 .imagen-perfil {
   display: block;
   margin: 0 auto 20px auto;
-  width: 100%;
-  max-width: 200px;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
+  object-fit: cover;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -570,10 +551,14 @@ solicitarNotas() {
 
 .contenido-derecha {
   flex: 30%;
+  position: sticky;
+  /* Hacer que la parte derecha sea pegajosa */
+  top: 20px;
+  /* La distancia desde la parte superior donde se pegará */
 }
 
 .contenido-izquierda {
-  flex: 82%;
+  flex: 70%;
   padding-right: 60px;
   padding-left: 100px;
   margin-top: 20px;
@@ -588,18 +573,21 @@ solicitarNotas() {
   border: none;
   background-color: #423a38;
   color: white;
-  padding: 10px 20px; /* Ajustar el padding para hacer los botones más pequeños */
+  padding: 10px 20px;
+  /* Ajustar el padding para hacer los botones más pequeños */
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 14px; /* Reducir el tamaño del texto */
+  font-size: 14px;
+  /* Reducir el tamaño del texto */
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 10px;
   margin-top: 15px;
   margin-bottom: 15px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
-  max-width: 150px; /* Ajustar el ancho máximo del botón */
+  max-width: 150px;
+  /* Ajustar el ancho máximo del botón */
   transition: background-color 0.3s ease;
 }
 
@@ -608,26 +596,34 @@ solicitarNotas() {
 .container {
   display: flex;
   justify-content: space-between;
-  background-image: linear-gradient(to bottom, #ff5900, #c21c02); 
+  background-image: linear-gradient(to bottom, #ff5900, #c21c02);
   z-index: -9999;
 }
 
 .notas-container {
-  width: 900px; /* Tamaño fijo del contenedor */
-  height: 420px; /* Tamaño fijo del contenedor */
-  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
-  border: 1px solid #ccc; /* Agrega un borde para mayor claridad */
-  padding: 5px; /* Espacio interno para separar el contenido del borde */
+  width: 900px;
+  /* Tamaño fijo del contenedor */
+  height: 420px;
+  /* Tamaño fijo del contenedor */
+  overflow-y: auto;
+  /* Agrega una barra de desplazamiento vertical si es necesario */
+  border: 1px solid #ccc;
+  /* Agrega un borde para mayor claridad */
+  padding: 5px;
+  /* Espacio interno para separar el contenido del borde */
   border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   background-color: white;
-  margin: 0 auto; /* Centra horizontalmente */
+  margin: 0 auto;
+  /* Centra horizontalmente */
   font-size: 18px;
 }
 
 .notas-content {
-  text-align: justify; /* Aplica la alineación justificada */
-  padding: 10px; /* Agrega espacio alrededor del texto */
+  text-align: justify;
+  /* Aplica la alineación justificada */
+  padding: 10px;
+  /* Agrega espacio alrededor del texto */
   color: black;
 }
 
@@ -644,14 +640,17 @@ solicitarNotas() {
   background-color: white;
   padding: 10px;
   color: black;
-  width: 900px; /* Tamaño fijo del contenedor */
-  padding: 5px; /* Espacio interno para separar el contenido del borde */
+  width: 900px;
+  /* Tamaño fijo del contenedor */
+  padding: 5px;
+  /* Espacio interno para separar el contenido del borde */
   border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   background-color: white;
-  margin: 0 auto; /* Centra horizontalmente */
+  margin: 0 auto;
+  /* Centra horizontalmente */
   font-size: 18px;
-  
+
 }
 
 .notas label {
@@ -695,17 +694,22 @@ solicitarNotas() {
 }
 
 .quill-editor {
-  width: 900px; /* Tamaño fijo del contenedor */
-  height: 420px; /* Tamaño fijo del contenedor */ 
+  width: 900px;
+  /* Tamaño fijo del contenedor */
+  height: 420px;
+  /* Tamaño fijo del contenedor */
   margin-left: auto;
   margin-right: auto;
-  padding: 10px; /* Ajusta el padding según tus preferencias */
-  background-color: #fff; /* Ajusta el color de fondo según tu diseño */
-  overflow-wrap: break-word; /* Esto hace que el texto haga saltos de línea automáticamente */
+  padding: 10px;
+  /* Ajusta el padding según tus preferencias */
+  background-color: #fff;
+  /* Ajusta el color de fondo según tu diseño */
+  overflow-wrap: break-word;
+  /* Esto hace que el texto haga saltos de línea automáticamente */
 
 }
 
-.notas > :last-child {
+.notas> :last-child {
   margin-bottom: 10px;
   color: black;
 }
@@ -723,11 +727,11 @@ solicitarNotas() {
   margin-top: 20px;
 }
 
-.fc .fc-button-group > .fc-button {
+.fc .fc-button-group>.fc-button {
   margin-right: 50px;
 }
 
-.fc .fc-button-group > .fc-button:last-child {
+.fc .fc-button-group>.fc-button:last-child {
   margin-right: 0;
 }
 

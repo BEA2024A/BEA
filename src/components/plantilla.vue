@@ -1,19 +1,29 @@
 <template>
-  <div>
-
-<!-- Modal para subir la imagen -->
-<div v-if="mostrarModal" class="modal">
-      <div class="modal-contenido">
-        <!-- Input para seleccionar la imagen -->
-        <input type="file" @change="handleFileChange" accept="image/*">
-
-        <!-- Vista previa de la imagen -->
-        <img v-if="imagenSeleccionada" :src="imagenSeleccionada" alt="Vista previa de la imagen">
-
-        <!-- Botón para confirmar y enviar la imagen -->
-        <button @click="enviarImagen">Guardar</button>
-      </div>
+<div>
+  <div v-if="mostrarModal" class="modal">
+  <div class="modal-contenido">
+    <!-- Botón para cerrar el modal -->
+    <button class="cerrar-modal" @click="mostrarModal = false">X</button> <!-- Movido aquí -->
+    <!-- Título del modal -->
+    <h3 class="titulo-modal">Cambiar foto</h3>
+    <!-- Opción para subir una foto nueva -->
+    <div class="subir-foto">
+      <label for="input-foto" class="subir-foto-label">+ Subir una foto nueva</label>
+      <input type="file" id="input-foto" @change="handleFileChange" accept="image/*" style="display: none;">
     </div>
+    <!-- Vista previa de la imagen -->
+    <div class="vista-previa">
+      <img v-if="!imagenSeleccionada" :src="usuario.foto_perfil" alt="Vista previa de la imagen" class="icono-usuario-modal">
+
+      <img v-if="imagenSeleccionada" :src="imagenSeleccionada" alt="Vista previa de la imagen" class="icono-usuario-modal">
+    </div>
+    <!-- Botón para cancelar -->
+    <button class="boton-cancelar" @click="mostrarModal = false" v-if="!imagenSeleccionada">Cancelar</button>
+    <!-- Botón para aplicar los cambios -->
+    <button class="boton-aplicar" @click="aplicarCambios" v-if="imagenSeleccionada">Aplicar</button>
+  </div>
+</div>
+
 
 
     <!-- Barra de Navegación -->
@@ -49,11 +59,11 @@
 
       <!-- Botón de Usuario Logueado y Menú Desplegable -->
       <div v-if="usuario" class="usuario-menu-contenedor" @click="toggleUsuarioMenu" ref="menuUsuario">
-        <div class="usuario-menu">
-          <!-- Texto "Tu Perfil" al lado izquierdo de la imagen -->
-          <div class="texto-usuario">{{ usuario.nombre }}</div>
+  <div class="usuario-menu">
+    <!-- Texto "Tu Perfil" al lado izquierdo de la imagen -->
+    <div class="texto-usuario">{{ usuario.nombre }}</div>
 
-          <img :src="usuario.foto_perfil" alt="Usuario" class="icono-usuario" />
+    <img :src="usuario.foto_perfil" alt="Usuario" class="icono-usuario" :key="usuario.foto_perfil" />
           <!-- Mostrar notificaciones aquí -->
           <div class="notificaciones-contenedor">
             <div class="notificaciones" :style="{ backgroundColor: numNotificaciones === 0 ? 'grey' : 'red' }">{{
@@ -67,7 +77,9 @@
               {{ notificacion }}
             </div>
             <div v-else class="texto-menu">No hay nuevas notificaciones.</div>
-            <button @click="abrirModal">Subir imagen de perfil</button>
+            <div class="opcion-menu" @click.stop="abrirModal">
+              Subir imagen de perfil
+            </div>
             <div class="opcion-menu" @click.stop="cerrarSesionYCerrarMenu">
               Cerrar sesión
             </div>
@@ -166,18 +178,10 @@ export default {
     numNotificaciones() {
       return this.notificaciones.length;
     },
-
-    notificaciones() {
-      return this.notificaciones;
-    },
-
-
-
     urlRedireccion() {
       return this.usuario ? "/perfil_alumno" : "/iniciosesion";
     },
   },
-
   mounted() {
     if (this.usuario) {
       this.verificarEventosYNotificar();
@@ -187,8 +191,8 @@ export default {
   methods: {
     abrirModal() {
       this.mostrarModal = true;
+      this.imagenSeleccionada = null;
     },
-
     handleFileChange(event) {
       const file = event.target.files[0];
       this.imagenSeleccionada = URL.createObjectURL(file);
@@ -204,25 +208,32 @@ export default {
       axios.post("http://localhost/bea/back/foto_perfil.php", formData)
         .then(response => {
           console.log(response.data);
+          if (response.data.success) {
+            // Actualizar el campo de foto de perfil en el store
+            this.$store.commit('setFotoPerfil', response.data.imageUrl);
+            // Cerrar el modal después de enviar la imagen
+            this.mostrarModal = false;
+          } else {
+            // Manejar el caso en el que ocurra un error al subir la imagen
+            console.error(response.data.message);
+          }
         })
         .catch(error => {
           console.error(error);
-          // Manejar el error
-        })
-        .finally(() => {
-          // Cerrar el modal después de enviar la imagen
-          this.mostrarModal = false;
+          // Manejar el error en caso de que falle la petición
         });
     },
-
-
-   
-
     eliminarNotificacion(index) {
-      this.notificaciones.splice(index, 1);
-      this.$router.push('/horario');
+  // Guardar la notificación eliminada en el almacenamiento local
+  const notificacionEliminada = this.notificaciones[index];
+  const notificacionesEliminadas = JSON.parse(localStorage.getItem('notificacionesEliminadas')) || [];
+  notificacionesEliminadas.push(notificacionEliminada);
+  localStorage.setItem('notificacionesEliminadas', JSON.stringify(notificacionesEliminadas));
 
-    },
+  // Eliminar la notificación del array
+  this.notificaciones.splice(index, 1);
+  this.$router.push('/horario');
+},
 
     obtenerEventosUsuario() {
       const idUsuario = this.usuario.id;
@@ -238,7 +249,6 @@ export default {
           console.error("Hubo un error al obtener los eventos:", error)
         );
     },
-
     abrirEnlaceUsuario() {
       if (this.usuario) {
         window.location.href = this.urlRedireccion;
@@ -287,18 +297,15 @@ export default {
 
         const hoy = this.obtenerFechaActual();
 
-
         if (unDiaAntes.toISOString().slice(0, 10) === hoy) {
           this.enviarNotificacion(evento.title, "Mañana");
         }
-
 
         if (evento.date === hoy) {
           this.enviarNotificacion(evento.title, "Hoy");
         }
       });
     },
-
     enviarNotificacion(titulo, mensaje) {
       this.notificaciones.push(`${titulo}: ${mensaje}`);
     },
@@ -307,12 +314,16 @@ export default {
       const dia = fechaActual.getDate();
       const mes = fechaActual.getMonth() + 1;
       const año = fechaActual.getFullYear();
-      return `${año}-${mes < 10 ? "0" + mes : mes}-${dia < 10 ? "0" + dia : dia
-        }`;
+      return `${año}-${mes < 10 ? "0" + mes : mes}-${dia < 10 ? "0" + dia : dia}`;
+    },
+    aplicarCambios() {
+      this.enviarImagen();
     },
   },
 };
 </script>
+
+
 
 
 <style scoped>
@@ -343,9 +354,86 @@ export default {
 }
 
 .modal-contenido {
+  position: relative; 
   background-color: white;
-  padding: 20px;
+  padding: 50px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.cerrar-modal {
+  position: absolute; 
+  top: 10px; 
+  right: 350px; 
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color:#000000;
+  background-color: transparent;
+  width: 30px; 
+}
+
+.titulo-modal {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.icono-usuario-modal {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.subir-foto {
+  margin-bottom: 20px;
+}
+
+.subir-foto p {
+  margin: 0;
+  cursor: pointer;
+}
+
+.subir-foto :hover{
+  color:#ff4006;
+  cursor:pointer;
+}
+
+.subir-foto input {
+  display: none;
+}
+
+.vista-previa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.icono-usuario {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.boton-cancelar,
+.boton-aplicar {
+  padding: 10px 20px;
+  border: none;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.boton-cancelar {
+  background-color: #dd2915;
+  color: white;
+}
+
+.boton-aplicar {
+  background-color: #28b663;
+  color: white;
 }
 
 
@@ -424,8 +512,7 @@ export default {
   margin-right: 20px;
 }
 
-.usuario-menu-contenedor:hover .texto-usuario,
-.usuario-menu-contenedor:hover .icono-usuario {
+.usuario-menu-contenedor:hover .texto-usuario {
   filter: invert(0.5) saturate(0);
 }
 
@@ -441,6 +528,8 @@ export default {
   height: 40px;
   border-radius: 50%;
   transition: filter 0.3s ease;
+  object-fit: cover;
+  object-position: center; 
 }
 
 .notificaciones-contenedor {
@@ -639,23 +728,6 @@ export default {
   }
 
   /** */
-  .usuario-menu-contenedor {
-    justify-content: center;
-  }
-
-  .usuario-menu-contenedor:hover .texto-usuario,
-  .usuario-menu-contenedor:hover .icono-usuario {
-    filter: invert(0.5) saturate(0);
-  }
-
-  .icono-usuario {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    filter: invert(1);
-    transition: filter 0.3s ease;
-    transform: translateX(-20px);
-  }
 
   .menu-usuario {
     position: absolute;
@@ -700,16 +772,12 @@ export default {
     margin-right: 10px;
   }
 
-  .usuario-menu-contenedor:hover .texto-usuario,
-  .usuario-menu-contenedor:hover .icono-usuario {
-    filter: invert(0.5) saturate(0);
-  }
+
 
   .icono-usuario {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    filter: invert(1);
     transition: filter 0.3s ease;
     transform: translateX(-15px);
   }

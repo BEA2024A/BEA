@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 $idAlumno = isset($_GET['idAlumno']) ? $_GET['idAlumno'] : die('ID not provided');
 
-$sql = "SELECT r.NOMBRE, r.APELLIDO_PATERNO, r.APELLIDO_MATERNO, c.CARRERA, c.ID_ALUMNO, c.MOTIVO, c.EXPECTATIVA
+$sql = "SELECT r.NOMBRE, r.APELLIDO_PATERNO, r.APELLIDO_MATERNO, c.CARRERA, c.ID_ALUMNO, c.MOTIVO, c.EXPECTATIVA, r.foto_perfil
         FROM citas c 
         JOIN registro r ON c.ID_ALUMNO = r.ID_ALUMNO
         WHERE c.ID_ALUMNO = ?";

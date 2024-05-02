@@ -2,7 +2,7 @@
     <PlantillaPsico>
     <div class="login-container">
       <div class="background-image"></div>
-      <div class="login-box" @mouseover="changeCursor">
+      <div  class="login-box admin-form" @mouseover="changeCursor">
         <div class="content">
           <h2 class="titulo">Registro de nuevo administrador</h2>
           <div class="input-group">
@@ -33,10 +33,49 @@
             <input type="password" v-model="confirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="submit"  >
             <div class="input-line"></div>
           </div>
-         
         </div>
-        <button @click="submit" class="submit-button">Registrarse</button>
+        <button @click="submitAdmin" class="submit-button">Registrar</button>
       </div>
+
+
+      <div class="login-box user-form" @mouseover="changeCursor">
+      <div class="content">
+        <h2 class="titulo">Registro de nuevo alumno</h2>
+        <div class="input-group">
+          <input type="text" v-model="id" class="input-field" placeholder="ID" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" v-model="nombre" class="input-field" placeholder="Nombre" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" v-model="apellidoPaterno" class="input-field" placeholder="Apellido Paterno" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" v-model="apellidoMaterno" class="input-field" placeholder="Apellido Materno" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="text" v-model="email" class="input-field" placeholder="user@anahuac.mx" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="password" v-model="password" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="password" v-model="confirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="submit"  >
+          <div class="input-line"></div>
+        </div>
+      </div>
+      <button @click="submitAlumno" class="submit-button">Registrar</button>
+    </div>
+
+
+
+
     </div>
 </PlantillaPsico>
   </template>
@@ -62,7 +101,7 @@ export default {
     }
   },
   methods: {
-    submit() {
+    submitAdmin() {
       if (!/^\d{8}$/.test(this.id)) {
         Swal.fire(
           'Error',
@@ -160,6 +199,81 @@ export default {
           );
         });
     },
+
+
+    submitAlumno() {
+      if (!/^\d{8}$/.test(this.id)) {
+        this.showAlert('Error', 'El ID debe contener 8 dígitos numéricos');
+        return;
+      }
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
+        this.showAlert('Error', 'El nombre solo puede contener letras y espacios');
+        return;
+      }
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoPaterno)) {
+        this.showAlert('Error', 'El Apellido Paterno solo puede contener letras y espacios');
+        return;
+      }
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoMaterno)) {
+        this.showAlert('Error', 'El Apellido Materno solo puede contener letras y espacios');
+        return;
+      }
+      if (!this.email.endsWith('@anahuac.mx')) {
+        this.showAlert('Error', 'El correo electrónico debe ser @anahuac.mx');
+        return;
+      }
+      if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
+        this.showAlert('Error', 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número');
+        return;
+      }
+      if (this.password !== this.confirmPassword) {
+        this.showAlert('Error', 'Las contraseñas no coinciden');
+        return;
+      }
+      // Preparar los datos para enviar al servidor
+      const formData = new FormData();
+      formData.append('ID_ALUMNO', this.id);
+      formData.append('NOMBRE', this.nombre);
+      formData.append('APELLIDO_PATERNO', this.apellidoPaterno);
+      formData.append('APELLIDO_MATERNO', this.apellidoMaterno);
+      formData.append('CORREO', this.email);
+      formData.append('CONTRASEÑA', this.password);
+
+      // Enviar la petición al servidor
+      axios.post('http://localhost/BEA/back/registro.php', formData)
+        .then(response => {
+          // Manejar la respuesta del servidor
+          if (response.data === "El ID ya está registrado." ||
+              response.data === "El correo ya está en uso con otra cuenta.") {
+            this.showAlert('Error', response.data);
+
+          } else if (response.data === "Registro exitoso") {
+            // Registro exitoso
+            this.showAlert('Éxito', 'Registro exitoso', 'success').then(() => {
+              this.$router.push('/iniciopsico');
+            });
+          } else {
+            // Otros mensajes del servidor
+            this.showAlert('Error', 'Error desconocido: ' + response.data);
+          }
+        })
+        .catch(error => {
+          // Error en la petición
+          console.error('Error en la petición:', error);
+          this.showAlert('Error', 'Ocurrió un error al realizar el registro.');
+        });
+    },
+    showAlert(title, text, icon = 'error') {
+      return Swal.fire({
+        title: title,
+        text: text,
+        icon: icon,
+        confirmButtonText: 'Aceptar'
+      });
+    },
+
+
+
     hideBottomBorder() {
       this.$refs.emailInput.style.borderBottom = 'none';
     },
@@ -189,35 +303,44 @@ export default {
   
   .background-image {
       position: absolute;
+      justify-content: space-between;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 110%;
       background-image: linear-gradient(to bottom, #ff5900, #c21c02);
       background-size: cover;
       z-index: -1;
     }
 
-    .logo {
-      position: absolute;
-      top: 30px;
-      left: 30px;
-      width: 150px;
-      height: auto;
-    }
   
   .login-box {
-  width: 300px;
-  margin: 0 auto; /* Centra el cuadro horizontalmente */
+  width: 400px;
+
+  margin: 0 auto; 
   background-color: #f4f4f4;
-  padding: 20px;
+  padding: 50px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 80px;
+  margin-bottom: 80px;
   padding-left: 40px;
   padding-right: 40px;
 }
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .admin-form {
+    margin-right: 100px; 
+  }
+
+  .user-form {
+    margin-left: 100px; 
+  }
 
 .content {
   padding: 10px;

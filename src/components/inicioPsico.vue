@@ -310,6 +310,8 @@ export default {
   
   .card img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }

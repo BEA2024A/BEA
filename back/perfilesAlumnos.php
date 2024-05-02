@@ -21,7 +21,7 @@ if ($conn->connect_error) {
 $idPsicologo = $_GET['idPsicologo'];
 
 
-$sql = "SELECT r.NOMBRE, r.APELLIDO_PATERNO, r.APELLIDO_MATERNO, c.CARRERA, c.ID_ALUMNO, c.SEMESTRE, c.MOTIVO, c.EXPECTATIVA
+$sql = "SELECT r.NOMBRE, r.APELLIDO_PATERNO, r.APELLIDO_MATERNO, c.CARRERA, c.ID_ALUMNO, c.SEMESTRE, c.MOTIVO, c.EXPECTATIVA, r.foto_perfil
         FROM citas c 
         JOIN registro r ON c.ID_ALUMNO = r.ID_ALUMNO
         WHERE c.ID_ADMIN = ?";
@@ -40,11 +40,12 @@ while ($row = $result->fetch_assoc()) {
         'ide' => $row['ID_ALUMNO'],
         'perfil' => '/perfil',
         'notas' => '/Notas',
-        'imagen' => 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+        'imagen' => $row['foto_perfil'],
         'mostrarDescripcion' => false,
         'semestre' => $row['SEMESTRE'],
         'motivo' => $row['MOTIVO'],
-        'expectativa' => $row['EXPECTATIVA']
+        'expectativa' => $row['EXPECTATIVA'],
+ 
     ];
 }
 

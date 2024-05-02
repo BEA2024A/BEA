@@ -18,6 +18,11 @@ export default createStore({
     clearUsuario(state) {
       state.usuario = null;
     },
+    setFotoPerfil(state, imageUrl) {
+      if (state.usuario) {
+        state.usuario.foto_perfil = imageUrl;
+      }
+    },
   },
   actions: {
     iniciarSesion({ commit }, usuario, correo, id, a_paterno, a_materno, tipo, foto_perfil) {
