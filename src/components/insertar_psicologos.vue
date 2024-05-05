@@ -261,7 +261,7 @@ export default {
   display: flex;
   justify-content: center;
   height: 100vh;
-  margin-left: 250px;
+  margin-left: 150px;
   margin-bottom: 50px;
   margin-top: 50px;
 }
@@ -273,8 +273,9 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding-left: 40px;
-  padding-right: 40px;
+  
+
+ 
 }
 
 .content {

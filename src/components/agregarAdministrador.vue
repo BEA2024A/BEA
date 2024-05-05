@@ -1,86 +1,83 @@
 <template>
-    <PlantillaPsico>
+  <PlantillaPsico>
     <div class="login-container">
       <div class="background-image"></div>
-      <div  class="login-box admin-form" @mouseover="changeCursor">
+      <!-- Formulario de Administradores -->
+      <div class="login-box admin-form" @mouseover="changeCursor">
         <div class="content">
           <h2 class="titulo">Registro de nuevo administrador</h2>
           <div class="input-group">
-            <input type="text" v-model="id" class="input-field" placeholder="ID" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <input type="text" v-model="adminId" class="input-field" placeholder="ID" @focus="hideBottomBorder" @blur="showBottomBorder">
             <div class="input-line"></div>
           </div>
           <div class="input-group">
-            <input type="text" v-model="nombre" class="input-field" placeholder="Nombre" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <input type="text" v-model="adminNombre" class="input-field" placeholder="Nombre" @focus="hideBottomBorder" @blur="showBottomBorder">
             <div class="input-line"></div>
           </div>
           <div class="input-group">
-            <input type="text" v-model="apellidoPaterno" class="input-field" placeholder="Apellido Paterno" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <input type="text" v-model="adminApellidoPaterno" class="input-field" placeholder="Apellido Paterno" @focus="hideBottomBorder" @blur="showBottomBorder">
             <div class="input-line"></div>
           </div>
           <div class="input-group">
-            <input type="text" v-model="apellidoMaterno" class="input-field" placeholder="Apellido Materno" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <input type="text" v-model="adminApellidoMaterno" class="input-field" placeholder="Apellido Materno" @focus="hideBottomBorder" @blur="showBottomBorder">
             <div class="input-line"></div>
           </div>
           <div class="input-group">
-            <input type="text" v-model="email" class="input-field" placeholder="user@anahuac.mx" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <input type="text" v-model="adminEmail" class="input-field" placeholder="user@anahuac.mx" @focus="hideBottomBorder" @blur="showBottomBorder">
             <div class="input-line"></div>
           </div>
           <div class="input-group">
-            <input type="password" v-model="password" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <input type="password" v-model="adminPassword" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
             <div class="input-line"></div>
           </div>
           <div class="input-group">
-            <input type="password" v-model="confirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="submit"  >
+            <input type="password" v-model="adminConfirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="submitAdmin">
             <div class="input-line"></div>
           </div>
         </div>
         <button @click="submitAdmin" class="submit-button">Registrar</button>
       </div>
 
-
+      <!-- Formulario de Usuarios -->
       <div class="login-box user-form" @mouseover="changeCursor">
-      <div class="content">
-        <h2 class="titulo">Registro de nuevo alumno</h2>
-        <div class="input-group">
-          <input type="text" v-model="id" class="input-field" placeholder="ID" @focus="hideBottomBorder" @blur="showBottomBorder">
-          <div class="input-line"></div>
+        <div class="content">
+          <h2 class="titulo">Registro de nuevo alumno</h2>
+          <div class="input-group">
+            <input type="text" v-model="userId" class="input-field" placeholder="ID" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <div class="input-line"></div>
+          </div>
+          <div class="input-group">
+            <input type="text" v-model="userNombre" class="input-field" placeholder="Nombre" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <div class="input-line"></div>
+          </div>
+          <div class="input-group">
+            <input type="text" v-model="userApellidoPaterno" class="input-field" placeholder="Apellido Paterno" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <div class="input-line"></div>
+          </div>
+          <div class="input-group">
+            <input type="text" v-model="userApellidoMaterno" class="input-field" placeholder="Apellido Materno" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <div class="input-line"></div>
+          </div>
+          <div class="input-group">
+            <input type="text" v-model="userEmail" class="input-field" placeholder="user@anahuac.mx" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <div class="input-line"></div>
+          </div>
+          <div class="input-group">
+            <input type="password" v-model="userPassword" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
+            <div class="input-line"></div>
+          </div>
+          <div class="input-group">
+            <input type="password" v-model="userConfirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="submitAlumno">
+            <div class="input-line"></div>
+          </div>
         </div>
-        <div class="input-group">
-          <input type="text" v-model="nombre" class="input-field" placeholder="Nombre" @focus="hideBottomBorder" @blur="showBottomBorder">
-          <div class="input-line"></div>
-        </div>
-        <div class="input-group">
-          <input type="text" v-model="apellidoPaterno" class="input-field" placeholder="Apellido Paterno" @focus="hideBottomBorder" @blur="showBottomBorder">
-          <div class="input-line"></div>
-        </div>
-        <div class="input-group">
-          <input type="text" v-model="apellidoMaterno" class="input-field" placeholder="Apellido Materno" @focus="hideBottomBorder" @blur="showBottomBorder">
-          <div class="input-line"></div>
-        </div>
-        <div class="input-group">
-          <input type="text" v-model="email" class="input-field" placeholder="user@anahuac.mx" @focus="hideBottomBorder" @blur="showBottomBorder">
-          <div class="input-line"></div>
-        </div>
-        <div class="input-group">
-          <input type="password" v-model="password" class="input-field" placeholder="Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder">
-          <div class="input-line"></div>
-        </div>
-        <div class="input-group">
-          <input type="password" v-model="confirmPassword" class="input-field" placeholder="Confirmar Contraseña" @focus="hideBottomBorder" @blur="showBottomBorder" @keyup.enter="submit"  >
-          <div class="input-line"></div>
-        </div>
+        <button @click="submitAlumno" class="submit-button">Registrar</button>
       </div>
-      <button @click="submitAlumno" class="submit-button">Registrar</button>
     </div>
+  </PlantillaPsico>
+</template>
 
-
-
-
-    </div>
-</PlantillaPsico>
-  </template>
-  
-  <script>
+<script>
 import axios from 'axios';
 import PlantillaPsico from './plantillaPsico.vue';
 import Swal from 'sweetalert2';
@@ -91,186 +88,223 @@ export default {
   },
   data() {
     return {
-      id: '',
-      nombre: '',
-      apellidoPaterno: '',
-      apellidoMaterno: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
+      // Variables para el formulario de administradores
+      adminId: '',
+      adminNombre: '',
+      adminApellidoPaterno: '',
+      adminApellidoMaterno: '',
+      adminEmail: '',
+      adminPassword: '',
+      adminConfirmPassword: '',
+
+      // Variables para el formulario de usuarios
+      userId: '',
+      userNombre: '',
+      userApellidoPaterno: '',
+      userApellidoMaterno: '',
+      userEmail: '',
+      userPassword: '',
+      userConfirmPassword: '',
     }
   },
   methods: {
     submitAdmin() {
-      if (!/^\d{8}$/.test(this.id)) {
-        Swal.fire(
-          'Error',
-          'El ID debe contener 8 dígitos numéricos',
-          'error'
-        );
-        return;
-      }
-      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
-        Swal.fire(
-          'Error',
-          'El nombre solo puede contener letras y espacios',
-          'error'
-        );
-        return;
-      }
-      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoPaterno)) {
-        Swal.fire(
-          'Error',
-          'El Apellido Paterno solo puede contener letras y espacios',
-          'error'
-        );
-        return;
-      }
-      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoMaterno)) {
-        Swal.fire(
-          'Error',
-          'El Apellido Materno solo puede contener letras y espacios',
-          'error'
-        );
-        return;
-      }
-      if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
-        Swal.fire(
-          'Error',
-          'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número',
-          'error'
-        );
-        return;
-      }
-      if (this.password !== this.confirmPassword) {
-        Swal.fire(
-          'Error',
-          'Las contraseñas no coinciden',
-          'error'
-        );
-        return;
-      }
+  if (!/^\d{8}$/.test(this.adminId)) {
+    Swal.fire(
+      'Error',
+      'El ID debe contener 8 dígitos numéricos',
+      'error'
+    );
+    return;
+  }
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.adminNombre)) {
+    Swal.fire(
+      'Error',
+      'El nombre solo puede contener letras y espacios',
+      'error'
+    );
+    return;
+  }
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.adminApellidoPaterno)) {
+    Swal.fire(
+      'Error',
+      'El Apellido Paterno solo puede contener letras y espacios',
+      'error'
+    );
+    return;
+  }
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.adminApellidoMaterno)) {
+    Swal.fire(
+      'Error',
+      'El Apellido Materno solo puede contener letras y espacios',
+      'error'
+    );
+    return;
+  }
+  if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.adminPassword)) {
+    Swal.fire(
+      'Error',
+      'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número',
+      'error'
+    );
+    return;
+  }
+  if (this.adminPassword !== this.adminConfirmPassword) {
+    Swal.fire(
+      'Error',
+      'Las contraseñas no coinciden',
+      'error'
+    );
+    return;
+  }
 
-      // Preparar los datos para enviar al servidor
-      const formData = new FormData();
-      formData.append('ID_ALUMNO', this.id);
-      formData.append('NOMBRE', this.nombre);
-      formData.append('APELLIDO_PATERNO', this.apellidoPaterno);
-      formData.append('APELLIDO_MATERNO', this.apellidoMaterno);
-      formData.append('CORREO', this.email);
-      formData.append('CONTRASEÑA', this.password);
+  // Preparar los datos para enviar al servidor
+  const formData = new FormData();
+  formData.append('ID_ALUMNO', this.adminId);
+  formData.append('NOMBRE', this.adminNombre);
+  formData.append('APELLIDO_PATERNO', this.adminApellidoPaterno);
+  formData.append('APELLIDO_MATERNO', this.adminApellidoMaterno);
+  formData.append('CORREO', this.adminEmail);
+  formData.append('CONTRASEÑA', this.adminPassword);
 
-      // Enviar la petición al servidor
-      axios.post('http://localhost/BEA/back/agregarAdministrador.php', formData)
-        .then(response => {
-          // Manejar la respuesta del servidor
-          if (response.data === "El ID ya está registrado. Por favor, inicia sesión con tu cuenta." ||
-              response.data === "El correo ya está en uso con otra cuenta.") {
-            Swal.fire(
-              'Error',
-              response.data,
-              'error'
-            );
-          } else if (response.data === "Registro exitoso") {
-            // Registro exitoso
-            Swal.fire(
-              'Éxito',
-              'Registro exitoso',
-              'success'
-            ).then(() => {
-              this.$router.push('/inicioPsico');
-            });
-          } else {
-            // Otros mensajes del servidor
-            Swal.fire(
-              'Error',
-              'Error desconocido: ' + response.data,
-              'error'
-            );
-          }
-        })
-        .catch(error => {
-          // Error en la petición
-          console.error('Error en la petición:', error);
-          Swal.fire(
-            'Error',
-            'Ocurrió un error al realizar el registro.',
-            'error'
-          );
+  // Enviar la petición al servidor
+  axios.post('http://localhost/BEA/back/agregarAdministrador.php', formData)
+    .then(response => {
+      // Manejar la respuesta del servidor
+      if (response.data === "El ID ya está registrado. Por favor, inicia sesión con tu cuenta." ||
+          response.data === "El correo ya está en uso con otra cuenta.") {
+        Swal.fire(
+          'Error',
+          response.data,
+          'error'
+        );
+      } else if (response.data === "Registro exitoso") {
+        // Registro exitoso
+        Swal.fire(
+          'Éxito',
+          'Registro exitoso',
+          'success'
+        ).then(() => {
+          this.$router.push('/inicioPsico');
         });
-    },
+      } else {
+        // Otros mensajes del servidor
+        Swal.fire(
+          'Error',
+          'Error desconocido: ' + response.data,
+          'error'
+        );
+      }
+    })
+    .catch(error => {
+      // Error en la petición
+      console.error('Error en la petición:', error);
+      Swal.fire(
+        'Error',
+        'Ocurrió un error al realizar el registro.',
+        'error'
+      );
+    });
+},
 
+submitAlumno() {
+  if (!/^\d{8}$/.test(this.userId)) {
+    Swal.fire(
+      'Error',
+      'El ID debe contener 8 dígitos numéricos',
+      'error'
+    );
+    return;
+  }
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.userNombre)) {
+    Swal.fire(
+      'Error',
+      'El nombre solo puede contener letras y espacios',
+      'error'
+    );
+    return;
+  }
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.userApellidoPaterno)) {
+    Swal.fire(
+      'Error',
+      'El Apellido Paterno solo puede contener letras y espacios',
+      'error'
+    );
+    return;
+  }
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.userApellidoMaterno)) {
+    Swal.fire(
+      'Error',
+      'El Apellido Materno solo puede contener letras y espacios',
+      'error'
+    );
+    return;
+  }
+  if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.userPassword)) {
+    Swal.fire(
+      'Error',
+      'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número',
+      'error'
+    );
+    return;
+  }
+  if (this.userPassword !== this.userConfirmPassword) {
+    Swal.fire(
+      'Error',
+      'Las contraseñas no coinciden',
+      'error'
+    );
+    return;
+  }
+  // Preparar los datos para enviar al servidor
+  const formData = new FormData();
+  formData.append('ID_ALUMNO', this.userId);
+  formData.append('NOMBRE', this.userNombre);
+  formData.append('APELLIDO_PATERNO', this.userApellidoPaterno);
+  formData.append('APELLIDO_MATERNO', this.userApellidoMaterno);
+  formData.append('CORREO', this.userEmail);
+  formData.append('CONTRASEÑA', this.userPassword);
 
-    submitAlumno() {
-      if (!/^\d{8}$/.test(this.id)) {
-        this.showAlert('Error', 'El ID debe contener 8 dígitos numéricos');
-        return;
-      }
-      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.nombre)) {
-        this.showAlert('Error', 'El nombre solo puede contener letras y espacios');
-        return;
-      }
-      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoPaterno)) {
-        this.showAlert('Error', 'El Apellido Paterno solo puede contener letras y espacios');
-        return;
-      }
-      if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(this.apellidoMaterno)) {
-        this.showAlert('Error', 'El Apellido Materno solo puede contener letras y espacios');
-        return;
-      }
-      if (!this.email.endsWith('@anahuac.mx')) {
-        this.showAlert('Error', 'El correo electrónico debe ser @anahuac.mx');
-        return;
-      }
-      if (!/(?=.*[A-Z])(?=.*\d).{8,}/.test(this.password)) {
-        this.showAlert('Error', 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número');
-        return;
-      }
-      if (this.password !== this.confirmPassword) {
-        this.showAlert('Error', 'Las contraseñas no coinciden');
-        return;
-      }
-      // Preparar los datos para enviar al servidor
-      const formData = new FormData();
-      formData.append('ID_ALUMNO', this.id);
-      formData.append('NOMBRE', this.nombre);
-      formData.append('APELLIDO_PATERNO', this.apellidoPaterno);
-      formData.append('APELLIDO_MATERNO', this.apellidoMaterno);
-      formData.append('CORREO', this.email);
-      formData.append('CONTRASEÑA', this.password);
-
-      // Enviar la petición al servidor
-      axios.post('http://localhost/BEA/back/registro.php', formData)
-        .then(response => {
-          // Manejar la respuesta del servidor
-          if (response.data === "El ID ya está registrado." ||
-              response.data === "El correo ya está en uso con otra cuenta.") {
-            this.showAlert('Error', response.data);
-
-          } else if (response.data === "Registro exitoso") {
-            // Registro exitoso
-            this.showAlert('Éxito', 'Registro exitoso', 'success').then(() => {
-              this.$router.push('/iniciopsico');
-            });
-          } else {
-            // Otros mensajes del servidor
-            this.showAlert('Error', 'Error desconocido: ' + response.data);
-          }
-        })
-        .catch(error => {
-          // Error en la petición
-          console.error('Error en la petición:', error);
-          this.showAlert('Error', 'Ocurrió un error al realizar el registro.');
+  // Enviar la petición al servidor
+  axios.post('http://localhost/BEA/back/registro.php', formData)
+    .then(response => {
+      // Manejar la respuesta del servidor
+       if (response.data === "El ID ya está registrado. Por favor, inicia sesión con tu cuenta." ||
+          response.data === "El correo ya está en uso con otra cuenta.") {
+        Swal.fire(
+          'Error',
+          response.data,
+          'error'
+        );
+      } else if (response.data === "Registro exitoso") {
+        // Registro exitoso
+        Swal.fire(
+          'Éxito',
+          'Registro exitoso',
+          'success'
+        ).then(() => {
+          this.$router.push('/inicioPsico');
         });
-    },
-    showAlert(title, text, icon = 'error') {
-      return Swal.fire({
-        title: title,
-        text: text,
-        icon: icon,
-        confirmButtonText: 'Aceptar'
-      });
-    },
+      } else {
+        // Otros mensajes del servidor
+        Swal.fire(
+          'Error',
+          'Error desconocido: ' + response.data,
+          'error'
+        );
+      }
+    })
+    .catch(error => {
+      // Error en la petición
+      console.error('Error en la petición:', error);
+      Swal.fire(
+        'Error',
+        'Ocurrió un error al realizar el registro.',
+        'error'
+      );
+    });
+},
+
 
 
 

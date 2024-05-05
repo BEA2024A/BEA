@@ -52,22 +52,7 @@
           </div>
         </div>
 
-        <div class="contenido-izquierda">
-          <div class="fondo-materiales">
-            <section class="seccion-materiales">
-              <h1>Materiales Actuales</h1>
-              <div class="material-cards">
-                <div v-for="(material, index) in materiales" :key="index" class="card" @mouseenter="material.mostrarDescripcion = true" @mouseleave="material.mostrarDescripcion = false">
-                  <img :src="material.imagen" alt="Imagen del material">
-                  <div class="descripcion-material" :class="{ 'mostrar-descripcion': material.mostrarDescripcion }">
-                    <h3>{{ material.nombre }}</h3>
-                    <p>{{ material.autor }}</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
+        
       </div>
     </div>
   </plantilla-psico>
