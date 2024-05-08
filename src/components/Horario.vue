@@ -364,7 +364,7 @@ export default {
 }
 
 
-@media (max-width: 639px) {
+@media only screen and (min-width: 768px) and (max-width: 991px) {
 
 
   .container {
@@ -374,9 +374,11 @@ export default {
   }
 
   .calendar-container {
-    padding: 40px;
+    padding: 100px;
     border-radius: 8px;
-    margin: 5px;
+    margin: 100px;
+    margin-bottom: 10px;
+    margin-top: 50px;
     padding-bottom: 100px;
   }
  
@@ -423,4 +425,65 @@ export default {
 
 
 }
+
+@media only screen and (max-width: 767px) {
+
+
+.container {
+  flex-direction: column;
+  padding: 10px;
+  padding-right: 20px;
+}
+
+.calendar-container {
+  padding: 40px;
+  border-radius: 8px;
+  margin: 5px;
+  padding-bottom: 100px;
+}
+
+.events-container {
+  margin: 30px;
+}
+
+.events-list {
+  list-style-type: none;
+  text-align: center;
+  transform: translateX(0%);
+}
+
+.eventos {
+  margin-top: 0;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.botones {
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+
+/* Orden de visualización */
+.calendar-container {
+  order: 1;
+}
+
+.events-container {
+  order: 2;
+}
+
+.botones {
+  order: 3;
+}
+
+
+}
+
 </style>

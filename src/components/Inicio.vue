@@ -266,7 +266,7 @@ export default {
 
 /* RESPONSIVIDAD*/
 
-@media (max-width: 639px) {
+@media only screen and (max-width: 767px) {
 
 /*BANNER BIENVENIDA */
 .banner-bienvenida {
@@ -324,9 +324,66 @@ export default {
     opacity: 1;
   }
   
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+/*BANNER BIENVENIDA */
+.banner-bienvenida {
+    margin-top: 0px;
+    margin-bottom: 30px;
+  }
+
+/*METODO DE TRABAJO */
+
+  .seccion-metodo {
+  display:flex;
+  padding-left: 10px;
+  padding-right: 15px;
+}
+
+  .item-metodo {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+  }
+
+  .item-metodo img {
+    object-fit: cover;
+    width: 400px;
+  }
+
+/*PSICOLOGOS */
+.fondo-psicologos{
+    padding: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .seccion-psicologos {
+    margin: 10px;
+    padding: 20px;
+   
+  }
+
+  .seccion-psicologos h1 {
+    font-size: 25px;
+  }
+  .seccion-psicologos h1:hover {
+    font-size: 25px; 
+  }
 
 
+  
+  .card img {
+    width: 100%;
+    height: 300px; 
+  }
 
+  .mostrar-descripcion {
+    opacity: 1;
+  }
+  
 }
 
 

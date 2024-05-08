@@ -45,12 +45,14 @@
               <p><button v-on:click="redirigirPerfil(alumno.notas)">Notas</button></p>
             </div>
           </div>
-          <div class="botones-container">
+        </div>
+        <div class="botones-container">
           <button v-if="alumnosFiltrados.length> cantidadMostrada" @click="cargarMas" class="ver-mas-btn"> Ver más </button>
           <button v-if="alumnosFiltrados.length> cantidadMostrada" @click="cargarMenos" class="ver-menos-btn"> Ver menos </button>
           </div>
-        </div>
       </section>
+
+      
 
   </plantilla-psico>
 </template>
@@ -225,7 +227,7 @@ export default {
 
 
 .imagen-derecha {
-  margin-left: 200px;
+  margin-left: 20px;
 }
 
 .circulo-con-sombra {
@@ -297,7 +299,8 @@ export default {
   
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
+    width: 300px;
+    height: 300px;
     margin: 25px;
     text-align: center;
     transition: transform 0.3s ease;
@@ -356,12 +359,7 @@ export default {
     opacity: 0.7;
   }
   
-  @media only screen and (max-width: 600px) {
-    .card {
-      max-width: calc(50% - 30px); 
-      margin: 15px;
-    }
-  }
+
 
   .perfil-header {
     margin-top: 0px;
@@ -486,6 +484,70 @@ export default {
 .ver-mas-btn:hover,
 .ver-menos-btn:hover {
   background-color: #ff5900; 
+}
+
+
+@media only screen and (max-width: 767px){
+
+
+.info-izquierda h1 {
+  transform: translate(47%, 90%);
+}
+
+
+.info-izquierda p{
+  transform: translate(47%, 350%);
+}
+
+
+.imagen-derecha {
+  margin-left: 200px;
+}
+
+.circulo-con-sombra {
+  width: 250px; 
+  height: 250px; 
+  transform: translate(-130%, -50%);
+}
+
+
+.boton-scroll {
+display: none;
+}
+
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+
+
+.info-izquierda h1 {
+  transform: translate(70%, 130%);
+  font-size: 50px;
+}
+
+
+.info-izquierda p{
+  transform: translate(70%, 500%);
+  font-size: 25px;
+}
+
+
+.imagen-derecha {
+  margin-left: 200px;
+}
+
+.circulo-con-sombra {
+  width: 500px; 
+  height: 500px; 
+  transform: translate(-75%, -40%);
+}
+
+
+.boton-scroll {
+display: none;
+}
+
 }
 
 </style>

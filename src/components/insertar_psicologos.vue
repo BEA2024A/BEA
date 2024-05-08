@@ -1,81 +1,86 @@
 <template>
   <PlantillaPsico>
-    <div class="container">
-    <div class="login-container">
-      <div class="login-box" @mouseover="changeCursor">
-        <div class="content">
-          <div class="contenido-izquierda">
-          <h2 class="titulo">Registro de nuevo psicólogo</h2>
-          <div class="input-group">
-              <input type="text" v-model="psicologo.nombre" class="input-field" placeholder="Nombre del psicólogo" @input="validateName">
-              <div class="input-line"></div>
+    <div class="background-image"></div>
+    <div>
+      <div class="contenido">
+        <div class="contenido-izquierda">
+          <div class="form-container">
+            <div >
+              <h1 class="titulo">Registrar nuevo psicólogo</h1>
             </div>
-          <div class="input-group">
-            <input type="text" v-model="psicologo.tipo" class="input-field" placeholder="Tipo de terapia" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="psicologo.telefono" class="input-field" placeholder="Teléfono de contacto" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="psicologo.especialidad" class="input-field" placeholder="Especialidad del psicólogo" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="psicologo.direccion" class="input-field" placeholder="Dirección del consultorio" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="psicologo.poblacion" class="input-field" placeholder="Población atendida" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="psicologo.formacion" class="input-field" placeholder="Formación del psicólogo" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="text" v-model="psicologo.modalidad" class="input-field" placeholder="Modalidad de consulta" @focus="hideBottomBorder" @blur="showBottomBorder">
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <input type="file" @change="handleFileUpload" class="input-field" required>
-            <div class="input-line"></div>
-          </div>
-          <div class="input-group">
-            <select v-model="psicologo.imagen_fondo" class="input-field" required>
-              <option value="" disabled>Seleccione una imagen de fondo</option>
-              <option value="http://localhost/BEA/back/uploads/uno.png">Fondo 1</option>
-              <option value="http://localhost/BEA/back/uploads/dos.jpg">Fondo 2</option>
-              <option value="http://localhost/BEA/back/uploads/tres.png">Fondo 3</option>
-            </select>
-            <div class="input-line"></div>
-          </div>
-          <div class="imagen-fondo-preview">
-            <img :src="psicologo.imagen_fondo" alt="Vista previa de la imagen de fondo">
+            <form @submit.prevent="submitForm">
+              <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" v-model="psicologo.nombre" placeholder="Nombre del psicólogo" required>
+              </div>
+              <div class="form-group">
+                <label for="tipo">Tipo de terapia:</label>
+                <input type="text" id="tipo" v-model="psicologo.tipo" placeholder="Tipo de terapia" required>
+              </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" v-model="psicologo.telefono" placeholder="Teléfono de contacto" required>
+              </div>
+              <div class="form-group">
+                <label for="especialidad">Especialidad:</label>
+                <textarea id="especialidad" v-model="psicologo.especialidad" placeholder="Especialidad del psicólogo" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" v-model="psicologo.direccion" placeholder="Dirección del consultorio" required>
+              </div>
+              <div class="form-group">
+                <label for="poblacion">Población atendida:</label>
+                <input type="text" id="poblacion" v-model="psicologo.poblacion" placeholder="Población atendida" required>
+              </div>
+              <div class="form-group">
+                <label for="formacion">Formación:</label>
+                <textarea id="formacion" v-model="psicologo.formacion" placeholder="Formación del psicólogo" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="modalidad">Modalidad:</label>
+                <input type="text" id="modalidad" v-model="psicologo.modalidad" placeholder="Modalidad de consulta" required>
+              </div>
+              <div class="form-group">
+                <label for="imagen">Imagen del Psicólogo:</label>
+                <input type="file" id="imagen" @change="handleFileUpload" required>
+              </div>
+              <label for="imagen_fondo">Imagen de fondo:</label>
+              <select id="imagen_fondo" v-model="psicologo.imagen_fondo" required>
+                <option value="" disabled>Seleccione una imagen de fondo</option>
+                <option value="http://localhost/BEA/back/uploads/uno.png">Fondo 1</option>
+                <option value="http://localhost/BEA/back/uploads/dos.jpg">Fondo 2</option>
+                <option value="http://localhost/BEA/back/uploads/tres.png">Fondo 3</option>
+              </select>
+              <div class="imagen-fondo-preview">
+                <img :src="psicologo.imagen_fondo" alt="Vista previa de la imagen de fondo">
+              </div>
+              <button type="submit" class="titulo">Registrar Psicólogo</button>
+            </form>
           </div>
         </div>
-        <button @click="submitForm" class="submit-button">Registrar Psicólogo</button>
-      </div>
-    </div>
-    <div class="contenido-derecha"> 
-      <div class="form-container">
-        <h2 class="titulo">Eliminar psicólogo</h2>
-        <form @submit.prevent="eliminarPsicologo">
-          <div class="input-group">
-            <select v-model="psicologoEliminar" class="input-field" required>
-              <option value="" disabled>Seleccione un psicólogo</option>
-              <option v-for="psicologo in psicologos" :key="psicologo.id" :value="psicologo.id">
-                {{ psicologo.nombre }}
-              </option>
-            </select>
+
+        <div class="contenido-derecha">
+          <div class="form-container">
+            <div >
+              <h1 class="titulo">Eliminar psicólogo</h1>
+            </div>
+            <form @submit.prevent="eliminarPsicologo">
+              <div class="form-group">
+                <label for="psicologoEliminar">Seleccione un psicólogo:</label>
+                <select id="psicologoEliminar" class="eliminar-opciones" v-model="psicologoEliminar" required>
+                  <option value="" disabled>Seleccione un psicólogo</option>
+                  <option v-for="psicologo in psicologos" :key="psicologo.id" :value="psicologo.id">
+                    {{ psicologo.nombre }}
+                  </option>
+                </select>
+              </div>
+              <button type="submit" class="titulo">Eliminar Psicólogo</button>
+            </form>
           </div>
-          <button type="submit" class="submit-button">Eliminar Psicólogo</button>
-        </form>
+        </div>
       </div>
     </div>
-    </div>
-  </div>
   </PlantillaPsico>
 </template>
 
@@ -100,7 +105,6 @@ export default {
         formacion: '',
         modalidad: '',
         imagen: null,
-        imagen_fondo: '',
       },
       psicologos: [],
       psicologoEliminar: ''
@@ -108,14 +112,9 @@ export default {
   },
   methods: {
     handleFileUpload(event) {
-      this.psicologo.imagen = event.target.files[0];
+      this.psicologo.imagen = event.target.files[0];  // Captura el archivo desde el input
     },
     submitForm() {
-
-      if (!this.validateForm()) {
-        return;
-      }
-
       const formData = new FormData();
       formData.append('nombre', this.psicologo.nombre);
       formData.append('tipo', this.psicologo.tipo);
@@ -125,8 +124,8 @@ export default {
       formData.append('poblacion', this.psicologo.poblacion);
       formData.append('formacion', this.psicologo.formacion);
       formData.append('modalidad', this.psicologo.modalidad);
-      formData.append('imagen', this.psicologo.imagen);
-      formData.append('imagen_fondo', this.psicologo.imagen_fondo);
+      formData.append('imagen', this.psicologo.imagen);  // Imagen del psicólogo
+      formData.append('imagen_fondo', this.psicologo.imagen_fondo);  // Imagen de fondo
 
       axios.post('http://localhost/bea/back/insertarPsicologo.php', formData, {
         headers: {
@@ -135,13 +134,11 @@ export default {
       })
       .then(response => {
         Swal.fire({
-  icon: 'success',
-  title: 'Éxito',
-  text: 'Psicólogo registrado con éxito',
-  confirmButtonText: 'Aceptar'
-}).then(() => {
-  window.location.reload();
-});
+          icon: 'success',
+          title: 'Éxito',
+          text: 'Psicólogo registrado con éxito',
+          confirmButtonText: 'Aceptar'
+        });
         
       })
       .catch(error => {
@@ -154,36 +151,6 @@ export default {
         });
       });
     },
-
-    validateName() {
-      this.psicologo.nombre = this.psicologo.nombre.replace(/[^a-zA-Z\s]/g, '');
-    },
-    validatePhone() {
-      this.psicologo.telefono = this.psicologo.telefono.replace(/\D/g, '').slice(0, 10);
-    },
-    validateForm() {
-      if (!/^[a-zA-Z\s]+$/.test(this.psicologo.nombre)) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'El nombre solo puede contener letras y espacios',
-          confirmButtonText: 'Aceptar'
-        });
-        return false;
-      }
-      if (this.psicologo.telefono.length !== 10) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'El teléfono debe tener 10 dígitos',
-          confirmButtonText: 'Aceptar'
-        });
-        return false;
-      }
-      // Agrega más validaciones según sea necesario
-      return true;
-    },
-
     cargarPsicologos() {
       axios.get('http://localhost/bea/back/obtenerPsicologos.php')
         .then(response => {
@@ -231,14 +198,11 @@ export default {
         });
       });
     },
-    hideBottomBorder() {
-      this.$refs.emailInput.style.borderBottom = 'none';
+    abrirEnlace(url) {
+      window.location.href = url;
     },
-    showBottomBorder() {
-      this.$refs.emailInput.style.borderBottom = '2px solid blue';
-    },
-    changeCursor() {
-      this.$refs.emailInput.style.cursor = 'text';
+    redirigirPerfil(perfil) {
+      this.$router.push(perfil);
     },
   },
   mounted() {
@@ -248,51 +212,99 @@ export default {
 </script>
 
 <style scoped>
-
-.container {
-  display: flex;
-  justify-content: space-between;
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
   background-image: linear-gradient(to bottom, #ff5900, #c21c02);
-  z-index: -9999;
+  background-size: cover;
+  z-index: -1;
 }
 
+.eliminar-opciones {
+  margin-bottom: 20px;
+}
 
-.login-container {
+.contenido {
+  flex: 1;
   display: flex;
-  justify-content: center;
-  height: 100vh;
-  margin-left: 150px;
-  margin-bottom: 50px;
-  margin-top: 50px;
+  background-image: linear-gradient(to bottom, #ff5900, #c21c02);
 }
 
+.contenido-derecha {
+  flex: 50%;
+  padding-left: 50px;
+}
 
-.login-box {
-  width: 400px;
-  background-color: #f4f4f4;
-  padding: 20px;
+.contenido-izquierda {
+  flex: 30%;
+  padding-right: 60px;
+  padding-left: 100px;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: aliceblue;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
-
- 
 }
 
-.content {
-  padding: 10px;
+.imagen-fondo-preview {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 65px;
+}
+
+.imagen-fondo-preview img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin-top: 5px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
 }
 
 .titulo {
   padding: 5px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out; 
-  margin-bottom: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
 .titulo:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  transform: translateY(-5px); 
+  transform: translateY(-5px);
   border: 1px solid #ccc;
 }
 
@@ -300,80 +312,11 @@ export default {
   margin: 0;
   font-weight: bold;
   color: #333;
-  margin-bottom: 10px;
 }
 
-.input-group {
-  margin-bottom: 15px;
-  position: relative;
+button {
+  background-color: #fcfcfc;
+  font-size: 18px;
+  color: black;
 }
-
-.input-field {
-  width: calc(100% - 10px);
-  padding: 10px;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  background-color: transparent;
-  border-radius: 0;
-}
-
-.input-field:focus {
-  outline: none;
-}
-
-.input-line {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: #007bff;
-  transition: all 0.3s ease;
-}
-
-.input-field:focus + .input-line {
-  height: 2px;
-}
-
-.input-field::placeholder {
-  color: #555;
-}
-
-.imagen-fondo-preview {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.imagen-fondo-preview img {
-  width: 100%;
-  max-width: 150px;
-  height: auto;
-}
-
-.submit-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-button:hover {
-  background-color: #0056b3;
-}
-
-.form-container {
-    width: 300px;
-    margin: 0 20px; 
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-    padding-left: 40px;
-    padding-right: 40px;
-    margin-left: 250px;
-  }
 </style>

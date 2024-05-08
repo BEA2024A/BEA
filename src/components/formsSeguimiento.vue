@@ -100,9 +100,9 @@ export default {
 
 .contenedor {
   display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  height: 100vh; /* Ajustar al alto de la ventana */
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
 }
 
 .pregunta-animada {
@@ -119,7 +119,7 @@ export default {
 }
 
 .campo-entrada {
-  margin-bottom: 20px; /* Agregar un espacio entre el campo de entrada y el botón */
+  margin-bottom: 20px; 
 }
 
 
@@ -150,28 +150,8 @@ export default {
   margin-bottom: 70px;
 }
 
-.entrada-carrera {
-  width: 80%;
-  height: 100px;
-  font-size: 15px;
-  animation: fadeIn 1s ease forwards;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ccc; 
-  resize: none; 
-  border-radius: 10px;
-}
 
-.entrada-semestre {
-  width: 80%;
-  height: 100px;
-  font-size: 15px;
-  animation: fadeIn 1s ease forwards;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ccc; 
-  resize: none; 
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
+
 
 
 
@@ -203,15 +183,15 @@ export default {
 .burbuja {
   background-color: white;
   left: 0;
-  padding: 100px; /* Reducir el espacio dentro de la burbuja */
-  padding-left: 150px;
-  padding-right: 150px;
-  text-align: center; /* Centrar el contenido */
+  padding: 100px; 
+  padding-left: 100px;
+  padding-right: 100px;
+  text-align: center; 
   color: aliceblue;
   font-size: 25px;
   z-index: 2;
   margin-bottom: 100px;
-  transform: translateX(-50%);
+  transform: translateX(-30%);
   color:black;
   border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
@@ -226,7 +206,7 @@ export default {
   }
 }
 
-@media (max-width: 639px) {
+@media only screen and (max-width: 767px) {
 
 
 .entrada-motivo, .entrada-expectativa {
@@ -246,8 +226,36 @@ export default {
   padding-right: 0px;
   font-size: 20px;
   z-index: 2;
-  transform: translateX(0%);
   height: 300px; 
+  width: 330px;
+  align-items: center;
+  transform: translateX(0%);
+}
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+
+
+.leonel img {
+  transform: translateX(20%);
+  z-index: 3;
+}
+
+.pregunta-texto {
+  font-size: 1.5em; 
+  margin-bottom: 40px;
+}
+
+.burbuja {
+  padding: 60px; 
+  padding-left: 90px;
+  padding-right: 90px;
+  font-size: 20px;
+  z-index: 2;
+  transform: translateX(0%);
+  height: 400px; 
   width: 330px;
   align-items: center;
 

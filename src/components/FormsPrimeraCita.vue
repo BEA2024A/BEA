@@ -307,7 +307,7 @@ export default {
   }
 }
 
-@media (max-width: 639px) {
+@media only screen and (max-width: 767px) {
 
 
 .entrada-motivo, .entrada-expectativa {
@@ -329,6 +329,34 @@ export default {
   z-index: 2;
   transform: translateX(0%);
   height: 300px; 
+  width: 330px;
+  align-items: center;
+}
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+
+
+.leonel img {
+  transform: translateX(20%);
+  z-index: 3;
+}
+
+.pregunta-texto {
+  font-size: 1.5em; 
+  margin-bottom: 40px;
+}
+
+.burbuja {
+  padding: 60px; 
+  padding-left: 90px;
+  padding-right: 90px;
+  font-size: 20px;
+  z-index: 2;
+  transform: translateX(0%);
+  height: 400px; 
   width: 330px;
   align-items: center;
 }

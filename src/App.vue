@@ -55,15 +55,29 @@ body {
   background-color:#c44501;
 }
 
-@media (max-width: 639px) {
+@media only screen and (max-width: 767px) {
 :root {
-  --fc-button-size: 20px; /* Tamaño base de los botones */
+  --fc-button-size: 20px; 
 }
 
-/* Estilos para los botones */
+
 .fc .fc-button {
 display: none;
 }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+
+  :root {
+  --fc-button-size: 20px; 
+}
+
+
+.fc .fc-button {
+display: none;
+}
+
 
 }
 </style>

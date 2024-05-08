@@ -62,6 +62,8 @@ const router = createRouter({
 });
 
 
+
+
 router.beforeEach((to, from, next) => {
   const rutasProtegidas = ['/horario', '/seguimiento', '/primeracita', '/FormsPrimeraCita', '/formsSeguimiento', '/inicioPsico'];
   const rutasAdministrativas = ['/agregarAdministrador', '/insertar_psicologos']; // Rutas exclusivas para el administrador

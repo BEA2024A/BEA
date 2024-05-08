@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-04-2024 a las 11:03:19
+-- Tiempo de generación: 08-05-2024 a las 10:42:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -45,7 +45,7 @@ CREATE TABLE `administradores` (
 --
 
 INSERT INTO `administradores` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`, `foto_perfil`) VALUES
-(123456, 'administrador', 'de', 'psicologia', 'antoniogc984@gmail.com', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(123456, 'administrador', 'de', 'psicologia', 'antoniogc984@gmail.com', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'http://localhost/BEA/back/uploads/tipos-de-psicologos.jpg'),
 (567890, 'psicologo', 'numero', 'uno', 'tadeo_martinez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
 
 -- --------------------------------------------------------
@@ -136,7 +136,8 @@ INSERT INTO `citas` (`ID_CITA`, `ID_ALUMNO`, `ID_ADMIN`, `CARRERA`, `SEMESTRE`, 
 (79, 66141036, 567890, 'licenciatura en administracion y direccion de empresas', 2, 'Motivo de la cita generado automáticamente.', 'Expectativa generada automáticamente.'),
 (80, 24241445, 567890, 'licenciatura en diseño industrial', 6, 'Motivo de la cita generado automáticamente.', 'Expectativa generada automáticamente.'),
 (81, 19265822, 123456, 'licenciatura en diseño grafico', 1, 'Motivo de la cita generado automáticamente.', 'Expectativa generada automáticamente.'),
-(82, 85336854, 567890, 'licenciatura en derecho', 11, 'Motivo de la cita generado automáticamente.', 'Expectativa generada automáticamente.');
+(82, 85336854, 567890, 'licenciatura en derecho', 11, 'Motivo de la cita generado automáticamente.', 'Expectativa generada automáticamente.'),
+(87, 34543956, 123456, 'Licenciatura en Ingeniería para la Dirección', 4, 'fdbdfbfdb', 'fddffdb');
 
 -- --------------------------------------------------------
 
@@ -155,15 +156,6 @@ CREATE TABLE `eventos` (
   `id_administrador` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `eventos`
---
-
-INSERT INTO `eventos` (`id_evento`, `id_usuario`, `titulo`, `fecha`, `hora`, `color`, `id_administrador`) VALUES
-(46, 446027, 'Cita con administrador', '2024-04-25', '10:40:00', '#ff5900', 123456),
-(47, 446027, 'Cita con administrador', '2024-04-23', '12:40:00', '#ff5900', 123456),
-(48, 446027, 'Cita con administrador', '2024-04-23', '12:41:00', '#ff5900', 123456);
-
 -- --------------------------------------------------------
 
 --
@@ -180,15 +172,6 @@ CREATE TABLE `eventosadmin` (
   `color` varchar(7) DEFAULT NULL,
   `id_administrador` int(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `eventosadmin`
---
-
-INSERT INTO `eventosadmin` (`id_evento`, `id_alumno`, `titulo`, `fecha`, `hora`, `color`, `id_administrador`) VALUES
-(8, 446027, 'Cita con Antonio', '2024-04-25', '10:40:00', '#ff5900', 123456),
-(9, 446027, 'Cita con Antonio', '2024-04-23', '12:40:00', '#ff5900', 123456),
-(10, 446027, 'Cita con Antonio', '2024-04-23', '12:41:00', '#ff5900', 123456);
 
 -- --------------------------------------------------------
 
@@ -238,7 +221,8 @@ CREATE TABLE `notas` (
 
 INSERT INTO `notas` (`id_nota`, `numero_sesion`, `fecha`, `contenido`, `id_administrador`, `id_alumno`) VALUES
 (2403, 1, '2024-04-29', '<h3>Notas Sesión 1 fecha: 2024-04-29  </h3><p><strong style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Lorem Ipsum</strong><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">&nbsp;es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</span></p><h2><br></h2><p class=\"ql-align-justify\"><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, \"consecteur\", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de \"de Finnibus Bonorum et Malorum\" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45</span></p><p><br></p>', 123456, 446027),
-(2404, 2, '2024-04-29', '<h3>Notas Sesión 2 fecha: 2024-04-29  </h3><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce et augue molestie neque pulvinar feugiat.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Vestibulum elementum metus ac est mollis feugiat.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Donec tincidunt tellus eget mauris congue, quis congue lacus faucibus.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Donec eget augue ac ante ullamcorper auctor eu ac sapien.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Integer a elit sit amet tellus accumsan consequat.</span></li></ol><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\"><br></p><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Integer semper nisl id luctus consectetur.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Aliquam in ipsum convallis, sagittis lorem quis, pulvinar nulla.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Sed cursus arcu sed lectus tincidunt, sit amet vulputate ipsum elementum.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce id nulla nec orci fringilla facilisis.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Suspendisse sed nibh sed nulla placerat fermentum quis sit amet orci.</span></li></ol><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\"><br></p><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce sollicitudin lorem pulvinar tincidunt condimentum.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Quisque in sapien sed nibh fermentum dictum ut a dolor.</span></li></ol><p><br></p>', 123456, 446027);
+(2404, 2, '2024-04-29', '<h3>Notas Sesión 2 fecha: 2024-04-29  </h3><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce et augue molestie neque pulvinar feugiat.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Vestibulum elementum metus ac est mollis feugiat.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Donec tincidunt tellus eget mauris congue, quis congue lacus faucibus.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Donec eget augue ac ante ullamcorper auctor eu ac sapien.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Integer a elit sit amet tellus accumsan consequat.</span></li></ol><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\"><br></p><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Integer semper nisl id luctus consectetur.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Aliquam in ipsum convallis, sagittis lorem quis, pulvinar nulla.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Sed cursus arcu sed lectus tincidunt, sit amet vulputate ipsum elementum.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce id nulla nec orci fringilla facilisis.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Suspendisse sed nibh sed nulla placerat fermentum quis sit amet orci.</span></li></ol><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\"><br></p><ol><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Fusce sollicitudin lorem pulvinar tincidunt condimentum.</span></li><li data-list=\"bullet\" class=\"ql-align-justify\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Quisque in sapien sed nibh fermentum dictum ut a dolor.</span></li></ol><p><br></p>', 123456, 446027),
+(2405, 3, '2024-05-01', '<h3>Notas Sesión 3 fecha: 2024-05-01  </h3><p>hola mundo </p>', 123456, 446027);
 
 -- --------------------------------------------------------
 
@@ -297,8 +281,9 @@ CREATE TABLE `registro` (
 --
 
 INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `CORREO`, `CONTRASEÑA`, `foto_perfil`) VALUES
-(446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_garcia@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(446027, 'Antonio', 'Garcia', 'Cruz', 'antonio_garcia@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'http://localhost/BEA/back/uploads/Screenshot 2024-05-01 154120.png'),
 (446028, 'juan', 'perez', 'mendez', 'evasconcelos@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(446029, 'egweg', 'wewrge', 'ewgewg', '@anahuac.mx', 'cb6f3ba16a6ddc7ae4f79f410abcd4187de72f269908baad3b3849e415271cd2', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
 (13816710, 'María', 'Cruz', 'Ramírez', 'maría.cruz@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
 (15583911, 'Patricia', 'Martínez', 'Ramírez', 'patricia.martínez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
 (15881471, 'Ana', 'Rodríguez', 'López', 'ana.rodríguez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
@@ -316,6 +301,7 @@ INSERT INTO `registro` (`ID_ALUMNO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MAT
 (30659032, 'Sergio', 'Hernández', 'Ramírez', 'sergio.hernández@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
 (31261162, 'Elena', 'García', 'Rodríguez', 'elena.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
 (33082835, 'Ana', 'García', 'Ramírez', 'ana.garcía@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+(34543956, 'miguel', 'aragon', 'diaz', 'miguel_aragon@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'http://localhost/BEA/back/uploads/Screenshot 2024-05-08 011015.png'),
 (35265829, 'Patricia', 'López', 'González', 'patricia.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
 (37726103, 'Miguel', 'López', 'Cruz', 'miguel.lópez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
 (41960762, 'Jorge', 'Pérez', 'Ramírez', 'jorge.pérez@anahuac.mx', '42c03ec7ddc5e0501bb0027ad011ca8ebed302595df94ef5842d02ead224c0da', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
@@ -529,19 +515,19 @@ ALTER TABLE `seguimiento`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `ID_CITA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `ID_CITA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `eventosadmin`
 --
 ALTER TABLE `eventosadmin`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `materiales`
@@ -553,13 +539,13 @@ ALTER TABLE `materiales`
 -- AUTO_INCREMENT de la tabla `notas`
 --
 ALTER TABLE `notas`
-  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2405;
+  MODIFY `id_nota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2406;
 
 --
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `seguimiento`

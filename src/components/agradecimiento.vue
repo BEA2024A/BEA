@@ -155,7 +155,8 @@ export default {
   }
 }
 
-@media (max-width: 639px) {
+@media only screen and (max-width: 767px) {
+
 
 .leonel img {
 transform: translateX(20%);
@@ -167,17 +168,44 @@ margin-bottom: 70px;
 }
 
 .burbuja {
-
 padding: 5px;
+padding-top: 50px;
+padding-bottom: 50px;
+padding-left: 20px;
+padding-right: 20px;
+text-align: center;
+transform: translateX(0);
+margin-left: 10px;
+margin-right: 10px;
+font-size: 20px;
+}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+
+.leonel img {
+transform: translateX(20%);
+width: 40%;
+z-index: 2;
+position: absolute;
+bottom: 0;
+margin-bottom: 70px;
+}
+
+.burbuja {
+padding: 25px;
 padding-top: 50px;
 padding-bottom: 50px;
 text-align: center;
 transform: translateX(0);
 margin-left: 10px;
 margin-right: 10px;
+font-size: 40px;
+}
+
 }
 
 
-}
 
 </style>

@@ -324,14 +324,14 @@ submitAlumno() {
 };
 </script>
   
-    <style scoped>
+<style scoped>
   
   @keyframes fadeIn {
     from {
-      opacity: 0; /* Opacidad inicial */
+      opacity: 0; 
     }
     to {
-      opacity: 1; /* Opacidad final */
+      opacity: 1; 
     }
   }
   
@@ -350,7 +350,6 @@ submitAlumno() {
   
   .login-box {
   width: 400px;
-
   margin: 0 auto; 
   background-color: #f4f4f4;
   padding: 50px;
@@ -380,10 +379,6 @@ submitAlumno() {
   padding: 10px;
 }
 
-.title {
-  margin-top: 0;
-  color: #333;
-}
 
 .input-group {
   margin-bottom: 15px;
@@ -417,9 +412,7 @@ submitAlumno() {
   height: 2px;
 }
 
-.input-field::placeholder {
-  color: #555;
-}
+
 
 .submit-button {
   background-color: #007bff;
@@ -432,48 +425,17 @@ submitAlumno() {
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #b33900;
 }
 
 .titulo{
   padding: 5px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out; 
   margin-bottom: 10px;
-}
-
-.titulo:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  transform: translateY(-5px); 
-  border: 1px solid #ccc;
-}
-
-.titulo{
   margin: 0;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 }
-    
-    .back-to-home {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      color: grey;
-    }
-    
-    .arrow {
-      font-size: 20px;
-      margin-right: 5px;
-    }
-    
-    .text {
-      font-size: 14px;
-    }
     </style>
-    
-    

@@ -351,6 +351,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
 .modal-contenido {
@@ -669,7 +670,7 @@ export default {
 
 /* RESPONSIVIDAD*/
 
-@media (max-width: 639px) {
+@media only screen and (max-width: 767px) {
   .contenido-pie {
     flex-direction: column;
     align-items: center;
@@ -814,4 +815,154 @@ export default {
     margin-top: 20px;
   }
 }
+
+
+@media only screen and (min-width:768px) and (max-width: 991px) {
+
+
+  .contenido-pie {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .enlace-navegacion,
+  .usuario-menu-contenedor {
+    margin: 10px 0;
+  }
+
+  .hamburguesa {
+    display: block;
+    order: -1;
+  }
+
+  .logo img {
+    max-height: 40px;
+    transform: translateX(25px);
+  }
+
+  .secciones-navegacion {
+    display: none;
+    flex-direction: column;
+    background-color: #030303;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    animation: slideIn 0.5s ease forwards;
+    align-items: center;
+  }
+
+  .mostrar-menu {
+    display: flex;
+  }
+
+  .usuario-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    cursor: pointer;
+  }
+
+  /*******/
+
+  .boton-inicio-sesion {
+    transition: color 0.3s ease;
+  }
+
+  .inicio-sesion-icono {
+    width: 25px;
+    filter: invert(50%);
+    transition: color 0.3s ease;
+  }
+
+  /** */
+
+  .menu-usuario {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 150px;
+    z-index: 10;
+    text-align: left;
+    color: #000000;
+    animation: slideIn 0.3s ease forwards;
+    margin-top: 17px;
+  }
+
+  .texto-usuario {
+    display: none;
+  }
+
+  .opcion-menu {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  .opcion-menu:hover {
+    background-color: #00000046;
+    color: #f0f0f0;
+  }
+
+  .notificaciones {
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    bottom: -3px;
+    left: calc(50% - 8px);
+    /* Mitad del ancho del círculo */
+  }
+
+  .usuario-menu-contenedor {
+    margin-right: 10px;
+  }
+
+
+
+  .icono-usuario {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: filter 0.3s ease;
+    transform: translateX(-15px);
+  }
+
+  .menu-usuario {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 120px;
+    z-index: 10;
+    text-align: left;
+    color: #000000;
+    animation: slideIn 0.3s ease forwards;
+    margin-top: 17px;
+  }
+
+  .notificaciones {
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    bottom: -3px;
+    left: calc(50% - 8px);
+    /* Mitad del ancho del círculo */
+  }
+
+  .botones-pie {
+    margin-top: 20px;
+  }
+
+  .botones-sociales-pie {
+    margin-top: 20px;
+  }
+}
+
 </style>
