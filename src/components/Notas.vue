@@ -42,25 +42,26 @@
             </button>
           </div>
 
-          <!-- Contenido de agendar citas -->
-          <div v-if="mostrarAgendar">
-            <div class="notas form-group">
-              <label for="fecha">Fecha:</label>
-              <input type="date" id="fecha" v-model="nuevoEvento.fecha" class="input" />
-            </div>
-            <div class="notas form-group">
-              <label for="hora">Hora:</label>
-              <input type="time" id="hora" v-model="nuevoEvento.hora" class="input" />
-            </div>
-            <button @click="agendarEventoAlumno" class="boton">Agendar</button>
-            <!--calendario-->
-            <div class="calendar-container">
-              <FullCalendar :options="calendarOptions" />
-            </div>
-            <button @click="showContent('hacer')" class="boton">
-              regresar
-            </button>
-          </div>
+<!-- Contenido de agendar citas -->
+<div v-if="mostrarAgendar" class="agendar-container">
+  <div class="notas form-group">
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" v-model="nuevoEvento.fecha" class="input" />
+  </div>
+  <div class="notas form-group" style="margin-left: 50px;">
+    <label for="hora">Hora:</label>
+    <input type="time" id="hora" v-model="nuevoEvento.hora" class="input" />
+  </div>
+  <!--calendario-->
+  <div class="calendar-container">
+    <FullCalendar :options="calendarOptions" />
+  </div>
+  <div class="boton-container">
+    <button @click="agendarEventoAlumno" class="boton">Agendar</button>
+    <button @click="showContent('hacer')" class="boton">Regresar</button>
+  </div>
+</div>
+
 
           <!-- Contenido de leer notas -->
 
@@ -218,7 +219,7 @@ export default {
               confirmButtonText: 'Regresar al inicio'
             }).then((result) => {
               if (result.isConfirmed) {
-                // Si el usuario confirma, redirigir a la sección de leer notas anteriores
+                
                 this.$router.push('/iniciopsico');
               }
 
@@ -307,7 +308,7 @@ export default {
       const ultimoNumeroSesion = this.ultimoNumeroSesion;
       const fechaActual = new Date();
       const dia = fechaActual.getDate();
-      const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+      const mes = fechaActual.getMonth() + 1; 
       const año = fechaActual.getFullYear();
       const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${dia < 10 ? "0" + dia : dia
         }`;
@@ -691,6 +692,7 @@ export default {
   font-size: 18px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   animation: slideIn 0.5s ease forwards;
+
 }
 
 .quill-editor {
@@ -741,5 +743,226 @@ export default {
 
 .fc-header-toolbar {
   margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+  .perfil {
+  font-family: Arial, sans-serif;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top:20px;
+    margin-bottom: 80px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+    position: sticky;
+    top: 0;
+    text-align: justify;
+    background-color: #fdfdfd;
+}
+.perfil p {
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+  color: #666;
+  text-align: justify;
+}
+
+.imagen-perfil {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.perfil h1 {
+  font-size: 2rem;
+  margin-top: 0;
+  color: #444;
+  text-align: center;
+}
+
+.contenido {
+  flex: 1;
+  display: flex;
+}
+
+.contenido-derecha {
+  flex: 30%;
+  position: sticky;
+  top: 20px;
+}
+
+.contenido-izquierda {
+  flex: 70%;
+  padding-right: 60px;
+  padding-left: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  animation: slideIn 0.5s ease forwards;
+  color: #fdfdfd;
+}
+
+.boton {
+  top: 10px;
+  bottom: 20px;
+  border: none;
+  background-color: #423a38;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  max-width: 150px;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo base */
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  background-image: linear-gradient(to bottom, #ff5900, #c21c02);
+  z-index: -9999;
+}
+
+.notas-container {
+  width: 400px;
+  height: 420px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  background-color: white;
+  margin: 0 auto;
+  font-size: 18px;
+}
+
+.notas-content {
+  text-align: justify;
+  padding: 10px;
+  color: black;
+}
+
+/* Espaciado para los elementos internos */
+
+.notas.form-group {
+  display: inline-block;
+  width: calc(50% - 100px);
+}
+
+
+
+.form-group2 {
+  background-color: white;
+  padding: 10px;
+  color: black;
+  width: 400px;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  margin: 0 auto;
+  font-size: 18px;
+
+}
+
+.notas label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.notas input[type="text"] {
+  max-width: 50%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+  text-align: center;
+  margin-right: 0px;
+}
+
+.notas input[type="date"] {
+  max-width: 145%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+  text-align: center;
+}
+
+.notas input[type="time"] {
+  max-width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+  
+}
+
+.quill-editor {
+  width: 400px;
+  height: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  background-color: #fff;
+  overflow-wrap: break-word;
+
+}
+
+.notas> :last-child {
+  margin-bottom: 10px;
+  color: black;
+}
+
+.calendar-container {
+  max-width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  transition: 0.3s ease;
+  animation: slideIn 0.5s ease forwards;
+  padding: 10px;
+  color: black;
+  margin-top: 20px;
+}
+
+.fc .fc-button-group>.fc-button {
+  margin-right: 50px;
+}
+
+.fc .fc-button-group>.fc-button:last-child {
+  margin-right: 0;
+}
+
+.fc .fc-button {
+  padding: 8px 120px;
+}
+
+.fc-header-toolbar {
+  margin-bottom: 30px;
+}
 }
 </style>

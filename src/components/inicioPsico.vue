@@ -464,6 +464,7 @@ export default {
   .botones-container {
   display: flex; 
   justify-content: space-between;
+  background-color:#dae2e8 ;
 }
 
 .ver-mas-btn,

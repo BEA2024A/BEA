@@ -33,7 +33,7 @@
         <input type="text" v-model="busquedaBlogs" placeholder="Buscar..." class="campo-busqueda">
       </div>
       <div class="carrusel-blogs">
-        <carousel :itemsToShow="3" class="blogs-carousel">
+        <carousel :itemsToShow="1" class="blogs-carousel">
           <slide v-for="entrada in blogsFiltrados" :key="entrada.id">
             <div class="carousel__item">
               <p>{{ entrada.nombre }}</p> <!-- Mostramos el nombre del blog -->
@@ -100,7 +100,7 @@
         <input type="text" v-model="busquedaLibros" placeholder="Buscar..." class="campo-busqueda">
       </div>
       <div class="carrusel-libro">
-        <carousel :itemsToShow="3" class="libro-carousel">
+        <carousel :itemsToShow="1" class="libro-carousel">
           <slide v-for="entrada in librosFiltrados" :key="entrada.id">
             <div class="carousel__item">
               <img :src="entrada.imagen" alt="Imagen del libro" class="imagen-libro">
@@ -691,7 +691,78 @@ export default {
   cursor: pointer;
   transition: 0.3s ease;
 }
-@media (max-width: 639px) {
+
+/* Estilos para la sección de búsqueda de blogs */
+.busqueda-blog {
+  margin-bottom: 20px;
+  border-radius: 50px;
+}
+
+.menu-busqueda {
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+}
+
+.campo-busqueda {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+  border-radius: 50px;
+}
+
+/* Estilos para la sección de búsqueda de libros */
+.busqueda-libro {
+  margin-bottom: 20px;
+  border-radius: 50px;
+}
+
+.menu-busqueda {
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+}
+
+.campo-busqueda {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+  border-radius: 50px;
+}
+
+.botones-container {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.ver-mas-btn,
+.ver-menos-btn {
+  background-color: #ff7d37; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 10px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.ver-mas-btn:hover,
+.ver-menos-btn:hover {
+  background-color: #ff5900; 
+}
+
+@media only screen and (max-width: 767px) {
 
 /*BANNER*/
 .banner-autoayuda {
@@ -791,75 +862,115 @@ iframe{
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s ease;
+  
 }
 }
 
-/* Estilos para la sección de búsqueda de blogs */
-.busqueda-blog {
-  margin-bottom: 20px;
-  border-radius: 50px;
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+/*BANNER*/
+.banner-autoayuda {
+  position: relative;
+  height: 30vh; 
+  margin-top: 0px;
+  margin-bottom: 200px;
+}
+.titulo-autoayuda h1 {
+  margin-top: 150px;
+  font-size: 50px;
+}
+.titulo-autoayuda p {
+  font-size: 20px;
+}
+.boton-scroll {
+  display:none;
 }
 
-.menu-busqueda {
-  margin-right: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  border-radius: 50px;
+/*BLOGS */
+.seccion-blog {
+  margin-top: 15px;
 }
 
-.campo-busqueda {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-  border-radius: 50px;
+.titulo-blog {
+  text-align: center;
+  font-size:20px;
 }
 
-/* Estilos para la sección de búsqueda de libros */
-.busqueda-libro {
-  margin-bottom: 20px;
-  border-radius: 50px;
+.entrada-blog img {
+  width: 100%;
+  height: 250px; 
+  object-fit: cover; 
+  border-radius: 10px;
+  margin-bottom: 10px;
+  
 }
 
-.menu-busqueda {
-  margin-right: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  border-radius: 50px;
+/* VIDEOS */
+.seccion-videos {
+  margin-top: 30px;
+  padding-top: 20px;
 }
 
-.campo-busqueda {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-  border-radius: 50px;
+.titulo-videos h2 {
+  padding: 10px; 
+  margin-left: 30px; 
+  margin-right: 30px; 
 }
 
-.botones-container {
-  display: flex; 
-  justify-content: space-between;
+.video {
+  margin: 10px;
+  border-radius: 10px;
+  position: relative; 
+  transition: transform 0.6s ease;
+  padding-bottom: 20px;
+  margin-top: 50px;
 }
 
-.ver-mas-btn,
-.ver-menos-btn {
-  background-color: #ff7d37; 
-  color: white; 
-  padding: 10px 20px; 
+.video-overlay-btn {
+  display:none;
+}
+
+iframe{
+  width: 450px;
+  height: 300px;
+}
+
+/* MENSAJE */
+.seccion-opciones {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+ padding: 20px;
+  animation: slideIn 4s ease forwards;
+  background-image: url("https://somospsicoterapia.es/images/blog/inconsciente.jpg");
+  color: rgb(0, 0, 0);
+}
+
+.mensaje-importante p {
+  text-align: center;
+  font-size:22px;
+}
+
+.opciones {
+  display: flex;
+  justify-content: center;
+}
+
+.opcion {
+  margin:30px;
+}
+
+.boton-opcion {
+  padding: 20px 20px;
+  font-size: 18px;
+  background-color: #3f271b;
+  color: #fff;
   border: none;
-  border-radius: 10px; 
-  font-size: 16px; 
-  cursor: pointer; 
-  transition: background-color 0.3s ease; 
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
 }
 
-.ver-mas-btn:hover,
-.ver-menos-btn:hover {
-  background-color: #ff5900; 
-}
+
 </style>

@@ -233,7 +233,6 @@ export default {
   border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   width: 100%;
-  height: 250px;
   object-fit: cover;
   animation: slideIn 1s ease forwards;
   cursor: pointer;
