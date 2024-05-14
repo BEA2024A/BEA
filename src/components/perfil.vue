@@ -243,6 +243,59 @@ export default {
 }
 
 
+@media only screen and (max-width: 767px){
+  .contenido {
+    flex-direction: column; 
+  }
+
+  .contenido-izquierda {
+    margin-top: 20px;
+    flex: 1; 
+    padding: 0 20px; 
+  }
+
+  .contenido-derecha {
+    flex: 1; 
+    padding: 0 20px;
+  }
+  .perfil {
+  font-family: Arial, sans-serif;
+    margin-left: 20px;
+    margin-top:20px;
+    margin-bottom: 40px;
+    width: 80%;
+    padding: 15px;
+    text-align: center;
+}
+
+.comentarios {
+  margin-top: 50px; 
+  margin-bottom: 80px;
+  padding: 20px; 
+  height: 310px;
+  width: 300px;
+  overflow-y: auto;
+  
+}
+
+.comentarios h2 {
+  font-size: 1.5rem; 
+  margin-top: 0; 
+  color: #333; 
+  text-align: center;
+}
+
+.comentarios p {
+  font-size: 1.2rem;
+  line-height: 1.5; 
+  color: #666;
+  text-align: justify;
+  overflow-wrap: break-word;
+}
+
+}
+
+
 @media only screen and (min-width: 768px) and (max-width: 991px){
 
   .container {

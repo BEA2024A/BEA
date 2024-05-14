@@ -508,7 +508,7 @@ export default {
 .circulo-con-sombra {
   width: 250px; 
   height: 250px; 
-  transform: translate(-130%, -50%);
+  transform: translate(-135%, -50%);
 }
 
 

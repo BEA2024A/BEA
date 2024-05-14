@@ -745,6 +745,10 @@ export default {
   margin-bottom: 30px;
 }
 
+@media only screen and (max-width: 767px){
+ 
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px){
   .perfil {
   font-family: Arial, sans-serif;
