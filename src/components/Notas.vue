@@ -28,7 +28,7 @@
               <label for="fecha">Fecha:</label>
               <input type="date" id="fecha" v-model="fecha" disabled />
             </div>
-            <p v-if="mostrarHacer">Notas</p>
+            <p v-if="mostrarHacer" class="titulo-hacer">Notas</p>
             <div class="form-group2" v-if="mostrarHacer">
               <label for="editor"></label>
               <div id="editor" class="quill-editor"></div>
@@ -516,7 +516,6 @@ export default {
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
-    position: sticky;
     top: 0;
     text-align: justify;
     background-color: #fdfdfd;
@@ -575,12 +574,10 @@ export default {
   background-color: #423a38;
   color: white;
   padding: 10px 20px;
-  /* Ajustar el padding para hacer los botones más pequeños */
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  /* Reducir el tamaño del texto */
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 10px;
@@ -588,11 +585,9 @@ export default {
   margin-bottom: 15px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   max-width: 150px;
-  /* Ajustar el ancho máximo del botón */
   transition: background-color 0.3s ease;
 }
 
-/* Estilo base */
 
 .container {
   display: flex;
@@ -603,32 +598,23 @@ export default {
 
 .notas-container {
   width: 900px;
-  /* Tamaño fijo del contenedor */
   height: 420px;
-  /* Tamaño fijo del contenedor */
   overflow-y: auto;
-  /* Agrega una barra de desplazamiento vertical si es necesario */
   border: 1px solid #ccc;
-  /* Agrega un borde para mayor claridad */
   padding: 5px;
-  /* Espacio interno para separar el contenido del borde */
   border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   background-color: white;
   margin: 0 auto;
-  /* Centra horizontalmente */
   font-size: 18px;
 }
 
 .notas-content {
   text-align: justify;
-  /* Aplica la alineación justificada */
   padding: 10px;
-  /* Agrega espacio alrededor del texto */
   color: black;
 }
 
-/* Espaciado para los elementos internos */
 
 .notas.form-group {
   display: inline-block;
@@ -642,14 +628,11 @@ export default {
   padding: 10px;
   color: black;
   width: 900px;
-  /* Tamaño fijo del contenedor */
   padding: 5px;
-  /* Espacio interno para separar el contenido del borde */
   border-radius: 10px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   background-color: white;
   margin: 0 auto;
-  /* Centra horizontalmente */
   font-size: 18px;
 
 }
@@ -697,18 +680,12 @@ export default {
 
 .quill-editor {
   width: 900px;
-  /* Tamaño fijo del contenedor */
   height: 420px;
-  /* Tamaño fijo del contenedor */
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
-  /* Ajusta el padding según tus preferencias */
   background-color: #fff;
-  /* Ajusta el color de fondo según tu diseño */
   overflow-wrap: break-word;
-  /* Esto hace que el texto haga saltos de línea automáticamente */
-
 }
 
 .notas> :last-child {
@@ -745,9 +722,148 @@ export default {
   margin-bottom: 30px;
 }
 
-@media only screen and (max-width: 767px){
- 
+@media only screen and (max-width: 767px) {
+  .perfil {
+    margin: 20px;
+    padding: 20px;
+    max-width: 80%;
+    margin: 0 auto; /* Centrar horizontalmente */
+    position: static;
+  }
+
+  .imagen-perfil {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+  }
+
+  .contenido {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .contenido-izquierda {
+    padding: 0 20px;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .contenido-derecha{
+    position: relative;
+  }
+
+  .boton {
+    max-width: 80%; /* Ajustar el ancho máximo */
+    margin: 10px auto; /* Centrar horizontalmente */
+    margin-top: 20px;
+    margin-right: 30px;
+  }
+
+  .notas-container {
+    width: 350px;
+    height: 500px;
+    max-width: 90%; /* Ajustar el ancho máximo */
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-right: 12%;
+  }
+
+  .quill-editor {
+    width: 400px;
+    height: 500px;
+    max-width: 80%; /* Ajustar el ancho máximo */
+    margin: 0 auto; /* Centrar horizontalmente */
+  }
+
+  .calendar-container {
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 80%; /* Ajustar el ancho máximo */
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-right: 12%;
+  }
+
+  .fc .fc-button {
+    padding: 8px 20px;
+  }
+
+
+  .form-group2 {
+  background-color: white;
+  padding: 10px;
+  color: black;
+  width: 350px;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  margin: 0 auto;
+  font-size: 18px;
+  margin-right: 12%
+
 }
+
+.notas{
+  transform: translateX(-35%);
+}
+
+.notas label {
+  display: block;
+  margin-bottom: 10px;
+  margin-right: 12%;
+  margin-top: 30px;
+}
+
+.notas input[type="text"] {
+  max-width: 50%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+  text-align: center;
+  
+}
+
+.notas input[type="date"] {
+  max-width: 145%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+  text-align: center;
+  
+}
+
+.notas input[type="time"] {
+  max-width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 18px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
+  animation: slideIn 0.5s ease forwards;
+  
+}
+
+
+.titulo-hacer{
+  transform: translateX(-10px);
+}
+
+
+
+}
+
+
+
+
+
 
 @media only screen and (min-width: 768px) and (max-width: 991px){
   .perfil {
@@ -885,6 +1001,7 @@ export default {
 .notas label {
   display: block;
   margin-bottom: 10px;
+
 }
 
 .notas input[type="text"] {
@@ -897,7 +1014,7 @@ export default {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.541);
   animation: slideIn 0.5s ease forwards;
   text-align: center;
-  margin-right: 0px;
+  margin-right: 50px;
 }
 
 .notas input[type="date"] {
@@ -953,20 +1070,5 @@ export default {
   margin-top: 20px;
 }
 
-.fc .fc-button-group>.fc-button {
-  margin-right: 50px;
-}
-
-.fc .fc-button-group>.fc-button:last-child {
-  margin-right: 0;
-}
-
-.fc .fc-button {
-  padding: 8px 120px;
-}
-
-.fc-header-toolbar {
-  margin-bottom: 30px;
-}
 }
 </style>

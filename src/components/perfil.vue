@@ -273,7 +273,7 @@ export default {
   margin-bottom: 80px;
   padding: 20px; 
   height: 310px;
-  width: 300px;
+  width: 340px;
   overflow-y: auto;
   
 }
