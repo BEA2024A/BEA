@@ -43,7 +43,7 @@ export default {
     return {
       email: '',
       password: '',
-      paso: 1, // Nuevo estado para controlar el paso actual
+      paso: 1, 
     };
   },
   computed: {

@@ -804,7 +804,6 @@ export default {
     height: 15px;
     bottom: -3px;
     left: calc(50% - 8px);
-    /* Mitad del ancho del círculo */
   }
 
   .botones-pie {
@@ -865,7 +864,6 @@ export default {
     cursor: pointer;
   }
 
-  /*******/
 
   .boton-inicio-sesion {
     transition: color 0.3s ease;
@@ -876,8 +874,6 @@ export default {
     filter: invert(50%);
     transition: color 0.3s ease;
   }
-
-  /** */
 
   .menu-usuario {
     position: absolute;
@@ -953,7 +949,6 @@ export default {
     height: 15px;
     bottom: -3px;
     left: calc(50% - 8px);
-    /* Mitad del ancho del círculo */
   }
 
   .botones-pie {

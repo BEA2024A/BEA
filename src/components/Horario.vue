@@ -110,7 +110,7 @@ export default {
     verificarEventosHoy() {
       const fechaActual = new Date();
       const dia = fechaActual.getDate();
-      const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+      const mes = fechaActual.getMonth() + 1; 
       const año = fechaActual.getFullYear();
       const sysdate = `${año}-${mes < 10 ? '0' + mes : mes}-${dia < 10 ? '0' + dia : dia}`;
 
@@ -149,7 +149,7 @@ export default {
     enviarCorreoRecordatorio() {
       const fechaActual = new Date();
       const dia = fechaActual.getDate();
-      const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+      const mes = fechaActual.getMonth() + 1; 
       const año = fechaActual.getFullYear();
       const hoy = `${año}-${mes < 10 ? '0' + mes : mes}-${dia < 10 ? '0' + dia : dia}`;
       this.calendarOptions.events.forEach(evento => {

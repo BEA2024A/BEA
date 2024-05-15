@@ -51,7 +51,7 @@ while ($row = $result->fetch_assoc()) {
 
 echo json_encode($alumnos);
 
-// Cerrar la conexión
+
 $stmt->close();
 $conn->close();
 ?>

@@ -234,7 +234,7 @@ export default {
   axios.get('http://localhost/bea/back/obtener_materiales_video.php')
     .then(response => {
       this.videos = response.data;
-      console.log(this.videos); // Verifica la estructura de los datos recibidos
+      console.log(this.videos); 
     })
     .catch(error => {
       console.error('Error al cargar los videos:', error);

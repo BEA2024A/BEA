@@ -19,20 +19,20 @@
           </div>
           <p>{{ informacion.modalidad }}</p>
         </div>
-        <!-- Lado derecho: Imagen en círculo con sombra naranja -->
+        
         <div class="imagen-derecha" ref="imagenDerecha">
           <div class="circulo-con-sombra">
             <img :src="informacion.imagen" alt="Imagen del psicoterapeuta">
           </div>
         </div>
 
-        <!-- Botón de scroll-down con el icono proporcionado -->
+        <!-- Botón de scroll-down -->
         <button class="boton-scroll" @click="scrollDown">
           <img class="icono-scroll" src="https://cdn-icons-png.freepik.com/512/9923/9923629.png" alt="Icono de scroll-down">
         </button>
       </div>
 
-      <!-- Información del psicoterapeuta con animación de aparición -->
+      <!-- Información del psicoterapeuta  -->
       <div class="informacion-psicoterapeuta"  v-if="loaded" ref="informacionPsicoterapeuta">
         <div class="trabajo">
           <div class="columna-izquierda">
@@ -115,17 +115,17 @@ export default {
 <style scoped>
 @keyframes fadeIn {
   from {
-    opacity: 0; /* Opacidad inicial */
+    opacity: 0; 
   }
   to {
-    opacity: 1; /* Opacidad final */
+    opacity: 1; 
   }
 }
 
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-50px); /* Por ejemplo, deslizamiento desde arriba */
+    transform: translateY(-50px); 
   }
   to {
     opacity: 1;
@@ -147,31 +147,31 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100vh; /* Ajusta la altura al 100% del viewport */ 
+  height: 100vh; 
   background-size: cover;
   background-position: center;
 }
 
 
-/* Estilos para el contenido dentro de la cabecera */
+
 .info-izquierda{
-  z-index: 1; /* Asegura que el contenido esté sobre la imagen de fondo */
-  margin: 0 auto; /* Centra horizontalmente los elementos */
-  animation: slideIn 1s ease forwards; /* Animación de aparición */
+  z-index: 1; 
+  margin: 0 auto;
+  animation: slideIn 1s ease forwards; 
 }
 .imagen-derecha {
-  z-index: 1; /* Asegura que el contenido esté sobre la imagen de fondo */
-  margin: 0 auto; /* Centra horizontalmente los elementos */
+  z-index: 1; 
+  margin: 0 auto;
   animation: slideIn 1s ease forwards;
 }
 
 .info-izquierda h1 {
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.705); /* Sombra naranja */
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.705); 
   color: aliceblue;
 }
 
 .info-izquierda h3 {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra naranja */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
   background-color: rgba(240, 248, 255, 0.603);
   display: inline-block;
   padding: 10px 20px;
@@ -188,43 +188,43 @@ export default {
 }
 
 .circulo-con-sombra {
-  width: 350px; /* Tamaño del círculo */
-  height: 350px; /* Tamaño del círculo */
-  border-radius: 50%; /* Hace que el círculo tenga forma circular */
-  overflow: hidden; /* Oculta el exceso de la sombra */
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra naranja */
+  width: 350px; 
+  height: 350px; 
+  border-radius: 50%; 
+  overflow: hidden; 
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
 }
 
 .circulo-con-sombra img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ajusta la imagen para cubrir el círculo */
+  object-fit: cover;
 }
 
 .boton-scroll {
   position: absolute;
-  bottom: 120px; /* Distancia desde la parte inferior */
-  left: 50%; /* Centrar horizontalmente */
-  transform: translateX(-50%); /* Centrar horizontalmente */
+  bottom: 120px; 
+  left: 50%; 
+  transform: translateX(-50%);
   right: 50%; 
-  transform: translateY(-50%); /* Centrar horizontalmente */
-  background-color: rgba(240, 248, 255, 0.603); /* Color de fondo */
-  border: none; /* Sin borde */
-  border-radius: 50%; /* Botón circular */
-  width: 60px; /* Ancho del botón */
-  height: 60px; /* Altura del botón */
-  font-size: 24px; /* Tamaño del ícono */
-  color: #000; /* Color del ícono */
-  cursor: pointer; /* Cursor de puntero al pasar sobre el botón */
-  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  transform: translateY(-50%);
+  background-color: rgba(240, 248, 255, 0.603); 
+  border: none; 
+  border-radius: 50%; 
+  width: 60px; 
+  height: 60px; 
+  font-size: 24px; 
+  color: #000; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
   transition: transform 0.3s;
   animation: fadeIn 5s ease forwards;
   animation: bounce 2s infinite;
 }
 .icono-scroll {
   margin-top: 3px;
-  width: 40px; /* Tamaño del icono */
-  height: 40px; /* Tamaño del icono */
+  width: 40px; 
+  height: 40px; 
   transition: transform 0.3s;
 }
 
@@ -233,33 +233,33 @@ export default {
 }
 
 .boton-scroll:hover {
-  background-color: rgba(200, 220, 255, 0.8); /* Color de fondo al pasar el cursor */
+  background-color: rgba(200, 220, 255, 0.8); 
   transform: scale(1.2);
 }
 
-/* Estilos para el ícono dentro del botón */
 
-/* Estilos para la información del psicoterapeuta */
+
+
 .informacion-psicoterapeuta {
-  margin-top: 80px; /* Aumenta el margen superior */
-  margin-bottom: 100px; /* Aumenta el margen inferior */
-  padding: 20px; /* Aumenta el espacio interno */
-  color: #000000; /* Cambio de color del texto a un tono más oscuro */
-  font-size: 18px; /* Aumenta el tamaño de la fuente */
+  margin-top: 80px; 
+  margin-bottom: 100px; 
+  padding: 20px; 
+  color: #000000; 
+  font-size: 18px;
 }
 
-/* Estilos para el contacto */
+
 .contacto {
-  margin-bottom: 20px; /* Aumenta el margen inferior */
+  margin-bottom: 20px; 
   display: flex;
   align-items: center;
 }
 
 
 .contacto img {
-  width: 30px; /* Tamaño del icono */
-  height: 30px; /* Tamaño del icono */
-  margin-right: 5px; /* Espacio entre el icono y el texto */
+  width: 30px; 
+  height: 30px; 
+  margin-right: 5px; 
   filter: invert(1);
 }
 
@@ -273,12 +273,11 @@ export default {
 
 
 
-/* Estilos para el trabajo */
 .trabajo h3 {
-  color: rgb(255, 118, 5); /* Color del texto */
-  margin-top: 30px; /* Aumenta el margen superior */
+  color: rgb(255, 118, 5); 
+  margin-top: 30px;
   margin-bottom: 30px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra naranja */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   background-color: rgba(240, 248, 255, 0.603);
   display: inline-block;
   padding: 10px 20px;
@@ -290,24 +289,22 @@ export default {
   display: flex;
 }
 
-/* Estilos para la columna izquierda */
+
 .columna-izquierda {
-  flex: 1; /* Ocupa el 50% del ancho disponible */
-  padding-right: 20px; /* Espacio entre las dos columnas */
+  flex: 1; 
+  padding-right: 20px; 
 }
 
-/* Estilos para la columna derecha */
+
 .columna-derecha {
-  flex: 1; /* Ocupa el 50% del ancho disponible */
+  flex: 1; 
 }
 
 .columna-derecha p {
-  text-align: left; /* Justificar el texto */
+  text-align: left; 
 }
 
 
-
-/* Estilos para el botón de regresar */
 .boton-regresar {
   display: inline-block;
   background-color: #ff5901;
@@ -316,7 +313,7 @@ export default {
   text-decoration: none;
   border-radius: 5px;
   margin-top: 20px;
-  margin-bottom: 60px; /* Aumenta el margen inferior */
+  margin-bottom: 60px; 
 }
 
 .boton-regresar:hover {
@@ -327,18 +324,18 @@ export default {
 @media (max-width: 639px) {
 
   .cabecera {
-  flex-direction: column; /* Cambiar la dirección del flex a columna */
-  align-items: center; /* Centrar verticalmente */
-  text-align: center; /* Alinear el texto al centro */
-  padding-top: 20px; /* Agregar espacio en la parte superior */
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center; 
+  padding-top: 20px; 
 }
 
 .info-izquierda {
-  margin-top: 20px; /* Espacio entre el círculo y el nombre */
+  margin-top: 20px;
 }
 
 .imagen-derecha {
-  margin-top: 20px; /* Espacio entre la información y el círculo */
+  margin-top: 20px; 
 }
 
 }

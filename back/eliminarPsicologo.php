@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 $data = json_decode(file_get_contents("php://input"), true);
 $id = $data['id'];
 
-// Primero, recuperar la URL de la imagen del psicólogo a eliminar
+//recuperar la URL de la imagen del psicólogo a eliminar
 $sql = "SELECT imagen FROM psicologos WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);

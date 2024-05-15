@@ -24,7 +24,7 @@ if ($conn->connect_error) {
 
 $idUsuario = $_GET['idUsuario'];
 
-// Obtener datos del alumno que agendó la cita desde la tabla registro
+// Obtener datos del alumno 
 $alumnoQuery = "SELECT * FROM registro WHERE ID_ALUMNO = '$idUsuario'";
 $alumnoResult = $conn->query($alumnoQuery);
 $alumnoData = $alumnoResult->fetch_assoc();
@@ -34,13 +34,13 @@ $citaQuery = "SELECT * FROM citas WHERE ID_ALUMNO = '$idUsuario'";
 $citaResult = $conn->query($citaQuery);
 $citaData = $citaResult->fetch_assoc();
 
-// Obtener datos del administrador asignado al alumno desde la tabla administradores
+// Obtener datos del administrador asignado al alumno 
 $adminId = $citaData['ID_ADMIN'];
 $adminQuery = "SELECT CORREO FROM administradores WHERE ID_ALUMNO = '$adminId'";
 $adminResult = $conn->query($adminQuery);
 $adminCorreo = $adminResult->fetch_assoc()['CORREO'];
 
-// Construir el mensaje del correo
+// correo
 $mensaje = "
     <h2>Se te ha asignado un nuevo paciente:</h2>
     <ul>

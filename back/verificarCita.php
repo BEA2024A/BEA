@@ -23,7 +23,7 @@ $idUsuario = isset($_GET['idUsuario']) ? $_GET['idUsuario'] : '';
 
 $sql = "SELECT * FROM citas WHERE ID_ALUMNO = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $idUsuario); // "i" indica que la variable es de tipo entero
+$stmt->bind_param("i", $idUsuario); 
 $stmt->execute();
 $result = $stmt->get_result();
 

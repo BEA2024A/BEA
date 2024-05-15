@@ -21,7 +21,7 @@ $target_file = $target_dir . basename($imageFile);
 if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file)) {
     $imageUrl = 'http://localhost/BEA/back/uploads/' . basename($imageFile);
     
-    // Obtener el valor de la imagen de fondo seleccionada
+
     $imagenFondo = $_POST['imagen_fondo'];
 
     $nombre = strtoupper($_POST['nombre']);

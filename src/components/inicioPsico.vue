@@ -179,7 +179,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100vh; /* Ajusta la altura al 100% del viewport */
+  height: 100vh; 
   
 }
 
@@ -193,14 +193,14 @@ export default {
   background-image: url('https://8377358.fs1.hubspotusercontent-na1.net/hub/8377358/hubfs/custom-video-thumbnails/AOX%20-%20C%C3%A1psula%20de%20Oferta%20Educativa-thumb.jpeg?length=1920');
   background-size: cover;
   background-position: center;
-  filter: brightness(0.5); /* Se aplica el filtro de oscuridad solo a la imagen de fondo */
+  filter: brightness(0.5);
 }
 
-/* Estilos para el contenido dentro de la cabecera */
+
 .info-izquierda{
   z-index: 1;
   margin: 0 auto; 
-  animation: slideIn 1s ease forwards; /* Animación de aparición */
+  animation: slideIn 1s ease forwards; 
 }
 .imagen-derecha {
   z-index: 1; 
@@ -246,28 +246,28 @@ export default {
 
 .boton-scroll {
   position: absolute;
-  bottom: 120px; /* Distancia desde la parte inferior */
-  left: 50%; /* Centrar horizontalmente */
-  transform: translateX(-50%); /* Centrar horizontalmente */
+  bottom: 120px; 
+  left: 50%; 
+  transform: translateX(-50%); 
   right: 50%; 
-  transform: translateY(-50%); /* Centrar horizontalmente */
-  background-color: rgba(240, 248, 255, 0.603); /* Color de fondo */
-  border: none; /* Sin borde */
-  border-radius: 50%; /* Botón circular */
-  width: 60px; /* Ancho del botón */
-  height: 60px; /* Altura del botón */
-  font-size: 24px; /* Tamaño del ícono */
-  color: #000; /* Color del ícono */
-  cursor: pointer; /* Cursor de puntero al pasar sobre el botón */
-  transition: background-color 0.3s; /* Transición suave al cambiar de color */
+  transform: translateY(-50%); 
+  background-color: rgba(240, 248, 255, 0.603);
+  border: none; 
+  border-radius: 50%; 
+  width: 60px;
+  height: 60px; 
+  font-size: 24px; 
+  color: #000; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
   transition: transform 0.3s;
   animation: fadeIn 5s ease forwards;
   animation: bounce 2s infinite;
 }
 .icono-scroll {
   margin-top: 3px;
-  width: 40px; /* Tamaño del icono */
-  height: 40px; /* Tamaño del icono */
+  width: 40px; 
+  height: 40px;
   transition: transform 0.3s;
 }
 
@@ -276,7 +276,7 @@ export default {
 }
 
 .boton-scroll:hover {
-  background-color: rgba(200, 220, 255, 0.8); /* Color de fondo al pasar el cursor */
+  background-color: rgba(200, 220, 255, 0.8); 
   transform: scale(1.2);
 }
 

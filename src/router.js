@@ -16,7 +16,7 @@ import perfil from './components/perfil.vue';
 import HorarioPsico from './components/HorarioPsico.vue';
 import Notas from './components/Notas.vue';
 
-import insertar_psicologos from './components/insertar_psicologos.vue';
+
 import agregarAdministrador from './components/agregarAdministrador.vue';
 
 import agradecimiento from './components/agradecimiento.vue';
@@ -45,8 +45,6 @@ const routes = [
   {path: '/perfil/:id', name: 'perfil', component: perfil, props: true},
   {path: '/HorarioPsico', name: 'HorarioPsico' , component: HorarioPsico},
   {path: '/Notas/:id', name: 'Notas', component: Notas, props: true},
-
-  {path: '/insertar_psicologos', name: 'insertar_psicologos', component: insertar_psicologos},
   {path: '/agregarAdministrador', name: 'agregarAdministrador', component: agregarAdministrador},
 
   {path: '/agradecimiento', name: 'agradecimeinto', component:agradecimiento},
@@ -66,7 +64,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const rutasProtegidas = ['/horario', '/seguimiento', '/primeracita', '/FormsPrimeraCita', '/formsSeguimiento', '/inicioPsico'];
-  const rutasAdministrativas = ['/agregarAdministrador', '/insertar_psicologos']; // Rutas exclusivas para el administrador
+  const rutasAdministrativas = ['/agregarAdministrador', '/materiales']; // Rutas exclusivas para el administrador
   const estadoAlmacenado = localStorage.getItem('vuex') ? JSON.parse(localStorage.getItem('vuex')) : null;
 
 
@@ -102,9 +100,7 @@ else if (to.path === '/iniciopsico' && tipoUsuario && tipoUsuario === 'usuario')
     next('/');
   } else if (to.path === '/horariopsico' && tipoUsuario && tipoUsuario === 'usuario') {
     next('/');
-  } else if (to.path === '/insertar_psicologos' && tipoUsuario && tipoUsuario === 'usuario') {
-    next('/');
-  } else if (to.path === '/agregarAdministrador' && tipoUsuario && tipoUsuario === 'usuario') {
+  }  else if (to.path === '/agregarAdministrador' && tipoUsuario && tipoUsuario === 'usuario') {
     next('/');
   } else if (to.path === '/materiales' && tipoUsuario && tipoUsuario === 'usuario') {
     next('/');

@@ -6,7 +6,7 @@
           <img src="http://localhost/BEA/back/uploads/Leonel%20Me%cc%81dico2.png" alt="Leonel Médico"/>
           <form @submit.prevent="enviarFormulario">
 
-            <!-- Entrada para '¿Qué esperas de nosotros?' -->
+            
             
             
             <div class="contenedor">

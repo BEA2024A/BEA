@@ -14,7 +14,7 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Obtener el nombre de la imagen del usuario
+// Obtener el nombre de la imagen 
 $imageFile = $_FILES['imagen']['name'];
 
 // Ruta donde se guardará la imagen

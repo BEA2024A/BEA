@@ -42,7 +42,7 @@ export default {
       ],
       textoActual: "",
       indiceDeTexto: 0,
-      usuarioYaRegistrado: false, // Nuevo estado para controlar si el usuario ya tiene una cita
+      usuarioYaRegistrado: false, 
     };
   },
   computed: {

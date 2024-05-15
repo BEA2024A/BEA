@@ -113,7 +113,7 @@ export default {
   data() {
     const fechaActual = new Date();
     const dia = fechaActual.getDate();
-    const mes = fechaActual.getMonth() + 1; // Los meses van de 0 a 11, por lo que sumamos 1
+    const mes = fechaActual.getMonth() + 1; 
     const año = fechaActual.getFullYear();
     const sysdate = `${año}-${mes < 10 ? "0" + mes : mes}-${dia < 10 ? "0" + dia : dia
       }`;
@@ -727,7 +727,7 @@ export default {
     margin: 20px;
     padding: 20px;
     max-width: 80%;
-    margin: 0 auto; /* Centrar horizontalmente */
+    margin: 0 auto; 
     position: static;
   }
 
@@ -753,8 +753,8 @@ export default {
   }
 
   .boton {
-    max-width: 80%; /* Ajustar el ancho máximo */
-    margin: 10px auto; /* Centrar horizontalmente */
+    max-width: 80%; 
+    margin: 10px auto; 
     margin-top: 20px;
     margin-right: 30px;
   }
@@ -762,24 +762,24 @@ export default {
   .notas-container {
     width: 350px;
     height: 500px;
-    max-width: 90%; /* Ajustar el ancho máximo */
-    margin: 0 auto; /* Centrar horizontalmente */
+    max-width: 90%; 
+    margin: 0 auto; 
     margin-right: 12%;
   }
 
   .quill-editor {
     width: 400px;
     height: 500px;
-    max-width: 80%; /* Ajustar el ancho máximo */
-    margin: 0 auto; /* Centrar horizontalmente */
+    max-width: 80%;
+    margin: 0 auto; 
   }
 
   .calendar-container {
     padding: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
-    max-width: 80%; /* Ajustar el ancho máximo */
-    margin: 0 auto; /* Centrar horizontalmente */
+    max-width: 80%;
+    margin: 0 auto; 
     margin-right: 12%;
   }
 

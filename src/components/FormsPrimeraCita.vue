@@ -180,9 +180,9 @@ export default {
 
 .contenedor {
   display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  height: 100vh; /* Ajustar al alto de la ventana */
+  justify-content: center;
+  align-items: center; 
+  height: 100vh; 
 }
 
 .pregunta-animada {
@@ -199,7 +199,7 @@ export default {
 }
 
 .campo-entrada {
-  margin-bottom: 20px; /* Agregar un espacio entre el campo de entrada y el botón */
+  margin-bottom: 20px; 
 }
 
 
@@ -283,10 +283,10 @@ export default {
 .burbuja {
   background-color: white;
   left: 0;
-  padding: 100px; /* Reducir el espacio dentro de la burbuja */
+  padding: 100px;
   padding-left: 150px;
   padding-right: 150px;
-  text-align: center; /* Centrar el contenido */
+  text-align: center; 
   color: aliceblue;
   font-size: 25px;
   z-index: 2;
