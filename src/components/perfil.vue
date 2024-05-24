@@ -7,7 +7,7 @@
           <div class="perfil">
             <img :src="perfil.foto_perfil" alt="Foto de perfil" class="imagen-perfil">
             <h1>{{ perfil.NOMBRE }} {{ perfil.APELLIDO_PATERNO }} {{ perfil.APELLIDO_MATERNO }}</h1>
-            <p>ID: 00{{ perfil.ID_ALUMNO }} </p>
+            <p>ID: {{ perfil.ID_ALUMNO }} </p>
             <p>Carrera: {{ perfil.CARRERA}}</p>
             <p>motivos de la cita: {{ perfil.MOTIVO }}</p>
             <p>Expectativas para la terapia: {{ perfil.EXPECTATIVA }}</p>

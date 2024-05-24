@@ -40,7 +40,7 @@ export default {
       ],
       textoActual: "",
       indiceDeTexto: 0,
-      usuarioYaRegistrado: false, // Nuevo estado para controlar si el usuario ya tiene una cita
+      usuarioYaRegistrado: false, 
     };
   },
   computed: {
@@ -51,7 +51,7 @@ export default {
       this.textoActual = this.listaDeTextos[this.indiceDeTexto];
       this.indiceDeTexto++;
       if (this.indiceDeTexto >= this.listaDeTextos.length) {
-        this.indiceDeTexto = 4; // Mantener el último mensaje visible
+        this.indiceDeTexto = 4; 
       }
       setTimeout(this.cambiarTexto, 3000);
     },

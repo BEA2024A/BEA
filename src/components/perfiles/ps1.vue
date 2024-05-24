@@ -12,8 +12,7 @@
             <img src="https://cdn.icon-icons.com/icons2/1993/PNG/512/direction_gps_location_map_maps_navigation_pin_icon_123198.png" alt="Icono de Ubicación">
             <a href="https://maps.app.goo.gl/2FA8ovzMAt5UbWrM9" target="_blank"><p>{{ informacion.direccion }}</p></a>
             <img src="https://cdn.icon-icons.com/icons2/2248/PNG/512/whatsapp_icon_138013.png" alt="Icono de WhatsApp">
-            <a :href="'https://wa.me/' + informacion.telefono" target="_blank"><p>ir a whatsApp</p>
-</a>
+            <a :href="'https://wa.me/' + informacion.telefono" target="_blank"><p>ir a whatsApp</p></a>
 
 
           </div>

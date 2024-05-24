@@ -29,7 +29,7 @@ if (move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file)) {
     // ID del usuario logueado
     $idUsuario = $_POST['id_usuario'];
 
-    // Consulta SQL para actualizar el campo foto_perfil del usuario
+    // actualizar el campo foto_perfil del usuario
     $sql = "UPDATE administradores SET foto_perfil = '$imageUrl' WHERE id_alumno = '$idUsuario'";
 
     if ($conn->query($sql) === TRUE) {
